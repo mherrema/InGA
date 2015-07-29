@@ -1,0 +1,49 @@
+body{
+    background-color: #efefef;
+}
+.title-row{
+    padding: 40px 50px;
+}
+.page-type-title{
+    color: #747077;
+    text-transform: uppercase;
+}
+.title{
+    font-weight: 400;
+    color: #177a9b;
+}
+.page-title{
+    margin-top: 3px;
+    margin-bottom: 20px;
+}
+.btn{
+    border-radius: 5px;
+}
+.top-button{
+    margin-top: 35px;
+    margin-left: 10px;
+    font-size: 11px;
+    padding: 3px 30px;
+    border-width: 1px;
+    float: right;
+    text-transform: uppercase;
+    border-color: #1fbdd5;
+    transition: background .3s ease;
+}
+.top-button:hover{
+    border-color: #1fbdd5;
+}
+.top-button-positive{
+    background: #1fbdd5;
+}
+.top-button-positive:hover{
+    background: #0fadc5;
+}
+.top-button-negative{
+    background: #fff;
+    color: #1fbdd5;
+}
+.top-button-negative:hover{
+    background: #f4f4f4;
+    color: #1fbdd5;
+}
