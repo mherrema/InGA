@@ -19,31 +19,68 @@ body{
 .btn{
     border-radius: 5px;
 }
-.top-button{
-    margin-top: 35px;
-    margin-left: 10px;
+.inga-btn{
     font-size: 11px;
     padding: 3px 30px;
     border-width: 1px;
-    float: right;
     text-transform: uppercase;
     border-color: #1fbdd5;
     transition: background .3s ease;
 }
-.top-button:hover{
+.inga-btn:hover{
     border-color: #1fbdd5;
 }
-.top-button-positive{
+.inga-btn-positive{
     background: #1fbdd5;
 }
-.top-button-positive:hover{
+.inga-btn-positive:hover{
     background: #0fadc5;
 }
-.top-button-negative{
+.inga-btn-negative{
     background: #fff;
     color: #1fbdd5;
 }
-.top-button-negative:hover{
+.inga-btn-negative:hover{
     background: #f4f4f4;
     color: #1fbdd5;
+}
+.top-button{
+    margin-top: 35px;
+    margin-left: 10px;
+    float: right;
+}
+.above-table-links-row{
+    border-top: #efefef 1px solid;
+    border-bottom: #efefef 1px solid;
+    padding: 15px 65px;
+    text-transform: uppercase
+}
+.above-table-links{
+    list-style: none;
+    margin-bottom: 0px;
+    padding-left: 0px;
+}
+.above-table-links li{
+    display: inline;
+}
+.above-table-links li a{
+    color: #000;
+    transition: color .1s ease;
+}
+.above-table-links li a:hover{
+    color: #1fbdd5;
+    text-decoration: none;
+}
+.above-table-link-right{
+    padding-left: 30px;
+    float: right;
+}
+.above-table-link-left{
+    padding-right: 30px;
+}
+.success-icon{
+    color: #81d235;
+}
+.dropdown-text{
+    font-weight: 500;
 }
