@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+    <title>Inga Assesment Management</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js"></script>
+    <script src="js/app.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -20,28 +22,134 @@
     <![endif]-->
 </head>
 
-<body>
+<body ng-controller="MyController">
     <div class="container" style="background-color:#ffffff;">
         <div class="row">
             <div class="title-row">
-            <div class="col-sm-5">
-            <span class="page-type-title">INGA</span>
-            <h2 class="title page-title">Assessment Management</h2>
+                <div class="col-sm-5">
+                    <span class="page-type-title">INGA</span>
+                    <h2 class="title page-title">Assessment Management</h2>
                 </div>
-            <div class="col-sm-7">
-            <button class="btn btn-primary top-button inga-btn inga-btn-positive">CREATE NEW ASSESSMENT</button>
-                <button class="btn btn-primary top-button inga-btn inga-btn-negative">Submit</button>
+                <div class="col-sm-7">
+                    <button class="btn btn-primary top-button inga-btn inga-btn-positive">CREATE NEW ASSESSMENT</button>
+                    <button class="btn btn-primary top-button inga-btn inga-btn-negative">Submit</button>
                 </div>
-                </div>
+            </div>
         </div>
         <div class="row above-table-links-row">
             <ul class="above-table-links">
-                <li class="above-table-link-left"><a href="#">archive</a></li>
-                <li class="above-table-link-left"><a href="#">delete</a></li>
-                <li class="above-table-link-right">View: <span class="dropdown-text">active</span> <span class="caret"></span></li>
+                <li class="above-table-link-left"><a href="#">archive</a>
+                </li>
+                <li class="above-table-link-left"><a href="#">delete</a>
+                </li>
+                <li class="above-table-link-right">View: <span class="dropdown-text">active</span> <span class="caret"></span>
+                </li>
                 <li class="above-table-link-right"><i class="glyphicon glyphicon-ok success-icon"></i> published</li>
-<!--                <li style="float:right;"><button class="btn btn-primary inga-btn inga-btn-positive">Add Student</button></li>-->
+                <!--                <li style="float:right;"><button class="btn btn-primary inga-btn inga-btn-positive">Add Student</button></li>-->
             </ul>
+        </div>
+        <div class="row">
+            <table class="inga-table" style="position:relative;">
+                <tr>
+                    <!--                    <th><span style="float:left;"><input type="checkbox" /></span><span style="float:left;">Title</span><span class="glyphicon glyphicon-search search-icon"></span></th>-->
+                    <th>
+                        <div class="search-box {{open}}"><span style="float:left;"><input type="checkbox" /></span><span class="search-box-title">Title</span><span class="glyphicon glyphicon-search search-icon" ng-click="toggleOpen()"></span><span class="search-box-textbox-span"><input id="input1" type="text" class="search-input-textbox" placeholder="Search Title" my-focus></span>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="heading-title" ng-click="toggleHeading1()">Grade Level <span class="caret"></span>
+                        </div>
+                        <div class="table-heading-dropdown {{heading1}}">
+                            <div class="table-heading-dropdown-content">
+                                <div class="table-heading-dropdown-title">Grade Level <span class="caret"></span>
+                                </div>
+                                <ul class="table-heading-dropdown-list">
+                                    <li ng-click="closeDropdowns()">K</li>
+                                    <li>1</li>
+                                    <li>2</li>
+                                    <li>3</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="heading-title" ng-click="toggleHeading2()">Subject Area <span class="caret"></span>
+                        </div>
+                        <div class="table-heading-dropdown {{heading2}}">
+                            <div class="table-heading-dropdown-content">
+                                <div class="table-heading-dropdown-title">Subject Area <span class="caret"></span>
+                                </div>
+                                <ul class="table-heading-dropdown-list">
+                                    <li>K</li>
+                                    <li>1</li>
+                                    <li>2</li>
+                                    <li>3</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="heading-title" ng-click="toggleHeading3()">Term <span class="caret"></span>
+                        </div>
+                        <div class="table-heading-dropdown {{heading3}}">
+                            <div class="table-heading-dropdown-content">
+                                <div class="table-heading-dropdown-title">Term <span class="caret"></span>
+                                </div>
+                                <ul class="table-heading-dropdown-list">
+                                    <li>K</li>
+                                    <li>1</li>
+                                    <li>2</li>
+                                    <li>3</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="heading-title" ng-click="toggleHeading4()">School Year <span class="caret"></span>
+                        </div>
+                        <div class="table-heading-dropdown {{heading4}}">
+                            <div class="table-heading-dropdown-content">
+                                <div class="table-heading-dropdown-title">School Year <span class="caret"></span>
+                                </div>
+                                <ul class="table-heading-dropdown-list">
+                                    <li>K</li>
+                                    <li>1</li>
+                                    <li>2</li>
+                                    <li>3</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </th>
+                    <th></th>
+                </tr>
+                <tr class="selected">
+                    <td>
+                        <input type="checkbox" />Kindergarten - Universal Screener - Spring</td>
+                    <td>K</td>
+                    <td>Other</td>
+                    <td>Winter</td>
+                    <td>2014-2015</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" />1st Grade - Universal Screener - Spring</td>
+                    <td>K</td>
+                    <td>Other</td>
+                    <td>Winter</td>
+                    <td>2014-2015</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" />T-1st Grade - Universal Screener - Spring</td>
+                    <td>K</td>
+                    <td>Other</td>
+                    <td>Winter</td>
+                    <td>2014-2015</td>
+                    <td></td>
+                </tr>
+            </table>
         </div>
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
