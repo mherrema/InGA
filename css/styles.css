@@ -58,20 +58,22 @@ h5 {
     border-color: #1fbdd5;
 }
 
-.inga-btn-positive {
+.inga-btn-positive, .inga-btn-positive:active, .inga-btn-positive:focus {
     background: #1fbdd5;
+    color: #fff;
 }
 
-.inga-btn-positive:hover {
+.inga-btn-positive:hover, .inga-btn-positive:active:hover, .inga-btn-positive:focus:hover{
     background: #0fadc5;
+    color: #fff;
 }
 
-.inga-btn-negative {
+.inga-btn-negative, .inga-btn-negative:active, .inga-btn-negative:focus {
     background: #fff;
     color: #1fbdd5;
 }
 
-.inga-btn-negative:hover {
+.inga-btn-negative:hover, .inga-btn-negative:active:hover, .inga-btn-negative:focus:hover {
     background: #f4f4f4;
     color: #1fbdd5;
 }
@@ -171,10 +173,12 @@ input[type="checkbox"] {
     border-radius: 2px;
     display: inline-block;
     position: relative;
-    margin-top: 2px;
-    margin-right: 28px;
     cursor: pointer;
     outline: none;
+}
+.inga-table input[type="checkbox"]{
+    margin-right: 28px;
+    margin-top: 2px;
 }
 
 .inga-table tr td input[type="checkbox"] {
@@ -196,7 +200,7 @@ input[type="checkbox"] {
 input[type="checkbox"]:checked {
     border: 1px solid #adb8c0;
     color: #99a1a7;
-    opacity: 1;
+    opacity: 1 !important;
 }
 
 input[type="checkbox"]:checked:after {
@@ -314,7 +318,7 @@ input[type="checkbox"]:checked:after {
 
 .modal-dialog {
     margin-top: 0px;
-    width: 800px;
+    width: 700px;
 }
 
 .modal-content {
@@ -336,7 +340,13 @@ input[type="checkbox"]:checked:after {
     font-size: 24px;
 }
 
-.modal-body {
+.modal-body{
+    padding: 0px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.modal-body .row {
     padding-left: 45px;
     padding-right: 45px;
 }
@@ -355,6 +365,17 @@ input[type="checkbox"]:checked:after {
     outline: none;
 }
 
+.modal input[type="checkbox"]{
+    margin-right: 10px;
+    margin-top: 0px;
+    top: 4px;
+}
+
+.modal .checkbox-span{
+    font-size: 12px;
+    font-family: "AvenirLTStd-Medium";
+}
+
 .upload-btn {
     margin-top: 5px;
 }
@@ -363,4 +384,121 @@ input[type="checkbox"]:checked:after {
     font-size: 10px;
     color: #848484;
     padding-top: 10px;
+}
+
+.modal.fade .modal-dialog {
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+  -moz-transition: -moz-transform 0.3s ease-out;
+  -o-transition: -o-transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
+}
+
+.modal-table-title{
+    text-transform: uppercase;
+    font-size: 13px;
+    color: #0A7794;
+}
+
+.modal .right-btn{
+    float: right;
+    margin-left: 15px;
+}
+
+.modal .table-title-row{
+    padding-top: 20px;
+    padding-bottom: 5px;
+}
+
+.modal-table{
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.modal-table th{
+    padding-top: 20px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    background: #FBFBFB;
+    border: #E3E3E3 1px solid;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-family: avenirltstd-medium;
+    font-weight: 600;
+}
+
+.modal-table td{
+    font-size: 13px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background: #f3f3f3;
+    border: #D1D1D1 1px solid;
+}
+
+.modal-table .empty-table-row > td{
+    padding-left: 45px;
+}
+.modal-table th:first-child{
+    padding-left: 45px;
+}
+.below-table-checkbox{
+    float: right;
+}
+.modal .below-table-btn-row{
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
+
+.modal {
+	-webkit-transform: scale(0.7);
+	-moz-transform: scale(0.7);
+	-ms-transform: scale(0.7);
+	transform: scale(0.7);
+	opacity: 0;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+.modal.in {
+	-webkit-transform: scale(1);
+	-moz-transform: scale(1);
+	-ms-transform: scale(1);
+	transform: scale(1);
+	opacity: 1;
+}
+.modal-title-with-back {
+    padding-left: 30px;
+    padding-top: 5px;
+    margin-top: 0px;
+    color: #177a9b;
+    font-size: 24px;
+}
+.modal-title-back{
+    padding-left: 30px;
+    padding-top: 25px;
+    margin-bottom: 0px;
+    text-transform: uppercase;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.modal .standard-information{
+    background: #f3f3f3;
+    margin-right: 0px;
+    margin-left: 0px;
+    padding: 20px 30px 20px 30px;
+}
+
+.inga-btn:focus, .inga-btn:active, .inga-btn:active:focus, .inga-btn:active:hover{
+    outline: none;
+    border-color: #1fbdd5;
+}
+.inga-btn-positive:focus, .inga-btn-positive:active{
+    background: #1fbdd5;
+}
+.inga-btn-negative:focus, .inga-btn-negative:active{
+    background: #fff;
 }

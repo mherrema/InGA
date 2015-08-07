@@ -33,8 +33,7 @@
                     <h2 class="title page-title">Assessment Management</h2>
                 </div>
                 <div class="col-sm-7">
-                    <button class="btn btn-primary top-button inga-btn inga-btn-positive">CREATE NEW ASSESSMENT</button>
-                    <button class="btn btn-primary top-button inga-btn inga-btn-negative">Submit</button>
+                    <button class="btn  top-button inga-btn inga-btn-positive" onclick="$('#newAssessmentModal').modal('show');">CREATE NEW ASSESSMENT</button>
                 </div>
             </div>
         </div>
@@ -47,7 +46,7 @@
                 <li class="above-table-link-right">View: <span class="dropdown-text">active</span> <span class="caret"></span>
                 </li>
                 <li class="above-table-link-right"><i class="glyphicon glyphicon-ok success-icon"></i> published</li>
-                <!--                <li style="float:right;"><button class="btn btn-primary inga-btn inga-btn-positive">Add Student</button></li>-->
+                <!--                <li style="float:right;"><button class="btn  inga-btn inga-btn-positive">Add Student</button></li>-->
             </ul>
         </div>
         <div class="row">
@@ -155,7 +154,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="newAssessmentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -176,22 +175,22 @@
                                 <div class="form-group">
                                     <label for="inputEmail">Grade Level</label>
                                     <select class="form-control">
-  <option value="volvo">Volvo</option>
-  <option value="saab">Saab</option>
-  <option value="mercedes">Mercedes</option>
-  <option value="audi">Audi</option>
-</select>
+                                        <option value="volvo">Volvo</option>
+                                        <option value="saab">Saab</option>
+                                        <option value="mercedes">Mercedes</option>
+                                        <option value="audi">Audi</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="inputEmail">Subject Area</label>
                                     <select class="form-control">
-  <option value="volvo">Volvo</option>
-  <option value="saab">Saab</option>
-  <option value="mercedes">Mercedes</option>
-  <option value="audi">Audi</option>
-</select>
+                                        <option value="volvo">Volvo</option>
+                                        <option value="saab">Saab</option>
+                                        <option value="mercedes">Mercedes</option>
+                                        <option value="audi">Audi</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -204,22 +203,22 @@
                                 <div class="form-group">
                                     <label for="inputEmail">School Year</label>
                                     <select class="form-control">
-  <option value="volvo">Volvo</option>
-  <option value="saab">Saab</option>
-  <option value="mercedes">Mercedes</option>
-  <option value="audi">Audi</option>
-</select>
+                                        <option value="volvo">Volvo</option>
+                                        <option value="saab">Saab</option>
+                                        <option value="mercedes">Mercedes</option>
+                                        <option value="audi">Audi</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="inputEmail">Standard Type</label>
                                     <select class="form-control">
-  <option value="volvo">Volvo</option>
-  <option value="saab">Saab</option>
-  <option value="mercedes">Mercedes</option>
-  <option value="audi">Audi</option>
-</select>
+                                        <option value="volvo">Volvo</option>
+                                        <option value="saab">Saab</option>
+                                        <option value="mercedes">Mercedes</option>
+                                        <option value="audi">Audi</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -240,24 +239,213 @@
                                 <div class="form-group">
                                     <label for="inputEmail">Scoring</label>
                                     <br>
-                                    <input type="checkbox" name="vehicle" value="Bike">I have a bike<br>
+                                    <input type="checkbox" name="vehicle" value="Bike"><span class="checkbox-span">Scantron/TurningKey</span>
+                                    <br>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="inputEmail">Optional File</label>
                                     <input type="file" class="form-control" id="inputTitle" placeholder="Enter term">
-                                    <button class="btn inga-btn inga-btn-negative upload-btn" >Upload</button>
+                                    <button class="btn inga-btn inga-btn-negative upload-btn">Upload</button>
                                     <p class="optional-upload-paragraph">Optionally, select a file to include with the assessment. This file would typically include the questions on the assessment, instructions for completing the assessment, or extra reading or reference material that is required.</p>
                                 </div>
                             </div>
                         </form>
                     </div>
+                    <div class="row table-title-row">
+                        <div class="col-sm-5">
+                            <h5 class="modal-table-title">Assessment Items</h5>
+                        </div>
+                        <div class="col-sm-7">
+                            <button class="btn  inga-btn inga-btn-positive right-btn" onclick="showNewItemModal();">New Item</button>
+                        </div>
+                    </div>
+                    <table class="modal-table">
+                        <tr>
+                            <th>Order</th>
+                            <th>Standard</th>
+                            <th>Item Type</th>
+                            <th>Correct Score</th>
+                            <th>Points</th>
+                        </tr>
+                        <tr class="empty-table-row">
+                            <td colspan="5">No records to display</td>
+                        </tr>
+                    </table>
+                    <div class="row">
+                        <div class="below-table-checkbox">
+                            <input type="checkbox" name="vehicle" value="Bike"><span class="checkbox-span">Save New Assessment as a Template</span>
+                        </div>
+                    </div>
+                    <div class="row below-table-btn-row">
+                        <button class="btn  inga-btn inga-btn-positive right-btn">Publish</button>
+                        <button class="btn  inga-btn inga-btn-negative right-btn">Save &amp; Exit</button>
+                        <button class="btn  inga-btn inga-btn-negative right-btn">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal" id="newAssessmentItemModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 class="modal-title-back" onclick="hideAddAssessmentItem();"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Return to create new assessment</h5>
+                    <h4 class="modal-title-with-back" id="myModalLabel">HRSW - Edit</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <form>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="inputEmail">Item Type</label>
+                                    <select class="form-control">
+                                        <option value="volvo">Volvo</option>
+                                        <option value="saab">Saab</option>
+                                        <option value="mercedes">Mercedes</option>
+                                        <option value="audi">Audi</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="inputEmail">Title</label>
+                                    <input type="text" class="form-control" id="inputTitle" placeholder="Assessment title">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="inputEmail">Item Points (Min)</label>
+                                    <select class="form-control">
+                                        <option value="volvo">Volvo</option>
+                                        <option value="saab">Saab</option>
+                                        <option value="mercedes">Mercedes</option>
+                                        <option value="audi">Audi</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="inputEmail">Item Points (Max)</label>
+                                    <select class="form-control">
+                                        <option value="volvo">Volvo</option>
+                                        <option value="saab">Saab</option>
+                                        <option value="mercedes">Mercedes</option>
+                                        <option value="audi">Audi</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="inputEmail">Item Points Step</label>
+                                    <select class="form-control">
+                                        <option value="volvo">Volvo</option>
+                                        <option value="saab">Saab</option>
+                                        <option value="mercedes">Mercedes</option>
+                                        <option value="audi">Audi</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="inputEmail">Other Values</label>
+                                    <select class="form-control">
+                                        <option value="volvo">Volvo</option>
+                                        <option value="saab">Saab</option>
+                                        <option value="mercedes">Mercedes</option>
+                                        <option value="audi">Audi</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="inputEmail">Subtest</label>
+                                    <input type="text" class="form-control" id="inputTitle" placeholder="Assessment title">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="row table-title-row">
+                        <div class="col-sm-12">
+                            <h5 class="modal-table-title">Standard Information</h5>
+                        </div>
+                    </div>
+                    <div class="row standard-information">
+                        <div class="">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="inputEmail">Subject</label>
+                                    <select class="form-control">
+                                        <option value="volvo">Volvo</option>
+                                        <option value="saab">Saab</option>
+                                        <option value="mercedes">Mercedes</option>
+                                        <option value="audi">Audi</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="inputEmail">Grade</label>
+                                    <select class="form-control">
+                                        <option value="volvo">Volvo</option>
+                                        <option value="saab">Saab</option>
+                                        <option value="mercedes">Mercedes</option>
+                                        <option value="audi">Audi</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="inputEmail">Year</label>
+                                    <select class="form-control">
+                                        <option value="volvo">Volvo</option>
+                                        <option value="saab">Saab</option>
+                                        <option value="mercedes">Mercedes</option>
+                                        <option value="audi">Audi</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <select class="form-control" disabled>
+                                        <option value="volvo">Volvo</option>
+                                        <option value="saab">Saab</option>
+                                        <option value="mercedes">Mercedes</option>
+                                        <option value="audi">Audi</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="inputEmail">Standard Code</label>
+                                    <select class="form-control">
+                                        <option value="volvo">Volvo</option>
+                                        <option value="saab">Saab</option>
+                                        <option value="mercedes">Mercedes</option>
+                                        <option value="audi">Audi</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row below-table-btn-row">
+                        <button class="btn  inga-btn inga-btn-positive right-btn">Ok</button>
+                        <button class="btn  inga-btn inga-btn-negative right-btn">Cancel</button>
+                    </div>
                 </div>
                 <!--
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn ">Save changes</button>
       </div>
 -->
             </div>
@@ -275,9 +463,21 @@
             for (var i = 0; i < dropdowns.length; i++) {
                 $(dropdowns[i]).width($(dropdowns[i]).parent("th").outerWidth());
             }
-
-            $("#myModal").modal("show");
         });
+
+        var showNewItemModal = function () {
+            $("#newAssessmentModal").modal("hide");
+            $('#newAssessmentItemModal').modal({
+                show: true
+            });
+        }
+        
+        var hideAddAssessmentItem = function(){
+            $('#newAssessmentItemModal').modal("hide");
+            $('#newAssessmentModal').modal({
+                show: true
+            });
+        }
     </script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
