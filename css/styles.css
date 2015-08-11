@@ -314,6 +314,37 @@ input[type="checkbox"]:checked:after {
 .table-heading-dropdown.open {
     display: block;
 }
+
+.above-table-links .action-dropdown {
+    position: absolute;
+    margin-top: -32px;
+    margin-left: -20px;
+    background: #fff;
+    box-shadow: 0px 0px 8px #bbb;
+    display: none;
+    z-index: 999;
+}
+
+.action-dropdown .dropdown-content{
+    padding-top: 15px;
+    padding-left: 20px;
+    padding-bottom: 25px;
+}
+
+.action-dropdown li {
+    padding-top: 5px;
+    cursor: pointer;
+    display: block;
+}
+
+.action-dropdown .caret {
+    opacity: 0;
+}
+
+.action-dropdown.open {
+    display: block;
+}
+
 /*Modal*/
 
 .modal-dialog {
@@ -358,6 +389,10 @@ input[type="checkbox"]:checked:after {
     color: #454545;
     font-family: "AvenirNextLTPro-Regular";
     font-weight: 500;
+}
+
+.modal label.no-left-pad{
+    padding-left: 0px;
 }
 
 .modal input[type="text"] {
@@ -433,6 +468,7 @@ input[type="checkbox"]:checked:after {
     font-size: 13px;
     padding-top: 15px;
     padding-bottom: 15px;
+    padding-left: 15px;
     background: #f3f3f3;
     border: #D1D1D1 1px solid;
 }
@@ -441,6 +477,12 @@ input[type="checkbox"]:checked:after {
     padding-left: 45px;
 }
 .modal-table th:first-child{
+    padding-left: 45px;
+}
+.modal-table th:last-child{
+    padding-right: 45px;
+}
+.modal-table td:first-child{
     padding-left: 45px;
 }
 .below-table-checkbox{
@@ -501,4 +543,8 @@ input[type="checkbox"]:checked:after {
 }
 .inga-btn-negative:focus, .inga-btn-negative:active{
     background: #fff;
+}
+.detail-text{
+    margin-top: 0px;
+    font-size: 13px;
 }

@@ -6,6 +6,7 @@ angular.module('app', [])
         $scope.heading2 = "";
         $scope.heading3 = "";
         $scope.heading4 = "";
+        $scope.view = "";
         $scope.toggleOpen = function () {
             if ($scope.open == "") {
                 $scope.open = "open";
@@ -60,6 +61,9 @@ angular.module('app', [])
             $scope.heading2 = "";
             $scope.heading3 = "";
             $scope.heading4 = "";
+        }
+        $scope.toggleViewDropdown = function(){
+            $scope.view = "open";
         }
     })
     .factory('focus', function ($timeout, $window) {

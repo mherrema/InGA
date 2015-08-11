@@ -43,7 +43,17 @@
                 </li>
                 <li class="above-table-link-left"><a href="#">delete</a>
                 </li>
-                <li class="above-table-link-right">View: <span class="dropdown-text">active</span> <span class="caret"></span>
+                <li class="above-table-link-right" ng-click="toggleViewDropdown()">View: <span class="dropdown-text">active</span> <span class="caret"></span>
+                    <div class="action-dropdown {{view}}">
+                        <div class="dropdown-content">
+                            <div class="table-heading-dropdown-title">View <span class="caret"></span>
+                            </div>
+                            <ul class="table-heading-dropdown-list">
+                                <li ng-click="closeDropdowns()">Active</li>
+                                <li>Inactive</li>
+                            </ul>
+                        </div>
+                    </div>
                 </li>
                 <li class="above-table-link-right"><i class="glyphicon glyphicon-ok success-icon"></i> published</li>
                 <!--                <li style="float:right;"><button class="btn  inga-btn inga-btn-positive">Add Student</button></li>-->
@@ -123,7 +133,7 @@
                     </th>
                     <th></th>
                 </tr>
-                <tr class="selected">
+                <tr>
                     <td>
                         <input type="checkbox" />Kindergarten - Universal Screener - Spring</td>
                     <td>K</td>
@@ -132,7 +142,7 @@
                     <td>2014-2015</td>
                     <td></td>
                 </tr>
-                <tr class="selecte">
+                <tr>
                     <td>
                         <input type="checkbox" />1st Grade - Universal Screener - Spring</td>
                     <td>K</td>
@@ -279,7 +289,7 @@
                         </div>
                     </div>
                     <div class="row below-table-btn-row">
-                        <button class="btn  inga-btn inga-btn-positive right-btn">Publish</button>
+                        <button class="btn  inga-btn inga-btn-positive right-btn" onclick="showViewAssessmentModal()">Publish</button>
                         <button class="btn  inga-btn inga-btn-negative right-btn">Save &amp; Exit</button>
                         <button class="btn  inga-btn inga-btn-negative right-btn">Cancel</button>
                     </div>
@@ -436,7 +446,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="row below-table-btn-row">
                         <button class="btn  inga-btn inga-btn-positive right-btn">Ok</button>
                         <button class="btn  inga-btn inga-btn-negative right-btn">Cancel</button>
@@ -455,6 +465,122 @@
 
 
 
+    <div class="modal fade" id="viewAssessmentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 class="modal-title-back">Assessment View</h5>
+                    <h4 class="modal-title-with-back" id="myModalLabel">Title of Asessment Here</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <form>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="no-left-pad" for="inputEmail">Grade Level</label>
+                                    <h5 class="detail-text">1</h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="no-left-pad" for="inputEmail">Subject Area</label>
+                                    <h5 class="detail-text">Art</h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="no-left-pad" for="inputEmail">Schedule Date</label>
+                                    <h5 class="detail-text">Current Schedule</h5>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="no-left-pad" for="inputEmail">School Year</label>
+                                    <h5 class="detail-text">2014-2015</h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="no-left-pad" for="inputEmail">Standard Type</label>
+                                    <h5 class="detail-text">AP Learning Objectives</h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="no-left-pad" for="inputEmail">Schedule Date</label>
+                                    <h5 class="detail-text"></h5>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="no-left-pad" for="inputEmail">Term</label>
+                                    <h5 class="detail-text">Term 1</h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="no-left-pad" for="inputEmail">Report Group</label>
+                                    <h5 class="detail-text">Group 1</h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="no-left-pad" for="inputEmail">Optional File</label>
+                                    <h5 class="detail-text">file.txt</h5>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="no-left-pad" for="inputEmail">Scoring</label>
+                                    <br>
+                                    <input type="checkbox" name="vehicle" value="Bike"><span class="checkbox-span">Scantron/TurningKey</span>
+                                    <br>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="row table-title-row">
+                        <div class="col-sm-5">
+                            <h5 class="modal-table-title">Assessment Items</h5>
+                        </div>
+                    </div>
+                    <table class="modal-table">
+                        <tr>
+                            <th>Order</th>
+                            <th>Standard</th>
+                            <th>Item Type</th>
+                            <th>Correct Score</th>
+                            <th>Points</th>
+                        </tr>
+                        <!--
+                        <tr class="empty-table-row">
+                            <td colspan="5">No records to display</td>
+                        </tr>
+-->
+                        <tr>
+                            <td>1</td>
+                            <td>AP Learning Objectives</td>
+                            <td>1</td>
+                            <td>5</td>
+                            <td>10</td>
+                        </tr>
+                    </table>
+
+                    <div class="row below-table-btn-row">
+                        <button class="btn  inga-btn inga-btn-positive right-btn">Assign</button>
+                        <button class="btn  inga-btn inga-btn-negative right-btn">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript">
@@ -462,6 +588,16 @@
             var dropdowns = $(".table-heading-dropdown");
             for (var i = 0; i < dropdowns.length; i++) {
                 $(dropdowns[i]).width($(dropdowns[i]).parent("th").outerWidth());
+            }
+            var tableActionDropdowns = $(".action-dropdown");
+            for (var i = 0; i < tableActionDropdowns.length; i++) {
+                $(tableActionDropdowns[i]).width($(tableActionDropdowns[i]).parent("li").outerWidth());
+            }
+            var checkboxes = $(".inga-table :checkbox");
+            for (var j = 1; j < checkboxes.length; j++) {
+                $(checkboxes[j]).click(function () {
+                    $(this).parent().parent().toggleClass("selected");
+                });
             }
         });
 
@@ -471,10 +607,17 @@
                 show: true
             });
         }
-        
-        var hideAddAssessmentItem = function(){
+
+        var hideAddAssessmentItem = function () {
             $('#newAssessmentItemModal').modal("hide");
             $('#newAssessmentModal').modal({
+                show: true
+            });
+        }
+
+        var showViewAssessmentModal = function () {
+            $("#newAssessmentModal").modal("hide");
+            $('#viewAssessmentModal').modal({
                 show: true
             });
         }
