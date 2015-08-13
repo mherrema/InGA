@@ -10,6 +10,7 @@
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/jasny-bootstrap.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
     <style>
         @import url('fonts/fontie_14394397501733/AvenirNextLTPro-Regular.css');
@@ -30,21 +31,43 @@
     <div class="container" style="background-color:#ffffff;">
         <div class="row">
             <div class="title-row">
-                <div class="col-sm-5">
-                    <span class="page-type-title">INGA</span>
-                    <h2 class="title page-title">Assessment Management</h2>
-                </div>
                 <div class="col-sm-7">
-                    <button class="btn  top-button inga-btn inga-btn-positive" onclick="$('#newAssessmentModal').modal('show');">CREATE NEW ASSESSMENT</button>
+                    <span class="page-type-title">ASSESSMENT CLASS SCORE VIEW</span>
+                    <h2 class="title page-title">4th Grade - Progress Monitoring - Winter</h2>
+                </div>
+                <div class="col-sm-5">
+                    <button class="btn  top-button inga-btn inga-btn-positive" onclick="$('#newAssessmentModal').modal('show');">Save &amp; Exit</button>
+                    <button class="btn  top-button inga-btn inga-btn-negative" onclick="$('#newAssessmentModal').modal('show');">Submit</button>
+                    <button class="btn  top-button inga-btn inga-btn-negative" onclick="$('#newAssessmentModal').modal('show');">Cancel</button>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-3">
+                    <span class="inline-detail"><h6><span class="detail-title"><strong>School:</strong></span> Appleview Elem School</h6></span>
+                    <span class="inline-detail"><h6><span class="detail-title"><strong>Course:</strong></span> Attendance-Appleview (1003)</h6></span>
+                    <span class="inline-detail"><h6><span class="detail-title"><strong>Std Type:</strong></span> District</h6></span>
+                    <span class="inline-detail"><h6><span class="detail-title"><strong>Term:</strong></span> Winter</h6></span>
+                </div>
+                <div class="col-sm-3">
+                    <span class="inline-detail"><h6><span class="detail-title"><strong>Instructor:</strong></span> Murdock, Mischell (288)</h6></span>
+                    <span class="inline-detail"><h6><span class="detail-title"><strong>Section:</strong></span> 1(A)</h6></span>
+                    <span class="inline-detail"><h6><span class="detail-title"><strong>Subject:</strong></span> Art</h6></span>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-12">
+                    <btn class="btn inga-btn inga-btn-negative inga-icon-btn float-right"><i class="glyphicon glyphicon-user"></i></btn>
+                    <btn class="btn inga-btn inga-btn-negative inga-icon-btn float-right"><i class="glyphicon glyphicon-align-justify"></i></btn>
                 </div>
             </div>
         </div>
         <div class="row above-table-actions-row">
             <ul class="above-table-actions">
-                <li class="above-table-action-left"><a href="#">archive</a>
+                <li class="above-table-action-left"><a href="#">Show All</a>
                 </li>
-                <li class="above-table-action-left"><a href="#">delete</a>
-                </li>
+                <li class="above-table-action-left"><a href="#">Hide selected</a></li>
+                <li class="above-table-action-left"><a href="#">Remove selected</a></li>
+                <li class="above-table-action-left"><a href="#">Absent</a></li>
+                <li class="above-table-action-left"><a href="#">Export to excel</a></li>
+<!--
                 <li class="above-table-action-right above-table-action">View: <span class="dropdown-text" ng-click="toggleViewDropdown()">active</span> <span class="caret"></span>
                     <div class="action-dropdown {{view}}">
                         <div class="dropdown-content">
@@ -59,110 +82,86 @@
                     </div>
                 </li>
                 <li class="above-table-action-right action-with-icon"><i class="glyphicon glyphicon-ok success-icon"></i> published</li>
-                <!--                <li style="float:right;"><button class="btn  inga-btn inga-btn-positive">Add Student</button></li>-->
+-->
+                                <li style="float:right;"><button class="btn inga-btn inga-btn-positive">Add Student</button></li>
             </ul>
         </div>
         <div class="row">
             <table class="inga-table" style="position:relative;">
-                <tr>
-                    <!--                    <th><span style="float:left;"><input type="checkbox" /></span><span style="float:left;">Title</span><span class="glyphicon glyphicon-search search-icon"></span></th>-->
-                    <th>
-                        <div class="search-box {{open}}"><span style="float:left;"><input type="checkbox" /></span><span class="search-box-title">Title</span><span class="glyphicon glyphicon-search search-icon" ng-click="toggleOpen()"></span><span class="search-box-textbox-span"><input id="input1" type="text" class="search-input-textbox" placeholder="Search Title" my-focus></span>
-                        </div>
-                    </th>
-                    <th>
-                        <div class="heading-title" ng-click="toggleHeading1()">Grade Level <span class="caret"></span>
-                        </div>
-                        <div class="table-heading-dropdown {{heading1}}">
-                            <div class="table-heading-dropdown-content">
-                                <div class="dropdown-title">Grade Level <span class="caret"></span>
-                                </div>
-                                <ul class="dropdown-list">
-                                    <li ng-click="closeDropdowns()">K</li>
-                                    <li>1</li>
-                                    <li>2</li>
-                                    <li>3</li>
-                                </ul>
+                <thead>
+                    <tr>
+                        <!--                    <th><span style="float:left;"><input type="checkbox" /></span><span style="float:left;">Title</span><span class="glyphicon glyphicon-search search-icon"></span></th>-->
+                        <th>
+                            <div class="search-box {{open}}"><span style="float:left;"><input type="checkbox" class="always-transparent" /></span><span class="search-box-title">Student</span><span class="glyphicon glyphicon-search search-icon" ng-click="toggleOpen()"></span><span class="search-box-textbox-span"><input id="input1" type="text" class="search-input-textbox" placeholder="Search Title" my-focus></span>
                             </div>
-                        </div>
-                    </th>
-                    <th>
-                        <div class="heading-title" ng-click="toggleHeading2()">Subject Area <span class="caret"></span>
-                        </div>
-                        <div class="table-heading-dropdown {{heading2}}">
-                            <div class="table-heading-dropdown-content">
-                                <div class="dropdown-title">Subject Area <span class="caret"></span>
-                                </div>
-                                <ul class="dropdown-list">
-                                    <li>K</li>
-                                    <li>1</li>
-                                    <li>2</li>
-                                    <li>3</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </th>
-                    <th>
-                        <div class="heading-title" ng-click="toggleHeading3()">Term <span class="caret"></span>
-                        </div>
-                        <div class="table-heading-dropdown {{heading3}}">
-                            <div class="table-heading-dropdown-content">
-                                <div class="dropdown-title">Term <span class="caret"></span>
-                                </div>
-                                <ul class="dropdown-list">
-                                    <li>K</li>
-                                    <li>1</li>
-                                    <li>2</li>
-                                    <li>3</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </th>
-                    <th>
-                        <div class="heading-title" ng-click="toggleHeading4()">School Year <span class="caret"></span>
-                        </div>
-                        <div class="table-heading-dropdown {{heading4}}">
-                            <div class="table-heading-dropdown-content">
-                                <div class="dropdown-title">School Year <span class="caret"></span>
-                                </div>
-                                <ul class="dropdown-list">
-                                    <li>K</li>
-                                    <li>1</li>
-                                    <li>2</li>
-                                    <li>3</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox" />Kindergarten - Universal Screener - Spring</td>
-                    <td>K</td>
-                    <td>Other</td>
-                    <td>Winter</td>
-                    <td>2014-2015</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox" />1st Grade - Universal Screener - Spring</td>
-                    <td>K</td>
-                    <td>Other</td>
-                    <td>Winter</td>
-                    <td>2014-2015</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox" />T-1st Grade - Universal Screener - Spring</td>
-                    <td>K</td>
-                    <td>Other</td>
-                    <td>Winter</td>
-                    <td>2014-2015</td>
-                    <td></td>
-                </tr>
+                        </th>
+                        <th>
+                            <div class="heading-title">1(10) FP</div>
+                        </th>
+                        <th>
+                            <div class="heading-title">2(25) Daze</div>
+                        </th>
+                        <th>
+                            <div class="heading-title">3(25) MBSP</div>
+                        </th>
+                        <th>
+                            <div class="heading-title">4(25) MBSP</div>
+                        </th>
+                        <th>
+                            <div class="heading-title">5(25) MBSP</div>
+                        </th>
+                        <th>
+                            <div class="heading-title">6(25) MBSP</div>
+                        </th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <input type="checkbox" />Margaret Cruz
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="checkbox" />Sean Reynolds
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="checkbox" />Margaret Cruz
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="checkbox" />Sean Reynolds
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>
@@ -627,6 +626,7 @@
     </script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/jasny-bootstrap.min.js"></script>
 </body>
 
 </html>

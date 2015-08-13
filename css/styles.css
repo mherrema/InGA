@@ -6,7 +6,7 @@ select {
 body {
     /*    background-color: #efefef;*/
     
-    font-family: "AvenirLTStd-Roman";
+    font-family: "AvenirNextLTPro-Regular";
 }
 
 h1,
@@ -14,7 +14,7 @@ h2,
 h3,
 h4,
 h5 {
-    font-family: "AvenirLTStd-Roman";
+    font-family: "AvenirNextLTPro-Regular";
 }
 
 .title-row {
@@ -45,8 +45,8 @@ h5 {
     font-size: 11px;
     padding-left: 30px;
     padding-right: 30px;
-    padding-top: 6px;
-    padding-bottom: 3px;
+    padding-top: 5px;
+    padding-bottom: 4px;
     border-width: 1px;
     text-transform: uppercase;
     border-color: #1fbdd5;
@@ -119,6 +119,10 @@ h5 {
 
 .above-table-action-left {
     padding-right: 30px;
+}
+
+.above-table-actions .btn{
+    margin-top: -5px;
 }
 
 .action-with-icon{
@@ -557,4 +561,51 @@ input[type="checkbox"]:checked:after {
 .detail-text{
     margin-top: 0px;
     font-size: 13px;
+}
+
+table a, table a:hover{
+    color: rgb(51, 51, 51);
+    text-decoration: none;
+}
+
+.always-transparent{
+    opacity: 0 !important;
+}
+
+.rowlink tr{
+    cursor: pointer;
+}
+
+.rowlink tr:hover{
+    border-top: #1fbdd5 3px solid;
+    border-bottom: #1fbdd5 3px solid;
+}
+
+.rowlink tr:hover td {
+    padding-top: 11px;
+    padding-bottom: 11px;
+    background: #e4f5f9;
+    transition: background .2s ease;
+}
+
+.rowlink tr:hover>:first-child {
+    background: #d9f1f7;
+    transition: background .2s ease;
+}
+
+.inline-detail .detail-title{
+    font-family: "AvenirLTStd-Medium";
+    font-weight: 900;
+}
+
+.float-right{
+    float: right;
+}
+
+.inga-icon-btn{
+    padding: 5px;
+    padding-bottom: 0px;
+    margin-left: 5px;
+    margin-bottom: 15px;
+    font-size: 20px;
 }
