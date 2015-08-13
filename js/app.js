@@ -22,6 +22,7 @@ angular.module('app', [])
                 $scope.heading2 = "";
                 $scope.heading3 = "";
                 $scope.heading4 = "";
+                $scope.view = "";
             } else {
                 $scope.heading1 = "";
             }
@@ -32,6 +33,7 @@ angular.module('app', [])
                 $scope.heading1 = "";
                 $scope.heading3 = "";
                 $scope.heading4 = "";
+                $scope.view = "";
             } else {
                 $scope.heading2 = "";
             }
@@ -42,6 +44,7 @@ angular.module('app', [])
                 $scope.heading1 = "";
                 $scope.heading2 = "";
                 $scope.heading4 = "";
+                $scope.view = "";
             } else {
                 $scope.heading3 = "";
             }
@@ -52,6 +55,7 @@ angular.module('app', [])
                 $scope.heading1 = "";
                 $scope.heading2 = "";
                 $scope.heading3 = "";
+                $scope.view = "";
             } else {
                 $scope.heading4 = "";
             }
@@ -61,9 +65,21 @@ angular.module('app', [])
             $scope.heading2 = "";
             $scope.heading3 = "";
             $scope.heading4 = "";
+            $scope.view = "";
+            console.log("closed");
         }
         $scope.toggleViewDropdown = function(){
-            $scope.view = "open";
+            if ($scope.view == "") {
+                $scope.view = "open";
+                $scope.heading4 = "";
+                $scope.heading1 = "";
+                $scope.heading2 = "";
+                $scope.heading3 = "";
+            } else {
+                console.log($scope.view);
+                $scope.view = "";
+                console.log($scope.view);
+            }
         }
     })
     .factory('focus', function ($timeout, $window) {

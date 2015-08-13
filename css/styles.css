@@ -6,7 +6,7 @@ select {
 body {
     /*    background-color: #efefef;*/
     
-    font-family: "avenirnextltpro-regular";
+    font-family: "AvenirLTStd-Roman";
 }
 
 h1,
@@ -14,7 +14,7 @@ h2,
 h3,
 h4,
 h5 {
-    font-family: "AvenirNextLTPro-Regular";
+    font-family: "AvenirLTStd-Roman";
 }
 
 .title-row {
@@ -84,41 +84,45 @@ h5 {
     float: right;
 }
 
-.above-table-links-row {
+.above-table-actions-row {
     border-top: #efefef 1px solid;
     border-bottom: #efefef 1px solid;
     padding: 15px 65px 10px 65px;
     text-transform: uppercase
 }
 
-.above-table-links {
+.above-table-actions {
     list-style: none;
     margin-bottom: 0px;
     padding-left: 0px;
     font-size: 12px;
 }
 
-.above-table-links li {
+.above-table-actions li {
     display: inline;
 }
 
-.above-table-links li a {
+.above-table-actions li a {
     color: #000;
     transition: color .1s ease;
 }
 
-.above-table-links li a:hover {
+.above-table-actions li a:hover {
     color: #1fbdd5;
     text-decoration: none;
 }
 
-.above-table-link-right {
+.above-table-action-right {
     padding-left: 30px;
     float: right;
 }
 
-.above-table-link-left {
+.above-table-action-left {
     padding-right: 30px;
+}
+
+.action-with-icon{
+    margin-top: -1px;
 }
 
 .success-icon {
@@ -132,6 +136,8 @@ h5 {
 
 .inga-table {
     width: 100%;
+    border-top: #e5e5e5 1px solid;
+    border-bottom: #e5e5e5 1px solid;
 }
 
 .inga-table tr th {
@@ -292,17 +298,17 @@ input[type="checkbox"]:checked:after {
     padding-bottom: 25px;
 }
 
-.table-heading-dropdown-title {
+.dropdown-title {
     color: #1fbdd5;
 }
 
-.table-heading-dropdown-list {
+.dropdown-list {
     list-style: none;
     margin: 0px;
     padding: 0px;
 }
 
-.table-heading-dropdown-list li {
+.dropdown-list li {
     padding-top: 5px;
     cursor: pointer;
 }
@@ -315,7 +321,7 @@ input[type="checkbox"]:checked:after {
     display: block;
 }
 
-.above-table-links .action-dropdown {
+.above-table-actions .action-dropdown {
     position: absolute;
     margin-top: -32px;
     margin-left: -20px;
@@ -328,7 +334,7 @@ input[type="checkbox"]:checked:after {
 .action-dropdown .dropdown-content{
     padding-top: 15px;
     padding-left: 20px;
-    padding-bottom: 25px;
+    padding-bottom: 15px;
 }
 
 .action-dropdown li {
@@ -343,6 +349,10 @@ input[type="checkbox"]:checked:after {
 
 .action-dropdown.open {
     display: block;
+}
+
+.above-table-actions .above-table-action{
+    cursor: pointer;
 }
 
 /*Modal*/
@@ -460,7 +470,7 @@ input[type="checkbox"]:checked:after {
     border: #E3E3E3 1px solid;
     text-transform: uppercase;
     font-size: 12px;
-    font-family: avenirltstd-medium;
+    font-family: "AvenirLTStd-Medium";
     font-weight: 600;
 }
 
