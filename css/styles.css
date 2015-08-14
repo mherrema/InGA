@@ -1,3 +1,7 @@
+.webpart-wrapper{
+    display: none;
+}
+
 input,
 select {
     box-shadow: none !important;
@@ -5,8 +9,11 @@ select {
 
 body {
     /*    background-color: #efefef;*/
-    
     font-family: "AvenirNextLTPro-Regular";
+}
+
+.inner-wrapper{
+    padding-top: 100px;
 }
 
 h1,
@@ -210,7 +217,19 @@ input[type="checkbox"] {
 input[type="checkbox"]:checked {
     border: 1px solid #adb8c0;
     color: #99a1a7;
-    opacity: 1 !important;
+    opacity: 1;
+}
+
+.inga-table input[type="checkbox"]{
+    opacity: 0; 
+}
+
+.inga-table tr td input[type="checkbox"]{
+/*    opacity: 1;*/
+}
+
+.inga-table tr td input[type="checkbox"]:checked{
+    opacity: 1;
 }
 
 input[type="checkbox"]:checked:after {
@@ -570,6 +589,11 @@ table a, table a:hover{
 
 .always-transparent{
     opacity: 0 !important;
+    cursor: default !important;
+}
+.always-transparent:after{
+    opacity: 0 !important;
+    cursor: default !important;
 }
 
 .rowlink tr{
@@ -603,9 +627,195 @@ table a, table a:hover{
 }
 
 .inga-icon-btn{
-    padding: 5px;
+    padding: 5px 8px;
     padding-bottom: 0px;
-    margin-left: 5px;
+    margin-left: 10px;
     margin-bottom: 15px;
     font-size: 20px;
+}
+
+.inga-icon-btn.inactive{
+    color: #e5e5e5;
+    border-color: #e5e5e5;
+}
+
+.editable-click, a.editable-click, .editable-empty, .editable-empty:hover, .editable-empty:focus, a.editable-empty, a.editable-empty:hover, a.editable-empty:focus{
+    color: #333;
+    border-bottom: none;
+}
+
+.editable-empty, .editable-empty:hover, .editable-empty:focus, a.editable-empty, a.editable-empty:hover, a.editable-empty:focus{
+    opacity: 0;
+    height: 100%;
+    display: block;
+}
+
+.editable-input{
+    padding: 0px;
+    padding-left: 20px;
+    height: 22px;
+    border: none;
+    background: #fcfcfc;
+}
+
+.no-pad{
+    padding: 0px !important;
+}
+
+.editable-click, a.editable-click{
+    padding-left: 20px;
+}
+
+.score-entry-table tr td{
+    padding: 0px;
+}
+
+.score-entry-table tr>td:first-child {
+    padding: 12px 20px;
+}
+
+.previous-student{
+    text-align: center;
+    border-bottom: #1fbdd5 1px solid;
+    padding-bottom: 10px;
+}
+
+.next-student{
+    text-align: center;
+    border-top: #1fbdd5 1px solid;
+    padding-top: 10px;
+    margin-top: 20px;
+}
+
+.search > .card-search-icon{
+    font-size: 20px;
+}
+
+.letter-scrub{
+    position: absolute;
+}
+
+.letter-scrub li{
+    list-style: none;
+    padding-bottom: 3px;
+    text-align: center;
+    margin-left: 35px;
+}
+
+.card{
+    width: 500px;
+    margin: 0 auto;
+}
+
+.card > .info{
+    background: #1fbdd5;
+    padding: 15px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    box-shadow: 0px 0px 8px #bbb;
+}
+
+.card > .info > .absent-and-time{
+    color: #83dbe7;
+}
+
+.card > .info > .absent-and-time > .timestamp{
+    float: right;
+    font-size: 12px;
+}
+
+.card > .info > .absent-and-time > .mark-absent{
+    font-size: 18px;
+}
+
+.card > .info > .absent-and-time > .mark-absent:hover{
+    color: #a3fbff;
+}
+
+.card > .info > .student{
+    color: #fff;
+}
+
+.card > .scores{
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    box-shadow: 0px 0px 28px #bbb;
+    height: 120px;
+}
+
+.card > .scores > .score-block{
+    display: table-cell;
+    border: #e4e4e4 1px solid;
+    text-align: center;
+}
+
+.card > .scores > .score-block:first-child{
+    border-left: none;
+}
+
+.card > .scores > .score-block:last-child{
+    border-right: none;
+}
+
+.card > .scores > .score-block > .question-title{
+    padding-top: 25px;
+    font-size: 12px;
+}
+
+.card > .scores > .score-block > .question-score{
+    padding-top: 10px;
+    font-size: 25px;
+}
+
+.card > .scores > .score-block > .active-view{
+    position: absolute;
+    margin-top: -15px;
+    width: 135px;
+    height: 150px;
+    background: #fff;
+    border: #fe7b23 4px solid;
+    border-radius: 8px;
+    display: none;
+}
+
+.card > .scores > .score-block > .active-view > .question-title{
+    font-size: 12px;
+    padding-top: 35px;
+}
+
+.card > .scores > .score-block > .active-view > .question-score{
+    padding-top: 5px;
+    font-size: 35px;
+}
+
+.card > .scores > .score-block.active > .active-view{
+    display: block;
+}
+
+.card > .input{
+    background: #424242;
+    color: #fff;
+    font-family: "AvenirNextLTPro-Regular";
+}
+
+.card > .input .arrow{
+    margin-top: 130px;
+    font-size: 30px;
+}
+
+.card > .input > .input-characters > .input-table{
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.card > .input > .input-characters >  tr{
+    margin-bottom: 25px;
+}
+
+.card > .input > .input-characters td{
+    font-size: 30px;
+    padding: 10px;
 }

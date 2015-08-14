@@ -1,0 +1,1008 @@
+body #s4-workspace {
+	width: 100%; height: 100%; position: absolute;
+}
+.app-wrapper * {
+	box-sizing: border-box; -webkit-tap-highlight-color: transparent; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-font-smoothing: antialiased;
+}
+html {
+	font: 12px/1.3em Helvetica, Arial, sans-serif; margin: 0px; width: 100% !important; height: 100% !important; color: rgb(88, 89, 91); font-size-adjust: none; font-stretch: normal;
+}
+body {
+	font: 12px/1.3em Helvetica, Arial, sans-serif; margin: 0px; width: 100% !important; height: 100% !important; color: rgb(88, 89, 91); font-size-adjust: none; font-stretch: normal;
+}
+input {
+	border-radius: 0px;
+}
+textarea {
+	border-radius: 0px;
+}
+a {
+	color: rgb(255, 255, 255); text-decoration: none;
+}
+a:visited {
+	color: rgb(255, 255, 255); text-decoration: none;
+}
+a:focus {
+	color: rgb(255, 255, 255); text-decoration: none;
+}
+a:hover {
+	color: rgb(255, 255, 255); text-decoration: underline;
+}
+h1 {
+	font-size: 24px; font-weight: lighter;
+}
+h2 {
+	text-transform: uppercase; font-size: 18px; font-weight: 600;
+}
+ul {
+	margin: 0px; padding: 0px; list-style-type: none;
+}
+li {
+	margin: 0px; padding: 0px; list-style-type: none;
+}
+.wrapper {
+	left: 0px; top: 0px; width: 100%; height: 100%; right: 0px; bottom: 0px; position: absolute;
+}
+.no-scroll.wrapper {
+	overflow: hidden;
+}
+.app-wrapper .inner-wrapper {
+	width: 100%; height: 100%; background-image: url("/_layouts/15/KISD.IGOR.SP13/img/panel-background.jpg"); background-color: rgb(255, 255, 255);
+}
+.modal-wrapper {
+	padding: 0px 0px 40px; opacity: 0.9; background-color: rgb(18, 18, 18);
+}
+.modal {
+	top: 0px;
+}
+.modal-backdrop {
+	top: 0px;
+}
+.modal-dialog {
+	margin-top: 6%;
+}
+.modal-header {
+	padding: 40px; width: 100%; border-bottom-width: 0px; opacity: 0.9; background-color: rgb(18, 18, 18);
+}
+.modal-fineprint {
+	font-size: 11px;
+}
+.modal-header h1 {
+	color: rgb(255, 255, 255); font-size: 24px; margin-top: 0.38em;
+}
+.modal-body {
+	height: 300px; margin-right: 40px; margin-left: 40px; background-color: rgb(255, 255, 255);
+}
+.modal-footer {
+	margin-top: 0px; margin-right: 40px; margin-left: 40px; background-color: rgb(255, 255, 255);
+}
+.modal-lg {
+	width: 900px; height: 750px;
+}
+.modal-sm {
+	width: 600px; height: 600px;
+}
+#feedbackpanel {
+	background: rgb(117, 193, 34); padding: 4px 4px 4px 0px; left: -50px; width: 75px; height: 100px; text-align: center; bottom: 50px; font-family: "Oxygen", sans-serif; vertical-align: middle; float: left; display: block; position: fixed; z-index: 1000; border-top-right-radius: 4px; border-bottom-right-radius: 4px;
+}
+#feedbackactionpanel {
+	padding: 65px 0px 0px; width: 100%; height: 100%; text-align: center; color: rgb(255, 255, 255); font-size: 16px; vertical-align: middle; float: right; display: block; cursor: pointer; transform: rotate(270deg);
+}
+#feedbackactionpanel a:hover {
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+}
+a:active {
+	text-decoration: none;
+}
+a:focus {
+	text-decoration: none;
+}
+.primary-header {
+	left: 0px; top: -80px; width: 100%; height: 80px; margin-top: 0px; position: absolute; background-color: rgb(10, 119, 148);
+}
+.show.primary-header {
+	top: 0px;
+}
+.app-title {
+	left: 10px; top: 25px; width: 435px; height: 80px; font-family: "Oxygen", sans-serif; float: left; position: relative;
+}
+.app-title .logo {
+	float: left;
+}
+.app-title h1 {
+	left: 0px; color: rgb(255, 255, 255); position: absolute;
+}
+.app-title h2 {
+	left: 0px; color: rgb(255, 255, 255); position: absolute;
+}
+.app-title h1 {
+	margin: 0px; top: -8px; font-size: 30px;
+}
+.app-title h2 {
+	margin: 25px 0px 0px; font-size: 14px;
+}
+.primary-header .list-header {
+	top: 0px; width: 780px; right: 0px; display: block; position: absolute; z-index: 201;
+}
+.primary-header .list-header > ul > li::before {
+	background: linear-gradient(rgb(10, 119, 148) 0%, rgb(7, 89, 110) 100%); left: -2px; width: 1px; height: 80px; display: block; position: absolute; content: "";
+}
+.primary-header .list-header > ul > li > a::before {
+	background: linear-gradient(rgb(10, 119, 148) 0%, rgb(105, 172, 190) 100%); left: -1px; top: -26px; width: 1px; bottom: 0px; display: block; position: absolute; content: "";
+}
+.primary-header .list-header > ul > li.list-item-icon > a::before {
+	left: 0px; top: 0px; width: 1px; height: 80px; bottom: 0px; display: block; position: absolute; content: "";
+}
+.primary-header .list-header > ul > li {
+	border-width: medium medium medium 1px; border-style: none none none solid; border-color: currentColor currentColor currentColor rgb(10, 119, 148); transition:0.2s; height: 80px; text-align: center; color: rgb(240, 240, 240); line-height: 80px; font-size: 16px; float: left; display: block; position: relative; cursor: pointer; text-shadow: 0px 1px 3px rgba(0,0,0,0.25); -ms-user-select: none; -moz-user-select: -moz-none; -webkit-user-select: none; user-select: none; -webkit-transition: all 0.2s ease; -moz-transition: all 0.2s ease; -o-transition: all 0.2s ease; -khtml-user-select: none;
+}
+.primary-header .list-header .submenu {
+	display: none; position: relative; z-index: 201; box-shadow: -2px 0px 18px #888; background-color: rgb(255, 255, 255); -moz-box-shadow: -2px 0 18px #888; -webkit-box-shadow: -2px 0 18px #888;
+}
+.primary-header .list-header > ul > li:hover .submenu {
+	width: 300px; display: block; z-index: 201;
+}
+.primary-header .list-header .show.submenu {
+	width: 300px; display: block; z-index: 201;
+}
+.primary-header .list-header .submenu li {
+	background: linear-gradient(rgb(250, 250, 250) 0%, rgb(255, 255, 255) 100%); width: 100%; text-align: left; line-height: 14px; padding-top: 16px; padding-bottom: 14px; font-size: 12px; border-bottom-color: rgb(240, 240, 240); border-bottom-width: 1px; border-bottom-style: solid; display: block; position: relative; z-index: 201;
+}
+.primary-header .list-header .submenu li.list-item-withsub {
+	padding-bottom: 28px; z-index: 201;
+}
+.primary-header .list-header .submenu li.list-item-withsub a:visited {
+	
+}
+.primary-header .list-header .submenu li.list-item-withsub a:hover {
+	color: rgb(255, 255, 255);
+}
+.primary-header .list-header .submenu li.list-item-icon a {
+	margin-left: 50px;
+}
+.primary-header .list-header .submenu a {
+	color: rgb(45, 45, 45); margin-left: 16px;
+}
+.primary-header .list-header .submenu a:visited {
+	color: rgb(45, 45, 45);
+}
+.primary-header .list-header .submenu li.list-item-icon a .description {
+	margin-left: 34px;
+}
+.primary-header .list-header .submenu li .description {
+	left: 16px; top: 30px; color: rgb(128, 128, 128); font-size: 9px; float: left; display: block; position: absolute;
+}
+.primary-header .list-header .submenu li:last-child {
+	border: currentColor;
+}
+.primary-header .list-header .submenu li:hover {
+	background: rgb(5, 179, 217);
+}
+.primary-header .list-header .submenu li:hover a {
+	color: rgb(255, 255, 255);
+}
+.primary-header .list-header .submenu li:hover .description {
+	color: rgb(255, 255, 255);
+}
+.primary-header .list-header .submenu li.list-item-buttons:hover {
+	background: linear-gradient(rgb(250, 250, 250) 0%, rgb(255, 255, 255) 100%);
+}
+.primary-header .list-header > ul > li .description {
+	left: -20px; top: 15px; right: 0px; color: rgb(185, 223, 233); font-size: 10px; position: absolute;
+}
+.primary-header .list-header > ul > li:hover {
+	background: linear-gradient(rgb(54, 143, 167) 0%, rgb(16, 122, 151) 100%);
+}
+.primary-header .list-header > ul > li.selected {
+	background: linear-gradient(rgb(54, 143, 167) 0%, rgb(16, 122, 151) 100%);
+}
+.primary-header .list-header > ul > li.list-item {
+	position: relative;
+}
+.primary-header .list-header .list-item {
+	width: 185px;
+}
+.primary-header .list-header .list-item-icon {
+	width: 75px;
+}
+.primary-header .list-header .list-item a {
+	text-decoration: none;
+}
+.primary-header .list-header .list-item a:visited {
+	
+}
+.primary-header .list-header .list-item-login.list-item {
+	width: 259px; text-align: right; background-color: rgb(9, 102, 127);
+}
+.primary-header .list-header .list-item-login.list-item .submenu {
+	width: 259px;
+}
+.primary-header .list-header .list-item-login.list-item .bump {
+	margin-top: 35px;
+}
+.primary-header .list-header .list-item-login.list-item .list-item-buttons {
+	height: 70px;
+}
+.primary-header .list-header .list-item-login.list-item .hbut {
+	padding: 13px 20px; border-radius: 4px; border: currentColor; color: rgb(255, 255, 255); background-color: rgb(128, 128, 128);
+}
+.primary-header .list-header .list-item-login.list-item .hbut:hover {
+	border-radius: 4px; color: rgb(255, 255, 255); background-color: rgb(5, 179, 217);
+}
+.primary-header .list-header .list-item-login.list-item .btn-switchuser {
+	left: 15px; position: absolute;
+}
+.primary-header .list-header .list-item-login.list-item .btn-signout {
+	width: 220px; text-align: center; position: absolute;
+}
+.report-params-container {
+	width: 20%; height: 100%; color: black; overflow: auto; border-right-color: rgb(136, 136, 136); border-right-width: 1px; border-right-style: solid; float: left; z-index: 100;
+}
+.list-item-login {
+	text-align: right; padding-right: 20px;
+}
+.list-item-login .icon-arrowdown-mini {
+	right: 10px;
+}
+.primary-header .list-header .list-item-login.list-item .description {
+	left: 36px; text-align: left;
+}
+.notification-count {
+	border-color: rgb(118, 0, 0); padding: 0px 8px; border-radius: 4px; top: 16px; height: 24px; right: 17px; line-height: 25px; font-size: 10px; float: right; display: none; position: absolute; background-color: rgb(162, 0, 0);
+}
+.show.notification-count {
+	display: block;
+}
+[class^='icon-'] {
+	background-position: 14px 14px; width: 33px; height: 24px; line-height: 14px; margin-top: 1px; vertical-align: text-top; display: inline-block; background-image: url("/_layouts/15/KISD.IGOR.SP13/img/icons/light/icon-sprite-light.png"); background-repeat: no-repeat;
+}
+[class*=' icon-'] {
+	background-position: 14px 14px; width: 33px; height: 24px; line-height: 14px; margin-top: 1px; vertical-align: text-top; display: inline-block; background-image: url("/_layouts/15/KISD.IGOR.SP13/img/icons/light/icon-sprite-light.png"); background-repeat: no-repeat;
+}
+.icon-dark {
+	background-image: url("/_layouts/15/KISD.IGOR.SP13/img/icons/dark/icon-sprite-dark.png");
+}
+.icon-muted {
+	background-image: url("/_layouts/15/KISD.IGOR.SP13/img/icons/muted/icon-sprite-muted.png");
+}
+.icon-home {
+	background-position: -13px -151px;
+}
+.icon-notifications {
+	background-position: -13px -208px;
+}
+.icon-arrowdown-mini {
+	background-position: -20px -10px;
+}
+.icon-new {
+	background-position: -13px -180px;
+}
+.icon-az {
+	background-position: -13px -65px;
+}
+.icon-questions {
+	background-position: -13px -238px;
+}
+.iconfavorite {
+	background-position: -9px -432px; height: 33px; margin-top: 0px;
+}
+.iconnotfavorite {
+	background-position: -10px -292px; height: 33px; margin-top: 0px;
+}
+.icon-favorites {
+	background-position: -13px -296px;
+}
+.icon-open {
+	background-position: -13px -326px;
+}
+.icon-report {
+	background-position: -13px 0px; background-image: url("/_layouts/15/KISD.IGOR.SP13/img/icons/muted/images/report_icon.png");
+}
+.icon-assessments {
+	background-position: -13px -4px; background-image: url("/_layouts/15/KISD.IGOR.SP13/img/icons/light/images/icon-assessment.png");
+}
+.icon-resources {
+	background-position: -13px -4px; background-image: url("/_layouts/15/KISD.IGOR.SP13/img/icons/light/images/icon-resource.png");
+}
+.dashboard-reports-panel {
+	background-color: rgb(52, 52, 52);
+}
+.dashboard-reports-panel h1 {
+	background: rgb(252, 188, 0); margin: 13px 0px 0px; height: 37px; color: rgb(255, 255, 255); line-height: 37px; padding-left: 20px; font-size: 14px; border-bottom-color: rgb(46, 41, 25); border-bottom-width: 1px; border-bottom-style: solid;
+}
+.dashboard-report-list {
+	padding-left: 17px;
+}
+.dashboard-report-item {
+	width: 240px; height: 195px; overflow: hidden; margin-top: 15px; border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-left-color: rgb(0, 0, 0); border-top-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-bottom-style: solid; border-left-style: solid; float: right; display: block; position: relative; z-index: 100;
+}
+.selected.dashboard-report-item {
+	box-shadow: 0px 0px 21px #fcbc00; -moz-box-shadow: 0px 0px 21px #fcbc00; -webkit-box-shadow: 0px 0px 21px #fcbc00; -o-box-shadow: 0px 0px 21px #fcbc00;
+}
+.loading.ng-scope.dashboard-report-item::before {
+	width: 100%; height: 100%; float: right; display: block; position: absolute; z-index: 100; content: ""; opacity: 0.6; background-color: rgb(89, 89, 89);
+}
+.dashboard-report-item .title {
+	background: rgb(62, 62, 62); padding: 20px 60px 0px 30px; width: 240px; height: 65px; bottom: 68px; color: rgb(255, 255, 255); display: block; position: relative; opacity: 0.95;
+}
+.dashboard-report-item .title::after {
+	background-position: -16px -84px; top: 7px; width: 30px; height: 40px; right: 25px; display: block; position: absolute; content: ""; background-image: url("/_layouts/15/KISD.IGOR.SP13/img/icons/dark/icon-sprite-dark.png");
+}
+.reports-list-panel {
+	margin: 16px 14px 18px 10px;
+}
+.reports-list-panel header input {
+	border-radius: 5px; border: 1px solid rgb(228, 228, 228); width: 490px; height: 38px; color: rgb(86, 86, 86); padding-left: 34px; font-size: 12px; margin-top: 13px; margin-bottom: 13px; focus: 0;
+}
+.reports-list-panel header form {
+	margin-bottom: 14px; margin-left: 90px; display: block;
+}
+.reports-layout {
+	color: rgb(86, 86, 86); float: left;
+}
+.reports-layout a {
+	color: rgb(86, 86, 86); text-decoration: none;
+}
+.report-options {
+	color: rgb(86, 86, 86); display: none;
+}
+.show.report-options {
+	display: block;
+}
+.save-parameters-button {
+	color: rgb(5, 179, 217) !important; margin-top: 30px; display: block;
+}
+.report-parameters-save {
+	
+}
+.report-parameters-save::before {
+	background-position: -13px 0px; top: -4px; width: 25px; height: 24px; margin-right: -5px; float: left; position: relative; content: ""; background-image: url("/_layouts/15/KISD.IGOR.SP13/img/icons/light/images/floppy-disk-white.png"); background-repeat: no-repeat;
+}
+.report-parameters-back {
+	padding-bottom: 20px; font-weight: bold; margin-top: 5px; margin-bottom: 10px; border-bottom-color: rgb(226, 226, 226); border-bottom-width: 1px; border-bottom-style: solid; display: block;
+}
+.report-parameters-back::before {
+	background-position: -16px -84px; top: -11px; width: 30px; height: 40px; margin-right: 10px; float: left; position: relative; content: ""; transform: rotate(180deg); background-image: url("/_layouts/15/KISD.IGOR.SP13/img/icons/dark/icon-sprite-dark.png"); -moz-transform: rotate(180deg); -webkit-transform: rotate(180deg); -o-transform: rotate(180deg);
+}
+.report-parameters-view {
+	overflow: scroll;
+}
+.report-parameters-view::before {
+	top: 1px; width: 0px; height: 0px; margin-right: 9px; margin-left: 2px; border-top-color: transparent; border-bottom-color: transparent; border-left-color: rgb(255, 255, 255); border-top-width: 10px; border-bottom-width: 9px; border-left-width: 15px; border-top-style: solid; border-bottom-style: solid; border-left-style: solid; float: left; display: block; position: relative; content: "";
+}
+.report-parameters-list {
+	margin-top: 10px; margin-left: 10px;
+}
+.option-group {
+	font-weight: bold; margin-top: 20px; margin-bottom: 5px; display: block;
+}
+.block-label {
+	padding-bottom: 10px; display: block;
+}
+.control-group {
+	margin-bottom: 5px; display: block;
+}
+.report-options .check {
+	left: 5px; top: 2px; position: relative; -webkit-appearance: checkbox; -moz-appearance: checkbox;
+}
+.report-options select {
+	width: 100%;
+}
+.reset-parameters-button {
+	text-align: right; color: rgb(5, 179, 217) !important; margin-top: 30px; display: block;
+}
+.report-layout-filter {
+	display: none;
+}
+.show.report-layout-filter {
+	width: 165px !important; display: block;
+}
+.reports-layout > ul {
+	margin-right: 10px;
+}
+.reports-layout > ul > li {
+	width: 80px; padding-bottom: 20px; border-top-color: rgb(219, 219, 219); border-top-width: 1px; border-top-style: solid; display: block;
+}
+.reports-layout > ul > li i {
+	margin: 0px auto; display: block;
+}
+.reports-layout > ul > li:hover {
+	background-color: rgb(5, 179, 217);
+}
+.reports-layout > ul > li.selected {
+	background-color: rgb(5, 179, 217);
+}
+.reports-layout > ul > li:hover::after {
+	left: 80px; top: -28px; width: 0px; height: 0px; border-top-color: transparent; border-bottom-color: transparent; border-left-color: rgb(5, 179, 217); border-top-width: 10px; border-bottom-width: 10px; border-left-width: 10px; border-top-style: solid; border-bottom-style: solid; border-left-style: solid; float: left; position: relative; content: "";
+}
+.reports-layout > ul > li.selected::after {
+	left: 80px; top: -28px; width: 0px; height: 0px; border-top-color: transparent; border-bottom-color: transparent; border-left-color: rgb(5, 179, 217); border-top-width: 10px; border-bottom-width: 10px; border-left-width: 10px; border-top-style: solid; border-bottom-style: solid; border-left-style: solid; float: left; position: relative; content: "";
+}
+.reports-layout > ul > li:hover a {
+	color: rgb(255, 255, 255);
+}
+.reports-layout > ul > li.selected a {
+	color: rgb(255, 255, 255);
+}
+.reports-layout > ul > li a {
+	text-align: center; margin-top: 20px; display: block;
+}
+.reports-layout > ul > li:hover [class^='icon-'] {
+	background-image: url("/_layouts/15/KISD.IGOR.SP13/img/icons/light/icon-sprite-light.png");
+}
+.reports-layout > ul > li:hover [class*=' icon-'] {
+	background-image: url("/_layouts/15/KISD.IGOR.SP13/img/icons/light/icon-sprite-light.png");
+}
+.page-panel .view {
+	background: linear-gradient(rgb(252, 252, 252) 0%, rgb(255, 255, 255) 100%); border: 1px solid rgb(227, 227, 227); left: 0px; top: 10px; right: 0px; bottom: 10px; margin-right: 10px; margin-left: 10px; position: absolute;
+}
+.reports-list-panel .view {
+	background: linear-gradient(rgb(252, 252, 252) 0%, rgb(255, 255, 255) 100%); border: 1px solid rgb(227, 227, 227); left: 0px; top: 77px; right: 0px; bottom: 10px; margin-left: 90px; position: absolute;
+}
+.reports-list-panel .view h1 {
+	color: rgb(5, 179, 217); margin-top: 2px; margin-bottom: 14px;
+}
+.reports-list-panel .view h1 .new {
+	color: rgb(117, 193, 34);
+}
+.reports-list-panel .view .report-view {
+	margin: 28px 14px;
+}
+.report-detail {
+	padding: 14px 12px; border: 1px solid rgb(226, 226, 226); width: 188px; height: 196px; color: rgb(54, 54, 54); margin-right: 16px; margin-bottom: 16px; float: left; position: relative; cursor: pointer; box-shadow: -2px 0px 6px #888; -moz-box-shadow: -2px 0 6px #888; -webkit-box-shadow: -2px 0 6px #888;
+}
+.report-detail::after {
+	left: 0px; width: 100%; height: 2px; bottom: 0px; border-top-color: rgb(226, 226, 226); border-bottom-color: rgb(226, 226, 226); border-top-width: 1px; border-bottom-width: 1px; border-top-style: solid; border-bottom-style: solid; position: absolute; content: ""; background-color: rgb(5, 179, 217);
+}
+.selected.report-detail::after {
+	transition:1s; height: 60px; z-index: 30; -webkit-transition: all 1s; -moz-transition: all 1s; -o-transition: all 1s;
+}
+.report-detail a {
+	color: rgb(54, 54, 54);
+}
+.report-detail a:hover {
+	text-decoration: underline;
+}
+.report-detail figure {
+	width: 136px; height: 102px; margin-bottom: 14px;
+}
+.report-detail figure img {
+	border: 1px solid rgb(226, 226, 226);
+}
+.report-detail .dashboard-badge-visible {
+	left: -5px; top: 80px; width: 40px; height: 40px; display: block; position: absolute;
+}
+.report-detail .dashboard-badge-visible img {
+	border: currentColor;
+}
+.report-detail .dashboard-badge-invisible {
+	display: none;
+}
+.report-detail .title {
+	margin-top: 14px;
+}
+.report-detail button {
+	border: currentColor; top: 40px; right: 0px; position: absolute; background-color: transparent;
+}
+.report-detail button [class^='icon-'] {
+	background-position-x: -8px;
+}
+.report-detail .btn-favorite {
+	top: 15px; text-align: left; right: -6px;
+}
+.report-detail .btn-favorite .icon-favorites {
+	background-position: -15px -295px; width: 30px;
+}
+.float-left {
+	float: left;
+}
+.float-right {
+	float: right;
+}
+.ssrs.report-detail {
+	border-bottom-color: rgb(5, 179, 217); border-bottom-width: 3px; border-bottom-style: solid;
+}
+.tableau.report-detail {
+	border-bottom-color: rgb(252, 188, 0); border-bottom-width: 3px; border-bottom-style: solid;
+}
+.favorite.report-detail .btn-favorite {
+	background: linear-gradient(to right, rgb(252, 188, 0) 0%, rgb(252, 160, 0) 100%);
+}
+.favorite.report-detail .icon-favorites {
+	background-image: url("/_layouts/15/KISD.IGOR.SP13/img/icons/light/icon-sprite-light.png");
+}
+.report-detail .btn-open {
+	top: 55px; right: -6px;
+}
+.report-detail .tags {
+	bottom: 10px; position: absolute; z-index: 100;
+}
+.report-detail .tags .tag {
+	padding: 4px; border: 1px solid rgb(217, 217, 217); margin-right: 3px; margin-bottom: 3px; float: left; display: block; background-color: rgb(246, 246, 246);
+}
+.show.view-leftbar {
+	margin: 28px 5px; top: 0px !important; width: 200px; bottom: 0px; display: block; position: absolute;
+}
+.view-leftbar li {
+	margin: 10px 0px;
+}
+.view-leftbar a {
+	color: rgb(86, 86, 86);
+}
+.reports-list {
+	text-align: center; overflow: hidden; padding-bottom: 36px; padding-left: 5px; display: block;
+}
+.reports-list * {
+	text-align: left;
+}
+.page-list {
+	height: 100%; text-align: center; overflow: auto; padding-right: 10px; padding-bottom: 0px; padding-left: 10px; display: block;
+}
+.page-list a {
+	color: rgb(10, 119, 148); text-decoration: none;
+}
+.page-list a:hover {
+	text-decoration: underline;
+}
+.page-list * {
+	text-align: left;
+}
+.load-more-container {
+	width: 100%; height: 20px; text-align: center;
+}
+.load-more-container .load-more {
+	background: linear-gradient(rgb(250, 250, 250) 0%, rgb(255, 255, 255) 100%); margin: -20px auto 0px; padding: 10px 14px; border: 1px solid rgb(226, 226, 226); top: -26px; color: rgb(86, 86, 86); position: relative;
+}
+.load-more-container .load-more i {
+	width: 16px;
+}
+.show.view-leftbar + .report-view {
+	left: 185px; right: 0px; position: absolute;
+}
+.report-view-panel {
+	padding: 0px 26px 26px; z-index: 200; background-color: rgb(18, 18, 18);
+}
+.report-view-panel .btn-toolbar {
+	border-width: 0px; top: 30px; width: 50px; right: -6px; margin-right: 0px; min-width: 50px; background-color: rgb(47, 47, 47);
+}
+.report-view-panel .btn-toolbar-report-close {
+	border: 1px solid rgb(46, 41, 25); width: 46px; height: 46px; display: block; z-index: 900; background-color: rgb(196, 146, 0);
+}
+.report-view-panel .btn-toolbar-favorite {
+	margin-right: 10px;
+}
+.report-view-panel .btn-toolbar .icon-print {
+	background-position: -13px -474px; height: 33px; margin-top: 0px;
+}
+.dashboard-view-panel .btn-toolbar .icon-print {
+	background-position: -13px -474px; height: 33px; margin-top: 0px;
+}
+.report-view-panel .btn-toolbar .icon-excel {
+	background-position: -11px -520px; height: 33px; margin-top: 0px;
+}
+.dashboard-view-panel .btn-toolbar .icon-excel {
+	background-position: -11px -520px; height: 33px; margin-top: 0px;
+}
+.report-view-panel .btn-toolbar .icon-image {
+	background-position: -6px -565px; width: 42px; height: 33px; margin-top: 0px;
+}
+.report-view-panel .btn-toolbar-report-close .icon-close {
+	background-position: -12px -115px; height: 33px; margin-top: 0px;
+}
+.dashboardReport .btn-toolbar-dashboard-close .icon-close {
+	background-position: -12px -115px; height: 33px; margin-top: 0px;
+}
+.report-view-panel .btn-toolbar .icon-save {
+	background-position: -11px -354px; height: 33px; margin-top: 0px;
+}
+.report-view-panel .btn-toolbar-image {
+	padding-right: 0px; padding-left: 0px;
+}
+.report-view-panel .btn-toolbar .icon-clear {
+	background-position: -11px -393px; height: 33px; margin-top: 0px;
+}
+.report-view-panel .btn-toobar .icon-favorites {
+	background-position: -11px 0px;
+}
+.report-view-panel .favorite {
+	background: linear-gradient(to right, rgb(252, 188, 0) 0%, rgb(252, 160, 0) 100%);
+}
+.report-view-panel .favorite .icon-favorites {
+	background-image: url("/_layouts/15/KISD.IGOR.SP13/img/icons/light/icon-sprite-light.png");
+}
+.report-view-panel h1 {
+	color: rgb(255, 255, 255); margin-top: 8px; display: inline-block;
+}
+.report-view-panel figure.report {
+	width: 100%; height: 100%; overflow: hidden; padding-top: 0px; padding-right: 0px; padding-left: 0px;
+}
+.report-view-panel .scroll-list {
+	border: 1px solid rgb(100, 100, 100); left: 26px; top: 0px; right: 26px; bottom: 26px; position: absolute; -ms-overflow-x: hidden; -ms-overflow-y: hidden; -ms-touch-action: pan-y; background-color: rgb(255, 255, 255); -webkit-overflow-scrolling: touch;
+}
+.dashboard-view-panel {
+	padding: 0px 200px 26px; z-index: 200; background-color: rgb(18, 18, 18);
+}
+.dashboard-view-panel .btn-toolbar {
+	border-width: 0px; top: 30px; width: 50px; right: -6px; margin-right: 0px; min-width: 50px; background-color: rgb(47, 47, 47);
+}
+.dashboard-view-panel .btn-toolbar-report-close {
+	border: 1px solid rgb(46, 41, 25); width: 46px; height: 46px; display: block; z-index: 900; background-color: rgb(196, 146, 0);
+}
+.dashboard-view-panel .btn-toolbar-favorite {
+	margin-right: 10px;
+}
+.dashboard-view-panel .btn-toolbar-report-close .icon-close {
+	background-position: -12px -115px; height: 33px; margin-top: 0px;
+}
+.dashboard-view-panel .btn-toobar .icon-favorites {
+	background-position: -11px 0px;
+}
+.dashboard-view-panel .favorite {
+	background: linear-gradient(to right, rgb(252, 188, 0) 0%, rgb(252, 160, 0) 100%);
+}
+.dashboard-view-panel .favorite .icon-favorites {
+	background-image: url("/_layouts/15/KISD.IGOR.SP13/img/icons/light/icon-sprite-light.png");
+}
+.dashboard-view-panel h1 {
+	color: rgb(255, 255, 255); margin-top: 8px; display: inline-block;
+}
+.dashboard-view-panel figure.report {
+	width: 100%; height: 100%; overflow: hidden; padding-top: 0px; padding-right: 0px; padding-left: 0px;
+}
+.dashboard-view-panel .scroll-list {
+	border: 1px solid rgb(100, 100, 100); left: 200px; top: 0px; right: 200px; bottom: 26px; position: absolute; -ms-overflow-x: hidden; -ms-overflow-y: hidden; -ms-touch-action: pan-y; background-color: rgb(255, 255, 255); -webkit-overflow-scrolling: touch;
+}
+.left-panel .scroll-list.report-view {
+	top: 0px;
+}
+.left-panel .showWithOptions.scroll-list.report-view {
+	left: 200px;
+}
+.left-panel .showWithFilter.showWithOptions.scroll-list.report-view {
+	left: 400px;
+}
+.sample-report {
+	width: 80%; height: 100%; float: right; display: block;
+}
+.sample-dashboard {
+	width: 100%; height: 100%; float: right; display: block;
+}
+.dashboardReport .btn-report-close {
+	background-position: -6px -115px; border: 1px solid rgb(46, 41, 25); top: 34px; width: 58px; height: 40px; right: 26px; text-indent: -9999em; display: block; position: absolute; z-index: 900; background-image: url("/_layouts/15/KISD.IGOR.SP13/img/icons/light/icon-sprite-light.png"); background-color: rgb(196, 146, 0);
+}
+.dashboardReport .btn-toolbar-dashboard-close {
+	border: 1px solid rgb(46, 41, 25); top: 34px; width: 46px; height: 46px; right: 26px; display: block; position: absolute; z-index: 900; background-color: rgb(196, 146, 0);
+}
+.dashboardReport h1 {
+	margin-top: 40px;
+}
+.modal-header .btn-report-close {
+	background-position: -1px -115px; width: 58px; height: 38px; text-indent: -9999em; display: block; z-index: 900; min-width: 58px; background-image: url("/_layouts/15/KISD.IGOR.SP13/img/icons/light/icon-sprite-light.png"); background-color: rgb(196, 146, 0);
+}
+.btn-report-close {
+	background-position: -1px -115px; border: 1px solid rgb(46, 41, 25); width: 58px; height: 40px; text-indent: -9999em; display: block; z-index: 900; min-width: 58px; background-image: url("/_layouts/15/KISD.IGOR.SP13/img/icons/light/icon-sprite-light.png"); background-color: rgb(196, 146, 0);
+}
+.left-panel {
+	left: 100%; top: 0px; width: 0px; right: -260px; bottom: 0px; color: rgb(255, 255, 255); overflow: hidden; position: absolute;
+}
+.show.left-panel {
+	left: 0px; width: auto; right: 0px; display: block;
+}
+.left-panel .scroll-list {
+	top: 80px;
+}
+.page-left-panel {
+	left: 100%; top: 0px; width: 0px; height: 100%; right: -260px; bottom: 0px; color: rgb(88, 89, 91); overflow: hidden; position: absolute;
+}
+.show.page-left-panel {
+	left: 0px; width: auto; right: 0px; display: block;
+}
+.page-left-panel .scroll-list {
+	top: 0px;
+}
+.right-panel {
+	top: 80px; width: 260px; right: -640px; position: absolute; z-index: 120; box-shadow: 2px 0px 30px rgba(50,50,50,0.75); -moz-box-shadow: 2px 0px 30px rgba(50, 50, 50, 0.75); -webkit-box-shadow: 2px 0px 30px rgba(50, 50, 50, 0.75);
+}
+.show.right-panel {
+	right: 0px;
+}
+.right-panel .scroll-list {
+	left: 0px; right: 0px; bottom: 0px; color: rgb(255, 255, 255); position: absolute; -ms-overflow-x: hidden; -ms-overflow-y: scroll; background-color: black; -webkit-overflow-scrolling: touch;
+}
+.selection {
+	width: 95%;
+}
+.select2-container-multi .select2-choices .select2-search-field input {
+	width: inherit !important;
+}
+.select2-choice.multiselect {
+	width: 100%;
+}
+.select2-container.btn-group {
+	width: 100%;
+}
+.report-params-container .right-panel {
+	top: 0px;
+}
+.right-panel-wrapper .right-panel {
+	bottom: 0px;
+}
+.scroll-list {
+	left: 0px; top: 0px; right: 0px; bottom: 0px; position: absolute; -ms-overflow-x: hidden; -ms-overflow-y: scroll; -ms-touch-action: pan-y; -webkit-overflow-scrolling: touch;
+}
+.scroll-list .show.loading-circle {
+	margin: 50px auto;
+}
+.list-item-icon .show.loading-circle {
+	margin: -20px auto;
+}
+.loading-circle {
+	display: none;
+}
+.show.loading-circle {
+	width: 72px; color: rgb(255, 255, 255); display: block;
+}
+.small.show.loading-circle {
+	width: 36px;
+}
+.loading-text {
+	font-size: 20px; margin-bottom: 10px; display: block;
+}
+.small .loading-text {
+	margin-bottom: 10px; display: none;
+}
+.show.loading-circle .circle {
+	border-radius: 21px; width: 16px; height: 16px; margin-left: 8px; float: left; animation-name: animate_circle_white; animation-duration: 1.95s; animation-iteration-count: infinite; background-color: rgb(255, 255, 255); -webkit-border-radius: 21px; -moz-border-radius: 21px; -moz-animation-name: animate_circle_white; -moz-animation-duration: 1.9500000000000001s; -moz-animation-iteration-count: infinite; -moz-animation-direction: linear; -webkit-animation-name: animate_circle_white; -webkit-animation-duration: 1.9500000000000001s; -webkit-animation-iteration-count: infinite; -webkit-animation-direction: linear; -ms-border-radius: 21px; -o-animation-name: animate_circle_white; -o-animation-duration: 1.9500000000000001s; -o-animation-iteration-count: infinite; -o-animation-direction: linear; -o-border-radius: 21px;
+}
+.small.show.loading-circle .circle {
+	border-radius: 21px; width: 8px; height: 8px; margin-left: 4px; background-color: rgb(255, 255, 255);
+}
+.blue.show.loading-circle .circle {
+	background-color: rgb(10, 119, 148);
+}
+.black.show.loading-circle {
+	color: rgb(0, 0, 0);
+}
+.black.show.loading-circle .circle {
+	background-color: rgb(0, 0, 0);
+}
+.show.loading-circle .circle-1 {
+	animation-delay: 0.39s; -moz-animation-delay: 0.39s; -webkit-animation-delay: 0.39s; -o-animation-delay: 0.39s;
+}
+.show.loading-circle .circle-2 {
+	animation-delay: 0.9s; -moz-animation-delay: 0.9099999999999999s; -webkit-animation-delay: 0.9099999999999999s; -o-animation-delay: 0.9099999999999999s;
+}
+.show.loading-circle .circle-3 {
+	animation-delay: 1.17s; -moz-animation-delay: 1.1700000000000001s; -webkit-animation-delay: 1.1700000000000001s; -o-animation-delay: 1.1700000000000001s;
+}
+.loading.ng-scope.dashboard-report-item::before {
+	width: 100%; height: 100%; display: block; position: absolute; z-index: 9000; content: ""; opacity: 0.7; background-color: rgb(0, 0, 0);
+}
+.loading.ng-scope.dashboard-report-item .show.loading-circle {
+	margin: 70px 90px; position: absolute; z-index: 10000;
+}
+.show#GlobalLoading {
+	position: absolute; z-index: 101; opacity: 0.9; background-color: rgb(89, 89, 89);
+}
+.show#GlobalLoading .loading-circle {
+	margin: 100px auto; left: 0px; right: 0px; position: absolute; z-index: 11000;
+}
+.ms-shadow.ms-core-defaultFont.ms-core-menu-box {
+	z-index: 40000 !important;
+}
+.move-right {
+	left: 175px;
+}
+.smaller {
+	width: 165px !important;
+}
+.flex-dd .small {
+	display: none;
+}
+#oneout {
+	padding: 40px 0px; border-radius: 0px 5px 5px 0px; top: 64px; width: 18px; text-align: center; right: -11px; position: fixed; z-index: 100; box-shadow: 0px 0px 0px 0px; transition-duration: 0.3s; -webkit-border-radius: 0 5px 5px 0; -moz-border-radius: 0 5px 5px 0; -moz-box-shadow: 0px 0px 0px 0px; -webkit-box-shadow: 0px 0px 0px 0px; -webkit-transition-duration: 0.3s; -moz-transition-duration: 0.3s; -o-transition-duration: 0.3s;
+}
+#oneout_inner {
+	background: rgb(255, 255, 255); border-radius: 0px 0px 5px; height: auto; text-align: left; right: -260px; position: fixed; box-shadow: 0px 0px 1px 0px; transition-duration: 0.3s; -webkit-border-radius: 0 0 5px 0; -moz-border-radius: 0 0 5px 0; -moz-box-shadow: 0px 0px 1px 0px; -webkit-box-shadow: 0px 0px 1px 0px; -webkit-transition-duration: 0.3s; -moz-transition-duration: 0.3s; -o-transition-duration: 0.3s;
+}
+#oneout:hover {
+	right: 250px; z-index: 120;
+}
+#oneout:hover #oneout_inner {
+	right: 0px; z-index: 1000;
+}
+.onetitle {
+	padding: 10px 5px 5px; top: 100px; width: 110px; height: 32px; right: -30px; color: rgb(255, 255, 255); font-size: 16px; font-weight: normal; display: block; position: absolute; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; transform: rotate(90deg); background-color: rgb(5, 179, 217);
+}
+.ssrsReport #oneout {
+	top: 0px; position: absolute;
+}
+.ssrsReport #oneout_inner {
+	top: 0px; position: absolute;
+}
+.report-params-container .onetitle {
+	top: 30px;
+}
+.ssrsReport .report-panel {
+	top: 0px;
+}
+.ssrsReport .onetitle {
+	top: 0px;
+}
+.report-params-container #oneout:hover {
+	right: 0px; z-index: 120;
+}
+.ssrsReport #oneout:hover #oneout_inner {
+	right: auto;
+}
+@media screen and (max-width:1280px)
+{
+.flex-dd {
+	width: 75px !important;
+}
+.flex-dd .big {
+	display: none;
+}
+.flex-dd .small {
+	display: block;
+}
+.flex-float {
+	float: right;
+}
+}
+.multiselect-container li {
+	margin: 0px !important; font-size: 12px;
+}
+.multiselect {
+	text-align: left;
+}
+.multiselect b.caret {
+	top: 14px; right: 16px; position: absolute;
+}
+.btn-custom {
+	border-color: rgb(117, 193, 34); color: white; font-size: 13.5px; margin-bottom: 5px; background-color: rgb(117, 193, 34);
+}
+.btn-custom:hover {
+	border-color: rgb(91, 150, 26); color: white; background-color: rgb(104, 171, 30);
+}
+.btn-custom:focus {
+	border-color: rgb(91, 150, 26); color: white; background-color: rgb(104, 171, 30);
+}
+.btn-custom:active {
+	border-color: rgb(91, 150, 26); color: white; background-color: rgb(104, 171, 30);
+}
+.active.btn-custom {
+	border-color: rgb(91, 150, 26); color: white; background-color: rgb(104, 171, 30);
+}
+.disabled.btn-custom:hover {
+	border-color: rgb(117, 193, 34); background-color: rgb(117, 193, 34);
+}
+.disabled.btn-custom:focus {
+	border-color: rgb(117, 193, 34); background-color: rgb(117, 193, 34);
+}
+.disabled.btn-custom:active {
+	border-color: rgb(117, 193, 34); background-color: rgb(117, 193, 34);
+}
+.active.disabled.btn-custom {
+	border-color: rgb(117, 193, 34); background-color: rgb(117, 193, 34);
+}
+[disabled].btn-custom:hover {
+	border-color: rgb(117, 193, 34); background-color: rgb(117, 193, 34);
+}
+[disabled].btn-custom:focus {
+	border-color: rgb(117, 193, 34); background-color: rgb(117, 193, 34);
+}
+[disabled].btn-custom:active {
+	border-color: rgb(117, 193, 34); background-color: rgb(117, 193, 34);
+}
+[disabled].active.btn-custom {
+	border-color: rgb(117, 193, 34); background-color: rgb(117, 193, 34);
+}
+fieldset[disabled] .btn-custom:hover {
+	border-color: rgb(117, 193, 34); background-color: rgb(117, 193, 34);
+}
+fieldset[disabled] .btn-custom:focus {
+	border-color: rgb(117, 193, 34); background-color: rgb(117, 193, 34);
+}
+fieldset[disabled] .btn-custom:active {
+	border-color: rgb(117, 193, 34); background-color: rgb(117, 193, 34);
+}
+fieldset[disabled] .active.btn-custom {
+	border-color: rgb(117, 193, 34); background-color: rgb(117, 193, 34);
+}
+.ms-webpart-chrome-title {
+	margin-left: 10px;
+}
+.ms-wpContentDivSpace {
+	margin-left: 10px;
+}
+div.webpart-wrapper {
+	left: 0px; top: 80px; right: 0px; bottom: 0px; position: absolute;
+}
+#MSO_tblPageBody {
+	left: 0px; top: 0px; right: 0px; bottom: 0px; position: absolute;
+}
+#MSO_tblPageBody td {
+	height: 100%;
+}
+#MSOTlPn_WebPartPageDiv {
+	position: relative;
+}
+.report-toolbar-left {
+	width: 20%; float: left;
+}
+.report-toolbar-right {
+	width: 80%; float: right;
+}
+.report-toolbar {
+	width: 100%; float: left; background-color: rgb(47, 47, 47);
+}
+.report-toolbar-left span {
+	color: rgb(204, 204, 204); font-size: 14px; font-weight: bold; margin-top: 16px; margin-left: 8px; float: left;
+}
+.report-heading {
+	font-size: 20px; margin-top: 8px; margin-right: 10px; margin-bottom: 5px;
+}
+.change-password-container {
+	padding-right: 50px; padding-left: 50px; margin-right: auto; margin-left: auto; max-width: 800px;
+}
+.change-password-left {
+	width: 50%; padding-right: 30px; float: left;
+}
+.change-password-left ul {
+	margin-bottom: 10px; margin-left: 25px;
+}
+.change-password-left li {
+	list-style-type: disc;
+}
+.change-password-right {
+	padding: 20px; width: 50%; float: right; background-color: rgb(241, 241, 241);
+}
+.change-password .scroll-list.report-view {
+	-ms-overflow-x: hidden; -ms-overflow-y: hidden;
+}
+.change-password-control h2 {
+	margin-bottom: 15px;
+}
+.change-password .view {
+	
+}
+.change-password-control {
+	width: 100%;
+}
+.change-password-control table {
+	width: 100%;
+}
+.change-password-control input[type=password] {
+	width: 100%;
+}
+.change-password-control label {
+	width: 100%;
+}
+.change-password-control input[type=password] {
+	padding-top: 6px; padding-bottom: 6px;
+}
+.change-password-control span {
+	margin: 0.5em 0px 0px; line-height: 17px; display: block;
+}
+.change-password-control td {
+	text-align: left;
+}
+.error-text {
+	color: red;
+}
+.required-field {
+	color: red;
+}
+.change-password-control .button {
+	padding: 14px 25px; border-radius: 20px; text-align: center; color: white; letter-spacing: 1px; font-size: 13px; font-weight: bold; text-decoration: none; margin-top: 18px; margin-bottom: 15px; margin-left: 0px; display: inline-block; background-color: rgb(5, 178, 220);
+}
+div#tableauContent {
+	width: 100%; height: 100%;
+}
+div#tableauContent iframe {
+	left: 0px; top: 0px; width: 100%; height: 100%; right: 0px; bottom: 0px; position: absolute;
+}

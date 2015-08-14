@@ -1,0 +1,174 @@
+div.article {
+	padding: 10px 0px;
+}
+div.welcome {
+	padding: 10px 0px;
+}
+.article .article-header {
+	-ms-zoom: 1;
+}
+.article-header .date-line {
+	font-weight: bold; float: left;
+}
+.article .date-line {
+	padding-right: 10px;
+}
+.article .by-line {
+	padding-right: 10px;
+}
+.article-header .by-line {
+	text-align: right;
+}
+.article .captioned-image {
+	margin-bottom: 5px;
+}
+.article .related-links {
+	margin-bottom: 5px;
+}
+.welcome .welcome-image {
+	margin-bottom: 5px;
+}
+.welcome .splash-image {
+	margin-bottom: 5px;
+}
+.article-left .captioned-image {
+	padding-right: 10px; float: left;
+}
+.welcome .welcome-image {
+	padding-right: 10px; float: left;
+}
+.article-right .captioned-image {
+	padding-left: 10px; float: right;
+}
+.article .related-links {
+	padding-left: 10px; float: right;
+}
+.article .related-links {
+	border: 1px solid rgb(198, 198, 198); width: 150px; min-width: 150px;
+}
+.caption p {
+	padding-top: 2px; margin-bottom: 2px;
+}
+.article-content {
+	margin: 5px 0px 0px;
+}
+.welcome-content {
+	margin: 5px 0px 0px;
+}
+.clearer {
+	clear: both;
+}
+.col-50 {
+	width: 49.9%; float: left;
+}
+.col-33 {
+	width: 33.2%; float: left;
+}
+.right-bar {
+	width: 24.9%; float: right;
+}
+.tableCol-75 {
+	display: table-cell; min-width: 74.9%;
+}
+.tableCol-50 {
+	display: table-cell; min-width: 49.9%;
+}
+.tableCol-33 {
+	display: table-cell; min-width: 33.2%;
+}
+.tableCol-25 {
+	display: table-cell; min-width: 24.9%;
+}
+.main-content {
+	width: 74.9%; float: left;
+}
+.cell-margin {
+	margin: 5px 0px;
+}
+.col-fluid-1 {
+	width: 100%; margin-right: -235px; float: left;
+}
+.col-fluid-2 {
+	margin-right: 215px; -ms-zoom: 1;
+}
+.right-wp-zone-col {
+	width: 215px; border-left-color: currentColor; border-left-width: 1px; border-left-style: dashed; float: right;
+}
+.edit-mode-border {
+	margin: 1px; padding: 8px; border: 1px solid transparent;
+}
+.ewiki-margin {
+	padding: 0px 0px 0px 11px;
+}
+.ewiki-pagename-align {
+	vertical-align: middle;
+}
+.s4-specialNavLinkList {
+	display: none;
+}
+.ewiki-right-col {
+	width: 198px;
+}
+.ewiki-slink {
+	margin-left: 10px;
+}
+.layout-col {
+	display: table-cell;
+}
+.layout-row {
+	padding-top: 20px; display: table;
+}
+.fullPageLayout {
+	min-width: 326px; max-width: 722px;
+}
+.twoColumnLayout-left {
+	min-width: 326px; max-width: 380px;
+}
+.twoColumnLayout-right {
+	min-width: 326px; max-width: 380px;
+}
+.twoRowTwoColumn-bottomLeft {
+	min-width: 326px; max-width: 380px;
+}
+.twoRowTwoColumn-bottomRight {
+	min-width: 326px; max-width: 380px;
+}
+.twoColumnLayout-left {
+	padding-right: 20px;
+}
+.twoColumnRightLayout-left {
+	padding-right: 20px;
+}
+.twoColumnLeftLayout-left {
+	padding-right: 20px;
+}
+.twoRowTwoColumn-bottomLeft {
+	padding-right: 20px;
+}
+.twoColumnLeftLayout-left {
+	width: 194px;
+}
+.twoColumnRightLayout-right {
+	width: 194px;
+}
+.twoColumnLeftLayout-right {
+	min-width: 388px; max-width: 566px;
+}
+.twoColumnRightLayout-left {
+	min-width: 388px; max-width: 566px;
+}
+.twoRowTwoColumn-top {
+	
+}
+.ms-pub-contentLayout {
+	vertical-align: top;
+}
+.ms-core-needIEFilter .ms-pub-contentLayout {
+	
+}
+.left-column-area {
+	padding: 0px 2px 0px 0px; border: 0px currentColor;
+}
+.right-column-area {
+	padding: 0px 0px 0px 2px; border: 0px currentColor;
+}

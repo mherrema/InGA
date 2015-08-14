@@ -8,6 +8,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Inga Assesment Management</title>
 
+    <link href="css/xeditable.css" rel="stylesheet">
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/jasny-bootstrap.min.css" rel="stylesheet">
@@ -16,8 +17,10 @@
         @import url('fonts/fontie_14394397501733/AvenirNextLTPro-Regular.css');
         @import url('fonts/fontie_14394037598687/AvenirLTStd-Medium.css');
     </style>
+    
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js"></script>
+    <script src="js/xeditable.min.js"></script>
     <script src="js/app.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -42,20 +45,29 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-sm-3">
-                    <span class="inline-detail"><h6><span class="detail-title"><strong>School:</strong></span> Appleview Elem School</h6></span>
-                    <span class="inline-detail"><h6><span class="detail-title"><strong>Course:</strong></span> Attendance-Appleview (1003)</h6></span>
-                    <span class="inline-detail"><h6><span class="detail-title"><strong>Std Type:</strong></span> District</h6></span>
-                    <span class="inline-detail"><h6><span class="detail-title"><strong>Term:</strong></span> Winter</h6></span>
+                    <span class="inline-detail"><h6><span class="detail-title"><strong>School:</strong></span> Appleview Elem School</h6>
+                    </span>
+                    <span class="inline-detail"><h6><span class="detail-title"><strong>Course:</strong></span> Attendance-Appleview (1003)</h6>
+                    </span>
+                    <span class="inline-detail"><h6><span class="detail-title"><strong>Std Type:</strong></span> District</h6>
+                    </span>
+                    <span class="inline-detail"><h6><span class="detail-title"><strong>Term:</strong></span> Winter</h6>
+                    </span>
                 </div>
                 <div class="col-sm-3">
-                    <span class="inline-detail"><h6><span class="detail-title"><strong>Instructor:</strong></span> Murdock, Mischell (288)</h6></span>
-                    <span class="inline-detail"><h6><span class="detail-title"><strong>Section:</strong></span> 1(A)</h6></span>
-                    <span class="inline-detail"><h6><span class="detail-title"><strong>Subject:</strong></span> Art</h6></span>
+                    <span class="inline-detail"><h6><span class="detail-title"><strong>Instructor:</strong></span> Murdock, Mischell (288)</h6>
+                    </span>
+                    <span class="inline-detail"><h6><span class="detail-title"><strong>Section:</strong></span> 1(A)</h6>
+                    </span>
+                    <span class="inline-detail"><h6><span class="detail-title"><strong>Subject:</strong></span> Art</h6>
+                    </span>
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-sm-12">
-                    <btn class="btn inga-btn inga-btn-negative inga-icon-btn float-right"><i class="glyphicon glyphicon-user"></i></btn>
-                    <btn class="btn inga-btn inga-btn-negative inga-icon-btn float-right"><i class="glyphicon glyphicon-align-justify"></i></btn>
+                    <a href="score_student_view.html" class="btn inga-btn inga-btn-negative inga-icon-btn inactive float-right"><i class="glyphicon glyphicon-user"></i>
+                    </a>
+                    <a class="btn inga-btn inga-btn-negative inga-icon-btn float-right"><i class="glyphicon glyphicon-align-justify"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -63,11 +75,15 @@
             <ul class="above-table-actions">
                 <li class="above-table-action-left"><a href="#">Show All</a>
                 </li>
-                <li class="above-table-action-left"><a href="#">Hide selected</a></li>
-                <li class="above-table-action-left"><a href="#">Remove selected</a></li>
-                <li class="above-table-action-left"><a href="#">Absent</a></li>
-                <li class="above-table-action-left"><a href="#">Export to excel</a></li>
-<!--
+                <li class="above-table-action-left"><a href="#">Hide selected</a>
+                </li>
+                <li class="above-table-action-left"><a href="#">Remove selected</a>
+                </li>
+                <li class="above-table-action-left"><a href="#">Absent</a>
+                </li>
+                <li class="above-table-action-left"><a href="#">Export to excel</a>
+                </li>
+                <!--
                 <li class="above-table-action-right above-table-action">View: <span class="dropdown-text" ng-click="toggleViewDropdown()">active</span> <span class="caret"></span>
                     <div class="action-dropdown {{view}}">
                         <div class="dropdown-content">
@@ -83,11 +99,13 @@
                 </li>
                 <li class="above-table-action-right action-with-icon"><i class="glyphicon glyphicon-ok success-icon"></i> published</li>
 -->
-                                <li style="float:right;"><button class="btn inga-btn inga-btn-positive">Add Student</button></li>
+                <li style="float:right;">
+                    <button class="btn inga-btn inga-btn-positive">Add Student</button>
+                </li>
             </ul>
         </div>
         <div class="row">
-            <table class="inga-table" style="position:relative;">
+            <table class="inga-table score-entry-table" style="position:relative;">
                 <thead>
                     <tr>
                         <!--                    <th><span style="float:left;"><input type="checkbox" /></span><span style="float:left;">Title</span><span class="glyphicon glyphicon-search search-icon"></span></th>-->
@@ -113,7 +131,7 @@
                         <th>
                             <div class="heading-title">6(25) MBSP</div>
                         </th>
-                        
+
                     </tr>
                 </thead>
                 <tbody>
@@ -121,7 +139,7 @@
                         <td>
                             <input type="checkbox" />Margaret Cruz
                         </td>
-                        <td></td>
+                        <td><a href="#" editable-text="user.name" buttons="no">{{ user.name || "empty" }}</a></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -601,6 +619,12 @@
                     $(this).parent().parent().toggleClass("selected");
                 });
             }
+            
+            var tableCells = $(".inga-table td");
+            for(var k = 0; k < tableCells.length; k++){
+                $(tableCells[k]).css("width", $(tableCells[k]).width());
+                $(tableCells[k]).css("height", $(tableCells[k]).height());
+            }
         });
 
         var showNewItemModal = function () {
@@ -623,6 +647,8 @@
                 show: true
             });
         }
+
+        
     </script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>

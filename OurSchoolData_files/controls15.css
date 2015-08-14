@@ -1,0 +1,375 @@
+.slm-layout-main {
+	margin: 0px; padding: 0px; border: 0px currentColor; width: 100%; overflow: hidden;
+}
+.slm-edit-ecb {
+	width: 40px; clear: both; float: left;
+}
+.slm-edit-ecb div {
+	padding: 2px 0px 0px 2px; vertical-align: middle;
+}
+.slm-edit-link {
+	padding: 1px 0px 0px 1px; vertical-align: top;
+}
+.slm-display-link {
+	padding: 0px; vertical-align: top;
+}
+.presence-status-icon {
+	width: 12px; height: 12px; padding-top: 1px; padding-right: 5px; padding-left: 0px; float: left;
+}
+.wp-content {
+	margin: 6px 0px 6px 4px;
+}
+.cbq-layout-main {
+	margin: 0px; padding: 0px; border: 0px currentColor; width: 100%;
+}
+.toc-layout-main .dfwp-list {
+	clear: both;
+}
+.toc-layout-main {
+	margin: 0px; padding: 0px; border: 0px currentColor; width: 100%;
+}
+.dfwp-list {
+	box-sizing: border-box; -moz-box-sizing: border-box;
+}
+.dfwp-column {
+	box-sizing: border-box; -moz-box-sizing: border-box;
+}
+.dfwp-list {
+	list-style: none; margin: 0px; padding: 0px;
+}
+.dfwp-column {
+	padding-left: 0.5em; float: left;
+}
+.item {
+	padding: 6px 0px 6px 4px; clear: both;
+}
+.slm-dragdrop-source .item {
+	clear: none;
+}
+.slm-dragdrop-source .groupheader {
+	clear: none;
+}
+.centered {
+	text-align: center;
+}
+.link-item-large {
+	font-size: 18pt;
+}
+.link-item-large a {
+	font-size: 18pt;
+}
+.link-item-large a:link {
+	font-size: 18pt;
+}
+.image-area-left {
+	padding-right: 5px; padding-left: 0px; float: left;
+}
+.image-area-right {
+	padding-right: 0px; padding-left: 5px; vertical-align: top; float: right;
+}
+.image-area-top {
+	padding-bottom: 5px;
+}
+.image {
+	border: 0px currentColor;
+}
+.image-fixed-width {
+	border: 0px currentColor; width: 90px;
+}
+.bullet {
+	background-position: left; border-width: 0px; border-color: inherit; padding-right: 0px; padding-left: 10px; vertical-align: top; background-image: url("/_layouts/images/lstbulet.gif"); background-repeat: no-repeat;
+}
+.groupheader {
+	text-align: left; clear: both; font-size: 10pt; font-weight: bold; margin-bottom: 5px;
+}
+.band {
+	padding: 2px 0px 2px 3px; background-color: rgb(228, 232, 240);
+}
+.large {
+	font-size: 18pt;
+}
+.small {
+	font-size: 8pt;
+}
+.medium {
+	font-size: 10pt;
+}
+.centered {
+	text-align: center;
+}
+.separator {
+	border: 1px solid rgb(51, 51, 51); clear: both;
+}
+.whitespace {
+	margin: 0px; padding: 0px 0px 10px; clear: both;
+}
+.level-header {
+	padding: 2px 0px;
+}
+.level-band {
+	padding: 2px 0px 2px 3px; margin-right: 3px; margin-left: 0px; background-color: rgb(228, 232, 240);
+}
+.level-description-padding {
+	padding-right: 0px; padding-bottom: 1px; padding-left: 15px;
+}
+.level-item-pos {
+	margin: 2px 3px; padding: 1px 0px;
+}
+.level-section {
+	clear: both; margin-bottom: 6px;
+}
+.level-section > ul > li {
+	margin-right: 2em; margin-left: 2em;
+}
+.level-bullet {
+	background-position: left; border-width: 0px; border-color: inherit; padding-right: 0px; padding-left: 10px; vertical-align: top; background-image: url("/_layouts/images/lstbulet.gif"); background-repeat: no-repeat;
+}
+.level-separator {
+	text-align: center; line-height: 2em; font-size: larger; vertical-align: middle; min-width: 20px;
+}
+.headertitle {
+	font-size: 10pt; font-weight: bold;
+}
+.headertitle a {
+	font-size: 10pt; font-weight: bold;
+}
+.headertitle a:link {
+	font-size: 10pt; font-weight: bold;
+}
+.headertitle-large {
+	font-size: 12pt; font-weight: bold;
+}
+.headertitle-large a {
+	font-size: 12pt; font-weight: bold;
+}
+.headertitle-large a:link {
+	font-size: 12pt; font-weight: bold;
+}
+.headertitle-small {
+	font-size: 8pt; font-weight: bold;
+}
+.headertitle-small a {
+	font-size: 8pt; font-weight: bold;
+}
+.headertitle-small a:link {
+	font-size: 8pt; font-weight: bold;
+}
+.headertitle-band {
+	font-size: 10pt; font-weight: bold;
+}
+.headertitle-band a {
+	font-size: 10pt; font-weight: bold;
+}
+.headertitle-band a:link {
+	font-size: 10pt; font-weight: bold;
+}
+.cqfeed {
+	text-align: right;
+}
+.ms-slDlg-BodyContainer {
+	width: 100%; height: 100%;
+}
+.ms-slDlg-FieldLabel {
+	padding-top: 10px; padding-bottom: 2px;
+}
+.ms-slDlg-IndentedFieldLabel {
+	padding-top: 5px; padding-bottom: 2px; padding-left: 10px;
+}
+.ms-slDlg-FieldDescription {
+	color: gray;
+}
+.ms-slDlg-BrowseButton {
+	margin-right: 5px; margin-left: 10px;
+}
+.ms-slLinkDlg-InputField {
+	width: 275px;
+}
+.ms-slLinkDlg-FirstPanel {
+	text-align: left; padding-top: 10px; padding-right: 20px; padding-left: 50px;
+}
+.ms-slLinkDlg-Panel {
+	text-align: left; padding-top: 0px; padding-right: 20px; padding-left: 50px;
+}
+.ms-slLinkDlg-PeoplePanel {
+	padding: 0px 20px 10px 50px; text-align: left; margin-top: 5px; background-color: rgb(214, 232, 255);
+}
+.ms-slDlg-ActionText {
+	padding-left: 5px;
+}
+.ms-slGroupDlg-InputField {
+	width: 362px;
+}
+.ms-slGroupDlg-Panel {
+	text-align: left; padding-top: 5px; padding-right: 20px; padding-left: 50px;
+}
+.ms-slViewDlg-InputField {
+	width: 362px;
+}
+.ms-slViewDlg-Panel {
+	text-align: left; padding-top: 5px; padding-right: 20px; padding-left: 50px;
+}
+.ms-slViewDlg-FirstPanel {
+	text-align: left; padding-top: 20px; padding-right: 20px; padding-left: 50px;
+}
+.ms-slSortDlg-Panel {
+	text-align: left; padding-top: 0px; padding-right: 0px; padding-left: 0px;
+}
+.listItem div.callOut a {
+	color: rgb(255, 255, 255);
+}
+.title-With-Background {
+	padding: 4px; margin-top: 5px; background-color: rgb(131, 176, 236);
+}
+div.title-With-Background a {
+	color: rgb(255, 255, 255); font-size: 12pt;
+}
+div.title-With-Background a:link {
+	color: rgb(255, 255, 255); font-size: 12pt;
+}
+div.title-With-Background a:hover {
+	color: rgb(255, 255, 255); font-size: 12pt;
+}
+div.title-With-Background a:visited {
+	color: rgb(255, 255, 255); font-size: 12pt;
+}
+div.title-With-Background a:active {
+	color: rgb(255, 255, 255); font-size: 12pt;
+}
+img.media-preview {
+	border: currentColor;
+}
+span.media-title {
+	display: block;
+}
+.mediaPlayerContainer {
+	float: left; position: relative; cursor: default !important; background-color: rgb(0, 0, 0);
+}
+.mediaPlayerVideoObject {
+	vertical-align: bottom;
+}
+.mediaPlayerTitleOverlay {
+	left: 0px; top: 0px; width: 100%; height: 20px; position: absolute; z-index: 1; opacity: 0.7; background-color: rgb(80, 80, 80);
+}
+.mediaPlayerTitleOverlay {
+	color: rgb(255, 255, 255);
+}
+.mediaPlayerTitleOverlay a {
+	color: rgb(255, 255, 255);
+}
+.mediaPlayerFullScreenEsc {
+	padding: 0.5em; border-radius: 10px; left: 40%; top: 50%; text-align: center; color: rgb(255, 255, 0); display: none; position: absolute; z-index: 1003; opacity: 0.9; background-color: rgb(80, 80, 80); -webkit-border-radius: 10px; -moz-border-radius: 10px;
+}
+.mediaPlayerLoadingIndicator {
+	border: 0px currentColor; left: 50%; top: 50%; display: block; position: absolute; z-index: 1;
+}
+div.mediaPlayerInitialPlayButton {
+	border-radius: 28px; border: 3.5px solid rgb(255, 255, 255); width: 47px; height: 47px; right: 15px; bottom: 15px; position: absolute; background-color: rgba(0, 0, 0, 0.6);
+}
+div.mediaPlayerInitialPlayButton:hover {
+	background-color: rgb(0, 0, 0);
+}
+div.mediaPlayerInitialPlayButton a span {
+	margin-top: 12px; margin-left: 19px; border-top-color: transparent; border-bottom-color: transparent; border-left-color: rgb(255, 255, 255); border-top-width: 11px; border-bottom-width: 11px; border-left-width: 16px; border-top-style: solid; border-bottom-style: solid; border-left-style: solid; display: block;
+}
+ul.mediaPlayerAdditionalControls {
+	list-style: none; top: 15px; right: 15px; position: absolute; z-index: 1;
+}
+ul.mediaPlayerAdditionalControls li a img {
+	border: 0px currentColor;
+}
+ul.mediaPlayerEncodingMenu {
+	list-style: none; padding: 2px; border-radius: 5px; width: 8em; right: 3em; bottom: 1px; color: rgb(255, 255, 255); position: absolute; z-index: 2; opacity: 0.85; background-color: rgb(80, 80, 80);
+}
+ul.mediaPlayerEncodingMenu li {
+	width: 8em; overflow: hidden; white-space: nowrap; -ms-text-overflow: ellipsis;
+}
+ul.mediaPlayerEncodingMenu li:hover {
+	color: rgb(128, 0, 0);
+}
+ul.mediaPlayerEncodingMenu li a:link {
+	color: inherit; text-decoration: none;
+}
+ul.mediaPlayerEncodingMenu li a:visited {
+	color: inherit; text-decoration: none;
+}
+.mediaPlayerEncodingMenu-active {
+	color: rgb(255, 255, 0);
+}
+.mediaPlayerContainer.mediaPlayerFullScreen {
+	left: 0px; top: 0px; width: 100%; height: 100%; right: 0px; bottom: 0px; overflow: hidden; position: fixed; z-index: 1000;
+}
+.mediaPlayerContainer.mediaPlayerFullScreen video {
+	left: 0px; top: 0px; width: 100%; height: 100%; overflow: hidden; position: absolute; z-index: 1001;
+}
+.mediaPlayerContainer.mediaPlayerFullScreen ul.mediaPlayerAdditionalControls {
+	z-index: 1002;
+}
+.mediaPlayerContainer.mediaPlayerFullScreen .mediaPlayerTitleOverlay {
+	z-index: 1002;
+}
+.mediaPlayerContainer.mediaPlayerFullScreen div.mediaPlayerInitialPlayButton {
+	z-index: 1002;
+}
+.mediaPlayerLoadingIndicator.mediaPlayerFullScreen {
+	z-index: 1002;
+}
+div#ECM_Shared_MediaPlayer_Background {
+	left: 0px; top: 0px; width: 100%; height: 100%; position: fixed; z-index: 500; opacity: 0.33; background-color: rgb(0, 0, 0);
+}
+.mediaPlayerContainer.mediaPlayerOverlay {
+	left: 15%; top: 15%; width: 70%; height: 70%; overflow: hidden; position: fixed; z-index: 500;
+}
+.mediaPlayerContainer.mediaPlayerOverlay video {
+	width: 100%; height: 100%; overflow: hidden; position: absolute; z-index: 501;
+}
+.mediaPlayerContainer.mediaPlayerOverlay ul.mediaPlayerAdditionalControls {
+	z-index: 502;
+}
+.mediaPlayerContainer.mediaPlayerOverlay .mediaPlayerTitleOverlay {
+	z-index: 502;
+}
+.mediaPlayerContainer.mediaPlayerOverlay .mediaPlayerLoadingIndicator {
+	z-index: 502;
+}
+.mediaPlayerDisabledControl {
+	margin-bottom: 5px;
+}
+.mediaPlayerControl {
+	margin-bottom: 5px;
+}
+.mediaPlayerControl {
+	height: 32px; background-color: rgb(102, 102, 102);
+}
+.mediaPlayerControl:hover {
+	background-color: rgba(156, 206, 240, 0.5);
+}
+.mediaPlayerDisabledControl {
+	background-color: rgb(177, 177, 177);
+}
+.ms-select {
+	margin-right: 2em; float: left;
+}
+.ms-select h2 {
+	cursor: pointer;
+}
+.ms-select li {
+	cursor: pointer;
+}
+.ms-select h2:hover {
+	color: rgb(185, 95, 0);
+}
+.ms-select li:hover {
+	color: rgb(185, 95, 0);
+}
+a.ms-accentText2:hover {
+	color: rgb(185, 95, 0);
+}
+.ms-select h2 img {
+	margin-left: 0.3em;
+}
+.ms-select ul {
+	margin: 0px; padding: 0px; overflow: hidden; list-style-type: none; box-shadow: -4px 2px 12px rgba(0,0,0,0.21); background-color: rgba(255, 255, 255, 0.7); -moz-box-shadow: -4px 2px 12px rgba(0, 0, 0, 0.21); -webkit-box-shadow: -4px 2px 12px rgba(0, 0, 0, 0.21);
+}
+.ms-select li {
+	margin: 0.7em;
+}

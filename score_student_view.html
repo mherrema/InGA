@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Inga Assesment Management</title>
+
+    <link href="css/xeditable.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/jasny-bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <style>
+        @import url('fonts/fontie_14394397501733/AvenirNextLTPro-Regular.css');
+        @import url('fonts/fontie_14394037598687/AvenirLTStd-Medium.css');
+    </style>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js"></script>
+    <script src="js/xeditable.min.js"></script>
+    <script src="js/app.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body ng-controller="MyController">
+    <div class="container" style="background-color:#ffffff;">
+        <div class="row">
+            <div class="title-row">
+                <div class="col-sm-6">
+                    <span class="page-type-title">ASSESSMENT STUDENT SCORE VIEW</span>
+                    <h2 class="title page-title">4th Grade - Progress Monitoring - Winter</h2>
+                </div>
+                <div class="col-sm-6">
+                    <button class="btn  top-button inga-btn inga-btn-positive" onclick="$('#newAssessmentModal').modal('show');">Save &amp; Exit</button>
+                    <button class="btn  top-button inga-btn inga-btn-negative" onclick="$('#newAssessmentModal').modal('show');">CLOSE</button>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="col-sm-12">
+                    <div class="search col-sm-4">
+                        <span class="glyphicon glyphicon-search card-search-icon" ng-click="toggleOpen()"></span>
+                    </div>
+                    <div class="previous-student col-sm-4">
+                        <span class="previous-student-text">PREVIOUS STUDENT</span>
+                    </div>
+                    <div class="view-buttons col-sm-4">
+                        <a class="btn inga-btn inga-btn-negative inga-icon-btn float-right"><i class="glyphicon glyphicon-user"></i>
+                        </a>
+                        <a href="assessment_class_score_view.html" class="btn inga-btn inga-btn-negative inga-icon-btn inactive float-right"><i class="glyphicon glyphicon-align-justify"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="letter-scrub">
+                <ul>
+                    <li>A</li>
+                    <li>B</li>
+                    <li>C</li>
+                    <li>D</li>
+                    <li>E</li>
+                    <li>F</li>
+                    <li>G</li>
+                    <li>H</li>
+                    <li>I</li>
+                    <li>J</li>
+                    <li>K</li>
+                    <li>L</li>
+                    <li>M</li>
+                    <li>N</li>
+                    <li>O</li>
+                    <li>P</li>
+                    <li>Q</li>
+                    <li>R</li>
+                    <li>S</li>
+                    <li>T</li>
+                    <li>U</li>
+                    <li>V</li>
+                    <li>W</li>
+                    <li>X</li>
+                    <li>Y</li>
+                    <li>Z</li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="info">
+                    <div class="absent-and-time">
+                        <span class="glyphicon glyphicon-ban-circle mark-absent"></span>
+                        <span class="timestamp">LAST AUTOSAVE 4/4/2015 10:00AM</span>
+                    </div>
+                    <div class="student">
+                        <h3>Johnny Mapleseed</h3>
+                    </div>
+                    <div class="inga-progress-bar">
+                        <h4>Progress barrrrrr</h4>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="scores">
+                    <div class="score-block">
+                        <div class="question-title">
+                            21(10) FP
+                        </div>
+                        <div class="question-score">
+                            5
+                        </div>
+                    </div>
+                    <div class="score-block">
+                        <div class="question-title">
+                            22(10) DAZE
+                        </div>
+                        <div class="question-score">
+                            50
+                        </div>
+                    </div>
+                    <div class="score-block active">
+                        <div class="active-view">
+                            <div class="question-title">
+                                21(10) FP
+                            </div>
+                            <div class="question-score">
+                                50
+                            </div>
+                        </div>
+                        <div class="question-title">
+                            21(10) FP
+                        </div>
+                        <div class="question-score">
+
+                        </div>
+                        
+                    </div>
+                    <div class="score-block">
+                        <div class="question-title">
+                            21(10) FP
+                        </div>
+                        <div class="question-score">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="input">
+                    <div class="previous-arrow-container col-sm-2">
+                        <span class="glyphicon glyphicon-chevron-left arrow"></span>
+                    </div>
+                    <div class="input-characters col-sm-8">
+                        <table class="input-table">
+                            <tr>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>5</td>
+                                <td>6</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td>8</td>
+                                <td>9</td>
+                            </tr>
+                            <tr>
+                                <td>&#35;</td>
+                                <td>0</td>
+                                <td>.</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="next-arrow-container col-sm-2">
+                        <span class="glyphicon glyphicon-chevron-right arrow"></span>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="next-student col-sm-6 col-sm-offset-3">
+                        <span class="next-student-text">NEXT STUDENT</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jasny-bootstrap.min.js"></script>
+</body>
+
+</html>

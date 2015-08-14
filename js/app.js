@@ -1,4 +1,8 @@
-angular.module('app', [])
+angular.module('app', ["xeditable"])
+
+.run(function(editableOptions) {
+  editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+})
 
 .controller('MyController', function ($scope, focus) {
         $scope.open = "";
