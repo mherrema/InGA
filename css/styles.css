@@ -1,4 +1,4 @@
-.webpart-wrapper{
+.webpart-wrapper {
     display: none;
 }
 
@@ -9,10 +9,11 @@ select {
 
 body {
     /*    background-color: #efefef;*/
+    
     font-family: "AvenirNextLTPro-Regular";
 }
 
-.inner-wrapper{
+.inner-wrapper {
     padding-top: 100px;
 }
 
@@ -22,6 +23,7 @@ h3,
 h4,
 h5 {
     font-family: "AvenirNextLTPro-Regular";
+    text-transform: none;
 }
 
 .title-row {
@@ -65,22 +67,30 @@ h5 {
     border-color: #1fbdd5;
 }
 
-.inga-btn-positive, .inga-btn-positive:active, .inga-btn-positive:focus {
+.inga-btn-positive,
+.inga-btn-positive:active,
+.inga-btn-positive:focus {
     background: #1fbdd5;
     color: #fff;
 }
 
-.inga-btn-positive:hover, .inga-btn-positive:active:hover, .inga-btn-positive:focus:hover{
+.inga-btn-positive:hover,
+.inga-btn-positive:active:hover,
+.inga-btn-positive:focus:hover {
     background: #0fadc5;
     color: #fff;
 }
 
-.inga-btn-negative, .inga-btn-negative:active, .inga-btn-negative:focus {
+.inga-btn-negative,
+.inga-btn-negative:active,
+.inga-btn-negative:focus {
     background: #fff;
     color: #1fbdd5;
 }
 
-.inga-btn-negative:hover, .inga-btn-negative:active:hover, .inga-btn-negative:focus:hover {
+.inga-btn-negative:hover,
+.inga-btn-negative:active:hover,
+.inga-btn-negative:focus:hover {
     background: #f4f4f4;
     color: #1fbdd5;
 }
@@ -128,11 +138,11 @@ h5 {
     padding-right: 30px;
 }
 
-.above-table-actions .btn{
+.above-table-actions .btn {
     margin-top: -5px;
 }
 
-.action-with-icon{
+.action-with-icon {
     margin-top: -1px;
 }
 
@@ -193,9 +203,11 @@ input[type="checkbox"] {
     cursor: pointer;
     outline: none;
 }
-.inga-table input[type="checkbox"]{
+
+.inga-table input[type="checkbox"] {
     margin-right: 28px;
     margin-top: 2px;
+    padding: 7px;
 }
 
 .inga-table tr td input[type="checkbox"] {
@@ -207,11 +219,16 @@ input[type="checkbox"] {
 
 .inga-table input[type="checkbox"]:hover {
     opacity: 1;
+    padding: 7px;
 }
 
 .inga-table input[type="checkbox"]:active,
 .inga-table input[type="checkbox"]:checked:active {
     /*	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);*/
+}
+
+.inga-table input[type="checkbox"] {
+    opacity: 0;
 }
 
 input[type="checkbox"]:checked {
@@ -220,15 +237,11 @@ input[type="checkbox"]:checked {
     opacity: 1;
 }
 
-.inga-table input[type="checkbox"]{
-    opacity: 0; 
+.inga-table tr td input[type="checkbox"] {
+    /*    opacity: 1;*/
 }
 
-.inga-table tr td input[type="checkbox"]{
-/*    opacity: 1;*/
-}
-
-.inga-table tr td input[type="checkbox"]:checked{
+.inga-table tr td input[type="checkbox"]:checked {
     opacity: 1;
 }
 
@@ -272,7 +285,7 @@ input[type="checkbox"]:checked:after {
     cursor: pointer;
 }
 
-.search-input-textbox {
+input[type=text].search-input-textbox {
     background: rgba(0, 0, 0, 0);
     border: none;
     border-bottom: #1fbdd5 1px solid;
@@ -354,7 +367,7 @@ input[type="checkbox"]:checked:after {
     z-index: 999;
 }
 
-.action-dropdown .dropdown-content{
+.action-dropdown .dropdown-content {
     padding-top: 15px;
     padding-left: 20px;
     padding-bottom: 15px;
@@ -374,10 +387,9 @@ input[type="checkbox"]:checked:after {
     display: block;
 }
 
-.above-table-actions .above-table-action{
+.above-table-actions .above-table-action {
     cursor: pointer;
 }
-
 /*Modal*/
 
 .modal-dialog {
@@ -404,7 +416,7 @@ input[type="checkbox"]:checked:after {
     font-size: 24px;
 }
 
-.modal-body{
+.modal-body {
     padding: 0px;
     padding-top: 15px;
     padding-bottom: 15px;
@@ -424,7 +436,7 @@ input[type="checkbox"]:checked:after {
     font-weight: 500;
 }
 
-.modal label.no-left-pad{
+.modal label.no-left-pad {
     padding-left: 0px;
 }
 
@@ -433,13 +445,13 @@ input[type="checkbox"]:checked:after {
     outline: none;
 }
 
-.modal input[type="checkbox"]{
+.modal input[type="checkbox"] {
     margin-right: 10px;
     margin-top: 0px;
     top: 4px;
 }
 
-.modal .checkbox-span{
+.modal .checkbox-span {
     font-size: 12px;
     font-family: "AvenirLTStd-Medium";
 }
@@ -455,37 +467,37 @@ input[type="checkbox"]:checked:after {
 }
 
 .modal.fade .modal-dialog {
-  -webkit-transform: translate(0, 0);
-  -ms-transform: translate(0, 0);
-  transform: translate(0, 0);
-  -webkit-transition: -webkit-transform 0.3s ease-out;
-  -moz-transition: -moz-transform 0.3s ease-out;
-  -o-transition: -o-transform 0.3s ease-out;
-  transition: transform 0.3s ease-out;
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    transform: translate(0, 0);
+    -webkit-transition: -webkit-transform 0.3s ease-out;
+    -moz-transition: -moz-transform 0.3s ease-out;
+    -o-transition: -o-transform 0.3s ease-out;
+    transition: transform 0.3s ease-out;
 }
 
-.modal-table-title{
+.modal-table-title {
     text-transform: uppercase;
     font-size: 13px;
     color: #0A7794;
 }
 
-.modal .right-btn{
+.modal .right-btn {
     float: right;
     margin-left: 15px;
 }
 
-.modal .table-title-row{
+.modal .table-title-row {
     padding-top: 20px;
     padding-bottom: 5px;
 }
 
-.modal-table{
+.modal-table {
     width: 100%;
     margin-bottom: 40px;
 }
 
-.modal-table th{
+.modal-table th {
     padding-top: 20px;
     padding-bottom: 15px;
     padding-left: 15px;
@@ -497,7 +509,7 @@ input[type="checkbox"]:checked:after {
     font-weight: 600;
 }
 
-.modal-table td{
+.modal-table td {
     font-size: 13px;
     padding-top: 15px;
     padding-bottom: 15px;
@@ -506,44 +518,50 @@ input[type="checkbox"]:checked:after {
     border: #D1D1D1 1px solid;
 }
 
-.modal-table .empty-table-row > td{
+.modal-table .empty-table-row > td {
     padding-left: 45px;
 }
-.modal-table th:first-child{
+
+.modal-table th:first-child {
     padding-left: 45px;
 }
-.modal-table th:last-child{
+
+.modal-table th:last-child {
     padding-right: 45px;
 }
-.modal-table td:first-child{
+
+.modal-table td:first-child {
     padding-left: 45px;
 }
-.below-table-checkbox{
+
+.below-table-checkbox {
     float: right;
 }
-.modal .below-table-btn-row{
+
+.modal .below-table-btn-row {
     padding-top: 20px;
     padding-bottom: 30px;
 }
 
 .modal {
-	-webkit-transform: scale(0.7);
-	-moz-transform: scale(0.7);
-	-ms-transform: scale(0.7);
-	transform: scale(0.7);
-	opacity: 0;
-	-webkit-transition: all 0.3s;
-	-moz-transition: all 0.3s;
-	transition: all 0.3s;
+    -webkit-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+    transform: scale(0.7);
+    opacity: 0;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
 }
 
 .modal.in {
-	-webkit-transform: scale(1);
-	-moz-transform: scale(1);
-	-ms-transform: scale(1);
-	transform: scale(1);
-	opacity: 1;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
 }
+
 .modal-title-with-back {
     padding-left: 30px;
     padding-top: 5px;
@@ -551,7 +569,8 @@ input[type="checkbox"]:checked:after {
     color: #177a9b;
     font-size: 24px;
 }
-.modal-title-back{
+
+.modal-title-back {
     padding-left: 30px;
     padding-top: 25px;
     margin-bottom: 0px;
@@ -560,47 +579,57 @@ input[type="checkbox"]:checked:after {
     cursor: pointer;
 }
 
-.modal .standard-information{
+.modal .standard-information {
     background: #f3f3f3;
     margin-right: 0px;
     margin-left: 0px;
     padding: 20px 30px 20px 30px;
 }
 
-.inga-btn:focus, .inga-btn:active, .inga-btn:active:focus, .inga-btn:active:hover{
+.inga-btn:focus,
+.inga-btn:active,
+.inga-btn:active:focus,
+.inga-btn:active:hover {
     outline: none;
     border-color: #1fbdd5;
 }
-.inga-btn-positive:focus, .inga-btn-positive:active{
+
+.inga-btn-positive:focus,
+.inga-btn-positive:active {
     background: #1fbdd5;
 }
-.inga-btn-negative:focus, .inga-btn-negative:active{
+
+.inga-btn-negative:focus,
+.inga-btn-negative:active {
     background: #fff;
 }
-.detail-text{
+
+.detail-text {
     margin-top: 0px;
     font-size: 13px;
 }
 
-table a, table a:hover{
+table a,
+table a:hover {
     color: rgb(51, 51, 51);
     text-decoration: none;
 }
 
-.always-transparent{
-    opacity: 0 !important;
-    cursor: default !important;
-}
-.always-transparent:after{
+.always-transparent {
     opacity: 0 !important;
     cursor: default !important;
 }
 
-.rowlink tr{
+.always-transparent:after {
+    opacity: 0 !important;
+    cursor: default !important;
+}
+
+.rowlink tr {
     cursor: pointer;
 }
 
-.rowlink tr:hover{
+.rowlink tr:hover {
     border-top: #1fbdd5 3px solid;
     border-bottom: #1fbdd5 3px solid;
 }
@@ -617,16 +646,16 @@ table a, table a:hover{
     transition: background .2s ease;
 }
 
-.inline-detail .detail-title{
+.inline-detail .detail-title {
     font-family: "AvenirLTStd-Medium";
     font-weight: 900;
 }
 
-.float-right{
+.float-right {
     float: right;
 }
 
-.inga-icon-btn{
+.inga-icon-btn {
     padding: 5px 8px;
     padding-bottom: 0px;
     margin-left: 10px;
@@ -634,23 +663,35 @@ table a, table a:hover{
     font-size: 20px;
 }
 
-.inga-icon-btn.inactive{
+.inga-icon-btn.inactive {
     color: #e5e5e5;
     border-color: #e5e5e5;
 }
 
-.editable-click, a.editable-click, .editable-empty, .editable-empty:hover, .editable-empty:focus, a.editable-empty, a.editable-empty:hover, a.editable-empty:focus{
+.editable-click,
+a.editable-click,
+.editable-empty,
+.editable-empty:hover,
+.editable-empty:focus,
+a.editable-empty,
+a.editable-empty:hover,
+a.editable-empty:focus {
     color: #333;
     border-bottom: none;
 }
 
-.editable-empty, .editable-empty:hover, .editable-empty:focus, a.editable-empty, a.editable-empty:hover, a.editable-empty:focus{
+.editable-empty,
+.editable-empty:hover,
+.editable-empty:focus,
+a.editable-empty,
+a.editable-empty:hover,
+a.editable-empty:focus {
     opacity: 0;
     height: 100%;
     display: block;
 }
 
-.editable-input{
+.editable-input {
     padding: 0px;
     padding-left: 20px;
     height: 22px;
@@ -658,15 +699,16 @@ table a, table a:hover{
     background: #fcfcfc;
 }
 
-.no-pad{
+.no-pad {
     padding: 0px !important;
 }
 
-.editable-click, a.editable-click{
+.editable-click,
+a.editable-click {
     padding-left: 20px;
 }
 
-.score-entry-table tr td{
+.score-entry-table tr td {
     padding: 0px;
 }
 
@@ -674,40 +716,40 @@ table a, table a:hover{
     padding: 12px 20px;
 }
 
-.previous-student{
+.previous-student {
     text-align: center;
     border-bottom: #1fbdd5 1px solid;
     padding-bottom: 10px;
 }
 
-.next-student{
+.next-student {
     text-align: center;
     border-top: #1fbdd5 1px solid;
     padding-top: 10px;
     margin-top: 20px;
 }
 
-.search > .card-search-icon{
+.search > .card-search-icon {
     font-size: 20px;
 }
 
-.letter-scrub{
+.letter-scrub {
     position: absolute;
 }
 
-.letter-scrub li{
+.letter-scrub li {
     list-style: none;
     padding-bottom: 3px;
     text-align: center;
     margin-left: 35px;
 }
 
-.card{
+.card {
     width: 500px;
     margin: 0 auto;
 }
 
-.card > .info{
+.card > .info {
     background: #1fbdd5;
     padding: 15px;
     border-top-left-radius: 8px;
@@ -715,28 +757,28 @@ table a, table a:hover{
     box-shadow: 0px 0px 8px #bbb;
 }
 
-.card > .info > .absent-and-time{
+.card > .info > .absent-and-time {
     color: #83dbe7;
 }
 
-.card > .info > .absent-and-time > .timestamp{
+.card > .info > .absent-and-time > .timestamp {
     float: right;
     font-size: 12px;
 }
 
-.card > .info > .absent-and-time > .mark-absent{
+.card > .info > .absent-and-time > .mark-absent {
     font-size: 18px;
 }
 
-.card > .info > .absent-and-time > .mark-absent:hover{
+.card > .info > .absent-and-time > .mark-absent:hover {
     color: #a3fbff;
 }
 
-.card > .info > .student{
+.card > .info > .student {
     color: #fff;
 }
 
-.card > .scores{
+.card > .scores {
     display: table;
     table-layout: fixed;
     width: 100%;
@@ -744,31 +786,31 @@ table a, table a:hover{
     height: 120px;
 }
 
-.card > .scores > .score-block{
+.card > .scores > .score-block {
     display: table-cell;
     border: #e4e4e4 1px solid;
     text-align: center;
 }
 
-.card > .scores > .score-block:first-child{
+.card > .scores > .score-block:first-child {
     border-left: none;
 }
 
-.card > .scores > .score-block:last-child{
+.card > .scores > .score-block:last-child {
     border-right: none;
 }
 
-.card > .scores > .score-block > .question-title{
+.card > .scores > .score-block > .question-title {
     padding-top: 25px;
     font-size: 12px;
 }
 
-.card > .scores > .score-block > .question-score{
+.card > .scores > .score-block > .question-score {
     padding-top: 10px;
     font-size: 25px;
 }
 
-.card > .scores > .score-block > .active-view{
+.card > .scores > .score-block > .active-view {
     position: absolute;
     margin-top: -15px;
     width: 135px;
@@ -779,43 +821,59 @@ table a, table a:hover{
     display: none;
 }
 
-.card > .scores > .score-block > .active-view > .question-title{
+.card > .scores > .score-block > .active-view > .question-title {
     font-size: 12px;
     padding-top: 35px;
 }
 
-.card > .scores > .score-block > .active-view > .question-score{
+.card > .scores > .score-block > .active-view > .question-score {
     padding-top: 5px;
     font-size: 35px;
 }
 
-.card > .scores > .score-block.active > .active-view{
+.card > .scores > .score-block.active > .active-view {
     display: block;
 }
 
-.card > .input{
+.card > .input {
     background: #424242;
     color: #fff;
     font-family: "AvenirNextLTPro-Regular";
 }
 
-.card > .input .arrow{
+.card > .input .arrow {
     margin-top: 130px;
     font-size: 30px;
 }
 
-.card > .input > .input-characters > .input-table{
+.card > .input > .input-characters > .input-table {
     width: 100%;
     margin-top: 30px;
     margin-bottom: 20px;
     text-align: center;
 }
 
-.card > .input > .input-characters >  tr{
+.card > .input > .input-characters > tr {
     margin-bottom: 25px;
 }
 
-.card > .input > .input-characters td{
+.card > .input > .input-characters td {
     font-size: 30px;
     padding: 10px;
+}
+
+#ctl00_SPSecurityTrimmedControlRibbon {
+    display: none;
+}
+
+.modal-header {
+    padding: 15px;
+    width: 100%;
+    border-bottom-width: 0px;
+    opacity: 1;
+    background-color: #fff;
+}
+
+a:visited{
+    color:rgb(51, 51, 51);
 }
