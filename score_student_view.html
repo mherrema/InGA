@@ -1,34 +1,535 @@
-<!DOCTYPE html>
-<html lang="en" ng-app="app">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Inga Assesment Management</title>
-
-    <link href="css/xeditable.css" rel="stylesheet">
+<!DOCTYPE HTML>
+<!-- saved from url=(0035)https://www.ourschooldata.org/ -->
+<!DOCTYPE html PUBLIC "" ""><HTML lang="en-US" dir="ltr" ng-app="app"><HEAD 
+id="ctl00_Head1"><META content="IE=10.0000" http-equiv="X-UA-Compatible">
+         <!--[if lte IE 8]>
+            <script type="text/javascript" src="/_layouts/15/KISD.IGOR.SP13/js/app/ie8-fix.js"></script>
+        <![endif]--> 
+        
+<META http-equiv="X-UA-Compatible" content="IE=10">
+<META charset="utf-8">
+<META name="GENERATOR" content="MSHTML 11.00.10240.16391">
+<META http-equiv="Expires" content="0"><TITLE>	                OurSchoolData     
+        </TITLE><LINK id="CssRegistration1" href="OurSchoolData_files/pagelayouts15.css" 
+rel="stylesheet" type="text/css"> <LINK id="CssRegistration1" href="OurSchoolData_files/corev15.css" 
+rel="stylesheet" type="text/css"> <LINK href="OurSchoolData_files/controls15.css" 
+rel="stylesheet" type="text/css"> 
+    
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/jasny-bootstrap.min.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
+    
     <style>
         @import url('fonts/fontie_14394397501733/AvenirNextLTPro-Regular.css');
         @import url('fonts/fontie_14394037598687/AvenirLTStd-Medium.css');
     </style>
 
-
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js"></script>
-    <script src="js/xeditable.min.js"></script>
+        <script src="js/xeditable.min.js"></script>
+
     <script src="js/app.js"></script>
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-</head>
+<!--
+<SCRIPT src="/_layouts/15/init.js?rev=0%2BjgcYFw8Xoj0N42kzP%2BcQ%3D%3D" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="/ScriptResource.axd?d=u4ORzokcxOZzyPbE1BbZ2Cp6gueRSTHzBTJU0eG41c4BJ9ycw0GZpFyUSsjfMTscYnEGKMVfWpKOtv2nPot9L5sVgK35swMp9hwjA8aIYqeAHVhS94ARSk3IqF0M6cJa_UC8BL30tySblAzYTUEQKQJO3YQQQykHClXg4TS6z_JIOayBEGXg2KnPV-xgoUWg0&amp;t=ffffffffb53e74b8" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="/_layouts/15/blank.js?rev=ZaOXZEobVwykPO9g8hq%2F8A%3D%3D" type="text/javascript"></SCRIPT>
+ 
+<SCRIPT src="/ScriptResource.axd?d=TQ1446GBjVlv2WvMEhV558s0LciCZzAfkNpmkgoESf_-WSy_xO40rxC0-1w427PxI4I6f1ImF741e0oyJfIizO7izLHYR8aBHwZTtvyT4xfJACu2Jx8oQNiGXWmRBOEm9qQhK1uKDK2hhEL7Lupy1T7ePvqRVNFRiKa2h6i9ct6ifeLEVjIw-MVHIw1EDzd80&amp;t=ffffffffb53e74b8" type="text/javascript"></SCRIPT>
+-->
+ 
+<!--
+<SCRIPT type="text/javascript">RegisterSod("initstrings.js", "\u002f_layouts\u002f15\u002f1033\u002finitstrings.js?rev=2N3pk\u00252FwjnG3Tj9o5NrqHcg\u00253D\u00253D");</SCRIPT>
+ 
+<SCRIPT type="text/javascript">RegisterSod("strings.js", "\u002f_layouts\u002f15\u002f1033\u002fstrings.js?rev=y6khbhv1Os2YPb5X0keqRg\u00253D\u00253D");RegisterSodDep("strings.js", "initstrings.js");</SCRIPT>
+ 
+<SCRIPT type="text/javascript">RegisterSod("sp.init.js", "\u002f_layouts\u002f15\u002fsp.init.js?rev=jvJC3Kl5gbORaLtf7kxULQ\u00253D\u00253D");</SCRIPT>
+ 
+<SCRIPT type="text/javascript">RegisterSod("sp.res.resx", "\u002f_layouts\u002f15\u002fScriptResx.ashx?culture=en\u00252Dus\u0026name=SP\u00252ERes\u0026rev=yNk\u00252FhRzgBn40LJVP\u00252BqfgdQ\u00253D\u00253D");</SCRIPT>
+ 
+-->
+<!--
+<SCRIPT type="text/javascript">RegisterSod("sp.ui.dialog.js", "\u002f_layouts\u002f15\u002fsp.ui.dialog.js?rev=0xf6wCIW4E1pN83I9nSIJQ\u00253D\u00253D");RegisterSodDep("sp.ui.dialog.js", "sp.init.js");RegisterSodDep("sp.ui.dialog.js", "sp.res.resx");</SCRIPT>
+ 
+<SCRIPT type="text/javascript">RegisterSod("core.js", "\u002f_layouts\u002f15\u002fcore.js?rev=drep\u00252FVpUvfktWJG\u00252Fl4UQ\u00252Bg\u00253D\u00253D");RegisterSodDep("core.js", "strings.js");</SCRIPT>
+ 
+<SCRIPT type="text/javascript">RegisterSod("menu.js", "\u002f_layouts\u002f15\u002fmenu.js?rev=q3IuDaBADYgaV\u00252BNJoTKbmA\u00253D\u00253D");</SCRIPT>
+ 
+<SCRIPT type="text/javascript">RegisterSod("mQuery.js", "\u002f_layouts\u002f15\u002fmquery.js?rev=VYAJYBo5H8I3gVSL3MzD6A\u00253D\u00253D");</SCRIPT>
+ 
+<SCRIPT type="text/javascript">RegisterSod("callout.js", "\u002f_layouts\u002f15\u002fcallout.js?rev=ryx2n4ePkYj1\u00252FALmcsXZfA\u00253D\u00253D");RegisterSodDep("callout.js", "strings.js");RegisterSodDep("callout.js", "mQuery.js");RegisterSodDep("callout.js", "core.js");</SCRIPT>
+ 
+<SCRIPT type="text/javascript">RegisterSod("clienttemplates.js", "\u002f_layouts\u002f15\u002fclienttemplates.js?rev=y3xh0qyJB62CM2ZD4nL8tw\u00253D\u00253D");RegisterSodDep("clienttemplates.js", "initstrings.js");</SCRIPT>
+ 
+<SCRIPT type="text/javascript">RegisterSod("sharing.js", "\u002f_layouts\u002f15\u002fsharing.js?rev=kuxIlOxkkypT9A17r72Ljw\u00253D\u00253D");RegisterSodDep("sharing.js", "strings.js");RegisterSodDep("sharing.js", "mQuery.js");RegisterSodDep("sharing.js", "clienttemplates.js");RegisterSodDep("sharing.js", "core.js");</SCRIPT>
+ 
+<SCRIPT type="text/javascript">RegisterSod("suitelinks.js", "\u002f_layouts\u002f15\u002fsuitelinks.js?rev=REwVU5jSsadDdOZlCx4wpA\u00253D\u00253D");RegisterSodDep("suitelinks.js", "strings.js");RegisterSodDep("suitelinks.js", "core.js");</SCRIPT>
+ 
+<SCRIPT type="text/javascript">RegisterSod("sp.runtime.js", "\u002f_layouts\u002f15\u002fsp.runtime.js?rev=5f2WkYJoaxlIRdwUeg4WEg\u00253D\u00253D");RegisterSodDep("sp.runtime.js", "sp.res.resx");</SCRIPT>
+ 
+<SCRIPT type="text/javascript">RegisterSod("sp.js", "\u002f_layouts\u002f15\u002fsp.js?rev=38t1tBEEonTR8ozTCV4YrA\u00253D\u00253D");RegisterSodDep("sp.js", "sp.runtime.js");RegisterSodDep("sp.js", "sp.ui.dialog.js");RegisterSodDep("sp.js", "sp.res.resx");</SCRIPT>
+ 
+<SCRIPT type="text/javascript">RegisterSod("userprofile", "\u002f_layouts\u002f15\u002fsp.userprofiles.js?rev=Pbfi3FBmvy2ewPqDZp16\u00252BQ\u00253D\u00253D");RegisterSodDep("userprofile", "sp.runtime.js");</SCRIPT>
+ 
+<SCRIPT type="text/javascript">RegisterSod("followingcommon.js", "\u002f_layouts\u002f15\u002ffollowingcommon.js?rev=sObFmln\u00252BGVrczIpXNeFRrg\u00253D\u00253D");RegisterSodDep("followingcommon.js", "strings.js");RegisterSodDep("followingcommon.js", "sp.js");RegisterSodDep("followingcommon.js", "userprofile");RegisterSodDep("followingcommon.js", "core.js");RegisterSodDep("followingcommon.js", "mQuery.js");</SCRIPT>
+ 
+<SCRIPT type="text/javascript">RegisterSod("profilebrowserscriptres.resx", "\u002f_layouts\u002f15\u002fScriptResx.ashx?culture=en\u00252Dus\u0026name=ProfileBrowserScriptRes\u0026rev=J5HzNnB\u00252FO1Id\u00252FGI18rpRcw\u00253D\u00253D");</SCRIPT>
+ 
+<SCRIPT type="text/javascript">RegisterSod("sp.ui.mysitecommon.js", "\u002f_layouts\u002f15\u002fsp.ui.mysitecommon.js?rev=Ua8qmZSU9nyf53S7PEyJwQ\u00253D\u00253D");RegisterSodDep("sp.ui.mysitecommon.js", "sp.init.js");RegisterSodDep("sp.ui.mysitecommon.js", "sp.runtime.js");RegisterSodDep("sp.ui.mysitecommon.js", "userprofile");RegisterSodDep("sp.ui.mysitecommon.js", "profilebrowserscriptres.resx");</SCRIPT>
+ 
+<SCRIPT type="text/javascript">RegisterSod("browserScript", "\u002f_layouts\u002f15\u002fie55up.js?rev=0R4dbpInVlmjoVSw2Gglmw\u00253D\u00253D");RegisterSodDep("browserScript", "strings.js");</SCRIPT>
+ 
+<SCRIPT type="text/javascript">RegisterSod("inplview", "\u002f_layouts\u002f15\u002finplview.js?rev=FJslh\u00252FITKI8BRLkElp\u00252FWdA\u00253D\u00253D");RegisterSodDep("inplview", "strings.js");RegisterSodDep("inplview", "core.js");RegisterSodDep("inplview", "sp.js");</SCRIPT>
+ 
+<SCRIPT type="text/javascript">RegisterSod("datepicker.js", "\u002f_layouts\u002f15\u002fdatepicker.js?rev=rG6q4pRH1LERpfn53ncDpA\u00253D\u00253D");RegisterSodDep("datepicker.js", "strings.js");</SCRIPT>
+ 
+<SCRIPT type="text/javascript">RegisterSod("offline.js", "\u002f_layouts\u002f15\u002foffline.js?rev=5NCDZdcT1qj5k8yEP01AKA\u00253D\u00253D");</SCRIPT>
+ 
+<SCRIPT type="text/javascript">RegisterSod("sp.core.js", "\u002f_layouts\u002f15\u002fsp.core.js?rev=tZDGLPOvY1bRw\u00252BsgzXpxTg\u00253D\u00253D");RegisterSodDep("sp.core.js", "strings.js");RegisterSodDep("sp.core.js", "sp.init.js");RegisterSodDep("sp.core.js", "core.js");</SCRIPT>
+ 
+<SCRIPT type="text/javascript">RegisterSod("cui.js", "\u002f_layouts\u002f15\u002fcui.js?rev=xnkvKcaTLxRah8B2ooWw4Q\u00253D\u00253D");</SCRIPT>
+ 
+<SCRIPT type="text/javascript">RegisterSod("ribbon", "\u002f_layouts\u002f15\u002fsp.ribbon.js?rev=HuKvLijAVokRXAsG0Ib\u00252FKQ\u00253D\u00253D");RegisterSodDep("ribbon", "strings.js");RegisterSodDep("ribbon", "core.js");RegisterSodDep("ribbon", "sp.core.js");RegisterSodDep("ribbon", "sp.js");RegisterSodDep("ribbon", "cui.js");RegisterSodDep("ribbon", "sp.res.resx");RegisterSodDep("ribbon", "sp.runtime.js");RegisterSodDep("ribbon", "inplview");</SCRIPT>
+ 
+<SCRIPT type="text/javascript">RegisterSod("WPAdderClass", "\u002f_layouts\u002f15\u002fwpadder.js?rev=ApLnd\u00252BqIPjLXRfr1t\u00252BCxyQ\u00253D\u00253D");</SCRIPT>
+-->
+ <LINK href="/_vti_bin/spsdisco.aspx" rel="alternate" type="text/xml">		 <!-- _lcid="1033" _version="15.0.4701" _dal="1" --> <!-- _LocalBinding --> 
+
+<LINK href="https://www.ourschooldata.org:443/" rel="canonical">        <!-- <LINK 
+href="OurSchoolData_files/bootstrap-3.0.0.min.css" rel="stylesheet" type="text/css"> 
+-->
+        <LINK href="OurSchoolData_files/normalize.css" rel="stylesheet" type="text/css"> 
+        <LINK href="OurSchoolData_files/styles.css" rel="stylesheet" type="text/css"> 
+        <LINK href="OurSchoolData_files/angular-ui.min.css" rel="stylesheet" 
+type="text/css">         <LINK href="OurSchoolData_files/select2.css" rel="stylesheet" 
+type="text/css">         <LINK href="OurSchoolData_files/css.css" rel="stylesheet" 
+type="text/css">         
+<!--<SCRIPT src="/_layouts/15/KISD.IGOR.SP13/js/frameworks/modernizr/modernizr.js?v=1.0.0.2" type="text/javascript"></SCRIPT>-->
+     
+<STYLE type="text/css">
+	.s4-skipribbonshortcut { display:none; }
+
+</STYLE>
+            <link href="css/styles.css" rel="stylesheet">
+</HEAD>
+            <BODY ng-controller="MyController">
+<FORM id="aspnetForm" onsubmit="javascript:return WebForm_OnSubmit();" action="" 
+method="post">
+<DIV class="aspNetHidden"><INPUT name="_wpcmWpid" id="_wpcmWpid" type="hidden"> 
+<INPUT name="wpcmVal" id="wpcmVal" type="hidden"> <INPUT name="MSOWebPartPage_PostbackSource" id="MSOWebPartPage_PostbackSource" type="hidden"> 
+<INPUT name="MSOTlPn_SelectedWpId" id="MSOTlPn_SelectedWpId" type="hidden"> 
+<INPUT name="MSOTlPn_View" id="MSOTlPn_View" type="hidden" value="0"> 
+<INPUT name="MSOTlPn_ShowSettings" id="MSOTlPn_ShowSettings" type="hidden" value="False"> 
+<INPUT name="MSOGallery_SelectedLibrary" id="MSOGallery_SelectedLibrary" type="hidden"> 
+<INPUT name="MSOGallery_FilterString" id="MSOGallery_FilterString" type="hidden"> 
+<INPUT name="MSOTlPn_Button" id="MSOTlPn_Button" type="hidden" value="none"> 
+<INPUT name="__EVENTTARGET" id="__EVENTTARGET" type="hidden"> <INPUT name="__EVENTARGUMENT" id="__EVENTARGUMENT" type="hidden"> 
+<INPUT name="__REQUESTDIGEST" id="__REQUESTDIGEST" type="hidden" value="0xEF89CF410607F3D9C9E710FFD0A603E92B9A45C9424C0E6728BDD852AFF55A00F0364380684B7B32EA3CA0196C807331563608A660B97F913983AB8D99DEAE86,03 Aug 2015 15:25:51 -0000"> 
+<INPUT name="MSOAuthoringConsole_FormContext" id="MSOAuthoringConsole_FormContext" type="hidden"> 
+<INPUT name="MSOAC_EditDuringWorkflow" id="MSOAC_EditDuringWorkflow" type="hidden"> 
+<INPUT name="InputComments" id="InputComments" type="hidden"> <INPUT name="MSOSPWebPartManager_DisplayModeName" id="MSOSPWebPartManager_DisplayModeName" type="hidden" value="Browse"> 
+<INPUT name="MSOSPWebPartManager_ExitingDesignMode" id="MSOSPWebPartManager_ExitingDesignMode" type="hidden" value="false"> 
+<INPUT name="MSOWebPartPage_Shared" id="MSOWebPartPage_Shared" type="hidden"> 
+<INPUT name="MSOLayout_LayoutChanges" id="MSOLayout_LayoutChanges" type="hidden"> 
+<INPUT name="MSOLayout_InDesignMode" id="MSOLayout_InDesignMode" type="hidden"> 
+<INPUT name="_wpSelected" id="_wpSelected" type="hidden"> <INPUT name="_wzSelected" id="_wzSelected" type="hidden"> 
+<INPUT name="MSOSPWebPartManager_OldDisplayModeName" id="MSOSPWebPartManager_OldDisplayModeName" type="hidden" value="Browse"> 
+<INPUT name="MSOSPWebPartManager_StartWebPartEditingName" id="MSOSPWebPartManager_StartWebPartEditingName" type="hidden" value="false"> 
+<INPUT name="MSOSPWebPartManager_EndWebPartEditing" id="MSOSPWebPartManager_EndWebPartEditing" type="hidden" value="false"> 
+<INPUT name="__LASTFOCUS" id="__LASTFOCUS" type="hidden"> <INPUT name="_maintainWorkspaceScrollPosition" id="_maintainWorkspaceScrollPosition" type="hidden" value="0"> 
+<INPUT name="__VIEWSTATE" id="__VIEWSTATE" type="hidden" value="/wEPDwUKMTMzMjgwNDA1MA9kFgJmD2QWAgIBD2QWBGYPZBYCAhMPZBYCAgEPZBYCZg88KwAGAGQCAg9kFgYCAQ9kFggFJmdfNDJkNTQyNzZfM2I1OV80OTBmXzg3MzNfYTQ5Nzc4ODE0YjI0D2QWBGYPFgIeB1Zpc2libGVoZAIBDxYCHwBoZAUmZ19iMjQ2Mjg5Ml80YWIzXzQyZDlfOTkyMF9kNTIyNjQwNzY2YzMPZBYEZg8WAh8AaGQCAQ8WAh8AaGQFJmdfOWVhNzExN2JfODJkNl80YzM5X2I3M2JfOGQxM2Q2OGEzMGM1Dw9kZGQFJmdfZWQwZTE0M2FfOWQzZF80M2UzXzk4MjdfMjJiYTU4ZGE4ZDg1Dw9kZGQCBQ9kFgICAQ9kFgICAg9kFgYCAw9kFgICAQ9kFgJmDw8WAh8AaGRkAgUPZBYCAgMPZBYCZg9kFgQCAg9kFgoCAQ8WBh4TQ2xpZW50T25DbGlja1NjcmlwdAVtRW5zdXJlU2NyaXB0RnVuYygnc2hhcmluZy5qcycsICdEaXNwbGF5U2hhcmVkV2l0aERpYWxvZycsIGZ1bmN0aW9uICgpIHsgRGlzcGxheVNoYXJlZFdpdGhEaWFsb2coJ1x1MDAyZicpOyB9KR4oQ2xpZW50T25DbGlja1NjcmlwdENvbnRhaW5pbmdQcmVmaXhlZFVybAVtRW5zdXJlU2NyaXB0RnVuYygnc2hhcmluZy5qcycsICdEaXNwbGF5U2hhcmVkV2l0aERpYWxvZycsIGZ1bmN0aW9uICgpIHsgRGlzcGxheVNoYXJlZFdpdGhEaWFsb2coJ1x1MDAyZicpOyB9KR4YQ2xpZW50T25DbGlja05hdmlnYXRlVXJsZGQCAw8WCB8AaB8BBXp3aW5kb3cubG9jYXRpb24gPSAnamF2YXNjcmlwdDpFbnN1cmVDaGVja291dEFuZENoYW5nZUxheW91dE1vZGVUb0VkaXQoXCcyN2U0MThmMC0yOGVjLTRjZTQtYWJlMi1lODcwODQ4NTZiMGJcJywyLGZhbHNlKTsnOx8CZB8DBWVqYXZhc2NyaXB0OkVuc3VyZUNoZWNrb3V0QW5kQ2hhbmdlTGF5b3V0TW9kZVRvRWRpdChcJzI3ZTQxOGYwLTI4ZWMtNGNlNC1hYmUyLWU4NzA4NDg1NmIwYlwnLDIsZmFsc2UpO2QCBQ8WAh8AaGQCCw8WAh8AaGQCEQ9kFgJmDw8WBh4cUHJldmlvdXNBdXRob3JpbmdJdGVtVmVyc2lvbgUCMjQeGlByZXZpb3VzQXV0aG9yaW5nSXRlbU93bmVyBQEyHhxQcmV2aW91c0F1dGhvcmluZ0NvbnRyb2xNb2RlCymIAU1pY3Jvc29mdC5TaGFyZVBvaW50LldlYkNvbnRyb2xzLlNQQ29udHJvbE1vZGUsIE1pY3Jvc29mdC5TaGFyZVBvaW50LCBWZXJzaW9uPTE1LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPTcxZTliY2UxMTFlOTQyOWMBZGQCAw8PFgIeCUFjY2Vzc0tleQUBL2RkAgcPZBYCAgEPZBYCAgEPZBYIAgEPDxYEHgRfIVNCAgIeCENzc0NsYXNzBRdtcy1wcm9tb3RlZEFjdGlvbkJ1dHRvbmRkAgMPZBYCZg8PFgQfCAICHwkFF21zLXByb21vdGVkQWN0aW9uQnV0dG9uZGQCBQ8PFgYfAGgfCAICHwkFF21zLXByb21vdGVkQWN0aW9uQnV0dG9uZGQCBw8WAh8AaGQCCQ9kFgICAQ8WAh4TUHJldmlvdXNDb250cm9sTW9kZQsrBAFkZJcpKh5GlzMKV33cDM2OM4yv7eFtxBZyySGSS3BPgmoL"> 
+</DIV>
+<SCRIPT type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</SCRIPT>
+ 
+<!--<SCRIPT src="/WebResource.axd?d=gyk2PRn52dZeWG1mGoWbudOETm2XjsfCCQXn8i3TQhI2pDAErFyg3IEPHWEXmjTcFzB4JfAsmaBzBHIOAwpCc7nsVkC2wr2lxhfLDp6ohXw1&amp;t=635370703830190538" type="text/javascript"></SCRIPT>-->
+ 
+<SCRIPT type="text/javascript">
+//<![CDATA[
+var MSOWebPartPageFormName = 'aspnetForm';
+var g_presenceEnabled = true;
+var g_wsaEnabled = false;
+var g_wsaQoSEnabled = false;
+var g_wsaQoSDataPoints = [];
+var g_wsaLCID = 1033;
+var g_wsaListTemplateId = 850;
+var g_wsaSiteTemplateId = 'BLANKINTERNET#0';
+var _fV4UI=true;var _spPageContextInfo = {webServerRelativeUrl: "\u002f", webAbsoluteUrl: "https:\u002f\u002fwww.ourschooldata.org", siteAbsoluteUrl: "https:\u002f\u002fwww.ourschooldata.org", serverRequestPath: "\u002fPages\u002fdefault.aspx", layoutsUrl: "_layouts\u002f15", webTitle: "IGOR", webTemplate: "53", tenantAppVersion: "0", isAppWeb: false, webLogoUrl: "_layouts\u002f15\u002fimages\u002fsiteicon.png", webLanguage: 1033, currentLanguage: 1033, currentUICultureName: "en-US", currentCultureName: "en-US", clientServerTimeDelta: new Date("2015-08-03T15:25:51.5231109Z") - new Date(), siteClientTag: "268$$15.0.4701.1000", crossDomainPhotosEnabled:false, webUIVersion:15, webPermMasks:{High:2147483647,Low:4294967295},pageListId:"{27e418f0-28ec-4ce4-abe2-e87084856b0b}",pageItemId:2, pagePersonalizationScope:1,userId:27, systemUserKey:"i:0#.f|igor_users|kent_admin", alertsEnabled:true, siteServerRelativeUrl: "\u002f", allowSilverlightPrompt:'True'};
+                            function DoCallBack(filterText)
+                            {WebForm_DoCallback('ctl00$SPWebPartManager1$g_9ea7117b_82d6_4c39_b73b_8d13d68a30c5',filterText,UpdateFilterCallback,0,CallBackError,true)
+                            }
+                            function CallBackError(result, clientsideString)
+                            {                
+                            }
+                        var L_Menu_BaseUrl="";
+var L_Menu_LCID="1033";
+var L_Menu_SiteTheme="null";
+//document.onreadystatechange=fnRemoveAllStatus; function fnRemoveAllStatus(){removeAllStatus(true)};var _spWebPartComponents = new Object();//]]>
+</SCRIPT>
+ 
+<!--<SCRIPT src="/_layouts/15/blank.js?rev=ZaOXZEobVwykPO9g8hq%2F8A%3D%3D" type="text/javascript"></SCRIPT>-->
+ 
+<SCRIPT type="text/javascript">
+//<![CDATA[
+(function(){
+
+        if (typeof(_spBodyOnLoadFunctions) === 'undefined' || _spBodyOnLoadFunctions === null) {
+            return;
+        }
+        _spBodyOnLoadFunctions.push(function() 
+        {
+          ExecuteOrDelayUntilScriptLoaded(
+            function()
+            {
+              var pairs = SP.ScriptHelpers.getDocumentQueryPairs();
+              var followDoc, itemId, listId, docName;
+              for (var key in pairs)
+              {
+                if(key.toLowerCase() == 'followdocument') 
+                  followDoc = pairs[key];
+                else if(key.toLowerCase() == 'itemid') 
+                  itemId = pairs[key];
+                else if(key.toLowerCase() == 'listid') 
+                  listId = pairs[key];
+                else if(key.toLowerCase() == 'docname') 
+                  docName = decodeURI(pairs[key]);
+              } 
+
+              if(followDoc != null && followDoc == '1' && listId!=null && itemId != null && docName != null)
+              {
+                SP.SOD.executeFunc('followingcommon.js', 'FollowDocumentFromEmail', function() 
+                { 
+                  FollowDocumentFromEmail(itemId, listId, docName);
+                });
+              }
+
+            }, 'SP.init.js');
+
+        });
+    })();(function(){
+
+        if (typeof(_spBodyOnLoadFunctions) === 'undefined' || _spBodyOnLoadFunctions === null) {
+            return;
+        }
+        _spBodyOnLoadFunctions.push(function() {
+
+            if (typeof(SPClientTemplates) === 'undefined' || SPClientTemplates === null || (typeof(APD_InAssetPicker) === 'function' && APD_InAssetPicker())) {
+                return;
+            }
+
+            var renderFollowFooter = function(renderCtx,  calloutActionMenu)
+            {
+                if (renderCtx.ListTemplateType == 700) 
+                    myDocsActionsMenuPopulator(renderCtx, calloutActionMenu);
+                else
+                    CalloutOnPostRenderTemplate(renderCtx, calloutActionMenu);
+
+                var listItem = renderCtx.CurrentItem;
+                if (typeof(listItem) === 'undefined' || listItem === null) {
+                    return;
+                }
+                if (listItem.FSObjType == 0) {
+                    calloutActionMenu.addAction(new CalloutAction({
+                        text: Strings.STS.L_CalloutFollowAction,
+                        tooltip: Strings.STS.L_CalloutFollowAction_Tooltip,
+                        onClickCallback: function (calloutActionClickEvent, calloutAction) {
+                            var callout = GetCalloutFromRenderCtx(renderCtx);
+                            if (!(typeof(callout) === 'undefined' || callout === null))
+                                callout.close();
+                            SP.SOD.executeFunc('followingcommon.js', 'FollowSelectedDocument', function() { FollowSelectedDocument(renderCtx); });
+                        }
+                    }));
+                }
+            };
+
+            var registerOverride = function(id) {
+                var followingOverridePostRenderCtx = {};
+                followingOverridePostRenderCtx.BaseViewID = 'Callout';
+                followingOverridePostRenderCtx.ListTemplateType = id;
+                followingOverridePostRenderCtx.Templates = {};
+                followingOverridePostRenderCtx.Templates.Footer = function(renderCtx) {
+                    var  renderECB;
+                    if (typeof(isSharedWithMeView) === 'undefined' || isSharedWithMeView === null) {
+                        renderECB = true;
+                    } else {
+                        var viewCtx = getViewCtxFromCalloutCtx(renderCtx);
+                        renderECB = !isSharedWithMeView(viewCtx);
+                    }
+                    return CalloutRenderFooterTemplate(renderCtx, renderFollowFooter, renderECB);
+                };
+                SPClientTemplates.TemplateManager.RegisterTemplateOverrides(followingOverridePostRenderCtx);
+            }
+            registerOverride(101);
+            registerOverride(700);
+        });
+    })();if (typeof(DeferWebFormInitCallback) == 'function') DeferWebFormInitCallback();function WebForm_OnSubmit() {
+UpdateFormDigest('\u002f', 1440000);
+                    var workspaceElem = GetCachedElement("s4-workspace");
+                    if (workspaceElem != null)
+                    {
+                        var scrollElem = GetCachedElement("_maintainWorkspaceScrollPosition");
+                        if (scrollElem != null)
+                        {
+                            scrollElem.value = workspaceElem.scrollTop;
+                        }
+                    };
+                if (typeof(_spFormOnSubmitWrapper) != 'undefined') {return _spFormOnSubmitWrapper();} else {return true;};
+return true;
+}
+//]]>
+</SCRIPT>
+ 
+<DIV class="aspNetHidden"><INPUT name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" type="hidden" value="16722CB0">
+	 <INPUT name="__SCROLLPOSITIONX" id="__SCROLLPOSITIONX" type="hidden" value="0">
+	 <INPUT name="__SCROLLPOSITIONY" id="__SCROLLPOSITIONY" type="hidden" value="0">
+	 <INPUT name="__EVENTVALIDATION" id="__EVENTVALIDATION" type="hidden" value="/wEdAAOxdVmINoyuIEkBpqlKguotoxRXe0hpP1bpGgFXDXM16VfAyz5RGSjP9cg15+JrI9lTisK2GhOZoj/uyBFDnH4PTYrbMxFjGFDpZylTWjwVHg=="> 
+</DIV>
+<SCRIPT type="text/javascript"> var submitHook = function () { return false; }; theForm._spOldSubmit = theForm.submit; theForm.submit = function () { if (!submitHook()) { this._spOldSubmit(); } }; </SCRIPT>
+                         
+<SCRIPT type="text/javascript">
+//<![CDATA[
+//Sys.WebForms.PageRequestManager._initialize('ctl00$ScriptManager', 'aspnetForm', ['fctl00$ctl21$WebPartAdderUpdatePanel',''], [], ['ctl00$ctl21$WebPartAdder',''], 90, 'ctl00');
+//]]>
+</SCRIPT>
+             <SPAN id="ctl00_SPSecurityTrimmedControlRibbon">
+<DIV>
+<DIV class="ms-dialogHidden noindex" id="suiteBar">
+<DIV id="suiteBarLeft">
+<DIV class="ms-table ms-fullWidth">
+<DIV class="ms-tableRow">
+<DIV class="ms-tableCell ms-verticalAlignMiddle">
+<DIV class="ms-core-brandingText">SharePoint</DIV></DIV>
+<DIV class="ms-core-deltaSuiteLinks" id="DeltaSuiteLinks">
+<DIV id="suiteLinksBox"></DIV></DIV></DIV></DIV></DIV>
+<DIV id="suiteBarRight">
+<DIV class="ms-core-deltaSuiteBarRight" id="DeltaSuiteBarRight">
+<DIV id="welcomeMenuBox"><SPAN style="display: none;">
+<MENU id="zz1_ID_PersonalActionMenu" type="ServerMenu" 
+  hideicons="true"><ie:menuitem id="zz2_ID_PersonalInformation" type="option" 
+  menugroupid="100" description="Update your user information, language and regional settings, and alerts." 
+  text="My Settings" onmenuclick="javascript:GoToPage('\u002f_layouts\u002f15\u002fuserdisp.aspx?Force=True');return false;" 
+  iconsrc="/_layouts/15/images/menuprofile.gif?rev=23"></ie:menuitem>
+  		 <ie:menuitem id="zz3_ID_Logout" type="option" menugroupid="100" 
+  description="Logout of this site." text="Sign Out" onmenuclick="STSNavigate2(event,'/_layouts/15/SignOut.aspx');"></ie:menuitem>
+  		 <ie:menuitem id="zz4_ID_PersonalizePage" type="option" menugroupid="200" 
+  description="Add, remove, or update Web Parts on this page." text="Personalize this Page" 
+  onmenuclick="javascript:ChangeLayoutMode(true);" iconsrc="/_layouts/15/images/menupersonalize.gif?rev=23"></ie:menuitem>
+  		 <ie:menuitem id="ctl00_ctl21_IdWelcome_ExplicitLogout_ctl00_ctl02" type="option" 
+  menugroupid="2147483647" description="Change your current password." text="Change Password" 
+  onmenuclick="STSNavigate2(event,'https://www.ourschooldata.org/_Layouts/15/FBA/ChangePassword.aspx?Source=%2F');"></ie:menuitem>
+  		 </MENU></SPAN><SPAN title="Open Menu" class="ms-menu-althov ms-welcome-root" 
+id="zz5_Menu_t" style="white-space: nowrap;" onmouseover="MMU_PopMenuIfShowing(this);MMU_EcbTableMouseOverOut(this, true)" 
+onclick=" CoreInvoke('MMU_Open',byid('zz1_ID_PersonalActionMenu'), MMU_GetMenuFromClientId('zz5_Menu'),event,true, null, 0); return false;" 
+oncontextmenu="ClkElmt(this); return false;" foa="MMU_GetMenuFromClientId('zz5_Menu')" 
+hoverinactive="ms-menu-althov ms-welcome-root" hoveractive="ms-menu-althov-active ms-welcome-root ms-welcome-hover"><A 
+title="Open Menu" class="ms-core-menu-root" id="zz5_Menu" accesskey="/" 
+onkeydown="MMU_EcbLinkOnKeyDown(byid('zz1_ID_PersonalActionMenu'), MMU_GetMenuFromClientId('zz5_Menu'), event);" 
+onclick=" CoreInvoke('MMU_Open',byid('zz1_ID_PersonalActionMenu'), MMU_GetMenuFromClientId('zz5_Menu'),event,true, null, 0); return false;" 
+onfocus="MMU_EcbLinkOnFocusBlur(byid('zz1_ID_PersonalActionMenu'), this, true);" 
+oncontextmenu="ClkElmt(this); return false;" href="javascript:;" serverclientid="zz5_Menu" 
+menutokenvalues="MENUCLIENTID=zz5_Menu,TEMPLATECLIENTID=zz1_ID_PersonalActionMenu">Kent 
+Admin<SPAN class="ms-accessible">Use SHIFT+ENTER to open the menu (new 
+window).</SPAN></A><SPAN class="s4-clust ms-viewselector-arrow ms-menu-stdarw ms-core-menu-arrow" 
+style="width: 7px; height: 4px; overflow: hidden; display: inline-block; position: relative;"><IMG 
+style="left: -95px !important; top: -259px !important; position: absolute;" alt="Open Menu" 
+src="OurSchoolData_files/spcommon.png"></SPAN><SPAN class="s4-clust ms-core-menu-arrow ms-viewselector-arrow ms-menu-hovarw" 
+style="width: 7px; height: 4px; overflow: hidden; display: inline-block; position: relative;"><IMG 
+style="left: -86px !important; top: -259px !important; position: absolute;" alt="Open Menu" 
+src="OurSchoolData_files/spcommon.png"></SPAN></SPAN>				 </DIV>
+<DIV id="suiteBarButtons"><SPAN class="ms-siteactions-root" 
+id="siteactiontd"><SPAN style="display: none;">
+<MENU id="zz6_SiteActionsMenuMain" type="ServerMenu" 
+  hideicons="true"><ie:menuitem id="ctl00_ctl21_SiteActionsMenuMain_ctl00_wsaShowMenu" 
+  type="option" menugroupid="100" description="Display the page status and ribbon for this page." 
+  text="Show Ribbon" onmenuclick="javascript:__doPostBack('ctl00$ctl21$SiteActionsMenuMain$ctl00$wsaShowMenu_CmsActionControl','reviewPage')" 
+  iconsrc="/_layouts/15/images/RibbonShowHH.png?rev=23"></ie:menuitem>
+  		 <ie:menuitem id="zz7_MenuItem_ShareThisSite" type="option" menugroupid="100" 
+  description="See who's here and invite new people." text="Shared with..." 
+  onmenuclick="EnsureScriptFunc('sharing.js', 'DisplaySharedWithDialog', function () { DisplaySharedWithDialog('\u002f'); })"></ie:menuitem>
+  		 <ie:menuitem id="ctl00_ctl21_SiteActionsMenuMain_ctl00_wsaEditPage" type="option" 
+  menugroupid="200" description="Change the content and Web Parts on this page." 
+  text="Edit page" onmenuclick="javascript:if (document.forms['aspnetForm']['MSOLayout_InDesignMode'] != null) document.forms['aspnetForm']['MSOLayout_InDesignMode'].value = 1;if (document.forms['aspnetForm']['MSOAuthoringConsole_FormContext'] != null) document.forms['aspnetForm']['MSOAuthoringConsole_FormContext'].value = 1;if (document.forms['aspnetForm']['MSOSPWebPartManager_DisplayModeName'] != null) document.forms['aspnetForm']['MSOSPWebPartManager_DisplayModeName'].value = 'Design';__doPostBack('ctl05','edit')" 
+  iconsrc="/_layouts/15/images/ActionsEditPage.gif?rev=23"></ie:menuitem>
+  		 <ie:menuitem id="ctl00_ctl21_SiteActionsMenuMain_ctl00_wsaCreatePage" type="option" 
+  menugroupid="200" description="Create a page in this site." text="Add a page" 
+  onmenuclick="javascript:if (LaunchCreateHandler('PublishingPage')) { SP.SOD.executeFunc('sp.ui.dialog.js', 'SP.UI.ModalDialog.showModalDialog', function() { var dlgOptions = { url:'\u002f_layouts\u002f15\u002fCreatePublishingPageDialog.aspx', autoSize: true, autoSizeStartWidth: 550 };  SP.UI.ModalDialog.showModalDialog(dlgOptions); }); };" 
+  iconsrc="/_layouts/15/images/crtpage.gif?rev=23"></ie:menuitem>		 <ie:menuitem 
+  id="zz8_MenuItem_Create" type="option" menugroupid="200" description="Create other types of pages, lists, libraries, and sites." 
+  text="Add an app" onmenuclick="GoToPage('\u002f_layouts\u002f15\u002faddanapp.aspx')"></ie:menuitem>
+  		 <ie:menuitem id="zz9_MenuItem_ViewAllSiteContents" type="option" 
+  menugroupid="200" description="View all libraries and lists in this site." 
+  text="Site contents" onmenuclick="STSNavigate2(event,'/_layouts/15/viewlsts.aspx');" 
+  iconsrc="/_layouts/15/images/allcontent32.png?rev=23"></ie:menuitem>
+  		 <ie:menuitem id="ctl00_ctl21_SiteActionsMenuMain_ctl00_wsaDesignEditor" 
+  type="option" menugroupid="300" description="Change the look and feel of this site." 
+  text="Design Manager" onmenuclick="STSNavigate2(event,'/_layouts/15/DesignSite.aspx');" 
+  iconsrc="/_layouts/15/images/designer.png?rev=23"></ie:menuitem>
+  		 <ie:menuitem id="zz10_MenuItem_Settings" type="option" menugroupid="300" 
+  description="Access all settings for this site." text="Site settings" 
+  onmenuclick="GoToPage('\u002f_layouts\u002f15\u002fsettings.aspx')" iconsrc="/_layouts/15/images/settingsIcon.png?rev=23"></ie:menuitem>
+  		 </MENU></SPAN><SPAN title="Settings" class="ms-siteactions-normal" id="zz11_SiteActionsMenu_t" 
+onmouseover="MMU_PopMenuIfShowing(this);MMU_EcbTableMouseOverOut(this, true)" 
+onclick=" CoreInvoke('MMU_Open',byid('zz6_SiteActionsMenuMain'), MMU_GetMenuFromClientId('zz11_SiteActionsMenu'),event,true, null, 0); return false;" 
+oncontextmenu="ClkElmt(this); return false;" foa="MMU_GetMenuFromClientId('zz11_SiteActionsMenu')" 
+hoverinactive="ms-siteactions-normal" hoveractive="ms-siteactions-normal ms-siteactions-hover"><A 
+title="Settings" class="ms-core-menu-root" id="zz11_SiteActionsMenu" accesskey="/" 
+onkeydown="MMU_EcbLinkOnKeyDown(byid('zz6_SiteActionsMenuMain'), MMU_GetMenuFromClientId('zz11_SiteActionsMenu'));" 
+href="javascript:;" serverclientid="zz11_SiteActionsMenu" menutokenvalues="MENUCLIENTID=zz11_SiteActionsMenu,TEMPLATECLIENTID=zz6_SiteActionsMenuMain"><SPAN 
+class="ms-siteactions-imgspan"><IMG title="Settings" class="ms-core-menu-buttonIcon" 
+alt="Settings" src="OurSchoolData_files/spcommon.png"></SPAN><SPAN class="ms-accessible">Use 
+SHIFT+ENTER to open the menu (new window).</SPAN></A></SPAN></SPAN> <SPAN id="ms-help"><A 
+title="Help" id="ctl00_ctl21_TopHelpLink" accesskey="6" style="width: 30px; height: 30px; display: inline-block;" 
+onmouseover="this.firstChild.firstChild.firstChild.style.left='-1px'; this.firstChild.firstChild.firstChild.style.top='-1px';" 
+onmouseout="this.firstChild.firstChild.firstChild.style.left='-19px'; this.firstChild.firstChild.firstChild.style.top='-1px';" 
+onclick="TopHelpButtonClick('HelpHome',event);return false" href="https://www.ourschooldata.org/_controltemplates/15/#"><SPAN 
+style="padding: 7px; width: 16px; height: 16px; overflow: hidden; display: inline-block;"><SPAN 
+class="s4-clust" style="width: 16px; height: 16px; overflow: hidden; display: inline-block; position: relative;"><IMG 
+style="border: 0px currentColor; left: -19px; top: -1px; position: absolute;" 
+alt="Help" src="OurSchoolData_files/spintl.png"></SPAN></SPAN></A> </SPAN>
+				 </DIV></DIV></DIV></DIV>
+<DIV id="s4-ribbonrow">
+<DIV id="globalNavBox">
+<DIV id="ribbonBox">
+<DIV id="s4-ribboncont">
+<DIV id="DeltaSPRibbon">
+<DIV class="ms-cui-ribbonTopBars">
+<DIV class="ms-cui-topBar1"></DIV>
+<DIV class="ms-cui-topBar2">
+<DIV class="ms-cui-TabRowLeft ms-core-defaultFont ms-dialogHidden" id="RibbonContainer-TabRowLeft"></DIV>
+<DIV class="ms-cui-TabRowRight s4-trc-container s4-notdlg ms-core-defaultFont" 
+id="RibbonContainer-TabRowRight"><A title="Give people access to this site." 
+class="ms-promotedActionButton" id="ctl00_ctl21_site_share_button" style="display: inline-block;" 
+onmouseover="this.firstChild.firstChild.style.left='-91px'; this.firstChild.firstChild.style.top='-232px';" 
+onmouseout="this.firstChild.firstChild.style.left='-200px'; this.firstChild.firstChild.style.top='-48px';" 
+onclick="EnsureScriptFunc('sharing.js', 'DisplaySharingDialog', function(){DisplaySharingDialog('\u002f')}); return false;" 
+href='javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions("ctl00$ctl21$site_share_button", "", true, "", "", false, true))'><SPAN 
+class="s4-clust ms-promotedActionButton-icon" style="width: 16px; height: 16px; overflow: hidden; display: inline-block; position: relative;"><IMG 
+style="left: -200px; top: -48px; position: absolute;" alt="Share" src="OurSchoolData_files/spcommon.png"></SPAN><SPAN 
+class="ms-promotedActionButton-text">Share</SPAN></A>					 <A title="Follow this site and get back to it easily from your sites page." 
+class="ms-promotedActionButton" id="site_follow_button" style="display: inline-block;" 
+onmouseover="this.firstChild.firstChild.style.left='-217px'; this.firstChild.firstChild.style.top='-192px';" 
+onmouseout="this.firstChild.firstChild.style.left='-218px'; this.firstChild.firstChild.style.top='-48px';" 
+onclick="SP.SOD.executeFunc('followingcommon.js', 'FollowSite', function() { FollowSite(); }); return false;" 
+href='javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions("ctl00$ctl21$site_follow_button", "", true, "", "", false, true))'><SPAN 
+class="s4-clust ms-promotedActionButton-icon" style="width: 16px; height: 16px; overflow: hidden; display: inline-block; position: relative;"><IMG 
+style="left: -218px; top: -48px; position: absolute;" alt="Follow" src="OurSchoolData_files/spcommon.png"></SPAN><SPAN 
+class="ms-promotedActionButton-text">Follow</SPAN></A>										 <SPAN class="ms-qatbutton" 
+id="fullscreenmodebox"><SPAN id="fullscreenmode"><A title="Focus on Content" id="ctl00_ctl21_fullscreenmodeBtn" 
+style="width: 30px; height: 30px; display: inline-block;" onmouseover="this.firstChild.firstChild.firstChild.style.left='-125px'; this.firstChild.firstChild.firstChild.style.top='-178px';" 
+onmouseout="this.firstChild.firstChild.firstChild.style.left='-143px'; this.firstChild.firstChild.firstChild.style.top='-178px';" 
+onclick="SetFullScreenMode(true);PreventDefaultNavigation();return false;" href="https://www.ourschooldata.org/_controltemplates/15/#"><SPAN 
+style="padding: 7px; width: 16px; height: 16px; overflow: hidden; display: inline-block;"><SPAN 
+class="s4-clust" style="width: 16px; height: 16px; overflow: hidden; display: inline-block; position: relative;"><IMG 
+style="border: 0px currentColor; left: -143px; top: -178px; position: absolute;" 
+alt="Focus on Content" src="OurSchoolData_files/spcommon.png"></SPAN></SPAN></A>
+	 </SPAN>	 <SPAN id="exitfullscreenmode" style="display: none;"><A title="Focus on Content" 
+id="ctl00_ctl21_exitfullscreenmodeBtn" style="width: 30px; height: 30px; display: inline-block;" 
+onmouseover="this.firstChild.firstChild.firstChild.style.left='-179px'; this.firstChild.firstChild.firstChild.style.top='-96px';" 
+onmouseout="this.firstChild.firstChild.firstChild.style.left='-107px'; this.firstChild.firstChild.firstChild.style.top='-178px';" 
+onclick="SetFullScreenMode(false);PreventDefaultNavigation();return false;" 
+href="https://www.ourschooldata.org/_controltemplates/15/#"><SPAN style="padding: 7px; width: 16px; height: 16px; overflow: hidden; display: inline-block;"><SPAN 
+class="s4-clust" style="width: 16px; height: 16px; overflow: hidden; display: inline-block; position: relative;"><IMG 
+style="border: 0px currentColor; left: -107px; top: -178px; position: absolute;" 
+alt="Focus on Content" src="OurSchoolData_files/spcommon.png"></SPAN></SPAN></A>
+	 </SPAN> </SPAN>				 </DIV></DIV></DIV></DIV></DIV><SPAN 
+id="DeltaSPNavigation"><SPAN id="ctl00_ctl21_ctl11_publishingRibbon"></SPAN>
+	 </SPAN> </DIV>
+<DIV class="ms-core-webpartadder" id="DeltaWebPartAdderUpdatePanelContainer">
+<DIV id="WebPartAdderUpdatePanelContainer">
+<DIV id="ctl00_ctl21_WebPartAdderUpdatePanel"><SPAN id="ctl00_ctl21_WebPartAdder"></SPAN>
+	  		 </DIV></DIV></DIV></DIV></DIV>
+<DIV class="ms-notif-box" id="notificationArea"></DIV>
+<DIV id="DeltaPageStatusBar">
+<DIV id="pageStatusBar"></DIV></DIV></DIV></SPAN>                         
+<DIV id="s4-workspace">
+<DIV id="s4-bodyContainer"><!-- ===== STARTER: Main Content ========================================================================================== --> 
+                        
+<DIV id="contentBox">
+<DIV class="app-wrapper wrapper ng-app:IGOR" id="ng-app" 
+ng-app="IGOR">
+<DIV class="inner-wrapper"><HEADER class="primary-header show"><A class="app-title" 
+href="https://www.ourschooldata.org/">
+<H1 id="H1">OurSchoolData</H1>
+<H2>IGOR</H2></A>                                         <NAV class="list-header">
+<UL class="flex-float">
+  <LI class="list-item list-item-icon"><A 
+  href="https://www.ourschooldata.org/"><I class="icon-home"></I></A></LI>
+  <LI class="list-item list-item-icon" ><A 
+  onclick="return false;" href="https://www.ourschooldata.org/#"><SPAN class="notification-count" 
+  ng-class="{show: notifications.length > 0}">{{notifications.length}}</SPAN><I 
+  class="icon-notifications"></I>                                                
+           <loading size="small" text="Loading" color="" showload="!notifications"></loading> 
+                                                      </A>                       
+                                
+  <UL class="submenu clickables">
+    <LI class="list-item-withsub" ng-repeat="Notification in notifications | limitTo: 3" 
+    ng-click="openNotification(notifications, Notification)" 
+    analytics-elementtitle="{{Notification.Title}}" analytics-elementid="{{Notification.Id}}" 
+    analytics-element="Notification" analytics-event="View" 
+    analytics-on="click"><A onclick="return false;" href="https://www.ourschooldata.org/#">{{Notification.Title}}<SPAN 
+    class="description">{{Notification.Body.length &gt; 60 ? 
+    Notification.Body.slice(0,60)+'...' : Notification.Body}}</SPAN></A></LI>
+    <LI class="list-item-withsub" ng-click="openNotification(notifications, notifications[3])" 
+    analytics-elementtitle="{{notifications[3].Title}}" analytics-elementid="{{notifications[3].Id}}" 
+    analytics-element="Notification" analytics-event="View" analytics-on="click" 
+    ng-hide="!notifications || notifications.length <= 3"><A onclick="return false;" 
+    href="https://www.ourschooldata.org/#">More Notifications</A></LI></UL></LI>
+  <LI class="list-item flex-dd" ><A class="big" 
+  onclick="return false;" href="https://www.ourschooldata.org/#">InGA 
+  Assessments<I class="icon-arrowdown-mini"></I><SPAN 
+  class="description">Create, Enter Data</SPAN></A>                              
+                         <A class="small" onclick="return false;" href="https://www.ourschooldata.org/#"><I 
+  class="icon-assessments"></I></A>
+  <UL class="submenu">
+    <LI class="list-item-withsub" ng-repeat="assessment in assessmentItems" 
+    ng-click="openAssessmentUrl(assessment.URL, assessment.OpenInNewWindow)"><A 
+    onclick="return false;" 
+    href="https://www.ourschooldata.org/#">{{assessment.Title}} <SPAN class="description">{{assessment.Description}}</SPAN></A> 
+                                                              </LI></UL></LI>
+  <LI class="list-item flex-dd" ><A class="big" 
+  onclick="return false;" href="https://www.ourschooldata.org/#">Resources<I 
+  class="icon-arrowdown-mini"></I><SPAN class="description">FAQ, 
+  Templates</SPAN></A>                                                     <A 
+  class="small" onclick="return false;" 
+  href="https://www.ourschooldata.org/#"><I class="icon-resources"></I></A>
+  <UL class="submenu">
+    <LI class="list-item-withsub" ng-repeat="resource in resourceItems" 
+    ng-click="openResourceUrl(resource.URL, resource.OpenInNewWindow)"><A 
+    onclick="return false;" 
+    href="https://www.ourschooldata.org/#">{{resource.Title}} <SPAN class="description">{{resource.Description}}</SPAN></A> 
+                                                              </LI></UL></LI>
+  <LI class="list-item list-item-login"><A class="name" onclick="return false;" 
+  href="https://www.ourschooldata.org/#">{{CurrentUserName}}</A>                 
+                                      
+  <UL class="submenu">
+    <LI onclick="openMenuUrl('/Pages/Help.aspx', 0)"><A onclick="return false;" 
+    href="https://www.ourschooldata.org/#">Help</A></LI>
+    <LI onclick="openMenuUrl('/_layouts/15/KISD.IGOR.SP13/PasswordReset.aspx', 0)"><A 
+    href="https://www.ourschooldata.org/#" onlcick="return false;">Change 
+    Password</A></LI>
+    <LI onclick="openMenuUrl('/_layouts/15/KISD.UMP/default.aspx')" 
+     ng-show="IsUmpUser"><A onclick="return false;" 
+    href="https://www.ourschooldata.org/#">Manage Users</A></LI>
+    <LI  ng-click="openFeedback()" 
+    analytics-element="Feedback" analytics-event="View" analytics-on="click" 
+    analytics-widget="User Menu"><A onclick="return false;" href="https://www.ourschooldata.org/#">Submit 
+    Feedback</A></LI>
+    <LI class="list-item-buttons"><A class="hbut btn-signout" analytics-element="Site" 
+    analytics-event="Sign Out" analytics-on="click" analytics-widget="User Menu" 
+    ng-href="/_layouts/15/KISD.IGOR.SP13/SignOut.aspx">Sign Out</A>              
+                                               </LI></UL></LI></UL></NAV></HEADER>
 
 <body ng-controller="MyController">
     <div class="container" style="background-color:#ffffff;">
@@ -185,17 +686,226 @@
                 <div class="next-student col-sm-6 col-sm-offset-3">
                         <span class="next-student-text">NEXT STUDENT</span>
                 </div>
+                <div class="clearfix"></div>
             </div>
         </div>
 
-    </div>
-
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var dropdowns = $(".table-heading-dropdown");
+            for (var i = 0; i < dropdowns.length; i++) {
+                $(dropdowns[i]).width($(dropdowns[i]).parent("th").outerWidth());
+            }
+            var tableActionDropdowns = $(".action-dropdown");
+            for (var i = 0; i < tableActionDropdowns.length; i++) {
+                $(tableActionDropdowns[i]).width($(tableActionDropdowns[i]).parent("li").outerWidth());
+            }
+            var checkboxes = $(".inga-table :checkbox");
+            for (var j = 1; j < checkboxes.length; j++) {
+                $(checkboxes[j]).click(function () {
+                    $(this).parent().parent().toggleClass("selected");
+                });
+            }
+        });
 
+        var showNewItemModal = function () {
+            $("#newAssessmentModal").modal("hide");
+            $('#newAssessmentItemModal').modal({
+                show: true
+            });
+        }
+
+        var hideAddAssessmentItem = function () {
+            $('#newAssessmentItemModal').modal("hide");
+            $('#newAssessmentModal').modal({
+                show: true
+            });
+        }
+
+        var showViewAssessmentModal = function () {
+            $("#newAssessmentModal").modal("hide");
+            $('#viewAssessmentModal').modal({
+                show: true
+            });
+        }
+    </script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/jasny-bootstrap.min.js"></script>
-</body>
+    
+    
+    
+    
+<DIV style="left: 0px; top: 80px; right: 0px; bottom: 0px; overflow: auto; position: absolute; display:none;"><!-- ===== STARTER: This decides where the web part menu lives ===================================================== --> 
+                                        
+<DIV class="webpart-wrapper" id="ctl00_DeltaPlaceHolderMain" style="left: 0px; top: 0px; right: 0px; bottom: 0px; position: absolute;">
+<DIV class="left-panel" id="GlobalLoading" ng-class="{'show': ShowGlobalLoading}"><loading 
+size="" text="Loading" color="" showload="ShowGlobalLoading"></loading>     
+</DIV>
+<DIV ng-view=""></DIV>
+<DIV id="hidZone" style="display: none;">
+<MENU class="ms-hide" id="MSOMenu_WebPartMenu"><ie:menuitem title="Collapse this web part." 
+  id="MSOMenu_Minimize" type="option" text="Minimize" onmenuclick="javascript:MSOLayout_MinimizeRestore(MenuWebPart)"></ie:menuitem><ie:menuitem 
+  title="Expand this web part." id="MSOMenu_Restore" type="option" text="Restore" 
+  onmenuclick="javascript:MSOLayout_MinimizeRestore(MenuWebPart)">
+  	 </ie:menuitem><ie:menuitem title="Close this Web Part. You can still find it under closed Web Parts section in the insert ribbon. These changes will apply to all users." 
+  id="MSOMenu_Close" type="option" text="Close" onmenuclick="javascript:MSOLayout_RemoveWebPart(MenuWebPart)">
+  	 </ie:menuitem><ie:menuitem title="Delete this Web Part from the page. These changes will apply to all users." 
+  id="MSOMenu_Delete" type="option" text="Delete" onmenuclick="if(confirm('You are about to permanently delete this Web Part. Are you sure you want to do this?')) {MSOWebPartPage_partDeleted = MenuWebPartID;MSOWebPartPage_MenuDoPostBack('ctl00$SPWebPartManager1', MenuWebPartID + ';MSOMenu_Delete');}" 
+  iconsrc="/_layouts/15/images/DelItem.gif">	 </ie:menuitem><ie:menuitem type="separator"></ie:menuitem><ie:menuitem 
+  title="Change properties of this shared Web Part. These changes will apply to all users." 
+  id="MSOMenu_Edit" type="option" text="Edit Web Part" onmenuclick="javascript:MSOTlPn_ShowToolPane2Wrapper('Edit', 16, MenuWebPartID)" 
+  iconsrc="/_layouts/15/images/EditItem.gif">	 </ie:menuitem><ie:menuitem title="Show connections options for this Web Part. These changes will apply to all users." 
+  id="MSOMenu_Connections" type="option" text="Connections" onmenuclick="">
+  	 </ie:menuitem><ie:menuitem type="separator"></ie:menuitem><ie:menuitem 
+  title="Export this Web Part. These changes will apply to all users." id="MSOMenu_Export" 
+  type="option" text="Export..." onmenuclick="javascript:MSOWebPartPage_ExportCheckWarning('\u002f_vti_bin\u002fexportwp.aspx?pageurl=https\u00253A\u00252F\u00252Fwww\u00252Eourschooldata\u00252Eorg\u00253A443\u00252FPages\u00252Fdefault\u00252Easpx\u0026guidstring='+ escape(MenuWebPartID), MenuWebPart.getAttribute('HasPers') == 'true')">
+  	 </ie:menuitem><ie:menuitem id="MSOMenu_Help" style="display: none;" type="option" 
+  text="Help" onmenuclick="MSOWebPartPage_SetNewWindowLocation(MenuWebPart.getAttribute('helpLink'), MenuWebPart.getAttribute('helpMode'))" 
+  iconsrc="/_layouts/15/images/HelpIcon.gif">	 </ie:menuitem> </MENU></DIV></DIV>
+<DIV id="feedbackpanel" >
+<DIV id="feedbackactionpanel" ng-click="openFeedback()" analytics-element="Feedback" 
+analytics-event="View" analytics-on="click" 
+analytics-widget="Flyout">Feedback</DIV></DIV></DIV></DIV></DIV></DIV></DIV></DIV><!-- ===== STARTER: Main Scrolling Body Ends Here ================================================================================= --> 
+            <!-- ===== STARTER: Needed for form stuff ========================================================================================= --> 
+                            
+<SCRIPT type="text/javascript">//<![CDATA[
+        var formDigestElement = document.getElementsByName('__REQUESTDIGEST')[0];
+        if (!((formDigestElement == null) || (formDigestElement.tagName.toLowerCase() != 'input') || (formDigestElement.type.toLowerCase() != 'hidden') ||
+            (formDigestElement.value == null) || (formDigestElement.value.length <= 0)))
+        {
+            formDigestElement.value = '0xEF89CF410607F3D9C9E710FFD0A603E92B9A45C9424C0E6728BDD852AFF55A00F0364380684B7B32EA3CA0196C807331563608A660B97F913983AB8D99DEAE86,03 Aug 2015 15:25:51 -0000';
+            g_updateFormDigestPageLoaded = new Date();
+        }
+        //]]>
+        </SCRIPT>
+                                                                                 
+                                                                                 
+                                                                                 
+                  
+<SCRIPT type="text/javascript">
+//<![CDATA[
+var _spFormDigestRefreshInterval = 1440000;window.g_updateFormDigestPageLoaded = new Date(); window.g_updateFormDigestPageLoaded.setDate(window.g_updateFormDigestPageLoaded.getDate() -5);
+var callBackFrameUrl='/WebResource.axd?d=GT_KTSoz3yFIYS4l7I_rTvfXXrUAylOc8n5WtlxN--pSJxLoFQLTEIweniTMpCC6Muav-LYK9nFapJUt2IIvWqbCcFNz3JjQmjE1gxsfOdE1&t=635370703830190538';
+//WebForm_InitCallback();var _fV4UI = true;
+function _RegisterWebPartPageCUI()
+{
+    var initInfo = {editable: true,isEditMode: false,allowWebPartAdder: false,listId: "{27e418f0-28ec-4ce4-abe2-e87084856b0b}",itemId: 2,recycleBinEnabled: true,enableMinorVersioning: true,enableModeration: false,forceCheckout: true,rootFolderUrl: "\u002fPages",itemPermissions:{High:2147483647,Low:4294967295}};
+    SP.Ribbon.WebPartComponent.registerWithPageManager(initInfo);
+    var wpcomp = SP.Ribbon.WebPartComponent.get_instance();
+    var hid;
+    hid = document.getElementById("_wpSelected");
+    if (hid != null)
+    {
+        var wpid = hid.value;
+        if (wpid.length > 0)
+        {
+            var zc = document.getElementById(wpid);
+            if (zc != null)
+                wpcomp.selectWebPart(zc, false);
+        }
+    }
+    hid = document.getElementById("_wzSelected");
+    if (hid != null)
+    {
+        var wzid = hid.value;
+        if (wzid.length > 0)
+        {
+            wpcomp.selectWebPartZone(null, wzid);
+        }
+    }
+};
+function __RegisterWebPartPageCUI() {
+ExecuteOrDelayUntilScriptLoaded(_RegisterWebPartPageCUI, "sp.ribbon.js");}
+//_spBodyOnLoadFunctionNames.push("__RegisterWebPartPageCUI");var __wpmExportWarning='This Web Part Page has been personalized. As a result, one or more Web Part properties may contain confidential information. Make sure the properties contain information that is safe for others to read. After exporting this Web Part, view properties in the Web Part description file (.WebPart) by using a text editor such as Microsoft Notepad.';var __wpmCloseProviderWarning='You are about to close this Web Part.  It is currently providing data to other Web Parts, and these connections will be deleted if this Web Part is closed.  To close this Web Part, click OK.  To keep this Web Part, click Cancel.';var __wpmDeleteWarning='You are about to permanently delete this Web Part.  Are you sure you want to do this?  To delete this Web Part, click OK.  To keep this Web Part, click Cancel.';
+//ExecuteOrDelayUntilScriptLoaded(
+//function()
+//{
+//var initInfo = 
+//{
+//itemPermMasks: {High:2147483647,Low:4294967295},
+//listPermMasks: {High:2147483647,Low:4294967295},
+//listId: "27e418f0-28ec-4ce4-abe2-e87084856b0b",
+//itemId: 2,
+//workflowsAssociated: false,
+//editable: true,
+//doNotShowProperties: false,
+//enableVersioning: true
+//};
+//SP.Ribbon.DocLibAspxPageComponent.registerWithPageManager(initInfo);
+//},
+//"sp.ribbon.js");
+var g_disableCheckoutInEditMode = false;
+var _spWebPermMasks = {High:2147483647,Low:4294967295};var _spPageStateActionControlId='ctl00_ctl21_PageStateActionButton';var g_clientIdDeltaPlaceHolderMain = "ctl00_DeltaPlaceHolderMain";
 
-</html>
+theForm.oldSubmit = theForm.submit;
+//theForm.submit = WebForm_SaveScrollPositionSubmit;
+
+theForm.oldOnSubmit = theForm.onsubmit;
+//theForm.onsubmit = WebForm_SaveScrollPositionOnSubmit;
+
+var g_commandUIHandlers = {"name":"CommandHandlers","attrs":{},"children":[]};
+//]]>
+</SCRIPT>
+ </FORM>
+<!--
+<SCRIPT src="/_layouts/15/KISD.IGOR.SP13/js/frameworks/jquery/jquery-1.9.1.min.js?v=1.0.0.2" type="text/javascript"></SCRIPT>
+         
+<SCRIPT src="/_layouts/15/KISD.IGOR.SP13/js/frameworks/jquery/jquery.formatDateTime.min.js?v=1.0.0.2" type="text/javascript"></SCRIPT>
+         
+<SCRIPT src="/_layouts/15/KISD.IGOR.SP13/js/frameworks/jquery/jquery.timer.js?v=1.0.0.2" type="text/javascript"></SCRIPT>
+         
+<SCRIPT src="/_layouts/15/KISD.IGOR.SP13/js/frameworks/angular/angular.js?v=1.0.0.2" type="text/javascript"></SCRIPT>
+         
+<SCRIPT src="/_layouts/15/KISD.IGOR.SP13/js/frameworks/angular/angular-route.js?v=1.0.0.2" type="text/javascript"></SCRIPT>
+         
+<SCRIPT src="/_layouts/15/KISD.IGOR.SP13/js/frameworks/angular/angular-resource.min.js?v=1.0.0.2" type="text/javascript"></SCRIPT>
+         
+<SCRIPT src="/_layouts/15/KISD.IGOR.SP13/js/frameworks/angular/angular-cookies.min.js?v=1.0.0.2" type="text/javascript"></SCRIPT>
+         
+<SCRIPT src="/_layouts/15/KISD.IGOR.SP13/js/frameworks/select2/select2.min.js?v=1.0.0.2" type="text/javascript"></SCRIPT>
+         
+<SCRIPT src="/_layouts/15/KISD.IGOR.SP13/js/frameworks/Bootstrap/bootstrap-3.0.0.min.js?v=1.0.0.2" type="text/javascript"></SCRIPT>
+         
+<SCRIPT src="/_layouts/15/KISD.IGOR.SP13/js/frameworks/angular/angular-ui.min.js?v=1.0.0.2" type="text/javascript"></SCRIPT>
+         
+<SCRIPT src="/_layouts/15/KISD.IGOR.SP13/js/frameworks/angular/angular-ui-ieshiv.min.js?v=1.0.0.2" type="text/javascript"></SCRIPT>
+         
+<SCRIPT src="/_layouts/15/KISD.IGOR.SP13/js/frameworks/angular/angulartics.js?v=1.0.0.2" type="text/javascript"></SCRIPT>
+         
+<SCRIPT src="/_layouts/15/KISD.IGOR.SP13/js/frameworks/Bootstrap/ui-bootstrap-tpls-0.11.0.js?v=1.0.0.2" type="text/javascript"></SCRIPT>
+         
+<SCRIPT src="/_layouts/15/KISD.IGOR.SP13/js/App/Modules/IGOR.Config.js?v=1.0.0.2"></SCRIPT>
+         
+<SCRIPT src="/_layouts/15/KISD.IGOR.SP13/js/App/Modules/IGOR.Services.js?v=1.0.0.2"></SCRIPT>
+         
+<SCRIPT src="/_layouts/15/KISD.IGOR.SP13/js/App/Modules/KISD-WebAnalytics.js?v=1.0.0.2"></SCRIPT>
+         
+<SCRIPT src="/_layouts/15/KISD.IGOR.SP13/js/App/Modules/KISD-AnalyticsFactory.js?v=1.0.0.2"></SCRIPT>
+                 
+<SCRIPT src="/_layouts/15/KISD.IGOR.SP13/js/App/Modules/Controllers/HeaderControllers.js?v=1.0.0.2"></SCRIPT>
+         
+<SCRIPT src="/_layouts/15/KISD.IGOR.SP13/js/App/Modules/Controllers/SSRSReportsController.js?v=1.0.0.2"></SCRIPT>
+         
+<SCRIPT src="/_layouts/15/KISD.IGOR.SP13/js/App/Modules/Controllers/ReportParametersController.js?v=1.0.0.2"></SCRIPT>
+         
+<SCRIPT src="/_layouts/15/KISD.IGOR.SP13/js/App/IGORApp.js?v=1.0.0.2" type="text/javascript"></SCRIPT>
+         
+<SCRIPT src="/_layouts/15/KISD.IGOR.SP13/js/frameworks/highcharts/highcharts.js?v=1.0.0.2" type="text/javascript"></SCRIPT>
+         
+<SCRIPT src="/_layouts/15/KISD.IGOR.SP13/js/frameworks/Underscore/underscore-min.js?v=1.0.0.2" type="text/javascript"></SCRIPT>
+         
+<SCRIPT src="/_layouts/15/KISD.IGOR.SP13/js/frameworks/BootStrapMultiSelect/bootstrap-multiselect.js?v=1.0.0.2" type="text/javascript"></SCRIPT>
+         <LINK href="OurSchoolData_files/bootstrap-multiselect.css" rel="stylesheet" 
+type="text/css">         
+<SCRIPT src="/_layouts/15/KISD.IGOR.SP13/js/App/Timeout.js?v=1.0.0.2" type="text/javascript"></SCRIPT>
+         
+<SCRIPT src="/_layouts/15/KISD.IGOR.SP13/js/App/ListItemClick.js?v=1.0.0.2" type="text/javascript"></SCRIPT>
+         
+<SCRIPT src="/_layouts/15/KISD.IGOR.SP13/js/App/FeedbackPanel.js?v=1.0.0.2" type="text/javascript"></SCRIPT>
+         
+<SCRIPT src="/_layouts/15/KISD.IGOR.SP13/js/App/KISDAnalytics.js?v=1.0.0.2" type="text/javascript"></SCRIPT>
+-->
+             </BODY></HTML>
+
