@@ -881,3 +881,15 @@ a:visited{
 .container{
     padding-bottom: 30px;
 }
+
+.progress{
+    height:  2px;
+    border-radius: 0px;
+    margin-top: 30px;
+    background: #83dbe7;
+}
+
+.progress-bar{
+    background: #fff;
+    box-shadow: none;
+}

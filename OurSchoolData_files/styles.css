@@ -8,7 +8,7 @@ html {
 	font: 12px/1.3em Helvetica, Arial, sans-serif; margin: 0px; width: 100% !important; height: 100% !important; color: rgb(88, 89, 91); font-size-adjust: none; font-stretch: normal;
 }
 body {
-	font: 12px/1.3em Helvetica, Arial, sans-serif; margin: 0px; width: 100% !important; height: 100% !important; color: rgb(88, 89, 91); font-size-adjust: none; font-stretch: normal;
+    margin: 0px; width: 100% !important; height: 100% !important; color: rgb(88, 89, 91); font-size-adjust: none; font-stretch: normal;
 }
 input {
 	border-radius: 0px;
