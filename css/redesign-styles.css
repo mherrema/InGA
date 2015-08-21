@@ -737,11 +737,15 @@ a.editable-click {
     position: absolute;
 }
 
+.letter-scrub ul{
+    margin-left: 83px;
+}
+
 .letter-scrub li {
     list-style: none;
     padding-bottom: 3px;
     text-align: center;
-    margin-left: 83px;
+    cursor: pointer;
 }
 
 .card {
@@ -768,6 +772,7 @@ a.editable-click {
 
 .card > .info > .absent-and-time > .mark-absent {
     font-size: 18px;
+    cursor: pointer;
 }
 
 .card > .info > .absent-and-time > .mark-absent:hover {
@@ -874,22 +879,64 @@ a.editable-click {
     background-color: #fff;
 }
 
-a:visited{
-    color:rgb(51, 51, 51);
+a:visited {
+    color: rgb(51, 51, 51);
 }
 
-.container{
+.container {
     padding-bottom: 30px;
 }
 
-.progress{
-    height:  2px;
+.progress {
+    height: 2px;
     border-radius: 0px;
     margin-top: 30px;
     background: #83dbe7;
 }
 
-.progress-bar{
+.progress-bar {
     background: #fff;
     box-shadow: none;
+}
+
+.inga-progress-bar > .progress > .question {
+    width: 20px;
+    margin-top: -8px;
+    height: 20px;
+    position: absolute;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.inga-progress-bar > .progress > .question.current{
+    background: #fe7b23;
+    color: #fff;
+}
+
+.inga-progress-bar > .progress > .question.skipped{
+    background: #1fbdd5;
+    color: #fff;
+    border: #fff 2px solid;
+}
+
+.inga-progress-bar > .progress > .question.skipped > .question-value{
+    width: 16px;
+    margin-top: 3px
+}
+
+.inga-progress-bar > .progress > .question > .question-value {
+    width: 20px;
+    text-align: center;
+    margin-top: 4px;
+    font-size: 10px;
+}
+
+.letter-scrub li.current{
+    color: #177893;
+    font-weight: 900;
+}
+
+.letter-scrub li.inactive{
+    opacity: .5;
+    cursor:not-allowed;
 }
