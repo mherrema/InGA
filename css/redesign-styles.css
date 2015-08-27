@@ -110,11 +110,11 @@ a:visited.inga-btn-negative:hover {
   color: #1fbdd5;
   text-decoration: none;
 }
-.above-table-action-right {
+.above-table-actions .above-table-action-right {
   padding-left: 28px;
   float: right;
 }
-.above-table-action-left {
+.above-table-actions .above-table-action-left {
   padding-right: 28px;
 }
 .above-table-actions .btn {
