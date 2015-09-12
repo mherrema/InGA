@@ -8,7 +8,7 @@ html {
 	font: 12px/1.3em Helvetica, Arial, sans-serif; margin: 0px; width: 100% !important; height: 100% !important; color: rgb(88, 89, 91); font-size-adjust: none; font-stretch: normal;
 }
 body {
-	font: 12px/1.3em Helvetica, Arial, sans-serif; margin: 0px; width: 100% !important; height: 100% !important; color: rgb(88, 89, 91); font-size-adjust: none; font-stretch: normal;
+    margin: 0px; width: 100% !important; height: 100% !important; color: rgb(88, 89, 91); font-size-adjust: none; font-stretch: normal;
 }
 input {
 	border-radius: 0px;
@@ -70,9 +70,7 @@ li {
 .modal-header h1 {
 	color: rgb(255, 255, 255); font-size: 24px; margin-top: 0.38em;
 }
-.modal-body {
-	height: 300px; margin-right: 40px; margin-left: 40px; background-color: rgb(255, 255, 255);
-}
+
 .modal-footer {
 	margin-top: 0px; margin-right: 40px; margin-left: 40px; background-color: rgb(255, 255, 255);
 }

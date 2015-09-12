@@ -26,7 +26,7 @@ body {
 	line-height: normal; font-weight: normal; text-decoration: none; white-space: normal; -ms-word-break: normal;
 }
 body {
-	margin: 0px; overflow: hidden; background-repeat: no-repeat; background-size: cover; background-color: rgb(255, 255, 255);
+	margin: 0px; background-repeat: no-repeat; background-size: cover; background-color: rgb(255, 255, 255);
 }
 html > .ms-core-needIEFilter {
 	
