@@ -1,0 +1,68 @@
+<div class="row above-table-actions-row" ng-init="init()">
+  <ul class="above-table-actions">
+    <li class="above-table-action-left above-table-action">archive
+    </li>
+    <li class="above-table-action-left">delete
+    </li>
+    <li class="above-table-action-left" ng-if="areOptionsSelected" ng-click="clearFilters()">Clear Filters
+    </li>
+    <li class="above-table-action-right above-table-action">View: <span class="dropdown-text" ng-click="toggleViewDropdown()">active</span> <span class="caret"></span>
+      <div class="action-dropdown {{view}}">
+        <div class="dropdown-content">
+          <div class="dropdown-title" ng-click="toggleViewDropdown()">
+            View
+          </div>
+          <ul class="dropdown-list">
+            <li ng-click="closeDropdowns()">Active</li>
+            <li>Inactive</li>
+          </ul>
+        </div>
+      </div>
+    </li>
+    <li class="above-table-action-right action-with-icon"><i class="glyphicon glyphicon-ok success-icon"></i> published</li>
+    <!--                <li style="float:right;"><button class="btn  inga-btn inga-btn-positive">Add Student</button></li>-->
+  </ul>
+</div>
+<div class="row">
+  <table class="inga-table" style="position:relative;">
+    <tr>
+      <!--                    <th><span style="float:left;"><input type="checkbox" /></span><span style="float:left;">Title</span><span class="glyphicon glyphicon-search search-icon"></span></th>-->
+      <th>
+        <div class="search-box no-highlight" ng-class="{'open' : searchOpen}">
+          <input type="checkbox" ng-model="allChecked" ng-change="toggleAllChecked()"/>
+          <span class="search-box-title">Title</span><span class="glyphicon glyphicon-search search-icon" ng-click="toggleSearchOpen()"></span><span class="search-box-textbox-span">
+            <input id="studentSearchInput" ng-model="studentSearchInput" type="text" class="search-input-textbox" placeholder="Search Students" uib-typeahead="address for address in studentSearch($viewValue)" typeahead-min-length="0" my-focus>
+          </span>
+        </div>
+      </th>
+      <th ng-repeat="heading in headingOptions">
+        <div class="heading-title" ng-click="openHeading(heading)">
+          {{heading.heading}}
+          <span class="caret"></span>
+          <p class="heading-title-selected" ng-if="heading.selected.key">{{heading.selected.key}}</p>
+        </div>
+        <div class="table-heading-dropdown" ng-class="{'open' : heading.open, 'other-option-selected' : areOptionsSelected, 'option-selected' : heading.selected.key}">
+          <div class="table-heading-dropdown-content">
+            <div class="dropdown-title no-highlight" ng-click="closeHeadings()">
+              {{heading.heading}}
+              <span class="caret"></span>
+            </div>
+            <ul class="dropdown-list">
+              <li ng-click="selectHeadingOption(heading, option)" ng-class="{'selected' : option == heading.selected}" ng-repeat="option in heading.options | orderBy: 'key' | orderBy: itemSortValue">{{option.key}}</li>
+            </ul>
+          </div>
+        </div>
+      </th>
+      <th></th>
+    </tr>
+    <tr ng-repeat="assessment in currentAssessments">
+      <td>
+        <input type="checkbox" ng-checked="assessment.checked"/>{{assessment.title}}</td>
+        <td>{{assessment.gradeLevel}}</td>
+        <td>{{assessment.subjectArea}}</td>
+        <td>{{assessment.term}}</td>
+        <td>{{assessment.schoolYear}}</td>
+        <td></td>
+      </tr>
+        </table>
+      </div>

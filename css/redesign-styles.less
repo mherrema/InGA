@@ -122,8 +122,8 @@ a:visited.inga-btn-negative:hover {
 
 .above-table-actions-row {
     border-top: #efefef 1px solid;
-    border-bottom: #efefef 1px solid;
-    padding: 15px 65px 10px 65px;
+//    border-bottom: #efefef 1px solid;
+    padding: 0px 65px 0px 65px;
     text-transform: uppercase;
     .above-table-actions {
         list-style: none;
@@ -131,15 +131,18 @@ a:visited.inga-btn-negative:hover {
         padding-left: 0px;
         font-size: 12px;
         li {
-            display: inline;
-            a {
+            display: inline-block;
+            padding-top: 15px;
+            padding-bottom: 10px;
+//            a {
                 color: #000;
                 transition: color .1s ease;
+                cursor: pointer;
                 &:hover {
                     color: #1fbdd5;
                     text-decoration: none;
                 }
-            }
+//            }
         }
         .above-table-action-right {
             padding-left: 28px;
@@ -210,6 +213,10 @@ a:visited.inga-btn-negative:hover {
             background: #fcfcfc;
             font-size: 12px;
             font-weight: 500;
+            input[type="checkbox"] {
+                float: left;
+                display: inline-block;
+            }
         }
         td {
             padding: 12px 20px;
@@ -250,6 +257,10 @@ a:visited.inga-btn-negative:hover {
     }
     .heading-title {
         cursor: pointer;
+        .heading-title-selected {
+            margin-bottom: 0;
+            color: #1fbdd5;
+        }
     }
     &.selected {
         border-top: #1fbdd5 3px solid;
@@ -343,22 +354,34 @@ input[type=text] {
     margin-top: -45px;
     margin-left: -20px;
     background: #fff;
-    box-shadow: 0px 0px 8px #bbb;
+    box-shadow: 0 0 8px #bbb;
     display: none;
+    z-index: 500;
     .table-heading-dropdown-content {
         padding-top: 28px;
-        padding-left: 20px;
         padding-bottom: 25px;
         .dropdown-title {
             color: #1fbdd5;
+            cursor: pointer;
+            padding-left: 20px;
+            padding-bottom: 10px;
         }
         .dropdown-list {
             list-style: none;
-            margin: 0px;
-            padding: 0px;
+            margin: 0;
+            padding: 0;
             li {
-                padding-top: 5px;
+                padding-top: 3px;
+                padding-bottom: 3px;
                 cursor: pointer;
+                padding-left: 20px;
+                transition: background .1s ease;
+                &:hover {
+                    background-color: #efefef;
+                }
+                &.selected {
+                    color: #1fbdd5;
+                }
             }
         }
     }
@@ -367,6 +390,18 @@ input[type=text] {
     }
     &.open {
         display: block;
+    }
+    &.other-option-selected {
+        margin-top: -50px;
+        .table-heading-dropdown-content {
+            padding-top: 33px;
+        }
+    }
+    &.option-selected {
+        margin-top: -59px;
+        .table-heading-dropdown-content {
+            padding-top: 25px !important;
+        }
     }
 }
 

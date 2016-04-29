@@ -1,114 +1,62 @@
-angular.module('app', ["xeditable"])
-
-.run(function(editableOptions) {
-  editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
-})
-
-.controller('MyController', function ($scope, focus) {
-        $scope.open = "";
-        $scope.heading1 = "";
-        $scope.heading2 = "";
-        $scope.heading3 = "";
-        $scope.heading4 = "";
-        $scope.view = "";
-        $scope.toggleOpen = function () {
-            if ($scope.open == "") {
-                $scope.open = "open";
-                focus("input1");
-            } else {
-                $scope.open = "";
-            }
+///<reference path="../typings/angularjs/angular.d.ts"/>
+///<reference path="../typings/angularjs/angular-route.d.ts"/>
+var INGA;
+(function (INGA) {
+    var Module = (function () {
+        function Module(name, modules) {
+            this.app = angular.module(name, modules);
+            this.app.config(function ($routeProvider) {
+                $routeProvider.otherwise({ redirectTo: '/assessments' });
+            });
         }
-
-        $scope.toggleHeading1 = function () {
-            if ($scope.heading1 == "") {
-                $scope.heading1 = "open";
-                $scope.heading2 = "";
-                $scope.heading3 = "";
-                $scope.heading4 = "";
-                $scope.view = "";
-            } else {
-                $scope.heading1 = "";
-            }
+        Module.prototype.addController = function (name, controller) {
+            this.app.controller(name, controller);
         };
-        $scope.toggleHeading2 = function () {
-            if ($scope.heading2 == "") {
-                $scope.heading2 = "open";
-                $scope.heading1 = "";
-                $scope.heading3 = "";
-                $scope.heading4 = "";
-                $scope.view = "";
-            } else {
-                $scope.heading2 = "";
-            }
+        Module.prototype.addService = function (name, service) {
+            this.app.service(name, service);
         };
-        $scope.toggleHeading3 = function () {
-            if ($scope.heading3 == "") {
-                $scope.heading3 = "open";
-                $scope.heading1 = "";
-                $scope.heading2 = "";
-                $scope.heading4 = "";
-                $scope.view = "";
-            } else {
-                $scope.heading3 = "";
-            }
+        Module.prototype.addFactory = function (name, factory) {
+            this.app.factory(name, factory);
         };
-        $scope.toggleHeading4 = function () {
-            if ($scope.heading4 == "") {
-                $scope.heading4 = "open";
-                $scope.heading1 = "";
-                $scope.heading2 = "";
-                $scope.heading3 = "";
-                $scope.view = "";
-            } else {
-                $scope.heading4 = "";
-            }
-        }
-        $scope.closeDropdowns = function () {
-            $scope.heading1 = "";
-            $scope.heading2 = "";
-            $scope.heading3 = "";
-            $scope.heading4 = "";
-            $scope.view = "";
-            console.log("closed");
-        }
-        $scope.toggleViewDropdown = function(){
-            if ($scope.view == "") {
-                $scope.view = "open";
-                $scope.heading4 = "";
-                $scope.heading1 = "";
-                $scope.heading2 = "";
-                $scope.heading3 = "";
-            } else {
-                console.log($scope.view);
-                $scope.view = "";
-                console.log($scope.view);
-            }
-        }
-    })
-    .factory('focus', function ($timeout, $window) {
-        return function (id) {
-            // timeout makes sure that it is invoked after any other event has been triggered.
-            // e.g. click events that need to run before the focus or
-            // inputs elements that are in a disabled state but are enabled when those events
-            // are triggered.
-            $timeout(function () {
-                var element = $window.document.getElementById(id);
-                if (element)
-                    element.focus();
+        Module.prototype.addRoute = function (url, htmlPath, controller) {
+            this.app.config(function ($routeProvider, $animateProvider) {
+                $routeProvider.when(url, {
+                    templateUrl: htmlPath,
+                    controller: controller
+                });
             });
         };
-    })
-    .directive('eventFocus', function (focus) {
-        return function (scope, elem, attr) {
-            elem.on(attr.eventFocus, function () {
-                focus(attr.eventFocusId);
-            });
-
-            // Removes bound events in the element itself
-            // when the scope is destroyed
-            scope.$on('$destroy', function () {
-                elem.off(attr.eventFocus);
-            });
-        };
+        return Module;
+    }());
+    INGA.Module = Module;
+})(INGA || (INGA = {}));
+var INGAApp;
+(function (INGAApp) {
+    var myApp = new INGA.Module('IngaApp', ['ngRoute', 'ngAnimate']);
+    myApp.addController('MainINGAController', INGAApp.MainController);
+    myApp.addController('AssessmentsController', INGAApp.AssessmentsController);
+    // myApp.addService('contextService', ContextService);
+    // myApp.addService('navigationService', NavigationService);
+    // myApp.addService('activityService', ActivityService);
+    // myApp.addService('projectsService', ProjectsService);
+    // myApp.addService('projectService', ProjectService);
+    // myApp.addFactory('navigationFactory', NavigationFactory);
+    myApp.addRoute("/assessments", "partials/assessments.html", "AssessmentsController");
+    // myApp.addRoute("/projects", "partials/project-list.html", "projectListController");
+    // myApp.addRoute("/projects/:projectId", "partials/project.html", "projectController");
+    // myApp.addRoute("/lifestyle", "partials/lifestyle.html", "lifestyleController");
+    // myApp.addRoute("/trusts", "partials/trusts.html", "trustsController");
+    // myApp.addRoute("/entities", "partials/entities.html", "entitiesController");
+    // myApp.addRoute("/financials", "partials/financials.html", "financialsController");
+    // myApp.addRoute("/settings", "partials/settings/staff.html", "staffSettingsController");
+    // myApp.addRoute("/settings/staff", "partials/settings/staff.html", "staffSettingsController");
+    // myApp.addRoute("/settings/clients", "partials/settings/clients.html", "clientsSettingsController");
+    // myApp.addRoute("/settings/security", "partials/settings/security.html", "securitySettingsController");
+    // myApp.addRoute("/settings/trusts", "partials/settings/trusts.html", "trustsSettingsController");
+    // myApp.addRoute("/settings/entities", "partials/settings/entities.html", "entitiesSettingsController");
+    // myApp.addRoute("/settings/financials", "partials/settings/financials.html", "financialsSettingsController");
+    myApp.app.config(function ($animateProvider) {
+        $animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
     });
+})(INGAApp || (INGAApp = {}));
+//# sourceMappingURL=app.js.map
