@@ -5,17 +5,21 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var INGAApp;
 (function (INGAApp) {
-    var MainController = (function (_super) {
-        __extends(MainController, _super);
-        function MainController($scope, $log, $uibModal) {
+    var NewAssessmentItemController = (function (_super) {
+        __extends(NewAssessmentItemController, _super);
+        function NewAssessmentItemController($scope, $uibModalInstance, $uibModal, mainService, assessment) {
             _super.call(this, $scope);
             var controller = this;
-            $scope.init = function () {
-                $scope.test = "hello";
-                $scope.pageTypeTitle = "INGA";
-                $scope.pageTitle = "Assessment Management";
+            $scope.assessment = assessment;
+            $scope.ok = function () {
+                //add the item to the assessment first
+                $uibModalInstance.close($scope.assessment);
+                $scope.openNewAssessmentModal();
             };
-            $scope.items = ['item1', 'item2', 'item3'];
+            $scope.cancel = function () {
+                $uibModalInstance.dismiss('cancel');
+                $scope.openNewAssessmentModal();
+            };
             $scope.openNewAssessmentModal = function (size) {
                 var modalInstance = $uibModal.open({
                     animation: true,
@@ -24,7 +28,7 @@ var INGAApp;
                     size: "lg",
                     resolve: {
                         assessment: function () {
-                            return {};
+                            return $scope.assessment;
                         }
                     }
                 });
@@ -33,9 +37,9 @@ var INGAApp;
                 });
             };
         }
-        MainController.$inject = ['$scope', '$log', '$uibModal'];
-        return MainController;
+        NewAssessmentItemController.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'mainService', 'assessment'];
+        return NewAssessmentItemController;
     }(BaseController.Controller));
-    INGAApp.MainController = MainController;
+    INGAApp.NewAssessmentItemController = NewAssessmentItemController;
 })(INGAApp || (INGAApp = {}));
-//# sourceMappingURL=MainController.js.map
+//# sourceMappingURL=NewAssessmentItemController.js.map

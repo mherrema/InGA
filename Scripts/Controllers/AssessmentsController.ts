@@ -1,40 +1,8 @@
 module INGAApp
 {
 
-  interface HeadingOption{
-    open: boolean,
-    heading: string,
-    options: Array<FilterOption>,
-    selected?: FilterOption
-  }
-
-  interface FilterOption{
-    key: string,
-    value?: string
-  }
-
-  interface Assessment{
-    title: string,
-    gradeLevel: string,
-    subjectArea: string,
-    term: string,
-    schoolYear: string,
-    checked?: boolean
-  }
-
-  export interface IAssessmentsScope extends BaseController.IScope
+  interface IAssessmentsScope extends BaseController.IScope
   {
-    // currentRoute: INavItem,
-    // sidebarWidth: number,
-    // mobileMenuOpen: boolean,
-    // clientSidebarOpen: boolean,
-    // mainSidebarOpen: boolean,
-    // filtersCollapsed: boolean,
-    // loading: boolean,
-    // shouldBodyFill: boolean,
-    // clientNavItems: Array< MainNavItem >,
-    // mainNavItems: Array< INavItem >,
-    // families: Array< string >,
     init: Function,
     test: string,
     toggleSearchOpen: Function,
@@ -52,28 +20,19 @@ module INGAApp
     getAssessments: Function,
     currentAssessments: Array<Assessment>,
     toggleAllChecked : Function,
-    allChecked : boolean
-    // showLoading: Function,
-    // hideLoading: Function,
-    // setSidebarMenuWidth: Function,
-    // toggleClientSidebar: Function,
-    // handleClick: Function
+    allChecked : boolean,
+    newAssessment: Assessment,
+    openAssessmentViewModal: Function
   }
 
   export class AssessmentsController extends BaseController.Controller
   {
     scope: IAssessmentsScope;
-    static $inject = ['$scope', '$timeout'];
+    static $inject = ['$scope', '$timeout', '$uibModal'];
 
-    // navService: NavigationService;
-    // projectService: ProjectService;
-
-    constructor( $scope: IAssessmentsScope, $timeout: ng.ITimeoutService)
+    constructor( $scope: IAssessmentsScope, $timeout: ng.ITimeoutService, $uibModal: ng.ui.bootstrap.IModalService)
     {
       super( $scope );
-      // this.navService = navService;
-      // this.projectService = projectService;
-
       var controller = this;
 
       $scope.init = function(){
@@ -117,9 +76,9 @@ module INGAApp
 
       $scope.getAssessments = function(){
         $scope.currentAssessments = [
-          {title: "Kindergarten - Universal Screener - Spring", gradeLevel: "K", subjectArea: "Reading", term: "Winter", schoolYear: "2015-2016"},
-          {title: "1st Grade - Universal Screener - Spring", gradeLevel: "1", subjectArea: "Math", term: "Spring", schoolYear: "2015-2016"},
-          {title: "T-1st Grade - Universal Screener - Spring", gradeLevel: "1", subjectArea: "English", term: "Spring", schoolYear: "2015-2016"}
+          {title: "Kindergarten - Universal Screener - Spring", gradeLevel: {gradeName:"K", gradeKey: 1}, subjectArea: "Reading", term: "Winter", schoolYear: "2015-2016"},
+          {title: "1st Grade - Universal Screener - Spring", gradeLevel: {gradeName:"1", gradeKey: 2}, subjectArea: "Math", term: "Spring", schoolYear: "2015-2016"},
+          {title: "T-1st Grade - Universal Screener - Spring", gradeLevel: {gradeName:"1", gradeKey: 2}, subjectArea: "English", term: "Spring", schoolYear: "2015-2016"}
         ];
       }
 
@@ -227,6 +186,27 @@ module INGAApp
         //         $scope.getAvailableStudents();
         //     }
         // }
+    };
+
+    $scope.openAssessmentViewModal = function (assessment) {
+      var tmpAssessment = assessment;
+      console.log(tmpAssessment);
+
+      var modalInstance = $uibModal.open({
+        animation: true,
+        templateUrl: 'partials/modals/assessmentViewModal.html',
+        controller: 'AssessmentViewController',
+        size: "lg",
+        resolve: {
+          assessment: function () {
+            return tmpAssessment;
+          }
+        }
+      });
+
+      modalInstance.result.then(function (selectedItem) {
+        console.log(selectedItem);
+      });
     };
 
       // $scope.$watch(() => navService.currentRoute,

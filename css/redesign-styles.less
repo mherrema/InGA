@@ -122,7 +122,7 @@ a:visited.inga-btn-negative:hover {
 
 .above-table-actions-row {
     border-top: #efefef 1px solid;
-//    border-bottom: #efefef 1px solid;
+    //    border-bottom: #efefef 1px solid;
     padding: 0px 65px 0px 65px;
     text-transform: uppercase;
     .above-table-actions {
@@ -134,15 +134,15 @@ a:visited.inga-btn-negative:hover {
             display: inline-block;
             padding-top: 15px;
             padding-bottom: 10px;
-//            a {
-                color: #000;
-                transition: color .1s ease;
-                cursor: pointer;
-                &:hover {
-                    color: #1fbdd5;
-                    text-decoration: none;
-                }
-//            }
+            //            a {
+            color: #000;
+            transition: color .1s ease;
+            cursor: pointer;
+            &:hover {
+                color: #1fbdd5;
+                text-decoration: none;
+            }
+            //            }
         }
         .above-table-action-right {
             padding-left: 28px;
@@ -254,24 +254,24 @@ a:visited.inga-btn-negative:hover {
                 padding: 7px;
             }
         }
+        &.selected {
+            border-top: #1fbdd5 3px solid;
+            border-bottom: #1fbdd5 3px solid;
+            td {
+                padding-top: 11px;
+                padding-bottom: 11px;
+                background: #e4f5f9;
+            }
+            &>:first-child {
+                background: #d9f1f7;
+            }
+        }
     }
     .heading-title {
         cursor: pointer;
         .heading-title-selected {
             margin-bottom: 0;
             color: #1fbdd5;
-        }
-    }
-    &.selected {
-        border-top: #1fbdd5 3px solid;
-        border-bottom: #1fbdd5 3px solid;
-        td {
-            padding-top: 11px;
-            padding-bottom: 11px;
-            background: #e4f5f9;
-        }
-        &>:first-child {
-            background: #d9f1f7;
         }
     }
 }
@@ -294,12 +294,13 @@ input[type="checkbox"] {
         color: #99a1a7;
         opacity: 1;
         &:after {
-            content: '\2714';
+            content: "\f00c";
+            font-family: 'FontAwesome';
+            color: #1fbdd5;
             font-size: 12px;
             position: absolute;
-            top: 0px;
-            left: 3px;
-            color: #99a1a7;
+            top: 1px;
+            left: 1px;
         }
     }
 }

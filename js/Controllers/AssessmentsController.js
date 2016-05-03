@@ -7,12 +7,8 @@ var INGAApp;
 (function (INGAApp) {
     var AssessmentsController = (function (_super) {
         __extends(AssessmentsController, _super);
-        // navService: NavigationService;
-        // projectService: ProjectService;
-        function AssessmentsController($scope, $timeout) {
+        function AssessmentsController($scope, $timeout, $uibModal) {
             _super.call(this, $scope);
-            // this.navService = navService;
-            // this.projectService = projectService;
             var controller = this;
             $scope.init = function () {
                 $scope.getAssessments();
@@ -47,9 +43,9 @@ var INGAApp;
             };
             $scope.getAssessments = function () {
                 $scope.currentAssessments = [
-                    { title: "Kindergarten - Universal Screener - Spring", gradeLevel: "K", subjectArea: "Reading", term: "Winter", schoolYear: "2015-2016" },
-                    { title: "1st Grade - Universal Screener - Spring", gradeLevel: "1", subjectArea: "Math", term: "Spring", schoolYear: "2015-2016" },
-                    { title: "T-1st Grade - Universal Screener - Spring", gradeLevel: "1", subjectArea: "English", term: "Spring", schoolYear: "2015-2016" }
+                    { title: "Kindergarten - Universal Screener - Spring", gradeLevel: { gradeName: "K", gradeKey: 1 }, subjectArea: "Reading", term: "Winter", schoolYear: "2015-2016" },
+                    { title: "1st Grade - Universal Screener - Spring", gradeLevel: { gradeName: "1", gradeKey: 2 }, subjectArea: "Math", term: "Spring", schoolYear: "2015-2016" },
+                    { title: "T-1st Grade - Universal Screener - Spring", gradeLevel: { gradeName: "1", gradeKey: 2 }, subjectArea: "English", term: "Spring", schoolYear: "2015-2016" }
                 ];
             };
             $scope.setHeadingDropdownWidth = function () {
@@ -144,6 +140,24 @@ var INGAApp;
                 //     }
                 // }
             };
+            $scope.openAssessmentViewModal = function (assessment) {
+                var tmpAssessment = assessment;
+                console.log(tmpAssessment);
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    templateUrl: 'partials/modals/assessmentViewModal.html',
+                    controller: 'AssessmentViewController',
+                    size: "lg",
+                    resolve: {
+                        assessment: function () {
+                            return tmpAssessment;
+                        }
+                    }
+                });
+                modalInstance.result.then(function (selectedItem) {
+                    console.log(selectedItem);
+                });
+            };
             // $scope.$watch(() => navService.currentRoute,
             // (newValue: INavItem, oldValue: INavItem) => {
             //   $scope.currentRoute = newValue;
@@ -227,7 +241,7 @@ var INGAApp;
             //   }
             // };
         }
-        AssessmentsController.$inject = ['$scope', '$timeout'];
+        AssessmentsController.$inject = ['$scope', '$timeout', '$uibModal'];
         return AssessmentsController;
     }(BaseController.Controller));
     INGAApp.AssessmentsController = AssessmentsController;

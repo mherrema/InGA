@@ -1,0 +1,149 @@
+<div class="modal-header">
+    <button type="button" class="close" aria-label="Close" ng-click="cancel()"><span aria-hidden="true">&times;</span>
+    </button>
+    <h5 class="modal-title-back" ng-click="cancel()"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Return to create new assessment</h5>
+    <h4 class="modal-title-with-back" id="myModalLabel">{{assessment.title}} - Edit</h4>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <form>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="inputEmail">Item Type</label>
+                    <select class="form-control">
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                        <option value="mercedes">Mercedes</option>
+                        <option value="audi">Audi</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="inputEmail">Title</label>
+                    <input type="text" class="form-control" id="inputTitle" placeholder="Assessment title">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="inputEmail">Item Points (Min)</label>
+                    <select class="form-control">
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                        <option value="mercedes">Mercedes</option>
+                        <option value="audi">Audi</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="inputEmail">Item Points (Max)</label>
+                    <select class="form-control">
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                        <option value="mercedes">Mercedes</option>
+                        <option value="audi">Audi</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="inputEmail">Item Points Step</label>
+                    <select class="form-control">
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                        <option value="mercedes">Mercedes</option>
+                        <option value="audi">Audi</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="inputEmail">Other Values</label>
+                    <select class="form-control">
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                        <option value="mercedes">Mercedes</option>
+                        <option value="audi">Audi</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="inputEmail">Subtest</label>
+                    <input type="text" class="form-control" id="inputTitle" placeholder="Assessment title">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row table-title-row">
+        <div class="col-sm-12">
+            <h5 class="modal-table-title">Standard Information</h5>
+        </div>
+    </div>
+    <div class="row standard-information">
+        <div class="">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="inputEmail">Subject</label>
+                    <select class="form-control">
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                        <option value="mercedes">Mercedes</option>
+                        <option value="audi">Audi</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="inputEmail">Grade</label>
+                    <select class="form-control">
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                        <option value="mercedes">Mercedes</option>
+                        <option value="audi">Audi</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="inputEmail">Year</label>
+                    <select class="form-control">
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                        <option value="mercedes">Mercedes</option>
+                        <option value="audi">Audi</option>
+                    </select>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <select class="form-control" disabled>
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                        <option value="mercedes">Mercedes</option>
+                        <option value="audi">Audi</option>
+                    </select>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="inputEmail">Standard Code</label>
+                    <select class="form-control">
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                        <option value="mercedes">Mercedes</option>
+                        <option value="audi">Audi</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row below-table-btn-row">
+        <button class="btn inga-btn inga-btn-positive right-btn" ng-click="ok()">Ok</button>
+        <button class="btn inga-btn inga-btn-negative right-btn" ng-click="cancel()">Cancel</button>
+    </div>
+</div>
