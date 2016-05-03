@@ -39,10 +39,21 @@ var INGAApp;
     myApp.addController('NewAssessmentController', INGAApp.NewAssessmentController);
     myApp.addController('AssessmentViewController', INGAApp.AssessmentViewController);
     myApp.addController('NewAssessmentItemController', INGAApp.NewAssessmentItemController);
+    myApp.addController('NewMasterTemplateController', INGAApp.NewMasterTemplateController);
     myApp.addService('mainService', INGAApp.MainService);
     myApp.addRoute("/assessments", "partials/assessments.html", "AssessmentsController");
     myApp.app.config(function ($animateProvider) {
         $animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
     });
+    myApp.app.directive('noclick', [function () {
+            return {
+                restrict: 'A',
+                link: function link(scope, element, attrs) {
+                    element.bind('click', function (e) {
+                        e.stopPropagation();
+                    });
+                }
+            };
+        }]);
 })(INGAApp || (INGAApp = {}));
 //# sourceMappingURL=app.js.map

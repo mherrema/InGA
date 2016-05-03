@@ -24,7 +24,7 @@
   </ul>
 </div>
 <div class="row">
-  <table class="inga-table" style="position:relative;">
+  <table class="inga-table clickable-rows" style="position:relative;">
     <tr>
       <!--                    <th><span style="float:left;"><input type="checkbox" /></span><span style="float:left;">Title</span><span class="glyphicon glyphicon-search search-icon"></span></th>-->
       <th>
@@ -57,12 +57,12 @@
     </tr>
     <tr ng-repeat="assessment in currentAssessments" ng-class="{'selected': assessment.checked}" ng-click="openAssessmentViewModal(assessment)">
       <td>
-        <input type="checkbox" ng-model="assessment.checked" ng-checked="assessment.checked"/>{{assessment.title}}</td>
+        <input type="checkbox" ng-model="assessment.checked" ng-checked="assessment.checked" noclick />{{assessment.title}}</td>
         <td>{{assessment.gradeLevel.gradeName}}</td>
         <td>{{assessment.subjectArea}}</td>
         <td>{{assessment.term}}</td>
         <td>{{assessment.schoolYear}}</td>
-        <td>{{assessment.checked}}</td>
+        <td></td>
       </tr>
         </table>
       </div>

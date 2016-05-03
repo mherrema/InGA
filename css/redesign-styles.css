@@ -246,6 +246,15 @@ a:visited.inga-btn-negative:hover {
   margin-bottom: 0;
   color: #1fbdd5;
 }
+.inga-table.clickable-rows tr:not(:first-child) {
+  cursor: pointer;
+}
+.inga-table.clickable-rows tr:not(:first-child) td {
+  transition: background-color 0.1s ease;
+}
+.inga-table.clickable-rows tr:not(:first-child):hover td {
+  background-color: #dfe7e9;
+}
 input[type="checkbox"] {
   -webkit-appearance: none;
   background-color: #fff;
@@ -409,6 +418,9 @@ input[type=text].search-input-textbox {
   text-transform: uppercase;
   font-size: 12px;
   cursor: pointer;
+}
+.modal .modal-dialog .modal-content .modal-header .modal-title-back {
+  padding-left: 30px;
 }
 .modal .modal-dialog .modal-content .modal-body {
   padding: 0px;

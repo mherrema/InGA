@@ -1,22 +1,23 @@
 module INGAApp
 {
 
-  export interface INavScope extends BaseController.IScope
+  export interface IMainScope extends BaseController.IScope
   {
     init: Function,
     test: string,
     pageTypeTitle: string,
     pageTitle: string,
     openNewAssessmentModal: Function,
-    items: Array<string>
+    items: Array<string>,
+    openNewMasterTemplateModal: Function
   }
 
   export class MainController extends BaseController.Controller
   {
-    scope: INavScope;
+    scope: IMainScope;
     static $inject = ['$scope', '$log', '$uibModal'];
 
-    constructor( $scope: INavScope, $log: ng.ILogService, $uibModal: ng.ui.bootstrap.IModalService)
+    constructor( $scope: IMainScope, $log: ng.ILogService, $uibModal: ng.ui.bootstrap.IModalService)
     {
       super( $scope );
       var controller = this;
@@ -47,6 +48,26 @@ module INGAApp
           console.log(selectedItem);
         });
       };
+
+      $scope.openNewMasterTemplateModal = function () {
+
+        var modalInstance = $uibModal.open({
+          animation: true,
+          templateUrl: 'partials/modals/newMasterTemplateModal.html',
+          controller: 'NewMasterTemplateController',
+          size: "lg",
+          resolve: {
+            assessment: function () {
+              return {};
+            }
+          }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+          console.log(selectedItem);
+        });
+      };
+
 
 
     }

@@ -43,12 +43,23 @@ module INGAApp {
   myApp.addController('NewAssessmentController', NewAssessmentController);
   myApp.addController('AssessmentViewController', AssessmentViewController);
   myApp.addController('NewAssessmentItemController', NewAssessmentItemController);
+  myApp.addController('NewMasterTemplateController', NewMasterTemplateController);
 
   myApp.addService('mainService', MainService);
   myApp.addRoute("/assessments", "partials/assessments.html", "AssessmentsController");
   myApp.app.config(function($animateProvider) {
     $animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
   });
+  myApp.app.directive('noclick', [function() {
+    return {
+      restrict: 'A',
+      link: function link(scope, element, attrs) {
+        element.bind('click', function(e) {
+            e.stopPropagation();
+        });
+      }
+    }
+}]);
   // declare var FastClick: CoalesceHelpers.FastClickStatic;
   // myApp.app.run(function () {
   //   FastClick.attach(document.body);

@@ -32,6 +32,22 @@ var INGAApp;
                     console.log(selectedItem);
                 });
             };
+            $scope.openNewMasterTemplateModal = function () {
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    templateUrl: 'partials/modals/newMasterTemplateModal.html',
+                    controller: 'NewMasterTemplateController',
+                    size: "lg",
+                    resolve: {
+                        assessment: function () {
+                            return {};
+                        }
+                    }
+                });
+                modalInstance.result.then(function (selectedItem) {
+                    console.log(selectedItem);
+                });
+            };
         }
         MainController.$inject = ['$scope', '$log', '$uibModal'];
         return MainController;

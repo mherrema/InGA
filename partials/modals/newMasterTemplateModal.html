@@ -1,18 +1,18 @@
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel()" aria-label="Close"><span aria-hidden="true">&times;</span>
     </button>
-    <h4 class="modal-title" id="myModalLabel">Create New Assessment</h4>
+    <h4 class="modal-title" id="myModalLabel">Create New Master Template</h4>
 </div>
 <div class="modal-body">
   <div class="row">
-    {{newAssessment}}
+    {{newMasterTemplate}}
   </div>
     <div class="row">
         <form>
             <div class="col-sm-12">
                 <div class="form-group">
                     <label for="inputEmail">Title</label>
-                    <input type="text" class="form-control" id="inputTitle" placeholder="Assessment title" ng-model="newAssessment.title">
+                    <input type="text" class="form-control" id="inputTitle" placeholder="Assessment title" ng-model="newMasterTemplate.title">
                 </div>
             </div>
             <div class="col-sm-4">

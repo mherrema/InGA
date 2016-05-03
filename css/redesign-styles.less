@@ -274,6 +274,19 @@ a:visited.inga-btn-negative:hover {
             color: #1fbdd5;
         }
     }
+    &.clickable-rows {
+        tr:not(:first-child) {
+            cursor: pointer;
+            td{
+                transition: background-color 0.1s ease;
+            }
+            &:hover{
+                td{
+                    background-color: #dfe7e9;
+                }
+            }
+        }
+    }
 }
 
 input[type="checkbox"] {
@@ -450,6 +463,9 @@ input[type=text] {
                         font-size: 12px;
                         cursor: pointer;
                     }
+                }
+                .modal-title-back{
+                    padding-left: 30px;
                 }
             }
             .modal-body {
