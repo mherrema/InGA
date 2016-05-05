@@ -4,15 +4,22 @@ module INGAApp
   interface INewAssessmentScope extends BaseController.IScope
   {
     init: Function,
-    newAssessment: Assessment,
+    newAssessment: DistrictAssessment,
     items: Array<string>,
     selected: SelectedItem,
     publish: Function,
     ok: Function,
     cancel: Function,
-    gradeOptions: Array<Grade>,
+    gradeOptions: Array<GradeLevel>,
+    subjectOptions: Array<Subject>,
+    schoolYearOptions: Array<SchoolYear>,
+    standardTypeOptions: Array<StandardType>,
+    templateOptions: Array<AssessmentTemplate>,
+    calendarOptions: Array<Calendar>,
     openAssessmentViewModal: Function,
-    openNewAssessmentItemModal: Function
+    openNewAssessmentItemModal: Function,
+    selectTemplate: Function,
+    templateSelected: boolean
   }
 
   interface SelectedItem{
@@ -29,11 +36,42 @@ module INGAApp
       super( $scope );
       var controller = this;
 
-      if(assessment != undefined){
+      if(assessment.Title != undefined){
         $scope.newAssessment = assessment;
+        if(assessment.Template.Title != undefined && assessment.Template.Title != "None"){
+          $scope.templateSelected = true;
+        }
       }
 
       $scope.gradeOptions = mainService.getGradeOptions();
+      $scope.subjectOptions = mainService.getSubjectOptions();
+      $scope.schoolYearOptions = mainService.getSchoolYearOptions();
+      $scope.standardTypeOptions = mainService.getStandardTypeOptions();
+      $scope.templateOptions = mainService.getTemplateOptions();
+      $scope.calendarOptions = mainService.getCalendarOptions();
+
+
+
+      $scope.selectTemplate = function(){
+        if($scope.newAssessment.Template.Title == "None"){
+          $scope.templateSelected = false;
+          $scope.newAssessment.Subject = {};
+          $scope.newAssessment.Calendar = {};
+          $scope.newAssessment.StandardType = {};
+          $scope.newAssessment.GradeLevel = {};
+        }
+        else{
+          $scope.templateSelected = true;
+          $scope.newAssessment.Subject = {SubjectKey: $scope.newAssessment.Template.SubjectKey};
+          $scope.newAssessment.Calendar = {CalendarKey: $scope.newAssessment.Template.CalendarKey};
+          $scope.newAssessment.StandardType = {StandardTypeKey: $scope.newAssessment.Template.StandardTypeKey};
+          $scope.newAssessment.GradeLevel = {GradeLevelKey: $scope.newAssessment.Template.GradeLevelKey};
+        }
+      }
+
+
+
+
 
       $scope.publish = function () {
         $uibModalInstance.close($scope.newAssessment);

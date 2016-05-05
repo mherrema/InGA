@@ -5,67 +5,57 @@
 </div>
 <div class="modal-body">
   <div class="row">
-    {{newAssessment}}
   </div>
     <div class="row">
         <form>
             <div class="col-sm-12">
                 <div class="form-group">
                     <label for="inputEmail">Title</label>
-                    <input type="text" class="form-control" id="inputTitle" placeholder="Assessment title" ng-model="newAssessment.title">
+                    <input type="text" class="form-control" id="inputTitle" placeholder="Assessment title" ng-model="newAssessment.Title">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="inputEmail">Template</label>
+                    <select class="form-control" ng-options="template as template.Title for template in templateOptions track by template.AssessmentTemplateKey"
+                    ng-model="newAssessment.Template" ng-change="selectTemplate()"></select>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="inputEmail">Calendar</label>
+                    <select class="form-control" ng-options="calendar as calendar.CalendarName for calendar in calendarOptions track by calendar.CalendarKey"
+                    ng-model="newAssessment.Calendar" ng-disabled="templateSelected"></select>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
                     <label for="inputEmail">Grade Level</label>
-                    <select class="form-control" ng-options="grade as grade.gradeName for grade in gradeOptions track by grade.gradeKey" ng-model="newAssessment.grade"></select>
+                    <select class="form-control" ng-options="grade as grade.GradeLevelName for grade in gradeOptions track by grade.GradeLevelKey"
+                    ng-model="newAssessment.GradeLevel" ng-disabled="templateSelected"></select>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
                     <label for="inputEmail">Subject Area</label>
-                    <select class="form-control">
-                        <option value="volvo">Volvo</option>
-                        <option value="saab">Saab</option>
-                        <option value="mercedes">Mercedes</option>
-                        <option value="audi">Audi</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="form-group">
-                    <label for="inputEmail">Schedule Date</label>
-                    <input type="text" class="form-control" id="inputTitle" placeholder="Assessment title">
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="form-group">
-                    <label for="inputEmail">School Year</label>
-                    <select class="form-control">
-                        <option value="volvo">Volvo</option>
-                        <option value="saab">Saab</option>
-                        <option value="mercedes">Mercedes</option>
-                        <option value="audi">Audi</option>
-                    </select>
+                    <select class="form-control" ng-options="subject as subject.SubjectName for subject in subjectOptions track by subject.SubjectKey"
+                    ng-model="newAssessment.Subject" ng-disabled="templateSelected"></select>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
                     <label for="inputEmail">Standard Type</label>
-                    <select class="form-control">
-                        <option value="volvo">Volvo</option>
-                        <option value="saab">Saab</option>
-                        <option value="mercedes">Mercedes</option>
-                        <option value="audi">Audi</option>
-                    </select>
+                    <select class="form-control" ng-options="standardType as standardType.Name for standardType in standardTypeOptions track by standardType.StandardTypeKey"
+                    ng-model="newAssessment.StandardType" ng-disabled="templateSelected"></select>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
-                    <label for="inputEmail">Schedule Date</label>
-                    <input type="text" class="form-control" id="inputTitle" placeholder="Assessment title">
+                    <label for="inputEmail">School Year</label>
+                    <select class="form-control" ng-options="schoolYear as schoolYear.SchoolYearNameShort for schoolYear in schoolYearOptions track by schoolYear.SchoolYearKey" ng-model="newAssessment.SchoolYear"></select>
                 </div>
             </div>
+            <div class="clearfix"></div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="inputEmail">Term</label>
@@ -97,7 +87,8 @@
             <h5 class="modal-table-title">Assessment Items</h5>
         </div>
         <div class="col-sm-7">
-            <button class="btn  inga-btn inga-btn-positive right-btn" ng-click="openNewAssessmentItemModal()">New Item</button>
+            <button class="btn  inga-btn inga-btn-positive right-btn"
+            ng-click="openNewAssessmentItemModal()" ng-disabled="templateSelected">New Item</button>
         </div>
     </div>
     <table class="modal-table">

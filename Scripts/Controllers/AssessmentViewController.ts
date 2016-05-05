@@ -3,7 +3,7 @@ module INGAApp
 
   interface IAssessmentViewScope extends BaseController.IScope
   {
-    assessment: Assessment,
+    assessment: DistrictAssessment,
     ok: Function,
     cancel: Function
   }
@@ -17,7 +17,7 @@ module INGAApp
     scope: IAssessmentViewScope;
     static $inject = ['$scope', '$uibModalInstance', '$uibModal', 'mainService', 'assessment'];
 
-    constructor( $scope: IAssessmentViewScope, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $uibModal: ng.ui.bootstrap.IModalService, mainService:MainService, assessment:Assessment)
+    constructor( $scope: IAssessmentViewScope, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $uibModal: ng.ui.bootstrap.IModalService, mainService:MainService, assessment:DistrictAssessment)
     {
       super( $scope );
       var controller = this;

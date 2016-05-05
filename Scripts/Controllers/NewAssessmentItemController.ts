@@ -3,7 +3,7 @@ module INGAApp
 
   interface INewAssessmentItemScope extends BaseController.IScope
   {
-    assessment: Assessment,
+    assessment: DistrictAssessment,
     ok: Function,
     cancel: Function,
     openNewAssessmentModal: Function
@@ -18,7 +18,7 @@ module INGAApp
     scope: INewAssessmentItemScope;
     static $inject = ['$scope', '$uibModalInstance', '$uibModal', 'mainService', 'assessment'];
 
-    constructor( $scope: INewAssessmentItemScope, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $uibModal: ng.ui.bootstrap.IModalService, mainService:MainService, assessment:Assessment)
+    constructor( $scope: INewAssessmentItemScope, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $uibModal: ng.ui.bootstrap.IModalService, mainService:MainService, assessment:DistrictAssessment)
     {
       super( $scope );
       var controller = this;
@@ -27,7 +27,7 @@ module INGAApp
 
       $scope.ok = function () {
 
-        
+
         //add the item to the assessment first
 
 

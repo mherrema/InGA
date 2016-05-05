@@ -34,7 +34,7 @@ module INGAApp
 
         var modalInstance = $uibModal.open({
           animation: true,
-          templateUrl: 'partials/modals/newAssessmentModal.html',
+          templateUrl: 'partials/modals/newDistrictAssessmentModal.html',
           controller: 'NewAssessmentController',
           size: "lg",
           resolve: {
@@ -53,7 +53,7 @@ module INGAApp
 
         var modalInstance = $uibModal.open({
           animation: true,
-          templateUrl: 'partials/modals/newMasterTemplateModal.html',
+          templateUrl: 'partials/modals/newAssessmentTemplateModal.html',
           controller: 'NewMasterTemplateController',
           size: "lg",
           resolve: {

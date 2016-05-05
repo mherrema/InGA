@@ -18,10 +18,10 @@ module INGAApp
     areOptionsSelected: boolean,
     clearFilters: Function,
     getAssessments: Function,
-    currentAssessments: Array<Assessment>,
+    currentAssessments: Array<DistrictAssessment>,
     toggleAllChecked : Function,
     allChecked : boolean,
-    newAssessment: Assessment,
+    newAssessment: DistrictAssessment,
     openAssessmentViewModal: Function
   }
 
@@ -76,9 +76,9 @@ module INGAApp
 
       $scope.getAssessments = function(){
         $scope.currentAssessments = [
-          {title: "Kindergarten - Universal Screener - Spring", gradeLevel: {gradeName:"K", gradeKey: 1}, subjectArea: "Reading", term: "Winter", schoolYear: "2015-2016"},
-          {title: "1st Grade - Universal Screener - Spring", gradeLevel: {gradeName:"1", gradeKey: 2}, subjectArea: "Math", term: "Spring", schoolYear: "2015-2016"},
-          {title: "T-1st Grade - Universal Screener - Spring", gradeLevel: {gradeName:"1", gradeKey: 2}, subjectArea: "English", term: "Spring", schoolYear: "2015-2016"}
+          {Title: "Kindergarten - Universal Screener - Spring", GradeLevel: {GradeLevelName:"K", GradeLevelKey: 1}, Subject: {SubjectName: "Reading"}, Term: "Winter", SchoolYear: {SchoolYearNameShort: "2015-2016"}},
+          {Title: "Kindergarten - Universal Screener - Spring", GradeLevel: {GradeLevelName:"K", GradeLevelKey: 1}, Subject: {SubjectName: "Reading"}, Term: "Winter", SchoolYear: {SchoolYearNameShort: "2015-2016"}},
+          {Title: "Kindergarten - Universal Screener - Spring", GradeLevel: {GradeLevelName:"K", GradeLevelKey: 1}, Subject: {SubjectName: "Reading"}, Term: "Winter", SchoolYear: {SchoolYearNameShort: "2015-2016"}}
         ];
       }
 

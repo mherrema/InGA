@@ -4,13 +4,13 @@ module INGAApp
   interface INewMasterTemplateScope extends BaseController.IScope
   {
     init: Function,
-    newAssessment: Assessment,
+    newAssessment: DistrictAssessment,
     items: Array<string>,
     selected: SelectedItem,
     publish: Function,
     ok: Function,
     cancel: Function,
-    gradeOptions: Array<Grade>,
+    gradeOptions: Array<GradeLevel>,
     openAssessmentViewModal: Function,
     openNewAssessmentItemModal: Function
   }
