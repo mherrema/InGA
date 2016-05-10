@@ -1,10 +1,10 @@
 module INGAApp
 {
 
-  interface INewMasterTemplateScope extends BaseController.IScope
+  interface INewAssessmentTemplateScope extends BaseController.IScope
   {
     init: Function,
-    newAssessment: DistrictAssessment,
+    newAssessmentTemplate: AssessmentTemplate,
     items: Array<string>,
     selected: SelectedItem,
     publish: Function,
@@ -12,19 +12,21 @@ module INGAApp
     cancel: Function,
     gradeOptions: Array<GradeLevel>,
     openAssessmentViewModal: Function,
-    openNewAssessmentItemModal: Function
+    openNewAssessmentItemModal: Function,
+    updateItemRanking: Function,
+    sortableOptions: SortableOptions
   }
 
   interface SelectedItem{
     item: string
   }
 
-  export class NewMasterTemplateController extends BaseController.Controller
+  export class NewAssessmentTemplateController extends BaseController.Controller
   {
-    scope: INewMasterTemplateScope;
+    scope: INewAssessmentTemplateScope;
     static $inject = ['$scope', '$uibModalInstance', '$uibModal', 'mainService', 'assessment'];
 
-    constructor( $scope: INewMasterTemplateScope, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $uibModal: ng.ui.bootstrap.IModalService, mainService:MainService)
+    constructor( $scope: INewAssessmentTemplateScope, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $uibModal: ng.ui.bootstrap.IModalService, mainService:MainService)
     {
       super( $scope );
       var controller = this;
@@ -33,23 +35,36 @@ module INGAApp
       //   $scope.newAssessment = assessment;
       // }
 
-      $scope.gradeOptions = mainService.getGradeOptions();
+      $scope.init = function(){
+        $scope.gradeOptions = mainService.getGradeOptions();
+        $scope.sortableOptions = {
+          disabled: false,
+          stop: function(){$scope.updateItemRanking()}
+        };
+      }
 
       $scope.publish = function () {
-        $uibModalInstance.close($scope.newAssessment);
-        $scope.openAssessmentViewModal();
+        $uibModalInstance.close($scope.newAssessmentTemplate);
+        // $scope.openAssessmentViewModal();
       };
 
       $scope.ok = function () {
-        $uibModalInstance.close($scope.newAssessment);
+        $uibModalInstance.close($scope.newAssessmentTemplate);
       };
 
       $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
       };
 
+      $scope.updateItemRanking = function(){
+        angular.forEach($scope.newAssessmentTemplate.Items, function(value: Item, key) {
+          value.ItemOrder = key+1;
+        });
+        console.log($scope.newAssessmentTemplate.Items);
+      }
+
       $scope.openNewAssessmentItemModal = function (size) {
-        $uibModalInstance.dismiss('hide');
+        // $uibModalInstance.dismiss('hide');
 
         var modalInstance = $uibModal.open({
           animation: true,
@@ -60,7 +75,7 @@ module INGAApp
           keyboard: false,
           resolve: {
             assessment: function () {
-              return $scope.newAssessment;
+              return $scope.newAssessmentTemplate;
             }
           }
         });
@@ -79,7 +94,7 @@ module INGAApp
           size: "lg",
           resolve: {
             assessment: function () {
-              return $scope.newAssessment;
+              return $scope.newAssessmentTemplate;
             }
           }
         });

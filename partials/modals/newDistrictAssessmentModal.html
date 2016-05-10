@@ -1,9 +1,9 @@
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel()" aria-label="Close"><span aria-hidden="true">&times;</span>
     </button>
-    <h4 class="modal-title" id="myModalLabel">Create New Assessment</h4>
+    <h4 class="modal-title" id="myModalLabel" >{{pageTitle}}</h4>
 </div>
-<div class="modal-body">
+<div class="modal-body" ng-init="init()">
   <div class="row">
   </div>
     <div class="row">
@@ -11,14 +11,14 @@
             <div class="col-sm-12">
                 <div class="form-group">
                     <label for="inputEmail">Title</label>
-                    <input type="text" class="form-control" id="inputTitle" placeholder="Assessment title" ng-model="newAssessment.Title">
+                    <input type="text" class="form-control" id="assessmentTitle" placeholder="Assessment title" ng-model="newAssessment.Title" >
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
                     <label for="inputEmail">Template</label>
                     <select class="form-control" ng-options="template as template.Title for template in templateOptions track by template.AssessmentTemplateKey"
-                    ng-model="newAssessment.Template" ng-change="selectTemplate()"></select>
+                    ng-model="newAssessment.AssessmentTemplate" ng-change="selectTemplate()"></select>
                 </div>
             </div>
             <div class="col-sm-4">
@@ -57,27 +57,27 @@
             </div>
             <div class="clearfix"></div>
             <div class="col-sm-6">
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="inputEmail">Term</label>
                     <input type="text" class="form-control" id="inputTitle" placeholder="Enter term">
                 </div>
                 <div class="form-group">
                     <label for="inputEmail">Report Group</label>
                     <input type="text" class="form-control" id="inputTitle" placeholder="Enter report group">
-                </div>
+                </div> -->
                 <div class="form-group">
                     <label for="inputEmail">Scoring</label>
                     <br>
-                    <input type="checkbox" name="vehicle" value="Bike"><span class="checkbox-span">Scantron/TurningKey</span>
+                    <input type="checkbox" name="vehicle" value="Bike"><span class="checkbox-span">Scantron</span>
                     <br>
                 </div>
             </div>
             <div class="col-sm-6">
-                <div class="form-group">
-                    <label for="inputEmail">Optional File</label>
+                <div class="form-group" ng-if="templateSelected">
+                    <!-- <label for="inputEmail">Optional File</label>
                     <input type="file" class="form-control" id="inputTitle" placeholder="Enter term">
-                    <button class="btn inga-btn inga-btn-negative upload-btn">Upload</button>
-                    <p class="optional-upload-paragraph">Optionally, select a file to include with the assessment. This file would typically include the questions on the assessment, instructions for completing the assessment, or extra reading or reference material that is required.</p>
+                    <button class="btn inga-btn inga-btn-negative upload-btn">Upload</button> -->
+                    <p class="optional-upload-paragraph">By using a template to create an assessment, the items associated are locked. Contact administrator to request changes.</p>
                 </div>
             </div>
         </form>
@@ -91,26 +91,37 @@
             ng-click="openNewAssessmentItemModal()" ng-disabled="templateSelected">New Item</button>
         </div>
     </div>
-    <table class="modal-table">
-        <tr>
+    <table class="modal-table" >
+        <thead>
             <th>Order</th>
             <th>Standard</th>
             <th>Item Type</th>
             <th>Correct Score</th>
             <th>Points</th>
+        </thead>
+
+        <tbody ui-sortable="sortableOptions" ng-model="newAssessment.Items">
+          <tr class="empty-table-row" ng-if="!newAssessment.Items">
+              <td colspan="5">No records to display</td>
+          </tr>
+        <tr ng-repeat="item in newAssessment.Items">
+            <td>{{item.ItemOrder}}</td>
+            <td>{{item.Rank}}</td>
+            <td>{{item.ItemType.TypeName}}</td>
+            <td>{{item.CorrectScore}}</td>
+            <td>{{item.PointsMax}}</td>
         </tr>
-        <tr class="empty-table-row">
-            <td colspan="5">No records to display</td>
-        </tr>
+      </tbody>
     </table>
-    <div class="row">
+    <!-- <div class="row">
         <div class="below-table-checkbox">
             <input type="checkbox" name="vehicle" value="Bike"><span class="checkbox-span">Save New Assessment as a Template</span>
         </div>
-    </div>
+    </div> -->
     <div class="row below-table-btn-row">
         <button class="btn  inga-btn inga-btn-positive right-btn" ng-click="publish()">Publish</button>
         <button class="btn  inga-btn inga-btn-negative right-btn" ng-click="ok()">Save &amp; Exit</button>
         <button class="btn  inga-btn inga-btn-negative right-btn" ng-click="cancel()">Cancel</button>
     </div>
 </div>
+{{newAssessment}}

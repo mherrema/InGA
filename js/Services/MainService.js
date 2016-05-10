@@ -32,8 +32,11 @@ var INGAApp;
         };
         MainService.prototype.getTemplateOptions = function () {
             return [{ Title: "None", AssessmentTemplateKey: 0, CalendarKey: 0, SubjectKey: 0, StandardTypeKey: 0 },
-                { Title: "Template 1", AssessmentTemplateKey: 1, CalendarKey: 1, SubjectKey: 1, StandardTypeKey: 1, GradeLevelKey: 1 },
+                { Title: "Template 1", AssessmentTemplateKey: 1, Calendar: { CalendarKey: 1, CalendarName: "Calendar 1" }, Subject: { SubjectKey: 1, SubjectName: "Test Subject" }, StandardTypeKey: 1, GradeLevelKey: 1 },
                 { Title: "Template 2", AssessmentTemplateKey: 2, CalendarKey: 2, SubjectKey: 2, StandardTypeKey: 2, GradeLevelKey: 2 }];
+        };
+        MainService.prototype.getItemTypeOptions = function () {
+            return [{ ItemTypeKey: 1, TypeName: "Multiple Choice" }, { ItemTypeKey: 2, TypeName: "Constructed Response" }];
         };
         MainService.$inject = ['$http'];
         return MainService;

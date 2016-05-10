@@ -466,6 +466,7 @@ input[type=text] {
                 }
                 .modal-title-back{
                     padding-left: 30px;
+                    cursor: pointer;
                 }
             }
             .modal-body {
@@ -577,7 +578,11 @@ input[type=text] {
                 }
             } //end modal-body
         }
+        &.modal-extra-wide{
+            width: 1000px;
+        }
     }
+    
     &.fade {
         .modal-dialog {
             -webkit-transform: translate(0, 0);
@@ -852,6 +857,21 @@ a.editable-click {
                 }
             }
         }
+    }
+}
+
+button{
+    &.close{
+        transition: opacity .2s ease;
+        font-size: 40px;
+        line-height: 0.75;
+        outline: none;
+    }
+}
+
+.ui-sortable{
+    tr{
+        cursor: move;
     }
 }
 

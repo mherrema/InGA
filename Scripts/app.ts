@@ -37,15 +37,17 @@ module INGA {
 }
 
 module INGAApp {
-  var myApp = new INGA.Module('IngaApp', ['ngRoute', 'ngAnimate', 'ui.bootstrap']);
+  var myApp = new INGA.Module('IngaApp', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'ui.sortable']);
   myApp.addController('MainINGAController', MainController);
   myApp.addController('AssessmentsController', AssessmentsController);
   myApp.addController('NewAssessmentController', NewAssessmentController);
+  myApp.addController('EditAssessmentController', EditAssessmentController);
   myApp.addController('AssessmentViewController', AssessmentViewController);
   myApp.addController('NewAssessmentItemController', NewAssessmentItemController);
-  myApp.addController('NewMasterTemplateController', NewMasterTemplateController);
+  myApp.addController('NewAssessmentTemplateController', NewAssessmentTemplateController);
 
   myApp.addService('mainService', MainService);
+  myApp.addService('assessmentService', AssessmentService);
   myApp.addRoute("/assessments", "partials/assessments.html", "AssessmentsController");
   myApp.app.config(function($animateProvider) {
     $animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);

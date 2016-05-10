@@ -7,7 +7,7 @@ var INGAApp;
 (function (INGAApp) {
     var MainController = (function (_super) {
         __extends(MainController, _super);
-        function MainController($scope, $log, $uibModal) {
+        function MainController($scope, $log, $uibModal, assessmentService) {
             _super.call(this, $scope);
             var controller = this;
             $scope.init = function () {
@@ -28,15 +28,20 @@ var INGAApp;
                         }
                     }
                 });
-                modalInstance.result.then(function (selectedItem) {
-                    console.log(selectedItem);
+                modalInstance.result.then(function (assessmentPackage) {
+                    console.log(assessmentPackage.Assessment);
+                    if (assessmentService.saveAssessment(assessmentPackage)) {
+                        if (assessmentPackage.ShouldPublish) {
+                            console.log("Going to assessment view");
+                        }
+                    }
                 });
             };
             $scope.openNewMasterTemplateModal = function () {
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'partials/modals/newAssessmentTemplateModal.html',
-                    controller: 'NewMasterTemplateController',
+                    controller: 'NewAssessmentTemplateController',
                     size: "lg",
                     resolve: {
                         assessment: function () {
@@ -49,7 +54,7 @@ var INGAApp;
                 });
             };
         }
-        MainController.$inject = ['$scope', '$log', '$uibModal'];
+        MainController.$inject = ['$scope', '$log', '$uibModal', 'assessmentService'];
         return MainController;
     }(BaseController.Controller));
     INGAApp.MainController = MainController;

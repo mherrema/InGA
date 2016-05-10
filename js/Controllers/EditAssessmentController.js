@@ -5,15 +5,16 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var INGAApp;
 (function (INGAApp) {
-    var NewAssessmentController = (function (_super) {
-        __extends(NewAssessmentController, _super);
-        function NewAssessmentController($scope, $timeout, $uibModalInstance, $uibModal, mainService, assessment) {
+    var EditAssessmentController = (function (_super) {
+        __extends(EditAssessmentController, _super);
+        function EditAssessmentController($scope, $timeout, $uibModalInstance, $uibModal, mainService, assessmentService, assessment) {
             _super.call(this, $scope);
             var controller = this;
             $scope.init = function () {
-                $scope.pageTitle = "Create New Assessment";
+                $scope.pageTitle = "Edit Assessment";
                 if (assessment.Title != undefined) {
                     $scope.newAssessment = assessment;
+                    $scope.pageTitle += " " + assessment.Title;
                     if (assessment.Template != undefined && assessment.Template.Title != undefined && assessment.Template.Title != "None") {
                         $scope.templateSelected = true;
                     }
@@ -22,8 +23,7 @@ var INGAApp;
                     $scope.newAssessment = { Title: "New Assessment" };
                 }
                 $scope.sortableOptions = {
-                    disabled: false,
-                    stop: function () { $scope.updateItemRanking(); }
+                    disabled: false
                 };
                 $scope.gradeOptions = mainService.getGradeOptions();
                 $scope.subjectOptions = mainService.getSubjectOptions();
@@ -39,7 +39,9 @@ var INGAApp;
             };
             $scope.selectTemplate = function () {
                 if ($scope.newAssessment.AssessmentTemplate.Title == "None") {
-                    $scope.sortableOptions.disabled = false;
+                    $scope.sortableOptions = {
+                        disabled: false
+                    };
                     $scope.templateSelected = false;
                     $scope.newAssessment.Subject = {};
                     $scope.newAssessment.Calendar = {};
@@ -48,7 +50,9 @@ var INGAApp;
                 }
                 else {
                     $scope.templateSelected = true;
-                    $scope.sortableOptions.disabled = false;
+                    $scope.sortableOptions = {
+                        disabled: true
+                    };
                     $scope.newAssessment.Subject = $scope.newAssessment.AssessmentTemplate.Subject;
                     $scope.newAssessment.Calendar = { CalendarKey: $scope.newAssessment.AssessmentTemplate.CalendarKey };
                     $scope.newAssessment.StandardType = { StandardTypeKey: $scope.newAssessment.AssessmentTemplate.StandardTypeKey };
@@ -58,20 +62,14 @@ var INGAApp;
             $scope.highlightTitle = function () {
                 $("#assessmentTitle").select();
             };
-            $scope.updateItemRanking = function () {
-                angular.forEach($scope.newAssessment.Items, function (value, key) {
-                    value.ItemOrder = key + 1;
-                });
-                console.log($scope.newAssessment.Items);
-            };
             $scope.publish = function () {
                 console.log("Publish Assessment");
-                $uibModalInstance.close({ Assessment: $scope.newAssessment, ShouldRefresh: false, ShouldPublish: true });
+                $uibModalInstance.close({ Assessment: $scope.newAssessment, ShouldRefresh: true, ShouldPublish: true });
                 //$scope.openAssessmentViewModal();
             };
             $scope.ok = function () {
                 console.log("Saving Assessment");
-                $uibModalInstance.close({ Assessment: $scope.newAssessment, ShouldRefresh: false });
+                $uibModalInstance.close({ Assessment: $scope.newAssessment, ShouldRefresh: true });
             };
             $scope.cancel = function () {
                 $uibModalInstance.dismiss('cancel');
@@ -112,9 +110,9 @@ var INGAApp;
                 });
             };
         }
-        NewAssessmentController.$inject = ['$scope', '$timeout', '$uibModalInstance', '$uibModal', 'mainService', 'assessment'];
-        return NewAssessmentController;
+        EditAssessmentController.$inject = ['$scope', '$timeout', '$uibModalInstance', '$uibModal', 'mainService', 'assessmentService', 'assessment'];
+        return EditAssessmentController;
     }(BaseController.Controller));
-    INGAApp.NewAssessmentController = NewAssessmentController;
+    INGAApp.EditAssessmentController = EditAssessmentController;
 })(INGAApp || (INGAApp = {}));
-//# sourceMappingURL=NewAssessmentController.js.map
+//# sourceMappingURL=EditAssessmentController.js.map

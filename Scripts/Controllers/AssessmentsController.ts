@@ -28,9 +28,9 @@ module INGAApp
   export class AssessmentsController extends BaseController.Controller
   {
     scope: IAssessmentsScope;
-    static $inject = ['$scope', '$timeout', '$uibModal'];
+    static $inject = ['$scope', '$timeout', '$uibModal', 'assessmentService'];
 
-    constructor( $scope: IAssessmentsScope, $timeout: ng.ITimeoutService, $uibModal: ng.ui.bootstrap.IModalService)
+    constructor( $scope: IAssessmentsScope, $timeout: ng.ITimeoutService, $uibModal: ng.ui.bootstrap.IModalService, assessmentService: AssessmentService)
     {
       super( $scope );
       var controller = this;
@@ -56,8 +56,14 @@ module INGAApp
             $scope.closeHeadings();
             $scope.$apply();
         }
+
+
     }
 
+    $scope.$watch(() => assessmentService.currentAssessments,
+    (newValue: Array<DistrictAssessment>, oldValue: Array<DistrictAssessment>) => {
+      $scope.currentAssessments = newValue;
+    });
 
         // $scope.clientNavItems = navService.getClientNavItems();
         // $scope.mainNavItems = navService.getMainNavItems();
@@ -75,11 +81,7 @@ module INGAApp
 
 
       $scope.getAssessments = function(){
-        $scope.currentAssessments = [
-          {Title: "Kindergarten - Universal Screener - Spring", GradeLevel: {GradeLevelName:"K", GradeLevelKey: 1}, Subject: {SubjectName: "Reading"}, Term: "Winter", SchoolYear: {SchoolYearNameShort: "2015-2016"}},
-          {Title: "Kindergarten - Universal Screener - Spring", GradeLevel: {GradeLevelName:"K", GradeLevelKey: 1}, Subject: {SubjectName: "Reading"}, Term: "Winter", SchoolYear: {SchoolYearNameShort: "2015-2016"}},
-          {Title: "Kindergarten - Universal Screener - Spring", GradeLevel: {GradeLevelName:"K", GradeLevelKey: 1}, Subject: {SubjectName: "Reading"}, Term: "Winter", SchoolYear: {SchoolYearNameShort: "2015-2016"}}
-        ];
+        // $scope.currentAssessments = assessmentService.getAssessments();
       }
 
       $scope.setHeadingDropdownWidth = function(){
@@ -196,7 +198,7 @@ module INGAApp
         animation: true,
         templateUrl: 'partials/modals/assessmentViewModal.html',
         controller: 'AssessmentViewController',
-        size: "lg",
+        size: "extra-wide",
         resolve: {
           assessment: function () {
             return tmpAssessment;

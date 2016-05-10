@@ -15,9 +15,9 @@ module INGAApp
   export class MainController extends BaseController.Controller
   {
     scope: IMainScope;
-    static $inject = ['$scope', '$log', '$uibModal'];
+    static $inject = ['$scope', '$log', '$uibModal', 'assessmentService'];
 
-    constructor( $scope: IMainScope, $log: ng.ILogService, $uibModal: ng.ui.bootstrap.IModalService)
+    constructor( $scope: IMainScope, $log: ng.ILogService, $uibModal: ng.ui.bootstrap.IModalService, assessmentService: AssessmentService)
     {
       super( $scope );
       var controller = this;
@@ -44,8 +44,14 @@ module INGAApp
           }
         });
 
-        modalInstance.result.then(function (selectedItem) {
-          console.log(selectedItem);
+        modalInstance.result.then(function (assessmentPackage: AssessmentPackage) {
+          console.log(assessmentPackage.Assessment);
+          if(assessmentService.saveAssessment(assessmentPackage)){
+            if(assessmentPackage.ShouldPublish){
+              console.log("Going to assessment view");
+              //go to assessment view
+            }
+          }
         });
       };
 
@@ -54,7 +60,7 @@ module INGAApp
         var modalInstance = $uibModal.open({
           animation: true,
           templateUrl: 'partials/modals/newAssessmentTemplateModal.html',
-          controller: 'NewMasterTemplateController',
+          controller: 'NewAssessmentTemplateController',
           size: "lg",
           resolve: {
             assessment: function () {

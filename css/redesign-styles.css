@@ -421,6 +421,7 @@ input[type=text].search-input-textbox {
 }
 .modal .modal-dialog .modal-content .modal-header .modal-title-back {
   padding-left: 30px;
+  cursor: pointer;
 }
 .modal .modal-dialog .modal-content .modal-body {
   padding: 0px;
@@ -527,6 +528,9 @@ input[type=text].search-input-textbox {
 .modal .modal-dialog .modal-content .modal-body .detail-text {
   margin-top: 0px;
   font-size: 13px;
+}
+.modal .modal-dialog.modal-extra-wide {
+  width: 1000px;
 }
 .modal.fade .modal-dialog {
   -webkit-transform: translate(0, 0);
@@ -766,6 +770,15 @@ a.editable-click {
 .card .input .input-characters .input-table tr td {
   font-size: 30px;
   padding: 10px;
+}
+button.close {
+  transition: opacity .2s ease;
+  font-size: 40px;
+  line-height: 0.75;
+  outline: none;
+}
+.ui-sortable tr {
+  cursor: move;
 }
 #ctl00_SPSecurityTrimmedControlRibbon {
   display: none;

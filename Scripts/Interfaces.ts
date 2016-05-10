@@ -11,9 +11,16 @@ export interface FilterOption{
   value?: string
 }
 
+export interface AssessmentPackage{
+  Assessment: DistrictAssessment,
+  ShouldRefresh: boolean,
+  ShouldPublish?: boolean
+}
 
-
-
+export interface SortableOptions{
+  disabled: boolean,
+  stop: Function
+}
 
 
 
@@ -91,7 +98,9 @@ export interface DistrictAssessment{
   Term?: string,
   CalendarKey?: number,
   Calendar?: Calendar,
-  Template?: AssessmentTemplate,
+  AssessmentTemplate?: AssessmentTemplate,
+  AssessmentTemplateKey?: number,
+  Items?: Array<Item>,
   checked?: boolean
 }
 
@@ -109,7 +118,7 @@ export interface GradeLevel{
   Rank?: number
 }
 
-interface Item{
+export interface Item{
   ItemKey?: number,
   ItemTypeKey?: number,
   ItemType?: ItemType,
@@ -124,9 +133,9 @@ interface Item{
   PointsStep?: number
 }
 
-interface ItemType{
+export interface ItemType{
   ItemTypeKey?: number,
-  TypeName: string
+  TypeName?: string
 }
 
 interface MarkingPeriod{
