@@ -23,6 +23,10 @@ h5 {
 .title-row {
   padding: 40px 50px;
 }
+.detail-row {
+  padding: 0 50px;
+  padding-bottom: 10px;
+}
 .page-type-title {
   color: #747077;
   text-transform: uppercase;
@@ -831,4 +835,69 @@ a:visited {
   .container {
     width: 100%;
   }
+}
+.ui-grid div.ui-grid-cell input[type="checkbox"] {
+  margin: 0;
+  margin-right: 10px;
+  margin-top: -3px;
+  opacity: 1;
+  padding: 7px;
+  top: 3px;
+}
+.ui-grid div.ui-grid-cell input[type="checkbox"]:checked:after {
+  top: 0px;
+}
+.ui-grid .ui-grid-header {
+  border-bottom: #e5e5e5 1px solid;
+}
+.ui-grid .ui-grid-header .ui-grid-top-panel {
+  background: #fcfcfc;
+}
+.ui-grid .ui-grid-header .ui-grid-top-panel .ui-grid-header-cell {
+  border-color: #e5e5e5;
+}
+.ui-grid .ui-grid-header .ui-grid-top-panel .ui-grid-header-cell .ui-grid-cell-contents {
+  font-size: 12px;
+  text-transform: uppercase;
+  padding: 25px 0 15px 20px;
+}
+.ui-grid .ui-grid-cell-focus {
+  background: inherit;
+}
+.ui-grid .ui-grid-cell {
+  border-right: #e5e5e5 1px solid;
+}
+.ui-grid .ui-grid-cell .ui-grid-cell-contents {
+  padding: 12px 20px;
+  font-size: 14px;
+}
+.ui-grid .ui-grid-pinned-container .ui-grid-top-panel {
+  background: #eff7f9;
+}
+.ui-grid .ui-grid-pinned-container .ui-grid-top-panel .ui-grid-top-panel {
+  background: #eff7f9;
+}
+.ui-grid .ui-grid-pinned-container .ui-grid-top-panel .ui-grid-top-panel .ui-grid-header-cell .ui-grid-cell-contents {
+  padding-left: 60px;
+}
+.ui-grid .ui-grid-pinned-container .ui-grid-cell-contents {
+  padding-left: 60px;
+}
+.ui-grid .ui-grid-pinned-container .ui-grid-row:nth-child(odd) .ui-grid-cell,
+.ui-grid .ui-grid-pinned-container .ui-grid-row:nth-child(even) .ui-grid-cell {
+  background: #eff7f9;
+  border-bottom: #e5e5e5 1px solid;
+  border-right: #e5e5e5 1px solid;
+}
+.ui-grid .ui-grid-pinned-container .ui-grid-header .ui-grid-top-panel .ui-grid-header-cell .ui-grid-cell-contents {
+  padding-left: 60px;
+}
+.ui-grid .ui-grid-pinned-container.ui-grid-pinned-container-left .ui-grid-header-cell:last-child {
+  border-right-color: #e5e5e5;
+}
+.ui-grid .ui-grid-canvas {
+  padding-top: 0;
+}
+* {
+  outline: none !important;
 }

@@ -5,20 +5,22 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var INGAApp;
 (function (INGAApp) {
-    var AssessmentsController = (function (_super) {
-        __extends(AssessmentsController, _super);
-        function AssessmentsController($scope, $timeout, $uibModal, mainService, assessmentService) {
+    var DataEntryAssessmentListController = (function (_super) {
+        __extends(DataEntryAssessmentListController, _super);
+        function DataEntryAssessmentListController($scope, $timeout, $location, $uibModal, mainService, assessmentService, dataEntryService) {
             _super.call(this, $scope);
             var controller = this;
             $scope.init = function () {
-                mainService.setPageTitles("Assessment Management", "INGA");
-                $scope.getAssessments();
+                mainService.setPageTitles("Data Entry", "INGA");
+                //     $scope.getAssessments();
                 $scope.headingOptions = [{ heading: "Grade Level", options: [{ key: "K" }, { key: "1" }], open: false },
                     { heading: "Subject Area", options: [{ key: "K" }, { key: "1" }], open: false },
                     { heading: "Term", options: [{ key: "K" }, { key: "1" }], open: false },
                     { heading: "School Year", options: [{ key: "K" }, { key: "1" }], open: false }];
                 $scope.setHeadingDropdownWidth();
-                $scope.allChecked = false;
+                //
+                //     $scope.allChecked = false;
+                //
                 window.onclick = function () {
                     if ($scope.justOpenedHeading) {
                         $scope.headingOpen = true;
@@ -30,7 +32,8 @@ var INGAApp;
                         $scope.$apply();
                     }
                 };
-                $scope.$watch(function () { return assessmentService.currentAssessments; }, function (newValue, oldValue) {
+                //
+                $scope.$watch(function () { return assessmentService.currentClassroomAssessments; }, function (newValue, oldValue) {
                     $scope.currentAssessments = newValue;
                 });
             };
@@ -48,16 +51,16 @@ var INGAApp;
                     }
                 });
             };
-            $scope.toggleAllChecked = function () {
-                angular.forEach($scope.currentAssessments, function (assessment) {
-                    if (!$scope.allChecked) {
-                        assessment.checked = false;
-                    }
-                    else {
-                        assessment.checked = true;
-                    }
-                });
-            };
+            // $scope.toggleAllChecked = function(){
+            //   angular.forEach($scope.currentAssessments, function (assessment) {
+            //     if(!$scope.allChecked){
+            //       assessment.checked = false;
+            //     }
+            //     else{
+            //       assessment.checked = true;
+            //     }
+            //   });
+            // }
             //toggle if search input is open
             $scope.toggleSearchOpen = function () {
                 // StateService.searchOpen = !StateService.searchOpen;
@@ -129,23 +132,9 @@ var INGAApp;
                 //     }
                 // }
             };
-            $scope.openAssessmentViewModal = function (assessment) {
-                var tmpAssessment = assessment;
-                console.log(tmpAssessment);
-                var modalInstance = $uibModal.open({
-                    animation: true,
-                    templateUrl: 'partials/modals/assessmentViewModal.html',
-                    controller: 'AssessmentViewController',
-                    size: "extra-wide",
-                    resolve: {
-                        assessment: function () {
-                            return tmpAssessment;
-                        }
-                    }
-                });
-                modalInstance.result.then(function (selectedItem) {
-                    console.log(selectedItem);
-                });
+            $scope.goToDataEntry = function (assessment) {
+                dataEntryService.currentAssessment = assessment;
+                $location.path("/dataEntry/score");
             };
             $scope.headingSortValue = function (item) {
                 if (item.Key == "All") {
@@ -154,9 +143,9 @@ var INGAApp;
                 return item;
             };
         }
-        AssessmentsController.$inject = ['$scope', '$timeout', '$uibModal', 'mainService', 'assessmentService'];
-        return AssessmentsController;
+        DataEntryAssessmentListController.$inject = ['$scope', '$timeout', '$location', '$uibModal', 'mainService', 'assessmentService', 'dataEntryService'];
+        return DataEntryAssessmentListController;
     }(BaseController.Controller));
-    INGAApp.AssessmentsController = AssessmentsController;
+    INGAApp.DataEntryAssessmentListController = DataEntryAssessmentListController;
 })(INGAApp || (INGAApp = {}));
-//# sourceMappingURL=AssessmentsController.js.map
+//# sourceMappingURL=DataEntryAssessmentListController.js.map

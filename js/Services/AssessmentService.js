@@ -14,6 +14,8 @@ var INGAApp;
                 { Title: "Kindergarten - Universal Screener - Spring", GradeLevel: { GradeLevelName: "K", GradeLevelKey: 1 }, Subject: { SubjectName: "Reading" }, Term: "Winter", SchoolYear: { SchoolYearNameShort: "2015-2016" }, AssessmentTemplate: {
                         AssessmentTemplateKey: 0, Title: "None" } }, { Title: "Kindergarten - Universal Screener - Spring",
                     GradeLevel: { GradeLevelName: "K", GradeLevelKey: 1 }, Subject: { SubjectName: "Reading" }, Term: "Winter", SchoolYear: { SchoolYearNameShort: "2015-2016" }, AssessmentTemplate: { AssessmentTemplateKey: 0, Title: "None" } }];
+            this.currentClassroomAssessments = [{ Title: "Kindergarten - Universal Screener - Spring" },
+                { Title: "Kindergarten - Universal Screener - Spring" }, { Title: "Kindergarten - Universal Screener - Spring" }];
         }
         AssessmentService.prototype.getAssessments = function () {
             console.log("Getting Assessments From Service");

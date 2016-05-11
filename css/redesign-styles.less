@@ -28,6 +28,11 @@ h5 {
     padding: 40px 50px;
 }
 
+.detail-row {
+    padding: 0 50px;
+    padding-bottom: 10px;
+}
+
 .page-type-title {
     color: #747077;
     text-transform: uppercase;
@@ -275,14 +280,16 @@ a:visited.inga-btn-negative:hover {
         }
     }
     &.clickable-rows {
-        tr:not(:first-child) {
-            cursor: pointer;
-            td{
-                transition: background-color 0.1s ease;
-            }
-            &:hover{
-                td{
-                    background-color: #dfe7e9;
+        tr {
+            &:not(:first-child) {
+                cursor: pointer;
+                td {
+                    transition: background-color 0.1s ease;
+                }
+                &:hover {
+                    td {
+                        background-color: #dfe7e9;
+                    }
                 }
             }
         }
@@ -464,7 +471,7 @@ input[type=text] {
                         cursor: pointer;
                     }
                 }
-                .modal-title-back{
+                .modal-title-back {
                     padding-left: 30px;
                     cursor: pointer;
                 }
@@ -578,11 +585,10 @@ input[type=text] {
                 }
             } //end modal-body
         }
-        &.modal-extra-wide{
+        &.modal-extra-wide {
             width: 1000px;
         }
     }
-    
     &.fade {
         .modal-dialog {
             -webkit-transform: translate(0, 0);
@@ -860,8 +866,8 @@ a.editable-click {
     }
 }
 
-button{
-    &.close{
+button {
+    &.close {
         transition: opacity .2s ease;
         font-size: 40px;
         line-height: 0.75;
@@ -869,8 +875,8 @@ button{
     }
 }
 
-.ui-sortable{
-    tr{
+.ui-sortable {
+    tr {
         cursor: move;
     }
 }
@@ -932,4 +938,95 @@ a:visited {
     .container {
         width: 100%;
     }
+}
+
+.ui-grid {
+    div.ui-grid-cell {
+        input[type="checkbox"] {
+            margin: 0;
+            margin-right: 10px;
+            margin-top: -3px;
+            opacity: 1;
+            padding: 7px;
+            top: 3px;
+            &:checked {
+                &:after {
+                    top: 0px;
+                }
+            }
+        }
+    }
+    .ui-grid-header {
+        border-bottom: #e5e5e5 1px solid;
+        .ui-grid-top-panel {
+            background: #fcfcfc;
+            .ui-grid-header-cell {
+                border-color: #e5e5e5;
+                .ui-grid-cell-contents {
+                    font-size: 12px;
+                    text-transform: uppercase;
+                    padding: 25px 0 15px 20px;
+                }
+            }
+        }
+    }
+    .ui-grid-cell-focus {
+        background: inherit;
+    }
+    .ui-grid-cell {
+        border-right: #e5e5e5 1px solid;
+        .ui-grid-cell-contents {
+            padding: 12px 20px;
+            font-size: 14px;
+        }
+    }
+    .ui-grid-pinned-container {
+        .ui-grid-top-panel {
+            background: #eff7f9;
+            .ui-grid-top-panel {
+                background: #eff7f9;
+                .ui-grid-header-cell {
+                    .ui-grid-cell-contents {
+                        padding-left: 60px;
+                    }
+                }
+            }
+        }
+        .ui-grid-cell-contents {
+            padding-left: 60px;
+        }
+        .ui-grid-row {
+            &:nth-child(odd),
+            &:nth-child(even) {
+                .ui-grid-cell {
+                    background: #eff7f9;
+                    border-bottom: #e5e5e5 1px solid;
+                    border-right: #e5e5e5 1px solid;
+                }
+            }
+        }
+        .ui-grid-header {
+            .ui-grid-top-panel {
+                .ui-grid-header-cell {
+                    .ui-grid-cell-contents {
+                        padding-left: 60px;
+                    }
+                }
+            }
+        }
+    }
+    .ui-grid-pinned-container {
+        &.ui-grid-pinned-container-left {
+            .ui-grid-header-cell:last-child {
+                border-right-color: #e5e5e5;
+            }
+        }
+    }
+    .ui-grid-canvas {
+        padding-top: 0;
+    }
+}
+
+* {
+    outline: none !important;
 }

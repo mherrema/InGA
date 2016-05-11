@@ -1,7 +1,7 @@
 module INGAApp
 {
 
-  interface IAssessmentsScope extends BaseController.IScope
+  interface IDataEntryAssessmentListScope extends BaseController.IScope
   {
     init: Function,
     test: string,
@@ -18,52 +18,52 @@ module INGAApp
     areOptionsSelected: boolean,
     clearFilters: Function,
     getAssessments: Function,
-    currentAssessments: Array<DistrictAssessment>,
+    currentAssessments: Array<ClassroomAssessment>,
     toggleAllChecked : Function,
     allChecked : boolean,
     newAssessment: DistrictAssessment,
     openAssessmentViewModal: Function,
+    goToDataEntry: Function,
     headingSortValue: Function
   }
 
-  export class AssessmentsController extends BaseController.Controller
+  export class DataEntryAssessmentListController extends BaseController.Controller
   {
-    scope: IAssessmentsScope;
-    static $inject = ['$scope', '$timeout', '$uibModal', 'mainService', 'assessmentService'];
+    scope: IDataEntryAssessmentListScope;
+    static $inject = ['$scope', '$timeout', '$location', '$uibModal', 'mainService', 'assessmentService', 'dataEntryService'];
 
-    constructor( $scope: IAssessmentsScope, $timeout: ng.ITimeoutService, $uibModal: ng.ui.bootstrap.IModalService, mainService: MainService, assessmentService: AssessmentService)
+    constructor( $scope: IDataEntryAssessmentListScope, $timeout: ng.ITimeoutService, $location: ng.ILocationService, $uibModal: ng.ui.bootstrap.IModalService, mainService: MainService, assessmentService: AssessmentService, dataEntryService: DataEntryService)
     {
       super( $scope );
       var controller = this;
 
       $scope.init = function(){
-        mainService.setPageTitles("Assessment Management", "INGA");
-        $scope.getAssessments();
+
+        mainService.setPageTitles("Data Entry", "INGA");
+    //     $scope.getAssessments();
         $scope.headingOptions = [{heading: "Grade Level", options: [{key: "K"},{key: "1"}], open: false},
         {heading: "Subject Area", options: [{key: "K"},{key: "1"}], open: false},
         {heading: "Term", options: [{key: "K"},{key: "1"}], open: false},
         {heading: "School Year", options: [{key: "K"},{key: "1"}], open: false}];
 
         $scope.setHeadingDropdownWidth();
-
-        $scope.allChecked = false;
-
-        window.onclick = function () {
-        if ($scope.justOpenedHeading) {
-                $scope.headingOpen = true;
-                $scope.justOpenedHeading = false;
-                $scope.$apply();
-        }
-        else if ($scope.headingOpen) {
-            $scope.closeHeadings();
-            $scope.$apply();
-        }
-
-
+    //
+    //     $scope.allChecked = false;
+    //
+    window.onclick = function () {
+      if ($scope.justOpenedHeading) {
+        $scope.headingOpen = true;
+        $scope.justOpenedHeading = false;
+        $scope.$apply();
+      }
+      else if ($scope.headingOpen) {
+        $scope.closeHeadings();
+        $scope.$apply();
+      }
     }
-
-    $scope.$watch(() => assessmentService.currentAssessments,
-    (newValue: Array<DistrictAssessment>, oldValue: Array<DistrictAssessment>) => {
+    //
+    $scope.$watch(() => assessmentService.currentClassroomAssessments,
+    (newValue: Array<ClassroomAssessment>, oldValue: Array<ClassroomAssessment>) => {
       $scope.currentAssessments = newValue;
     });
       }
@@ -85,16 +85,16 @@ module INGAApp
             });
       }
 
-      $scope.toggleAllChecked = function(){
-        angular.forEach($scope.currentAssessments, function (assessment) {
-          if(!$scope.allChecked){
-            assessment.checked = false;
-          }
-          else{
-            assessment.checked = true;
-          }
-        });
-      }
+      // $scope.toggleAllChecked = function(){
+      //   angular.forEach($scope.currentAssessments, function (assessment) {
+      //     if(!$scope.allChecked){
+      //       assessment.checked = false;
+      //     }
+      //     else{
+      //       assessment.checked = true;
+      //     }
+      //   });
+      // }
 
       //toggle if search input is open
     $scope.toggleSearchOpen = function () {
@@ -179,26 +179,11 @@ module INGAApp
         // }
     };
 
-    $scope.openAssessmentViewModal = function (assessment) {
-      var tmpAssessment = assessment;
-      console.log(tmpAssessment);
+    $scope.goToDataEntry = function(assessment: DistrictAssessment){
+      dataEntryService.currentAssessment = assessment;
+      $location.path("/dataEntry/score");
+    }
 
-      var modalInstance = $uibModal.open({
-        animation: true,
-        templateUrl: 'partials/modals/assessmentViewModal.html',
-        controller: 'AssessmentViewController',
-        size: "extra-wide",
-        resolve: {
-          assessment: function () {
-            return tmpAssessment;
-          }
-        }
-      });
-
-      modalInstance.result.then(function (selectedItem) {
-        console.log(selectedItem);
-      });
-    };
 
     $scope.headingSortValue = function (item) {
       if (item.Key == "All"){
@@ -206,6 +191,8 @@ module INGAApp
       }
       return item;
     }
+
+
     }
 
 

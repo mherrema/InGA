@@ -1,0 +1,43 @@
+<div class="row" ng-init="init()">
+    <table class="inga-table clickable-rows" style="position:relative;">
+          <tr>
+            <!--                    <th><span style="float:left;"><input type="checkbox" /></span><span style="float:left;">Title</span><span class="glyphicon glyphicon-search search-icon"></span></th>-->
+            <th>
+              <div class="search-box no-highlight" ng-class="{'open' : searchOpen}">
+                <input type="checkbox" class="always-transparent"/>
+                <span class="search-box-title">Title</span><span class="glyphicon glyphicon-search search-icon" ng-click="toggleSearchOpen()"></span><span class="search-box-textbox-span">
+                  <input id="studentSearchInput" ng-model="studentSearchInput" type="text" class="search-input-textbox" placeholder="Search Students" uib-typeahead="address for address in studentSearch($viewValue)" typeahead-min-length="0" my-focus>
+                </span>
+              </div>
+            </th>
+            <th ng-repeat="heading in headingOptions">
+              <div class="heading-title" ng-click="openHeading(heading)">
+                {{heading.heading}}
+                <span class="caret"></span>
+                <p class="heading-title-selected" ng-if="heading.selected.key">{{heading.selected.key}}</p>
+              </div>
+              <div class="table-heading-dropdown" ng-class="{'open' : heading.open, 'other-option-selected' : areOptionsSelected, 'option-selected' : heading.selected.key}">
+                <div class="table-heading-dropdown-content">
+                  <div class="dropdown-title no-highlight" ng-click="closeHeadings()">
+                    {{heading.heading}}
+                    <span class="caret"></span>
+                  </div>
+                  <ul class="dropdown-list">
+                    <li ng-click="selectHeadingOption(heading, option)" ng-class="{'selected' : option == heading.selected}" ng-repeat="option in heading.options | orderBy: 'key' | orderBy: itemSortValue">{{option.key}}</li>
+                  </ul>
+                </div>
+              </div>
+            </th>
+            <th></th>
+          </tr>
+          <tr ng-repeat="assessment in currentAssessments" ng-class="{'selected': assessment.checked}" ng-click="goToDataEntry(assessment)">
+            <td>
+              <input type="checkbox" class="always-transparent" noclick />{{assessment.Title}}</td>
+              <td>{{assessment.GradeLevel.GradeLevelName}}</td>
+              <td>{{assessment.Subject.SubjectName}}</td>
+              <td>{{assessment.Term}}</td>
+              <td>{{assessment.SchoolYear.SchoolYearNameShort}}</td>
+              <td></td>
+            </tr>
+    </table>
+</div>

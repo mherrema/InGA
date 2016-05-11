@@ -7,15 +7,23 @@ var INGAApp;
 (function (INGAApp) {
     var MainController = (function (_super) {
         __extends(MainController, _super);
-        function MainController($scope, $log, $uibModal, assessmentService) {
+        function MainController($scope, $location, $log, $uibModal, mainService, assessmentService) {
             _super.call(this, $scope);
             var controller = this;
             $scope.init = function () {
-                $scope.test = "hello";
-                $scope.pageTypeTitle = "INGA";
-                $scope.pageTitle = "Assessment Management";
+                $scope.$watch(function () { return mainService.pageTitle; }, function (newValue, oldValue) {
+                    $scope.pageTitle = newValue;
+                });
+                $scope.$watch(function () { return mainService.pageTypeTitle; }, function (newValue, oldValue) {
+                    $scope.pageTypeTitle = newValue;
+                });
+                $scope.$watch(function () { return mainService.inAssessmentManagement; }, function (newValue, oldValue) {
+                    $scope.inAssessmentManagement = newValue;
+                });
+                $scope.$watch(function () { return mainService.inScoreEntry; }, function (newValue, oldValue) {
+                    $scope.inScoreEntry = newValue;
+                });
             };
-            $scope.items = ['item1', 'item2', 'item3'];
             $scope.openNewAssessmentModal = function (size) {
                 var modalInstance = $uibModal.open({
                     animation: true,
@@ -53,8 +61,11 @@ var INGAApp;
                     console.log(selectedItem);
                 });
             };
+            $scope.goToDataEntry = function () {
+                $location.path("/dataEntry");
+            };
         }
-        MainController.$inject = ['$scope', '$log', '$uibModal', 'assessmentService'];
+        MainController.$inject = ['$scope', '$location', '$log', '$uibModal', 'mainService', 'assessmentService'];
         return MainController;
     }(BaseController.Controller));
     INGAApp.MainController = MainController;

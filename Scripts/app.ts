@@ -37,7 +37,7 @@ module INGA {
 }
 
 module INGAApp {
-  var myApp = new INGA.Module('IngaApp', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'ui.sortable']);
+  var myApp = new INGA.Module('IngaApp', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'ui.sortable', 'ui.grid', 'ui.grid.edit', 'ui.grid.cellNav', 'ui.grid.pinning']);
   myApp.addController('MainINGAController', MainController);
   myApp.addController('AssessmentsController', AssessmentsController);
   myApp.addController('NewAssessmentController', NewAssessmentController);
@@ -45,10 +45,15 @@ module INGAApp {
   myApp.addController('AssessmentViewController', AssessmentViewController);
   myApp.addController('NewAssessmentItemController', NewAssessmentItemController);
   myApp.addController('NewAssessmentTemplateController', NewAssessmentTemplateController);
+  myApp.addController('DataEntryAssessmentListController', DataEntryAssessmentListController);
+  myApp.addController('DataEntryScoreViewController', DataEntryScoreViewController);
 
   myApp.addService('mainService', MainService);
   myApp.addService('assessmentService', AssessmentService);
+  myApp.addService('dataEntryService', DataEntryService);
   myApp.addRoute("/assessments", "partials/assessments.html", "AssessmentsController");
+  myApp.addRoute("/dataEntry/score", "partials/score_view.html", "DataEntryScoreViewController");
+  myApp.addRoute("/dataEntry", "partials/data_entry.html", "DataEntryAssessmentListController");
   myApp.app.config(function($animateProvider) {
     $animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
   });

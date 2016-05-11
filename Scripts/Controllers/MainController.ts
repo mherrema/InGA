@@ -9,26 +9,44 @@ module INGAApp
     pageTitle: string,
     openNewAssessmentModal: Function,
     items: Array<string>,
-    openNewMasterTemplateModal: Function
+    openNewMasterTemplateModal: Function,
+    inAssessmentManagement: boolean,
+    inScoreEntry: boolean,
+    goToDataEntry: Function
   }
 
   export class MainController extends BaseController.Controller
   {
     scope: IMainScope;
-    static $inject = ['$scope', '$log', '$uibModal', 'assessmentService'];
+    static $inject = ['$scope', '$location', '$log', '$uibModal', 'mainService', 'assessmentService'];
 
-    constructor( $scope: IMainScope, $log: ng.ILogService, $uibModal: ng.ui.bootstrap.IModalService, assessmentService: AssessmentService)
+    constructor( $scope: IMainScope, $location: ng.ILocationService, $log: ng.ILogService, $uibModal: ng.ui.bootstrap.IModalService, mainService: MainService, assessmentService: AssessmentService)
     {
       super( $scope );
       var controller = this;
 
       $scope.init = function(){
-        $scope.test = "hello"
-        $scope.pageTypeTitle = "INGA";
-        $scope.pageTitle = "Assessment Management";
-      }
 
-      $scope.items = ['item1', 'item2', 'item3'];
+        $scope.$watch(() => mainService.pageTitle,
+        (newValue: string, oldValue: string) => {
+          $scope.pageTitle = newValue;
+        });
+
+        $scope.$watch(() => mainService.pageTypeTitle,
+        (newValue: string, oldValue: string) => {
+          $scope.pageTypeTitle = newValue;
+        });
+
+        $scope.$watch(() => mainService.inAssessmentManagement,
+        (newValue: boolean, oldValue: boolean) => {
+          $scope.inAssessmentManagement = newValue;
+        });
+
+        $scope.$watch(() => mainService.inScoreEntry,
+        (newValue: boolean, oldValue: boolean) => {
+          $scope.inScoreEntry = newValue;
+        });
+      }
 
       $scope.openNewAssessmentModal = function (size) {
 
@@ -74,7 +92,9 @@ module INGAApp
         });
       };
 
-
+      $scope.goToDataEntry = function(){
+        $location.path("/dataEntry");
+      }
 
     }
 

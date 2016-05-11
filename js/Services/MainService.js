@@ -10,6 +10,22 @@ var INGAApp;
         function MainService($http) {
             _super.call(this);
         }
+        MainService.prototype.setPageTitles = function (pageTitle, pageTypeTitle) {
+            this.pageTitle = pageTitle;
+            this.pageTypeTitle = pageTypeTitle;
+            if (pageTitle.toLowerCase() == "assessment management") {
+                this.inAssessmentManagement = true;
+            }
+            else {
+                this.inAssessmentManagement = false;
+            }
+            if (pageTypeTitle.toLowerCase() == "assessment class score view") {
+                this.inScoreEntry = true;
+            }
+            else {
+                this.inScoreEntry = false;
+            }
+        };
         MainService.prototype.getCalendarOptions = function () {
             return [{ CalendarKey: 1, CalendarName: "Calendar 1" },
                 { CalendarKey: 2, CalendarName: "Calendar 2" }];

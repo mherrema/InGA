@@ -58,7 +58,8 @@ interface Classroom{
   SectionNumber?: string
 }
 
-interface ClassroomAssessment{
+export interface ClassroomAssessment{
+  Title?: string,
   ClassroomAssessmentKey?: number,
   DistrictAssessmentKey?: number,
   DistrictAssessment?: DistrictAssessment,

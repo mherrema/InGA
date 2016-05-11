@@ -3,8 +3,32 @@ module INGAApp {
   {
     static $inject = ['$http'];
 
+    pageTitle: string;
+    pageTypeTitle: string;
+    inAssessmentManagement: boolean;
+    inScoreEntry: boolean;
+
     constructor($http: ng.IHttpService) {
       super();
+    }
+
+    setPageTitles(pageTitle: string, pageTypeTitle: string): void{
+      this.pageTitle = pageTitle;
+      this.pageTypeTitle = pageTypeTitle;
+
+      if(pageTitle.toLowerCase() == "assessment management"){
+        this.inAssessmentManagement = true;
+      }
+      else{
+        this.inAssessmentManagement = false;
+      }
+
+      if(pageTypeTitle.toLowerCase() == "assessment class score view"){
+        this.inScoreEntry = true;
+      }
+      else{
+        this.inScoreEntry = false;
+      }
     }
 
     getCalendarOptions(): Array<Calendar>{

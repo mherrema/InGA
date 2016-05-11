@@ -4,6 +4,7 @@ module INGAApp {
     static $inject = ['$http'];
 
     currentAssessments: Array<DistrictAssessment>;
+    currentClassroomAssessments: Array<ClassroomAssessment>;
 
     constructor($http: ng.IHttpService) {
       super();
@@ -19,6 +20,9 @@ module INGAApp {
           GradeLevel: {GradeLevelName:"K", GradeLevelKey: 1}, Subject:
           {SubjectName: "Reading"}, Term: "Winter", SchoolYear: {SchoolYearNameShort:
             "2015-2016"}, AssessmentTemplate: { AssessmentTemplateKey: 0, Title: "None"}} ];
+
+            this.currentClassroomAssessments =  [{Title: "Kindergarten - Universal Screener - Spring"},
+              {Title: "Kindergarten - Universal Screener - Spring"}, {Title: "Kindergarten - Universal Screener - Spring"} ];
     }
 
     getAssessments(): Array<DistrictAssessment>{
