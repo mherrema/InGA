@@ -134,9 +134,6 @@ var INGAApp;
                 data: $scope.myData,
                 rowHeight: 45
             };
-            $scope.getAssessments = function () {
-                // $scope.currentAssessments = assessmentService.getAssessments();
-            };
             $scope.setHeadingDropdownWidth = function () {
                 $timeout(function () {
                     var dropdowns = $(".table-heading-dropdown");
@@ -148,29 +145,9 @@ var INGAApp;
                     }
                 });
             };
-            // $scope.toggleAllChecked = function(){
-            //   angular.forEach($scope.currentAssessments, function (assessment) {
-            //     if(!$scope.allChecked){
-            //       assessment.checked = false;
-            //     }
-            //     else{
-            //       assessment.checked = true;
-            //     }
-            //   });
-            // }
             //toggle if search input is open
             $scope.toggleSearchOpen = function () {
-                // StateService.searchOpen = !StateService.searchOpen;
                 $scope.searchOpen = !$scope.searchOpen;
-                // if ($scope.status == 'view' && $scope.display == 'card') {
-                //     if (StateService.searchOpen) {
-                //         StateService.cardFiltrationOpen = true;
-                //         StateService.setHeadingDropdownWidth();
-                //     }
-                //     else {
-                //         StateService.cardFiltrationOpen = false;
-                //     }
-                // }
                 if ($scope.searchOpen) {
                 }
             };
@@ -189,47 +166,32 @@ var INGAApp;
             };
             //select table heading filter option
             $scope.selectHeadingOption = function (heading, option) {
-                // $scope.loading = true;
-                if (option.key != "All") {
+                if (option.Key != "All") {
                     heading.selected = option;
                 }
                 else {
-                    heading.selected = { key: "", value: "" };
+                    heading.selected = { Key: "", Value: "" };
                 }
                 $scope.checkFilters();
                 $scope.closeHeadings();
             };
             $scope.checkFilters = function () {
                 $scope.areOptionsSelected = false;
-                // StateService.filterOptionsSelected = false;
                 angular.forEach($scope.headingOptions, function (value, key) {
-                    if (value.selected.value != "") {
-                        $scope.areOptionsSelected = true;
-                        // StateService.filterOptionsSelected = true;
-                        return;
+                    if (value.selected != undefined) {
+                        if (value.selected.Value != "") {
+                            $scope.areOptionsSelected = true;
+                            return;
+                        }
                     }
                 });
             };
             $scope.clearFilters = function (input) {
                 angular.forEach($scope.headingOptions, function (value, key) {
-                    value.selected = { key: "", value: "" };
+                    value.selected = { Key: "", Value: "" };
                 });
-                // SearchService.clearSearchInput();
-                // StateService.searchOpen = false;
-                // FilterService.currentFilters = "";
                 $scope.areOptionsSelected = false;
-                // StateService.filterOptionsSelected = false;
                 $scope.closeHeadings();
-                // if (input) {
-                //     if ($scope.status == "view") {
-                //         $scope.getCohortStudents();
-                //     }
-                //     else {
-                //         $scope.getAvailableStudents();
-                //     }
-                // }
-            };
-            $scope.goToDataEntry = function (assessment) {
             };
             $scope.headingSortValue = function (item) {
                 if (item.Key == "All") {

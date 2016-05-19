@@ -11,8 +11,11 @@ module INGAApp
     items: Array<string>,
     openNewMasterTemplateModal: Function,
     inAssessmentManagement: boolean,
+    inAssessmentAssignment: boolean,
     inScoreEntry: boolean,
-    goToDataEntry: Function
+    goToDataEntry: Function,
+    subjectOptions: Array<Subject>,
+    assessmentOptions: Array<DistrictAssessment>
   }
 
   export class MainController extends BaseController.Controller
@@ -26,6 +29,8 @@ module INGAApp
       var controller = this;
 
       $scope.init = function(){
+
+        $scope.assessmentOptions = [{Title: "Assessment 1"}];
 
         $scope.$watch(() => mainService.pageTitle,
         (newValue: string, oldValue: string) => {
@@ -46,14 +51,19 @@ module INGAApp
         (newValue: boolean, oldValue: boolean) => {
           $scope.inScoreEntry = newValue;
         });
+
+        $scope.$watch(() => mainService.inAssessmentAssignment,
+        (newValue: boolean, oldValue: boolean) => {
+          $scope.inAssessmentAssignment = newValue;
+        });
       }
 
       $scope.openNewAssessmentModal = function (size) {
 
         var modalInstance = $uibModal.open({
           animation: true,
-          templateUrl: 'partials/modals/newDistrictAssessmentModal.html',
-          controller: 'NewAssessmentController',
+          templateUrl: 'partials/modals/newAssessmentModal.html',
+          controller: 'NewAssessmentModalController',
           size: "lg",
           resolve: {
             assessment: function () {
@@ -78,7 +88,7 @@ module INGAApp
         var modalInstance = $uibModal.open({
           animation: true,
           templateUrl: 'partials/modals/newAssessmentTemplateModal.html',
-          controller: 'NewAssessmentTemplateController',
+          controller: 'NewAssessmentTemplateModalController',
           size: "lg",
           resolve: {
             assessment: function () {
@@ -95,9 +105,6 @@ module INGAApp
       $scope.goToDataEntry = function(){
         $location.path("/dataEntry");
       }
-
     }
-
-
   }
 }

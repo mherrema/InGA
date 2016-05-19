@@ -7,7 +7,7 @@
   <div class="row">
   </div>
     <div class="row">
-        <form>
+        <!-- <form> -->
             <div class="col-sm-12">
                 <div class="form-group">
                     <label for="inputEmail">Title</label>
@@ -17,42 +17,42 @@
             <div class="col-sm-4">
                 <div class="form-group">
                     <label for="inputEmail">Template</label>
-                    <select class="form-control" ng-options="template as template.Title for template in templateOptions track by template.AssessmentTemplateKey"
+                    <select class="form-control ng-animate-disabled" ng-options="template as template.Title for template in templateOptions track by template.AssessmentTemplateKey"
                     ng-model="newAssessment.AssessmentTemplate" ng-change="selectTemplate()"></select>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
                     <label for="inputEmail">Calendar</label>
-                    <select class="form-control" ng-options="calendar as calendar.CalendarName for calendar in calendarOptions track by calendar.CalendarKey"
+                    <select class="form-control ng-animate-disabled" ng-options="calendar as calendar.CalendarName for calendar in calendarOptions track by calendar.CalendarKey"
                     ng-model="newAssessment.Calendar" ng-disabled="templateSelected"></select>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
                     <label for="inputEmail">Grade Level</label>
-                    <select class="form-control" ng-options="grade as grade.GradeLevelName for grade in gradeOptions track by grade.GradeLevelKey"
+                    <select class="form-control ng-animate-disabled" ng-options="grade as grade.GradeLevelName for grade in gradeOptions track by grade.GradeLevelKey"
                     ng-model="newAssessment.GradeLevel" ng-disabled="templateSelected"></select>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
-                    <label for="inputEmail">Subject Area</label>
-                    <select class="form-control" ng-options="subject as subject.SubjectName for subject in subjectOptions track by subject.SubjectKey"
+                    <label for="inputEmail">Subject</label>
+                    <select class="form-control ng-animate-disabled" ng-options="subject as subject.SubjectName for subject in subjectOptions track by subject.SubjectKey"
                     ng-model="newAssessment.Subject" ng-disabled="templateSelected"></select>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
                     <label for="inputEmail">Standard Type</label>
-                    <select class="form-control" ng-options="standardType as standardType.Name for standardType in standardTypeOptions track by standardType.StandardTypeKey"
+                    <select class="form-control ng-animate-disabled" ng-options="standardType as standardType.StandardTypeName for standardType in standardTypeOptions track by standardType.StandardTypeKey"
                     ng-model="newAssessment.StandardType" ng-disabled="templateSelected"></select>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
                     <label for="inputEmail">School Year</label>
-                    <select class="form-control" ng-options="schoolYear as schoolYear.SchoolYearNameShort for schoolYear in schoolYearOptions track by schoolYear.SchoolYearKey" ng-model="newAssessment.SchoolYear"></select>
+                    <select class="form-control ng-animate-disabled" ng-options="schoolYear as schoolYear.SchoolYearName for schoolYear in schoolYearOptions track by schoolYear.SchoolYearKey" ng-model="newAssessment.SchoolYear"></select>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -80,7 +80,7 @@
                     <p class="optional-upload-paragraph">By using a template to create an assessment, the items associated are locked. Contact administrator to request changes.</p>
                 </div>
             </div>
-        </form>
+        <!-- </form> -->
     </div>
     <div class="row table-title-row">
         <div class="col-sm-5">
@@ -119,7 +119,7 @@
         </div>
     </div> -->
     <div class="row below-table-btn-row">
-        <button class="btn  inga-btn inga-btn-positive right-btn" ng-click="publish()">Publish</button>
+        <button class="btn  inga-btn inga-btn-positive right-btn" ng-click="publish()" ng-if="!newAssessment.IsPublished">Publish</button>
         <button class="btn  inga-btn inga-btn-negative right-btn" ng-click="ok()">Save &amp; Exit</button>
         <button class="btn  inga-btn inga-btn-negative right-btn" ng-click="cancel()">Cancel</button>
     </div>

@@ -9,6 +9,8 @@ var INGAApp;
         __extends(MainService, _super);
         function MainService($http) {
             _super.call(this);
+            this.$http = $http;
+            this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
         }
         MainService.prototype.setPageTitles = function (pageTitle, pageTypeTitle) {
             this.pageTitle = pageTitle;
@@ -25,26 +27,52 @@ var INGAApp;
             else {
                 this.inScoreEntry = false;
             }
+            if (pageTypeTitle.toLowerCase() == "assessment assignment") {
+                this.inAssessmentAssignment = true;
+            }
+            else {
+                this.inAssessmentAssignment = false;
+            }
         };
         MainService.prototype.getCalendarOptions = function () {
             return [{ CalendarKey: 1, CalendarName: "Calendar 1" },
                 { CalendarKey: 2, CalendarName: "Calendar 2" }];
         };
         MainService.prototype.getGradeOptions = function () {
-            return [{ GradeLevelKey: 1, GradeLevelName: "K" },
-                { GradeLevelKey: 2, GradeLevelName: "1" }];
+            var self = this;
+            var promise = this.$http.get(this.apiRoot + 'Options/GradeLevel/')
+                .then(function (response) {
+                self.gradeOptions = response.data;
+                return response.data;
+            });
+            return promise;
         };
         MainService.prototype.getSubjectOptions = function () {
-            return [{ SubjectKey: 1, SubjectName: "Reading" },
-                { SubjectKey: 2, SubjectName: "Math" }];
+            var self = this;
+            var promise = this.$http.get(this.apiRoot + 'Options/Subject/')
+                .then(function (response) {
+                self.subjectOptions = response.data;
+                return response.data;
+            });
+            return promise;
         };
         MainService.prototype.getSchoolYearOptions = function () {
-            return [{ SchoolYearKey: 1, SchoolYearNameShort: "2015-2016" },
-                { SchoolYearKey: 2, SchoolYearNameShort: "2016-2017" }];
+            var self = this;
+            var promise = this.$http.get(this.apiRoot + 'Options/SchoolYear/')
+                .then(function (response) {
+                self.schoolYearOptions = response.data;
+                return response.data;
+            });
+            return promise;
         };
         MainService.prototype.getStandardTypeOptions = function () {
-            return [{ StandardTypeKey: 1, Name: "District" },
-                { StandardTypeKey: 2, Name: "GLSCE" }];
+            var self = this;
+            var promise = this.$http.get(this.apiRoot + 'Options/StandardType/')
+                .then(function (response) {
+                self.standardTypeOptions = response.data;
+                return response.data;
+            });
+            return promise;
         };
         MainService.prototype.getTemplateOptions = function () {
             return [{ Title: "None", AssessmentTemplateKey: 0, CalendarKey: 0, SubjectKey: 0, StandardTypeKey: 0 },

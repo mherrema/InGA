@@ -1,4 +1,29 @@
 <div class="row" ng-init="init()">
+    <div class="detail-row">
+        <div class="col-sm-3">
+            <span class="inline-detail"><h6><span class="detail-title"><strong>School:</strong></span> {{currentAssessment.School.SchoolName}}</h6>
+            </span>
+            <span class="inline-detail"><h6><span class="detail-title"><strong>Course:</strong></span> {{currentAssessment.Course.CourseName}}</h6>
+            </span>
+            <span class="inline-detail"><h6><span class="detail-title"><strong>Std Type:</strong></span> {{currentAssessment.Standard.StandardType}}</h6>
+            </span>
+            <!-- <span class="inline-detail"><h6><span class="detail-title"><strong>Term:</strong></span> Winter</h6>
+            </span> -->
+        </div>
+        <div class="col-sm-3">
+            <span class="inline-detail"><h6><span class="detail-title"><strong>Teacher:</strong></span> {{currentAssessment.SchoolTeacher.FirstName}} {{currentAssessment.SchoolTeacher.LastName}} ({{currentAssessment.SchoolTeacher.TeacherNumber}})</h6>
+            </span>
+            <span class="inline-detail"><h6><span class="detail-title"><strong>Section:</strong></span> 1(A)</h6>
+            </span>
+            <span class="inline-detail"><h6><span class="detail-title"><strong>Subject:</strong></span> Art</h6>
+            </span>
+        </div>
+
+        <div class="clearfix"></div>
+
+    </div>
+</div>
+<div class="row">
     <table class="inga-table clickable-rows" style="position:relative;">
           <tr>
             <!--                    <th><span style="float:left;"><input type="checkbox" /></span><span style="float:left;">Title</span><span class="glyphicon glyphicon-search search-icon"></span></th>-->

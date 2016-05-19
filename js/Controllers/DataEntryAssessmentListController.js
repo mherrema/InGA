@@ -7,20 +7,14 @@ var INGAApp;
 (function (INGAApp) {
     var DataEntryAssessmentListController = (function (_super) {
         __extends(DataEntryAssessmentListController, _super);
-        function DataEntryAssessmentListController($scope, $timeout, $location, $uibModal, mainService, assessmentService, dataEntryService) {
+        function DataEntryAssessmentListController($scope, $timeout, $location, $uibModal, mainService, assessmentService, dataEntryService, filterService) {
             _super.call(this, $scope);
             var controller = this;
             $scope.init = function () {
                 mainService.setPageTitles("Data Entry", "INGA");
-                //     $scope.getAssessments();
-                $scope.headingOptions = [{ heading: "Grade Level", options: [{ key: "K" }, { key: "1" }], open: false },
-                    { heading: "Subject Area", options: [{ key: "K" }, { key: "1" }], open: false },
-                    { heading: "Term", options: [{ key: "K" }, { key: "1" }], open: false },
-                    { heading: "School Year", options: [{ key: "K" }, { key: "1" }], open: false }];
+                $scope.getFilterOptions();
+                $scope.getClassroomAssessments();
                 $scope.setHeadingDropdownWidth();
-                //
-                //     $scope.allChecked = false;
-                //
                 window.onclick = function () {
                     if ($scope.justOpenedHeading) {
                         $scope.headingOpen = true;
@@ -32,13 +26,17 @@ var INGAApp;
                         $scope.$apply();
                     }
                 };
-                //
-                $scope.$watch(function () { return assessmentService.currentClassroomAssessments; }, function (newValue, oldValue) {
-                    $scope.currentAssessments = newValue;
+            };
+            $scope.getClassroomAssessments = function () {
+                assessmentService.getClassroomAssessments().then(function (d) {
+                    $scope.currentClassroomAssessments = d;
                 });
             };
-            $scope.getAssessments = function () {
-                // $scope.currentAssessments = assessmentService.getAssessments();
+            $scope.getFilterOptions = function () {
+                filterService.getDataEntryFilterOptions().then(function (d) {
+                    $scope.headingOptions = d;
+                    $scope.setHeadingDropdownWidth();
+                });
             };
             $scope.setHeadingDropdownWidth = function () {
                 $timeout(function () {
@@ -51,29 +49,9 @@ var INGAApp;
                     }
                 });
             };
-            // $scope.toggleAllChecked = function(){
-            //   angular.forEach($scope.currentAssessments, function (assessment) {
-            //     if(!$scope.allChecked){
-            //       assessment.checked = false;
-            //     }
-            //     else{
-            //       assessment.checked = true;
-            //     }
-            //   });
-            // }
             //toggle if search input is open
             $scope.toggleSearchOpen = function () {
-                // StateService.searchOpen = !StateService.searchOpen;
                 $scope.searchOpen = !$scope.searchOpen;
-                // if ($scope.status == 'view' && $scope.display == 'card') {
-                //     if (StateService.searchOpen) {
-                //         StateService.cardFiltrationOpen = true;
-                //         StateService.setHeadingDropdownWidth();
-                //     }
-                //     else {
-                //         StateService.cardFiltrationOpen = false;
-                //     }
-                // }
                 if ($scope.searchOpen) {
                 }
             };
@@ -92,45 +70,32 @@ var INGAApp;
             };
             //select table heading filter option
             $scope.selectHeadingOption = function (heading, option) {
-                // $scope.loading = true;
-                if (option.key != "All") {
+                if (option.Key != "All") {
                     heading.selected = option;
                 }
                 else {
-                    heading.selected = { key: "", value: "" };
+                    heading.selected = { Key: "", Value: "" };
                 }
                 $scope.checkFilters();
                 $scope.closeHeadings();
             };
             $scope.checkFilters = function () {
                 $scope.areOptionsSelected = false;
-                // StateService.filterOptionsSelected = false;
                 angular.forEach($scope.headingOptions, function (value, key) {
-                    if (value.selected.value != "") {
-                        $scope.areOptionsSelected = true;
-                        // StateService.filterOptionsSelected = true;
-                        return;
+                    if (value.selected != undefined) {
+                        if (value.selected.Value != "") {
+                            $scope.areOptionsSelected = true;
+                            return;
+                        }
                     }
                 });
             };
             $scope.clearFilters = function (input) {
                 angular.forEach($scope.headingOptions, function (value, key) {
-                    value.selected = { key: "", value: "" };
+                    value.selected = { Key: "", Value: "" };
                 });
-                // SearchService.clearSearchInput();
-                // StateService.searchOpen = false;
-                // FilterService.currentFilters = "";
                 $scope.areOptionsSelected = false;
-                // StateService.filterOptionsSelected = false;
                 $scope.closeHeadings();
-                // if (input) {
-                //     if ($scope.status == "view") {
-                //         $scope.getCohortStudents();
-                //     }
-                //     else {
-                //         $scope.getAvailableStudents();
-                //     }
-                // }
             };
             $scope.goToDataEntry = function (assessment) {
                 dataEntryService.currentAssessment = assessment;
@@ -143,7 +108,7 @@ var INGAApp;
                 return item;
             };
         }
-        DataEntryAssessmentListController.$inject = ['$scope', '$timeout', '$location', '$uibModal', 'mainService', 'assessmentService', 'dataEntryService'];
+        DataEntryAssessmentListController.$inject = ['$scope', '$timeout', '$location', '$uibModal', 'mainService', 'assessmentService', 'dataEntryService', 'filterService'];
         return DataEntryAssessmentListController;
     }(BaseController.Controller));
     INGAApp.DataEntryAssessmentListController = DataEntryAssessmentListController;

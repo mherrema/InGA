@@ -7,9 +7,19 @@ module INGAApp {
     pageTypeTitle: string;
     inAssessmentManagement: boolean;
     inScoreEntry: boolean;
+    inAssessmentAssignment: boolean;
+    $http: ng.IHttpService;
+    gradeOptions: Array<GradeLevel>;
+    schoolYearOptions: Array<SchoolYear>;
+    subjectOptions: Array<Subject>;
+    standardTypeOptions: Array<StandardType>;
+    apiRoot: string;
 
     constructor($http: ng.IHttpService) {
       super();
+      this.$http = $http;
+      this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+
     }
 
     setPageTitles(pageTitle: string, pageTypeTitle: string): void{
@@ -29,6 +39,13 @@ module INGAApp {
       else{
         this.inScoreEntry = false;
       }
+
+      if(pageTypeTitle.toLowerCase() == "assessment assignment"){
+        this.inAssessmentAssignment = true;
+      }
+      else{
+        this.inAssessmentAssignment = false;
+      }
     }
 
     getCalendarOptions(): Array<Calendar>{
@@ -36,24 +53,48 @@ module INGAApp {
               {CalendarKey: 2, CalendarName: "Calendar 2"}];
     }
 
-    getGradeOptions(): Array<GradeLevel>{
-      return [{GradeLevelKey: 1, GradeLevelName: "K"},
-              {GradeLevelKey: 2, GradeLevelName: "1"}];
+    getGradeOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
+      var self:MainService = this;
+      var promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> = this.$http.get(this.apiRoot + 'Options/GradeLevel/')
+      .then(function(response){
+        self.gradeOptions = <Array<GradeLevel>>response.data;
+        return response.data;
+      });
+
+      return promise;
     }
 
-    getSubjectOptions(): Array<Subject>{
-      return [{SubjectKey: 1, SubjectName: "Reading"},
-              {SubjectKey: 2, SubjectName: "Math"}];
+    getSubjectOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
+      var self:MainService = this;
+      var promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> = this.$http.get(this.apiRoot + 'Options/Subject/')
+      .then(function(response){
+        self.subjectOptions = <Array<Subject>>response.data;
+        return response.data;
+      });
+
+      return promise;
     }
 
-    getSchoolYearOptions(): Array<SchoolYear>{
-      return [{SchoolYearKey: 1, SchoolYearNameShort: "2015-2016"},
-              {SchoolYearKey: 2, SchoolYearNameShort: "2016-2017"}];
+    getSchoolYearOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
+      var self:MainService = this;
+      var promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> = this.$http.get(this.apiRoot + 'Options/SchoolYear/')
+      .then(function(response){
+        self.schoolYearOptions = <Array<SchoolYear>>response.data;
+        return response.data;
+      });
+
+      return promise;
     }
 
-    getStandardTypeOptions(): Array<StandardType>{
-      return [{StandardTypeKey: 1, Name: "District"},
-              {StandardTypeKey: 2, Name: "GLSCE"}];
+    getStandardTypeOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
+      var self:MainService = this;
+      var promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> = this.$http.get(this.apiRoot + 'Options/StandardType/')
+      .then(function(response){
+        self.standardTypeOptions = <Array<StandardType>>response.data;
+        return response.data;
+      });
+
+      return promise;
     }
 
     getTemplateOptions(): Array<AssessmentTemplate>{

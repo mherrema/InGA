@@ -7,19 +7,16 @@ module INGAApp
     ok: Function,
     cancel: Function,
     editAssessment: Function,
-    publish: Function
+    publish: Function,
+    goToAssign: Function
   }
 
-  interface SelectedItem{
-    item: string
-  }
-
-  export class AssessmentViewController extends BaseController.Controller
+  export class AssessmentViewModalController extends BaseController.Controller
   {
     scope: IAssessmentViewScope;
-    static $inject = ['$scope', '$uibModalInstance', '$uibModal', 'mainService', 'assessment', 'assessmentService'];
+    static $inject = ['$scope', '$location', '$uibModalInstance', '$uibModal', 'mainService', 'assessment', 'assessmentService'];
 
-    constructor( $scope: IAssessmentViewScope, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $uibModal: ng.ui.bootstrap.IModalService, mainService:MainService, assessment:DistrictAssessment, assessmentService: AssessmentService)
+    constructor( $scope: IAssessmentViewScope, $location: ng.ILocationService, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $uibModal: ng.ui.bootstrap.IModalService, mainService:MainService, assessment:DistrictAssessment, assessmentService: AssessmentService)
     {
       super( $scope );
       var controller = this;
@@ -28,7 +25,6 @@ module INGAApp
 
       $scope.ok = function () {
         $uibModalInstance.close($scope.assessment);
-        // $scope.openAssessmentViewModal();
       };
 
       $scope.publish = function(){
@@ -36,12 +32,19 @@ module INGAApp
         assessmentService.saveAssessment({Assessment: $scope.assessment, ShouldRefresh: true, ShouldPublish: true});
       }
 
+      $scope.goToAssign = function(){
+        console.log(assessmentService);
+        assessmentService.currentSelectedDistrictAssessment = $scope.assessment;
+        $location.path("/assessments/assign");
+        $uibModalInstance.dismiss();
+      }
+
       $scope.editAssessment = function(){
         $uibModalInstance.close($scope.assessment);
         var modalInstance = $uibModal.open({
           animation: true,
-          templateUrl: 'partials/modals/newDistrictAssessmentModal.html',
-          controller: 'EditAssessmentController',
+          templateUrl: 'partials/modals/newAssessmentModal.html',
+          controller: 'EditAssessmentModalController',
           size: "lg",
           resolve: {
             assessment: function () {
@@ -58,10 +61,6 @@ module INGAApp
           }
         });
       }
-
-
     }
-
-
   }
 }

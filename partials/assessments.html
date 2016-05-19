@@ -19,7 +19,7 @@
         </div>
       </div>
     </li>
-    <li class="above-table-action-right action-with-icon"><i class="glyphicon glyphicon-ok success-icon"></i> published</li>
+    <li class="above-table-action-right action-with-icon toggle-button" ng-class="{'active': publishedActive}" ng-click="publishedActive = !publishedActive">Only Published</li>
     <!--                <li style="float:right;"><button class="btn  inga-btn inga-btn-positive">Add Student</button></li>-->
   </ul>
 </div>
@@ -41,14 +41,14 @@
           <span class="caret"></span>
           <p class="heading-title-selected" ng-if="heading.selected.key">{{heading.selected.key}}</p>
         </div>
-        <div class="table-heading-dropdown" ng-class="{'open' : heading.open, 'other-option-selected' : areOptionsSelected, 'option-selected' : heading.selected.key}">
+        <div class="table-heading-dropdown" ng-class="{'open' : heading.open, 'other-option-selected' : areOptionsSelected, 'option-selected' : heading.selected.Key}">
           <div class="table-heading-dropdown-content">
             <div class="dropdown-title no-highlight" ng-click="closeHeadings()">
               {{heading.heading}}
               <span class="caret"></span>
             </div>
             <ul class="dropdown-list">
-              <li ng-click="selectHeadingOption(heading, option)" ng-class="{'selected' : option == heading.selected}" ng-repeat="option in heading.options | orderBy: 'key' | orderBy: itemSortValue">{{option.key}}</li>
+              <li ng-click="selectHeadingOption(heading, option)" ng-class="{'selected' : option == heading.selected}" ng-repeat="option in heading.options | orderBy: itemSortValue">{{option.Key}}</li>
             </ul>
           </div>
         </div>

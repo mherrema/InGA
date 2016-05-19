@@ -7,8 +7,8 @@ export interface HeadingOption{
 }
 
 export interface FilterOption{
-  key: string,
-  value?: string
+  Key: string,
+  Value?: string
 }
 
 export interface AssessmentPackage{
@@ -183,7 +183,7 @@ export interface SchoolYear{
   StartTimeKey?: number,
   EndTimeKey?: number,
   SchoolYearName?: string,
-  SchoolYearNameShort: string,
+  SchoolYearNameShort?: string,
   StartCalendarYear?: number,
   EndCalendarYear?: number,
   SchoolYearRank?: number
@@ -201,7 +201,7 @@ interface Standard{
 
 export interface StandardType{
   StandardTypeKey?: number,
-  Name?: string,
+  StandardTypeName?: string,
   Description?: string
 }
 

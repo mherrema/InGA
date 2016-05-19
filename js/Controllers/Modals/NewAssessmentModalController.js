@@ -5,9 +5,9 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var INGAApp;
 (function (INGAApp) {
-    var NewAssessmentController = (function (_super) {
-        __extends(NewAssessmentController, _super);
-        function NewAssessmentController($scope, $timeout, $uibModalInstance, $uibModal, mainService, assessment) {
+    var NewAssessmentModalController = (function (_super) {
+        __extends(NewAssessmentModalController, _super);
+        function NewAssessmentModalController($scope, $timeout, $uibModalInstance, $uibModal, mainService, assessment) {
             _super.call(this, $scope);
             var controller = this;
             $scope.init = function () {
@@ -25,16 +25,60 @@ var INGAApp;
                     disabled: false,
                     stop: function () { $scope.updateItemRanking(); }
                 };
-                $scope.gradeOptions = mainService.getGradeOptions();
-                $scope.subjectOptions = mainService.getSubjectOptions();
-                $scope.schoolYearOptions = mainService.getSchoolYearOptions();
-                $scope.standardTypeOptions = mainService.getStandardTypeOptions();
+                $scope.getGradeOptions();
+                $scope.getSchoolYearOptions();
+                $scope.getSubjectOptions();
+                $scope.getStandardTypeOptions();
                 $scope.templateOptions = mainService.getTemplateOptions();
                 $scope.calendarOptions = mainService.getCalendarOptions();
                 if ($scope.newAssessment.Title == "New Assessment") {
                     $timeout(function () {
                         $scope.highlightTitle();
                     }, 0);
+                }
+            };
+            $scope.getGradeOptions = function () {
+                console.log("getting grade options");
+                if (mainService.gradeOptions == undefined) {
+                    mainService.getGradeOptions().then(function (d) {
+                        $scope.gradeOptions = d;
+                    });
+                    ;
+                }
+                else {
+                    $scope.gradeOptions = mainService.gradeOptions;
+                }
+            };
+            $scope.getSchoolYearOptions = function () {
+                if (mainService.schoolYearOptions == undefined) {
+                    mainService.getSchoolYearOptions().then(function (d) {
+                        $scope.schoolYearOptions = d;
+                    });
+                    ;
+                }
+                else {
+                    $scope.schoolYearOptions = mainService.schoolYearOptions;
+                }
+            };
+            $scope.getSubjectOptions = function () {
+                if (mainService.subjectOptions == undefined) {
+                    mainService.getSubjectOptions().then(function (d) {
+                        $scope.subjectOptions = d;
+                    });
+                    ;
+                }
+                else {
+                    $scope.subjectOptions = mainService.subjectOptions;
+                }
+            };
+            $scope.getStandardTypeOptions = function () {
+                if (mainService.standardTypeOptions == undefined) {
+                    mainService.getStandardTypeOptions().then(function (d) {
+                        $scope.standardTypeOptions = d;
+                    });
+                }
+                else {
+                    $scope.standardTypeOptions = mainService.standardTypeOptions;
                 }
             };
             $scope.selectTemplate = function () {
@@ -82,7 +126,7 @@ var INGAApp;
                     animation: true,
                     backdrop: 'static',
                     templateUrl: 'partials/modals/newAssessmentItemModal.html',
-                    controller: 'NewAssessmentItemController',
+                    controller: 'NewAssessmentItemModalController',
                     size: "lg",
                     keyboard: false,
                     resolve: {
@@ -98,8 +142,8 @@ var INGAApp;
             $scope.openAssessmentViewModal = function (size) {
                 var modalInstance = $uibModal.open({
                     animation: true,
-                    templateUrl: 'partials/modals/assessmentViewModal.html',
-                    controller: 'AssessmentViewController',
+                    templateUrl: 'partials/modals/viewAssessmentModal.html',
+                    controller: 'AssessmentViewModalController',
                     size: "extra-wide",
                     resolve: {
                         assessment: function () {
@@ -112,9 +156,9 @@ var INGAApp;
                 });
             };
         }
-        NewAssessmentController.$inject = ['$scope', '$timeout', '$uibModalInstance', '$uibModal', 'mainService', 'assessment'];
-        return NewAssessmentController;
+        NewAssessmentModalController.$inject = ['$scope', '$timeout', '$uibModalInstance', '$uibModal', 'mainService', 'assessment'];
+        return NewAssessmentModalController;
     }(BaseController.Controller));
-    INGAApp.NewAssessmentController = NewAssessmentController;
+    INGAApp.NewAssessmentModalController = NewAssessmentModalController;
 })(INGAApp || (INGAApp = {}));
-//# sourceMappingURL=NewAssessmentController.js.map
+//# sourceMappingURL=NewAssessmentModalController.js.map

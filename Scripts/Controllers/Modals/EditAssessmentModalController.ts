@@ -22,28 +22,32 @@ module INGAApp
     templateSelected: boolean,
     highlightTitle: Function,
     sortableOptions: SortableOptions,
-    pageTitle: string,
-    updateItemRanking: Function
+    pageTitle: string
   }
 
   interface SelectedItem{
     item: string
   }
 
-  export class NewAssessmentController extends BaseController.Controller
+  interface SortableOptions{
+    disabled: boolean
+  }
+
+  export class EditAssessmentModalController extends BaseController.Controller
   {
     scope: INewAssessmentScope;
-    static $inject = ['$scope', '$timeout', '$uibModalInstance', '$uibModal', 'mainService', 'assessment'];
+    static $inject = ['$scope', '$timeout', '$uibModalInstance', '$uibModal', 'mainService', 'assessmentService', 'assessment'];
 
-    constructor( $scope: INewAssessmentScope, $timeout: ng.ITimeoutService, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $uibModal: ng.ui.bootstrap.IModalService, mainService:MainService, assessment)
+    constructor( $scope: INewAssessmentScope, $timeout: ng.ITimeoutService, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $uibModal: ng.ui.bootstrap.IModalService, mainService:MainService, assessmentService: AssessmentService, assessment)
     {
       super( $scope );
       var controller = this;
 
       $scope.init = function(){
-        $scope.pageTitle = "Create New Assessment";
+        $scope.pageTitle = "Edit Assessment";
         if(assessment.Title != undefined){
           $scope.newAssessment = assessment;
+          $scope.pageTitle += " " + assessment.Title;
           if(assessment.Template != undefined && assessment.Template.Title != undefined && assessment.Template.Title != "None"){
             $scope.templateSelected = true;
           }
@@ -53,14 +57,13 @@ module INGAApp
         }
 
         $scope.sortableOptions = {
-          disabled: false,
-          stop: function(){$scope.updateItemRanking()}
+          disabled: false
         };
 
-        $scope.gradeOptions = mainService.getGradeOptions();
-        $scope.subjectOptions = mainService.getSubjectOptions();
-        $scope.schoolYearOptions = mainService.getSchoolYearOptions();
-        $scope.standardTypeOptions = mainService.getStandardTypeOptions();
+        // $scope.gradeOptions = mainService.getGradeOptions();
+        // $scope.subjectOptions = mainService.getSubjectOptions();
+        //$scope.schoolYearOptions = mainService.getSchoolYearOptions();
+        //$scope.standardTypeOptions = mainService.getStandardTypeOptions();
         $scope.templateOptions = mainService.getTemplateOptions();
         $scope.calendarOptions = mainService.getCalendarOptions();
         if($scope.newAssessment.Title == "New Assessment"){
@@ -74,7 +77,9 @@ module INGAApp
 
       $scope.selectTemplate = function(){
         if($scope.newAssessment.AssessmentTemplate.Title == "None"){
-          $scope.sortableOptions.disabled = false;
+          $scope.sortableOptions = {
+            disabled: false
+          };
           $scope.templateSelected = false;
           $scope.newAssessment.Subject = {};
           $scope.newAssessment.Calendar = {};
@@ -83,7 +88,9 @@ module INGAApp
         }
         else{
           $scope.templateSelected = true;
-          $scope.sortableOptions.disabled = false;
+          $scope.sortableOptions = {
+            disabled: true
+          };
           $scope.newAssessment.Subject = $scope.newAssessment.AssessmentTemplate.Subject;
           $scope.newAssessment.Calendar = {CalendarKey: $scope.newAssessment.AssessmentTemplate.CalendarKey};
           $scope.newAssessment.StandardType = {StandardTypeKey: $scope.newAssessment.AssessmentTemplate.StandardTypeKey};
@@ -96,23 +103,18 @@ module INGAApp
       }
 
 
-      $scope.updateItemRanking = function(){
-        angular.forEach($scope.newAssessment.Items, function(value: Item, key) {
-          value.ItemOrder = key+1;
-        });
-        console.log($scope.newAssessment.Items);
-      }
+
 
 
       $scope.publish = function () {
         console.log("Publish Assessment");
-        $uibModalInstance.close({Assessment: $scope.newAssessment, ShouldRefresh: false, ShouldPublish: true});
+        $uibModalInstance.close({Assessment:$scope.newAssessment, ShouldRefresh: true, ShouldPublish: true});
         //$scope.openAssessmentViewModal();
       };
 
       $scope.ok = function () {
         console.log("Saving Assessment");
-        $uibModalInstance.close({Assessment: $scope.newAssessment, ShouldRefresh: false});
+        $uibModalInstance.close({Assessment:$scope.newAssessment, ShouldRefresh: true});
       };
 
       $scope.cancel = function () {
@@ -126,7 +128,7 @@ module INGAApp
           animation: true,
           backdrop: 'static',
           templateUrl: 'partials/modals/newAssessmentItemModal.html',
-          controller: 'NewAssessmentItemController',
+          controller: 'NewAssessmentItemModalController',
           size: "lg",
           keyboard: false,
           resolve: {
@@ -145,8 +147,8 @@ module INGAApp
 
         var modalInstance = $uibModal.open({
           animation: true,
-          templateUrl: 'partials/modals/assessmentViewModal.html',
-          controller: 'AssessmentViewController',
+          templateUrl: 'partials/modals/viewAssessmentModal.html',
+          controller: 'AssessmentViewModalController',
           size: "extra-wide",
           resolve: {
             assessment: function () {

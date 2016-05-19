@@ -1,34 +1,44 @@
 module INGAApp {
   export class AssessmentService extends INGA.Service
   {
-    static $inject = ['$http'];
+    static $inject = ['$http', '$q'];
 
-    currentAssessments: Array<DistrictAssessment>;
+    currentDistrictAssessments: Array<DistrictAssessment>;
+    nonFilteredDistrictAssessments: Array<DistrictAssessment>;
     currentClassroomAssessments: Array<ClassroomAssessment>;
+    promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>;
+    $http: ng.IHttpService;
+    apiRoot: string;
+    $q: ng.IQService;
+    assessmentSearchCanceler :ng.IDeferred<ng.IHttpPromiseCallbackArg<{}>>;
+    currentSelectedDistrictAssessment: DistrictAssessment;
 
-    constructor($http: ng.IHttpService) {
+    constructor($http: ng.IHttpService, $q: ng.IQService) {
       super();
 
-      this.currentAssessments =  [{Title: "Kindergarten - Universal Screener - Spring",
-      GradeLevel: {GradeLevelName:"K", GradeLevelKey: 1}, Subject:
-      {SubjectName: "Reading"}, Term: "Winter", SchoolYear: {SchoolYearNameShort:
-        "2015-2016"}, AssessmentTemplate: { AssessmentTemplateKey: 0, Title: "None"}},
-        {Title: "Kindergarten - Universal Screener - Spring", GradeLevel:
-        {GradeLevelName:"K", GradeLevelKey: 1}, Subject: {SubjectName: "Reading"}, Term:
-        "Winter", SchoolYear: {SchoolYearNameShort: "2015-2016"}, AssessmentTemplate: {
-          AssessmentTemplateKey: 0, Title: "None"}}, {Title: "Kindergarten - Universal Screener - Spring",
-          GradeLevel: {GradeLevelName:"K", GradeLevelKey: 1}, Subject:
-          {SubjectName: "Reading"}, Term: "Winter", SchoolYear: {SchoolYearNameShort:
-            "2015-2016"}, AssessmentTemplate: { AssessmentTemplateKey: 0, Title: "None"}} ];
-
-            this.currentClassroomAssessments =  [{Title: "Kindergarten - Universal Screener - Spring"},
-              {Title: "Kindergarten - Universal Screener - Spring"}, {Title: "Kindergarten - Universal Screener - Spring"} ];
+      this.$http = $http;
+      this.$q = $q;
+      this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+      this.assessmentSearchCanceler = $q.defer();
+      this.currentDistrictAssessments = [];
     }
 
-    getAssessments(): Array<DistrictAssessment>{
+    getDistrictAssessments(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
       console.log("Getting Assessments From Service");
+      var filterString = "";
 
-      return this.currentAssessments;
+      var self = this;
+      this.promise = this.$http.get(this.apiRoot + 'DistrictAssessment/' + filterString,
+      {timeout : this.assessmentSearchCanceler.promise})
+      .then(function(response){
+        if(filterString == ""){
+          this.nonFilteredDistrictAssessments = response.data;
+        }
+        self.currentDistrictAssessments = <Array<DistrictAssessment>>response.data;
+        return response.data;
+      });
+
+      return this.promise;
     }
 
     saveAssessment(assessmentPackage: AssessmentPackage): boolean{
@@ -38,13 +48,29 @@ module INGAApp {
         console.log("Published Assessment");
       }
       if(!assessmentPackage.ShouldRefresh){
-        this.currentAssessments.push(assessmentPackage.Assessment);
+        this.currentDistrictAssessments.push(assessmentPackage.Assessment);
       }
       else{
         console.log("Reloading Assessments");
         //RELOAD ASSESSMENTS
       }
       return true;
+    }
+
+
+    getClassroomAssessments(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
+      console.log("Getting Classroom Assessments From Service");
+      var filterString = "";
+      this.promise = this.$http.get(this.apiRoot + 'ClassroomAssessment/' + filterString,
+      {timeout : this.assessmentSearchCanceler.promise})
+      .then(function(response){
+        if(filterString == ""){
+          this.nonFilteredDistrictAssessments = response.data;
+        }
+        return response.data;
+      });
+
+      return this.promise;
     }
 
   }

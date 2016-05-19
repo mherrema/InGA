@@ -1,10 +1,11 @@
 module INGAApp
 {
 
-  interface IAssessmentsScope extends BaseController.IScope
+  interface IAssessmentAssignmentScope extends BaseController.IScope
   {
     init: Function,
     test: string,
+    currentAssessment: DistrictAssessment,
     toggleSearchOpen: Function,
     searchOpen: boolean,
     openHeading: Function,
@@ -21,24 +22,27 @@ module INGAApp
     currentAssessments: Array<DistrictAssessment>,
     toggleAllChecked : Function,
     allChecked : boolean,
-    newAssessment: DistrictAssessment,
-    openAssessmentViewModal: Function,
     headingSortValue: Function,
     getFilterOptions: Function
   }
 
-  export class AssessmentsController extends BaseController.Controller
+  export class AssessmentAssignmentController extends BaseController.Controller
   {
-    scope: IAssessmentsScope;
+    scope: IAssessmentAssignmentScope;
     static $inject = ['$scope', '$timeout', '$uibModal', 'mainService', 'assessmentService', 'filterService'];
 
-    constructor( $scope: IAssessmentsScope, $timeout: ng.ITimeoutService, $uibModal: ng.ui.bootstrap.IModalService, mainService: MainService, assessmentService: AssessmentService, filterService: FilterService)
+    constructor( $scope: IAssessmentAssignmentScope, $timeout: ng.ITimeoutService, $uibModal: ng.ui.bootstrap.IModalService, mainService: MainService, assessmentService: AssessmentService, filterService: FilterService)
     {
       super( $scope );
       var controller = this;
 
+      console.log("assignment controller");
+
       $scope.init = function(){
-        mainService.setPageTitles("Assessment Management", "INGA");
+        mainService.setPageTitles("Assessment Assignment", "Assessment Assignment");
+
+        $scope.currentAssessment = assessmentService.currentSelectedDistrictAssessment;
+
         $scope.getAssessments();
         $scope.getFilterOptions();
 
@@ -58,17 +62,12 @@ module INGAApp
           }
         }
 
-        $scope.$watch(() => assessmentService.currentDistrictAssessments,
-        (newValue: Array<DistrictAssessment>, oldValue: Array<DistrictAssessment>) => {
-          $scope.currentAssessments = newValue;
-        });
-
       }
 
 
       $scope.getAssessments = function(){
         assessmentService.getDistrictAssessments().then(function(d: Array<DistrictAssessment>){
-          // $scope.currentAssessments = d;
+          $scope.currentAssessments = d;
         });
       }
 
@@ -127,6 +126,7 @@ module INGAApp
 
       //select table heading filter option
       $scope.selectHeadingOption = function (heading: HeadingOption, option: FilterOption) {
+        // $scope.loading = true;
         if (option.Key != "All") {
           heading.selected = option;
         } else {
@@ -156,29 +156,8 @@ module INGAApp
 
         $scope.areOptionsSelected = false;
         $scope.closeHeadings();
-
       };
 
-      $scope.openAssessmentViewModal = function (assessment) {
-        var tmpAssessment = assessment;
-        console.log(tmpAssessment);
-
-        var modalInstance = $uibModal.open({
-          animation: true,
-          templateUrl: 'partials/modals/viewAssessmentModal.html',
-          controller: 'AssessmentViewModalController',
-          size: "extra-wide",
-          resolve: {
-            assessment: function () {
-              return tmpAssessment;
-            }
-          }
-        });
-
-        modalInstance.result.then(function (selectedItem) {
-          console.log(selectedItem);
-        });
-      };
 
       $scope.headingSortValue = function (item) {
         if (item.Key == "All"){

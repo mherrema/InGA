@@ -40,17 +40,21 @@ module INGAApp {
   var myApp = new INGA.Module('IngaApp', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'ui.sortable', 'ui.grid', 'ui.grid.edit', 'ui.grid.cellNav', 'ui.grid.pinning']);
   myApp.addController('MainINGAController', MainController);
   myApp.addController('AssessmentsController', AssessmentsController);
-  myApp.addController('NewAssessmentController', NewAssessmentController);
-  myApp.addController('EditAssessmentController', EditAssessmentController);
-  myApp.addController('AssessmentViewController', AssessmentViewController);
-  myApp.addController('NewAssessmentItemController', NewAssessmentItemController);
-  myApp.addController('NewAssessmentTemplateController', NewAssessmentTemplateController);
+  myApp.addController('NewAssessmentModalController', NewAssessmentModalController);
+  myApp.addController('EditAssessmentModalController', EditAssessmentModalController);
+  myApp.addController('AssessmentViewModalController', AssessmentViewModalController);
+  myApp.addController('AssessmentAssignmentController', AssessmentAssignmentController);
+  myApp.addController('NewAssessmentItemModalController', NewAssessmentItemModalController);
+  myApp.addController('NewAssessmentTemplateModalController', NewAssessmentTemplateModalController);
   myApp.addController('DataEntryAssessmentListController', DataEntryAssessmentListController);
   myApp.addController('DataEntryScoreViewController', DataEntryScoreViewController);
+  myApp.addController('AddStudentModalController', AddStudentModalController);
 
   myApp.addService('mainService', MainService);
   myApp.addService('assessmentService', AssessmentService);
   myApp.addService('dataEntryService', DataEntryService);
+  myApp.addService('filterService', FilterService);
+  myApp.addRoute("/assessments/assign", "partials/assessmentAssignment.html", "AssessmentAssignmentController");
   myApp.addRoute("/assessments", "partials/assessments.html", "AssessmentsController");
   myApp.addRoute("/dataEntry/score", "partials/score_view.html", "DataEntryScoreViewController");
   myApp.addRoute("/dataEntry", "partials/data_entry.html", "DataEntryAssessmentListController");

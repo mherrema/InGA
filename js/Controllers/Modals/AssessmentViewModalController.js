@@ -5,15 +5,14 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var INGAApp;
 (function (INGAApp) {
-    var AssessmentViewController = (function (_super) {
-        __extends(AssessmentViewController, _super);
-        function AssessmentViewController($scope, $uibModalInstance, $uibModal, mainService, assessment, assessmentService) {
+    var AssessmentViewModalController = (function (_super) {
+        __extends(AssessmentViewModalController, _super);
+        function AssessmentViewModalController($scope, $uibModalInstance, $uibModal, mainService, assessment, assessmentService) {
             _super.call(this, $scope);
             var controller = this;
             $scope.assessment = assessment;
             $scope.ok = function () {
                 $uibModalInstance.close($scope.assessment);
-                // $scope.openAssessmentViewModal();
             };
             $scope.publish = function () {
                 console.log("Publish button clicked");
@@ -23,8 +22,8 @@ var INGAApp;
                 $uibModalInstance.close($scope.assessment);
                 var modalInstance = $uibModal.open({
                     animation: true,
-                    templateUrl: 'partials/modals/newDistrictAssessmentModal.html',
-                    controller: 'EditAssessmentController',
+                    templateUrl: 'partials/modals/newAssessmentModal.html',
+                    controller: 'EditAssessmentModalController',
                     size: "lg",
                     resolve: {
                         assessment: function () {
@@ -40,9 +39,9 @@ var INGAApp;
                 });
             };
         }
-        AssessmentViewController.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'mainService', 'assessment', 'assessmentService'];
-        return AssessmentViewController;
+        AssessmentViewModalController.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'mainService', 'assessment', 'assessmentService'];
+        return AssessmentViewModalController;
     }(BaseController.Controller));
-    INGAApp.AssessmentViewController = AssessmentViewController;
+    INGAApp.AssessmentViewModalController = AssessmentViewModalController;
 })(INGAApp || (INGAApp = {}));
-//# sourceMappingURL=AssessmentViewController.js.map
+//# sourceMappingURL=AssessmentViewModalController.js.map

@@ -11,6 +11,7 @@ var INGAApp;
             _super.call(this, $scope);
             var controller = this;
             $scope.init = function () {
+                $scope.assessmentOptions = [{ Title: "Assessment 1" }];
                 $scope.$watch(function () { return mainService.pageTitle; }, function (newValue, oldValue) {
                     $scope.pageTitle = newValue;
                 });
@@ -23,12 +24,15 @@ var INGAApp;
                 $scope.$watch(function () { return mainService.inScoreEntry; }, function (newValue, oldValue) {
                     $scope.inScoreEntry = newValue;
                 });
+                $scope.$watch(function () { return mainService.inAssessmentAssignment; }, function (newValue, oldValue) {
+                    $scope.inAssessmentAssignment = newValue;
+                });
             };
             $scope.openNewAssessmentModal = function (size) {
                 var modalInstance = $uibModal.open({
                     animation: true,
-                    templateUrl: 'partials/modals/newDistrictAssessmentModal.html',
-                    controller: 'NewAssessmentController',
+                    templateUrl: 'partials/modals/newAssessmentModal.html',
+                    controller: 'NewAssessmentModalController',
                     size: "lg",
                     resolve: {
                         assessment: function () {
@@ -49,7 +53,7 @@ var INGAApp;
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'partials/modals/newAssessmentTemplateModal.html',
-                    controller: 'NewAssessmentTemplateController',
+                    controller: 'NewAssessmentTemplateModalController',
                     size: "lg",
                     resolve: {
                         assessment: function () {

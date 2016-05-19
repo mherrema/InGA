@@ -5,20 +5,52 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var INGAApp;
 (function (INGAApp) {
-    var NewAssessmentTemplateController = (function (_super) {
-        __extends(NewAssessmentTemplateController, _super);
-        function NewAssessmentTemplateController($scope, $uibModalInstance, $uibModal, mainService) {
+    var NewAssessmentTemplateModalController = (function (_super) {
+        __extends(NewAssessmentTemplateModalController, _super);
+        function NewAssessmentTemplateModalController($scope, $uibModalInstance, $uibModal, mainService) {
             _super.call(this, $scope);
             var controller = this;
-            // if(assessment != undefined){
-            //   $scope.newAssessment = assessment;
-            // }
             $scope.init = function () {
-                $scope.gradeOptions = mainService.getGradeOptions();
                 $scope.sortableOptions = {
                     disabled: false,
                     stop: function () { $scope.updateItemRanking(); }
                 };
+                $scope.getGradeOptions();
+                $scope.getSubjectOptions();
+                $scope.getStandardTypeOptions();
+            };
+            $scope.getGradeOptions = function () {
+                console.log("getting grade options");
+                if (mainService.gradeOptions == undefined) {
+                    mainService.getGradeOptions().then(function (d) {
+                        $scope.gradeOptions = d;
+                    });
+                    ;
+                }
+                else {
+                    $scope.gradeOptions = mainService.gradeOptions;
+                }
+            };
+            $scope.getSubjectOptions = function () {
+                if (mainService.subjectOptions == undefined) {
+                    mainService.getSubjectOptions().then(function (d) {
+                        $scope.subjectOptions = d;
+                    });
+                    ;
+                }
+                else {
+                    $scope.subjectOptions = mainService.subjectOptions;
+                }
+            };
+            $scope.getStandardTypeOptions = function () {
+                if (mainService.standardTypeOptions == undefined) {
+                    mainService.getStandardTypeOptions().then(function (d) {
+                        $scope.standardTypeOptions = d;
+                    });
+                }
+                else {
+                    $scope.standardTypeOptions = mainService.standardTypeOptions;
+                }
             };
             $scope.publish = function () {
                 $uibModalInstance.close($scope.newAssessmentTemplate);
@@ -37,12 +69,11 @@ var INGAApp;
                 console.log($scope.newAssessmentTemplate.Items);
             };
             $scope.openNewAssessmentItemModal = function (size) {
-                // $uibModalInstance.dismiss('hide');
                 var modalInstance = $uibModal.open({
                     animation: true,
                     backdrop: 'static',
                     templateUrl: 'partials/modals/newAssessmentItemModal.html',
-                    controller: 'NewAssessmentItemController',
+                    controller: 'NewAssessmentItemModalController',
                     size: "lg",
                     keyboard: false,
                     resolve: {
@@ -58,8 +89,8 @@ var INGAApp;
             $scope.openAssessmentViewModal = function (size) {
                 var modalInstance = $uibModal.open({
                     animation: true,
-                    templateUrl: 'partials/modals/assessmentViewModal.html',
-                    controller: 'AssessmentViewController',
+                    templateUrl: 'partials/modals/viewAssessmentModal.html',
+                    controller: 'AssessmentViewModalController',
                     size: "lg",
                     resolve: {
                         assessment: function () {
@@ -72,9 +103,9 @@ var INGAApp;
                 });
             };
         }
-        NewAssessmentTemplateController.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'mainService', 'assessment'];
-        return NewAssessmentTemplateController;
+        NewAssessmentTemplateModalController.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'mainService', 'assessment'];
+        return NewAssessmentTemplateModalController;
     }(BaseController.Controller));
-    INGAApp.NewAssessmentTemplateController = NewAssessmentTemplateController;
+    INGAApp.NewAssessmentTemplateModalController = NewAssessmentTemplateModalController;
 })(INGAApp || (INGAApp = {}));
-//# sourceMappingURL=NewAssessmentTemplateController.js.map
+//# sourceMappingURL=NewAssessmentTemplateModalController.js.map

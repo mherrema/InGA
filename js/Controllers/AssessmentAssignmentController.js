@@ -5,13 +5,15 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var INGAApp;
 (function (INGAApp) {
-    var AssessmentsController = (function (_super) {
-        __extends(AssessmentsController, _super);
-        function AssessmentsController($scope, $timeout, $uibModal, mainService, assessmentService, filterService) {
+    var AssessmentAssignmentController = (function (_super) {
+        __extends(AssessmentAssignmentController, _super);
+        function AssessmentAssignmentController($scope, $timeout, $uibModal, mainService, assessmentService, filterService) {
             _super.call(this, $scope);
             var controller = this;
+            console.log("assignment controller");
             $scope.init = function () {
-                mainService.setPageTitles("Assessment Management", "INGA");
+                mainService.setPageTitles("Assessment Assignment", "Assessment Assignment");
+                $scope.currentAssessment = assessmentService.currentSelectedDistrictAssessment;
                 $scope.getAssessments();
                 $scope.getFilterOptions();
                 $scope.setHeadingDropdownWidth();
@@ -27,13 +29,10 @@ var INGAApp;
                         $scope.$apply();
                     }
                 };
-                $scope.$watch(function () { return assessmentService.currentDistrictAssessments; }, function (newValue, oldValue) {
-                    $scope.currentAssessments = newValue;
-                });
             };
             $scope.getAssessments = function () {
                 assessmentService.getDistrictAssessments().then(function (d) {
-                    // $scope.currentAssessments = d;
+                    $scope.currentAssessments = d;
                 });
             };
             $scope.setHeadingDropdownWidth = function () {
@@ -84,6 +83,7 @@ var INGAApp;
             };
             //select table heading filter option
             $scope.selectHeadingOption = function (heading, option) {
+                // $scope.loading = true;
                 if (option.Key != "All") {
                     heading.selected = option;
                 }
@@ -111,24 +111,6 @@ var INGAApp;
                 $scope.areOptionsSelected = false;
                 $scope.closeHeadings();
             };
-            $scope.openAssessmentViewModal = function (assessment) {
-                var tmpAssessment = assessment;
-                console.log(tmpAssessment);
-                var modalInstance = $uibModal.open({
-                    animation: true,
-                    templateUrl: 'partials/modals/viewAssessmentModal.html',
-                    controller: 'AssessmentViewModalController',
-                    size: "extra-wide",
-                    resolve: {
-                        assessment: function () {
-                            return tmpAssessment;
-                        }
-                    }
-                });
-                modalInstance.result.then(function (selectedItem) {
-                    console.log(selectedItem);
-                });
-            };
             $scope.headingSortValue = function (item) {
                 if (item.Key == "All") {
                     return -1;
@@ -136,9 +118,9 @@ var INGAApp;
                 return item;
             };
         }
-        AssessmentsController.$inject = ['$scope', '$timeout', '$uibModal', 'mainService', 'assessmentService', 'filterService'];
-        return AssessmentsController;
+        AssessmentAssignmentController.$inject = ['$scope', '$timeout', '$uibModal', 'mainService', 'assessmentService', 'filterService'];
+        return AssessmentAssignmentController;
     }(BaseController.Controller));
-    INGAApp.AssessmentsController = AssessmentsController;
+    INGAApp.AssessmentAssignmentController = AssessmentAssignmentController;
 })(INGAApp || (INGAApp = {}));
-//# sourceMappingURL=AssessmentsController.js.map
+//# sourceMappingURL=AssessmentAssignmentController.js.map

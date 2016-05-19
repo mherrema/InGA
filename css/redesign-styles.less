@@ -26,6 +26,15 @@ h5 {
 
 .title-row {
     padding: 40px 50px;
+    select{
+        margin-bottom: 20px;
+        margin-top: 5px;
+        color: #177a9b;
+    font-size: 24px;
+        font-weight: 600;
+        height: 45px;
+        border-radius: 3px;
+    }
 }
 
 .detail-row {
@@ -143,15 +152,30 @@ a:visited.inga-btn-negative:hover {
             color: #000;
             transition: color .1s ease;
             cursor: pointer;
+            text-align: center;
             &:hover {
                 color: #1fbdd5;
                 text-decoration: none;
+            }
+            &:active{
+                -webkit-transform: scale(0.95);
+    -moz-transform: scale(0.95);
+    -ms-transform: scale(0.95);
+    transform: scale(0.95);
             }
             //            }
         }
         .above-table-action-right {
             padding-left: 28px;
             float: right;
+            &.toggle-button{
+                padding: 5px 10px;
+                margin-top: 10px;
+                &.active{
+                    background: #1fbdd5;
+                    color: #fff;
+                }
+            }
         }
         .above-table-action-left {
             padding-right: 28px;
@@ -194,6 +218,7 @@ a:visited.inga-btn-negative:hover {
             }
         }
     }
+    
 }
 
 .dropdown-text {

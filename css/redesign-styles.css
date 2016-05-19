@@ -23,6 +23,15 @@ h5 {
 .title-row {
   padding: 40px 50px;
 }
+.title-row select {
+  margin-bottom: 20px;
+  margin-top: 5px;
+  color: #177a9b;
+  font-size: 24px;
+  font-weight: 600;
+  height: 45px;
+  border-radius: 3px;
+}
 .detail-row {
   padding: 0 50px;
   padding-bottom: 10px;
@@ -124,14 +133,29 @@ a:visited.inga-btn-negative:hover {
   color: #000;
   transition: color .1s ease;
   cursor: pointer;
+  text-align: center;
 }
 .above-table-actions-row .above-table-actions li:hover {
   color: #1fbdd5;
   text-decoration: none;
 }
+.above-table-actions-row .above-table-actions li:active {
+  -webkit-transform: scale(0.95);
+  -moz-transform: scale(0.95);
+  -ms-transform: scale(0.95);
+  transform: scale(0.95);
+}
 .above-table-actions-row .above-table-actions .above-table-action-right {
   padding-left: 28px;
   float: right;
+}
+.above-table-actions-row .above-table-actions .above-table-action-right.toggle-button {
+  padding: 5px 10px;
+  margin-top: 10px;
+}
+.above-table-actions-row .above-table-actions .above-table-action-right.toggle-button.active {
+  background: #1fbdd5;
+  color: #fff;
 }
 .above-table-actions-row .above-table-actions .above-table-action-left {
   padding-right: 28px;

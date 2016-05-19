@@ -10,17 +10,7 @@ module INGAApp
     newAssessmentItem: Item,
     itemTypeOptions: Array<ItemType>,
     pointsStepOptions: Array<PointsStepOption>,
-    newAssessmentItemForm: NewItemForm,
     initFormValidation: Function
-  }
-
-  interface SelectedItem{
-    item: string
-  }
-
-  interface NewItemForm extends ng.IFormController {
-    ItemType?: ItemType,
-    PointsMin: ng.INgModelController
   }
 
   interface PointsStepOption{
@@ -29,7 +19,7 @@ module INGAApp
   }
 
 
-  export class NewAssessmentItemController extends BaseController.Controller
+  export class NewAssessmentItemModalController extends BaseController.Controller
   {
     scope: INewAssessmentItemScope;
     static $inject = ['$scope', '$uibModalInstance', '$uibModal', 'mainService', 'assessment'];
@@ -49,11 +39,11 @@ module INGAApp
       $scope.itemTypeOptions = mainService.getItemTypeOptions();
       $scope.pointsStepOptions = [{Step: 1.0, Title: "1.0"},{Step: 0.5, Title: "0.5"},{Step: 0.2, Title: "0.2"},{Step: 0.1, Title: "0.1"},{Step: 0, Title: "All Values In Range"}];
 
-      $scope.initFormValidation = function(){
-        // $scope.newAssessmentItemForm.PointsMin = 0;
-        $scope.newAssessmentItemForm.PointsMin.$setValidity("pointsmin", ($scope.newAssessmentItem.PointsMin < $scope.newAssessmentItem.PointsMax));
-        // console.log($scope.newAssessmentItemForm);
-      }
+      // $scope.initFormValidation = function(){
+      //   // $scope.newAssessmentItemForm.PointsMin = 0;
+      //   $scope.newAssessmentItemForm.PointsMin.$setValidity("pointsmin", ($scope.newAssessmentItem.PointsMin < $scope.newAssessmentItem.PointsMax));
+      //   // console.log($scope.newAssessmentItemForm);
+      // }
 
       $scope.ok = function () {
 
@@ -66,20 +56,18 @@ module INGAApp
 
 
         $uibModalInstance.close($scope.assessment);
-        // $scope.openNewAssessmentModal();
       };
 
       $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
-        // $scope.openNewAssessmentModal();
       };
 
       $scope.openNewAssessmentModal = function (size) {
 
         var modalInstance = $uibModal.open({
           animation: true,
-          templateUrl: 'partials/modals/newDistrictAssessmentModal.html',
-          controller: 'NewAssessmentController',
+          templateUrl: 'partials/modals/newAssessmentModal.html',
+          controller: 'NewAssessmentModalController',
           size: "lg",
           resolve: {
             assessment: function () {
@@ -92,9 +80,6 @@ module INGAApp
           console.log(selectedItem);
         });
       };
-
     }
-
-
   }
 }
