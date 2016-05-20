@@ -29,12 +29,24 @@ var INGAApp;
                 $scope.getSchoolYearOptions();
                 $scope.getSubjectOptions();
                 $scope.getStandardTypeOptions();
+                $scope.getCalendarOptions();
                 $scope.templateOptions = mainService.getTemplateOptions();
-                $scope.calendarOptions = mainService.getCalendarOptions();
+                // $scope.calendarOptions = mainService.getCalendarOptions();
                 if ($scope.newAssessment.Title == "New Assessment") {
                     $timeout(function () {
                         $scope.highlightTitle();
                     }, 0);
+                }
+            };
+            $scope.getCalendarOptions = function () {
+                if (mainService.calendarOptions == undefined) {
+                    mainService.getCalendarOptions().then(function (d) {
+                        $scope.calendarOptions = d;
+                    });
+                    ;
+                }
+                else {
+                    $scope.calendarOptions = mainService.calendarOptions;
                 }
             };
             $scope.getGradeOptions = function () {
@@ -43,7 +55,6 @@ var INGAApp;
                     mainService.getGradeOptions().then(function (d) {
                         $scope.gradeOptions = d;
                     });
-                    ;
                 }
                 else {
                     $scope.gradeOptions = mainService.gradeOptions;

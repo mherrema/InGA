@@ -22,7 +22,12 @@ module INGAApp
     templateSelected: boolean,
     highlightTitle: Function,
     sortableOptions: SortableOptions,
-    pageTitle: string
+    pageTitle: string,
+    getCalendarOptions: Function,
+    getGradeOptions: Function,
+    getSchoolYearOptions: Function,
+    getSubjectOptions: Function,
+    getStandardTypeOptions: Function
   }
 
   interface SelectedItem{
@@ -65,15 +70,75 @@ module INGAApp
         //$scope.schoolYearOptions = mainService.getSchoolYearOptions();
         //$scope.standardTypeOptions = mainService.getStandardTypeOptions();
         $scope.templateOptions = mainService.getTemplateOptions();
-        $scope.calendarOptions = mainService.getCalendarOptions();
+        // $scope.calendarOptions = mainService.getCalendarOptions();
         if($scope.newAssessment.Title == "New Assessment"){
           $timeout(function(){
             $scope.highlightTitle();
           },0);
         }
+
+        $scope.getGradeOptions();
+        $scope.getSchoolYearOptions();
+        $scope.getSubjectOptions();
+        $scope.getStandardTypeOptions();
+        $scope.getCalendarOptions();
       }
 
+      $scope.getCalendarOptions = function(){
+        if(mainService.calendarOptions == undefined){
+          mainService.getCalendarOptions().then(function(d: Array<Calendar>){
+            $scope.calendarOptions = d;
+          });;
+        }
+        else{
+          $scope.calendarOptions = mainService.calendarOptions;
+        }
+      }
 
+      $scope.getGradeOptions = function(){
+        console.log("getting grade options");
+        if(mainService.gradeOptions == undefined){
+          mainService.getGradeOptions().then(function(d: Array<GradeLevel>){
+            $scope.gradeOptions = d;
+          });
+        }
+        else{
+          $scope.gradeOptions = mainService.gradeOptions;
+        }
+      }
+
+      $scope.getSchoolYearOptions = function(){
+        if(mainService.schoolYearOptions == undefined){
+          mainService.getSchoolYearOptions().then(function(d: Array<SchoolYear>){
+            $scope.schoolYearOptions = d;
+          });;
+        }
+        else{
+          $scope.schoolYearOptions = mainService.schoolYearOptions;
+        }
+      }
+
+      $scope.getSubjectOptions = function(){
+        if(mainService.subjectOptions == undefined){
+          mainService.getSubjectOptions().then(function(d: Array<Subject>){
+            $scope.subjectOptions = d;
+          });;
+        }
+        else{
+          $scope.subjectOptions = mainService.subjectOptions;
+        }
+      }
+
+      $scope.getStandardTypeOptions = function(){
+        if(mainService.standardTypeOptions == undefined){
+          mainService.getStandardTypeOptions().then(function(d: Array<StandardType>){
+            $scope.standardTypeOptions = d;
+          });
+        }
+        else{
+          $scope.standardTypeOptions = mainService.standardTypeOptions;
+        }
+      }
 
       $scope.selectTemplate = function(){
         if($scope.newAssessment.AssessmentTemplate.Title == "None"){

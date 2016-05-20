@@ -30,11 +30,70 @@ var INGAApp;
                 //$scope.schoolYearOptions = mainService.getSchoolYearOptions();
                 //$scope.standardTypeOptions = mainService.getStandardTypeOptions();
                 $scope.templateOptions = mainService.getTemplateOptions();
-                $scope.calendarOptions = mainService.getCalendarOptions();
+                // $scope.calendarOptions = mainService.getCalendarOptions();
                 if ($scope.newAssessment.Title == "New Assessment") {
                     $timeout(function () {
                         $scope.highlightTitle();
                     }, 0);
+                }
+                $scope.getGradeOptions();
+                $scope.getSchoolYearOptions();
+                $scope.getSubjectOptions();
+                $scope.getStandardTypeOptions();
+                $scope.getCalendarOptions();
+            };
+            $scope.getCalendarOptions = function () {
+                if (mainService.calendarOptions == undefined) {
+                    mainService.getCalendarOptions().then(function (d) {
+                        $scope.calendarOptions = d;
+                    });
+                    ;
+                }
+                else {
+                    $scope.calendarOptions = mainService.calendarOptions;
+                }
+            };
+            $scope.getGradeOptions = function () {
+                console.log("getting grade options");
+                if (mainService.gradeOptions == undefined) {
+                    mainService.getGradeOptions().then(function (d) {
+                        $scope.gradeOptions = d;
+                    });
+                }
+                else {
+                    $scope.gradeOptions = mainService.gradeOptions;
+                }
+            };
+            $scope.getSchoolYearOptions = function () {
+                if (mainService.schoolYearOptions == undefined) {
+                    mainService.getSchoolYearOptions().then(function (d) {
+                        $scope.schoolYearOptions = d;
+                    });
+                    ;
+                }
+                else {
+                    $scope.schoolYearOptions = mainService.schoolYearOptions;
+                }
+            };
+            $scope.getSubjectOptions = function () {
+                if (mainService.subjectOptions == undefined) {
+                    mainService.getSubjectOptions().then(function (d) {
+                        $scope.subjectOptions = d;
+                    });
+                    ;
+                }
+                else {
+                    $scope.subjectOptions = mainService.subjectOptions;
+                }
+            };
+            $scope.getStandardTypeOptions = function () {
+                if (mainService.standardTypeOptions == undefined) {
+                    mainService.getStandardTypeOptions().then(function (d) {
+                        $scope.standardTypeOptions = d;
+                    });
+                }
+                else {
+                    $scope.standardTypeOptions = mainService.standardTypeOptions;
                 }
             };
             $scope.selectTemplate = function () {

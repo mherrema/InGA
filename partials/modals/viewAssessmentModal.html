@@ -10,7 +10,8 @@
           <div class="col-sm-3">
               <div class="form-group">
                   <label class="no-left-pad" for="inputEmail">Template</label>
-                  <h5 class="detail-text">{{assessment.AssessmentTemplate.Title}}</h5>
+                  <h5 class="detail-text" ng-if="assessment.AssessmentTemplate">{{assessment.AssessmentTemplate.Title}}</h5>
+                  <h5 class="detail-text" ng-if="!assessment.AssessmentTemplate">None</h5>
               </div>
           </div>
           <div class="col-sm-3">
@@ -35,7 +36,7 @@
             <div class="col-sm-3">
                 <div class="form-group">
                     <label class="no-left-pad" for="inputEmail">Standard Type</label>
-                    <h5 class="detail-text">{{assessment.StandardType.Name}}</h5>
+                    <h5 class="detail-text">{{assessment.StandardType.StandardTypeName}}</h5>
                 </div>
             </div>
             <div class="col-sm-3">

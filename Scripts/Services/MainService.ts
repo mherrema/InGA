@@ -9,6 +9,7 @@ module INGAApp {
     inScoreEntry: boolean;
     inAssessmentAssignment: boolean;
     $http: ng.IHttpService;
+    calendarOptions: Array<Calendar>;
     gradeOptions: Array<GradeLevel>;
     schoolYearOptions: Array<SchoolYear>;
     subjectOptions: Array<Subject>;
@@ -18,8 +19,8 @@ module INGAApp {
     constructor($http: ng.IHttpService) {
       super();
       this.$http = $http;
-      this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
-
+      // this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+      this.apiRoot = "http://172.21.255.55:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
     }
 
     setPageTitles(pageTitle: string, pageTypeTitle: string): void{
@@ -48,9 +49,15 @@ module INGAApp {
       }
     }
 
-    getCalendarOptions(): Array<Calendar>{
-      return [{CalendarKey: 1, CalendarName: "Calendar 1"},
-              {CalendarKey: 2, CalendarName: "Calendar 2"}];
+    getCalendarOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
+      var self:MainService = this;
+      var promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> = this.$http.get(this.apiRoot + 'Options/Calendar/')
+      .then(function(response){
+        self.calendarOptions = <Array<Calendar>>response.data;
+        return response.data;
+      });
+
+      return promise;
     }
 
     getGradeOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{

@@ -18,7 +18,8 @@ module INGAApp {
 
       this.$http = $http;
       this.$q = $q;
-      this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+      // this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+      this.apiRoot = "http://172.21.255.55:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
       this.assessmentSearchCanceler = $q.defer();
       this.currentDistrictAssessments = [];
     }
@@ -41,20 +42,27 @@ module INGAApp {
       return this.promise;
     }
 
-    saveAssessment(assessmentPackage: AssessmentPackage): boolean{
+    saveAssessment(assessmentPackage: AssessmentPackage): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
       console.log("Saving Assessment In Service");
+      assessmentPackage.Assessment.GradeLevelKey = assessmentPackage.Assessment.GradeLevel.GradeLevelKey;
+      assessmentPackage.Assessment.StandardTypeKey = assessmentPackage.Assessment.StandardType.StandardTypeKey;
+      assessmentPackage.Assessment.CalendarKey = assessmentPackage.Assessment.Calendar.CalendarKey;
+      assessmentPackage.Assessment.SubjectKey = assessmentPackage.Assessment.Subject.SubjectKey;
+      assessmentPackage.Assessment.SchoolYearKey = assessmentPackage.Assessment.SchoolYear.SchoolYearKey;
       if(assessmentPackage.ShouldPublish){
         assessmentPackage.Assessment.IsPublished = true;
         console.log("Published Assessment");
       }
-      if(!assessmentPackage.ShouldRefresh){
-        this.currentDistrictAssessments.push(assessmentPackage.Assessment);
-      }
-      else{
-        console.log("Reloading Assessments");
-        //RELOAD ASSESSMENTS
-      }
-      return true;
+      this.promise = this.$http.post(this.apiRoot + 'DistrictAssessment/',
+      assessmentPackage.Assessment)
+      .then(function(response){
+          return true;
+      })
+      .catch(function(){
+        return false;
+      });
+
+      return this.promise;
     }
 
 

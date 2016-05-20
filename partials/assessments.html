@@ -55,13 +55,12 @@
       </th>
       <th></th>
     </tr>
-    <tr ng-repeat="assessment in currentAssessments" ng-class="{'selected': assessment.checked}" ng-click="openAssessmentViewModal(assessment)">
+    <tr ng-repeat="assessment in currentAssessments track by assessment.DistrictAssessmentKey" ng-class="{'selected': assessment.checked}" ng-click="openAssessmentViewModal(assessment)">
       <td>
         <input type="checkbox" ng-model="assessment.checked" ng-checked="assessment.checked" noclick />{{assessment.Title}}</td>
         <td>{{assessment.GradeLevel.GradeLevelName}}</td>
         <td>{{assessment.Subject.SubjectName}}</td>
-        <td>{{assessment.Term}}</td>
-        <td>{{assessment.SchoolYear.SchoolYearNameShort}}</td>
+        <td>{{assessment.SchoolYear.SchoolYearName}}</td>
         <td></td>
       </tr>
         </table>

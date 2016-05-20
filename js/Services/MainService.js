@@ -10,7 +10,8 @@ var INGAApp;
         function MainService($http) {
             _super.call(this);
             this.$http = $http;
-            this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+            // this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+            this.apiRoot = "http://172.21.255.55:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
         }
         MainService.prototype.setPageTitles = function (pageTitle, pageTypeTitle) {
             this.pageTitle = pageTitle;
@@ -35,8 +36,13 @@ var INGAApp;
             }
         };
         MainService.prototype.getCalendarOptions = function () {
-            return [{ CalendarKey: 1, CalendarName: "Calendar 1" },
-                { CalendarKey: 2, CalendarName: "Calendar 2" }];
+            var self = this;
+            var promise = this.$http.get(this.apiRoot + 'Options/Calendar/')
+                .then(function (response) {
+                self.calendarOptions = response.data;
+                return response.data;
+            });
+            return promise;
         };
         MainService.prototype.getGradeOptions = function () {
             var self = this;

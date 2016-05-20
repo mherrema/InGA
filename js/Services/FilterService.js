@@ -10,7 +10,8 @@ var INGAApp;
         function FilterService($http) {
             _super.call(this);
             this.$http = $http;
-            this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+            // this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+            this.apiRoot = "http://172.21.255.55:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
         }
         FilterService.prototype.getDistrictAssessmentFilterOptions = function () {
             console.log("Getting Assessments From Service");

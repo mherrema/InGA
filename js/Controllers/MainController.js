@@ -42,11 +42,16 @@ var INGAApp;
                 });
                 modalInstance.result.then(function (assessmentPackage) {
                     console.log(assessmentPackage.Assessment);
-                    if (assessmentService.saveAssessment(assessmentPackage)) {
-                        if (assessmentPackage.ShouldPublish) {
-                            console.log("Going to assessment view");
+                    assessmentService.saveAssessment(assessmentPackage).then(function (d) {
+                        if (d) {
+                            //show success!
+                            if (assessmentPackage.ShouldPublish) {
+                                console.log("Going to assessment view");
+                            }
                         }
-                    }
+                        else {
+                        }
+                    });
                 });
             };
             $scope.openNewMasterTemplateModal = function () {

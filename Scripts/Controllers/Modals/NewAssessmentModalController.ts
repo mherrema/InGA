@@ -24,6 +24,7 @@ module INGAApp
     sortableOptions: SortableOptions,
     pageTitle: string,
     updateItemRanking: Function,
+    getCalendarOptions: Function,
     getGradeOptions: Function,
     getSchoolYearOptions: Function,
     getSubjectOptions: Function,
@@ -65,12 +66,24 @@ module INGAApp
         $scope.getSchoolYearOptions();
         $scope.getSubjectOptions();
         $scope.getStandardTypeOptions();
+        $scope.getCalendarOptions();
         $scope.templateOptions = mainService.getTemplateOptions();
-        $scope.calendarOptions = mainService.getCalendarOptions();
+        // $scope.calendarOptions = mainService.getCalendarOptions();
         if($scope.newAssessment.Title == "New Assessment"){
           $timeout(function(){
             $scope.highlightTitle();
           },0);
+        }
+      }
+
+      $scope.getCalendarOptions = function(){
+        if(mainService.calendarOptions == undefined){
+          mainService.getCalendarOptions().then(function(d: Array<Calendar>){
+            $scope.calendarOptions = d;
+          });;
+        }
+        else{
+          $scope.calendarOptions = mainService.calendarOptions;
         }
       }
 
@@ -79,7 +92,7 @@ module INGAApp
         if(mainService.gradeOptions == undefined){
           mainService.getGradeOptions().then(function(d: Array<GradeLevel>){
             $scope.gradeOptions = d;
-          });;
+          });
         }
         else{
           $scope.gradeOptions = mainService.gradeOptions;

@@ -13,7 +13,8 @@ module INGAApp {
       super();
 
       this.$http = $http;
-      this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+      // this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+      this.apiRoot = "http://172.21.255.55:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
     }
 
     getDistrictAssessmentFilterOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
