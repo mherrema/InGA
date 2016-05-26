@@ -16,6 +16,7 @@ module INGAApp
     standardTypeOptions: Array<StandardType>,
     templateOptions: Array<AssessmentTemplate>,
     calendarOptions: Array<Calendar>,
+    districtOptions: Array<District>,
     openAssessmentViewModal: Function,
     openNewAssessmentItemModal: Function,
     selectTemplate: Function,
@@ -24,11 +25,14 @@ module INGAApp
     sortableOptions: SortableOptions,
     pageTitle: string,
     updateItemRanking: Function,
+    getDistrictOptions: Function,
     getCalendarOptions: Function,
     getGradeOptions: Function,
     getSchoolYearOptions: Function,
     getSubjectOptions: Function,
-    getStandardTypeOptions: Function
+    getStandardTypeOptions: Function,
+    getAssessmentTemplateOptions: Function,
+    multipleDistrictOptions: boolean
   }
 
   interface SelectedItem{
@@ -62,12 +66,16 @@ module INGAApp
           stop: function(){$scope.updateItemRanking()}
         };
 
+        $scope.multipleDistrictOptions = false;
+
+        $scope.getDistrictOptions();
         $scope.getGradeOptions();
         $scope.getSchoolYearOptions();
         $scope.getSubjectOptions();
         $scope.getStandardTypeOptions();
         $scope.getCalendarOptions();
-        $scope.templateOptions = mainService.getTemplateOptions();
+        $scope.getAssessmentTemplateOptions();
+        //$scope.templateOptions = mainService.getTemplateOptions();
         // $scope.calendarOptions = mainService.getCalendarOptions();
         if($scope.newAssessment.Title == "New Assessment"){
           $timeout(function(){
@@ -76,8 +84,48 @@ module INGAApp
         }
       }
 
+      $scope.getAssessmentTemplateOptions = function(){
+        if(mainService.assessmentTemplateOptions == undefined || mainService.assessmentTemplateOptions.length < 1){
+          mainService.getAssessmentTemplateOptions().then(function(d: Array<AssessmentTemplate>){
+            $scope.templateOptions = d;
+          });
+        }
+        else{
+          $scope.templateOptions = mainService.assessmentTemplateOptions;
+        }
+      }
+
+      $scope.getDistrictOptions = function(){
+        if(mainService.districtOptions == undefined || mainService.districtOptions.length < 1){
+          mainService.getDistrictOptions().then(function(d: Array<District>){
+            $scope.districtOptions = d;
+            if($scope.districtOptions.length > 1){
+              $scope.multipleDistrictOptions = true;
+            }
+            else{
+              $scope.multipleDistrictOptions = false;
+              if($scope.districtOptions.length == 1){
+                $scope.newAssessment.DistrictKey = $scope.districtOptions[0].DistrictKey;
+              }
+            }
+          });
+        }
+        else{
+          $scope.districtOptions = mainService.districtOptions;
+          if($scope.districtOptions.length > 1){
+            $scope.multipleDistrictOptions = true;
+          }
+          else{
+            $scope.multipleDistrictOptions = false;
+            if($scope.districtOptions.length == 1){
+              $scope.newAssessment.DistrictKey = $scope.districtOptions[0].DistrictKey;
+            }
+          }
+        }
+      }
+
       $scope.getCalendarOptions = function(){
-        if(mainService.calendarOptions == undefined){
+        if(mainService.calendarOptions == undefined || mainService.calendarOptions.length < 1){
           mainService.getCalendarOptions().then(function(d: Array<Calendar>){
             $scope.calendarOptions = d;
           });;
@@ -89,7 +137,7 @@ module INGAApp
 
       $scope.getGradeOptions = function(){
         console.log("getting grade options");
-        if(mainService.gradeOptions == undefined){
+        if(mainService.gradeOptions == undefined || mainService.gradeOptions.length < 1){
           mainService.getGradeOptions().then(function(d: Array<GradeLevel>){
             $scope.gradeOptions = d;
           });
@@ -100,7 +148,7 @@ module INGAApp
       }
 
       $scope.getSchoolYearOptions = function(){
-        if(mainService.schoolYearOptions == undefined){
+        if(mainService.schoolYearOptions == undefined || mainService.schoolYearOptions.length < 1){
           mainService.getSchoolYearOptions().then(function(d: Array<SchoolYear>){
             $scope.schoolYearOptions = d;
           });;
@@ -111,7 +159,7 @@ module INGAApp
       }
 
       $scope.getSubjectOptions = function(){
-        if(mainService.subjectOptions == undefined){
+        if(mainService.subjectOptions == undefined || mainService.subjectOptions.length < 1){
           mainService.getSubjectOptions().then(function(d: Array<Subject>){
             $scope.subjectOptions = d;
           });;
@@ -122,7 +170,7 @@ module INGAApp
       }
 
       $scope.getStandardTypeOptions = function(){
-        if(mainService.standardTypeOptions == undefined){
+        if(mainService.standardTypeOptions == undefined || mainService.standardTypeOptions.length < 1){
           mainService.getStandardTypeOptions().then(function(d: Array<StandardType>){
             $scope.standardTypeOptions = d;
           });
@@ -144,12 +192,22 @@ module INGAApp
         else{
           $scope.templateSelected = true;
           $scope.sortableOptions.disabled = false;
-          $scope.newAssessment.Subject = $scope.newAssessment.AssessmentTemplate.Subject;
+          $scope.newAssessment.Subject = {SubjectKey:$scope.newAssessment.AssessmentTemplate.SubjectKey};
           $scope.newAssessment.Calendar = {CalendarKey: $scope.newAssessment.AssessmentTemplate.CalendarKey};
           $scope.newAssessment.StandardType = {StandardTypeKey: $scope.newAssessment.AssessmentTemplate.StandardTypeKey};
           $scope.newAssessment.GradeLevel = {GradeLevelKey: $scope.newAssessment.AssessmentTemplate.GradeLevelKey};
+          $scope.newAssessment.IsScantron = $scope.newAssessment.AssessmentTemplate.IsScantron;
+          $scope.newAssessment.DistrictAssessmentItems = [];
+          angular.forEach($scope.newAssessment.AssessmentTemplate.AssessmentTemplateItems, function(item){
+            $scope.newAssessment.DistrictAssessmentItems.push({
+            Item: item.Item,
+          ItemKey: item.ItemKey})
+          });
+
+          }
         }
-      }
+
+
 
       $scope.highlightTitle = function(){
         $("#assessmentTitle").select();
@@ -157,8 +215,8 @@ module INGAApp
 
 
       $scope.updateItemRanking = function(){
-        angular.forEach($scope.newAssessment.Items, function(value: Item, key) {
-          value.ItemOrder = key+1;
+        angular.forEach($scope.newAssessment.DistrictAssessmentItems, function(value: DistrictAssessmentItem, key) {
+          value.Item.ItemOrder = key+1;
         });
         console.log($scope.newAssessment.Items);
       }

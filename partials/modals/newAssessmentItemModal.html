@@ -12,33 +12,33 @@
                 <div class="form-group">
                     <label for="inputEmail">Item Type</label>
                     <select class="form-control" ng-options="itemType as itemType.TypeName for itemType in itemTypeOptions track by itemType.ItemTypeKey"
-                    ng-model="newAssessmentItem.ItemType" required></select>
+                    ng-model="newAssessmentItem.Item.ItemType" required></select>
                 </div>
             </div>
 
             <div class="col-sm-3">
                 <div class="form-group">
                     <label for="inputEmail">Item Points (Min)</label>
-                    <input type="number" class="form-control" data-ng-model="newAssessmentItem.PointsMin" data-ng-required="true">
+                    <input type="number" class="form-control" data-ng-model="newAssessmentItem.Item.PointsMin" data-ng-required="true">
                 </div>
             </div>
             <div class="col-sm-3">
                 <div class="form-group">
                     <label for="inputEmail">Item Points (Max)</label>
-                    <input type="number" class="form-control" ng-model="newAssessmentItem.PointsMax" required>
+                    <input type="number" class="form-control" ng-model="newAssessmentItem.Item.PointsMax" required>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="inputEmail">Item Points Step</label>
-                    <select class="form-control" ng-model="newAssessmentItem.PointsStep" ng-options="pointsStep.Step as pointsStep.Title for pointsStep in pointsStepOptions">
+                    <select class="form-control" ng-model="newAssessmentItem.Item.PointsStep" ng-options="pointsStep.Step as pointsStep.Title for pointsStep in pointsStepOptions">
                     </select>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="inputEmail">Other Values</label>
-                    <input type="text" ng-model="newAssessmentItem.AlternateValueList" class="form-control">
+                    <input type="text" ng-model="newAssessmentItem.Item.AlternateValueList" class="form-control">
                 </div>
             </div>
 

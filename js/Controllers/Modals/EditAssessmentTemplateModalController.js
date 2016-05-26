@@ -5,29 +5,23 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var INGAApp;
 (function (INGAApp) {
-    var NewAssessmentTemplateModalController = (function (_super) {
-        __extends(NewAssessmentTemplateModalController, _super);
-        function NewAssessmentTemplateModalController($scope, $timeout, $uibModalInstance, $uibModal, mainService) {
+    var EditAssessmentTemplateModalController = (function (_super) {
+        __extends(EditAssessmentTemplateModalController, _super);
+        function EditAssessmentTemplateModalController($scope, $timeout, $uibModalInstance, $uibModal, mainService, assessmentService, template) {
             _super.call(this, $scope);
             var controller = this;
             $scope.init = function () {
-                $scope.pageTitle = "Create New Assessment Template";
+                $scope.pageTitle = "Edit Assessment Template";
+                $scope.newAssessmentTemplate = template;
                 $scope.sortableOptions = {
                     disabled: false,
                     stop: function () { $scope.updateItemRanking(); }
                 };
-                $scope.newAssessmentTemplate = { Title: "New Assessment Template" };
-                $timeout(function () {
-                    $scope.highlightTitle();
-                }, 0);
                 $scope.getGradeOptions();
                 $scope.getSubjectOptions();
                 $scope.getStandardTypeOptions();
                 $scope.getCalendarOptions();
                 $scope.getDistrictOptions();
-            };
-            $scope.highlightTitle = function () {
-                $("#assessmentTemplateTitle").select();
             };
             $scope.getCalendarOptions = function () {
                 if (mainService.calendarOptions == undefined) {
@@ -132,9 +126,9 @@ var INGAApp;
                 });
             };
         }
-        NewAssessmentTemplateModalController.$inject = ['$scope', '$timeout', '$uibModalInstance', '$uibModal', 'mainService', 'assessment'];
-        return NewAssessmentTemplateModalController;
+        EditAssessmentTemplateModalController.$inject = ['$scope', '$timeout', '$uibModalInstance', '$uibModal', 'mainService', 'assessmentService', 'template'];
+        return EditAssessmentTemplateModalController;
     }(BaseController.Controller));
-    INGAApp.NewAssessmentTemplateModalController = NewAssessmentTemplateModalController;
+    INGAApp.EditAssessmentTemplateModalController = EditAssessmentTemplateModalController;
 })(INGAApp || (INGAApp = {}));
-//# sourceMappingURL=NewAssessmentTemplateModalController.js.map
+//# sourceMappingURL=EditAssessmentTemplateModalController.js.map

@@ -7,10 +7,16 @@ var INGAApp;
 (function (INGAApp) {
     var MainController = (function (_super) {
         __extends(MainController, _super);
-        function MainController($scope, $location, $log, $uibModal, mainService, assessmentService) {
+        function MainController($scope, $location, $log, $uibModal, mainService, assessmentService, notificationService) {
             _super.call(this, $scope);
             var controller = this;
             $scope.init = function () {
+                $scope.currentNotification = {
+                    NotificationText: "",
+                    Success: false,
+                    Error: false,
+                    Active: false
+                };
                 $scope.assessmentOptions = [{ Title: "Assessment 1" }];
                 $scope.$watch(function () { return mainService.pageTitle; }, function (newValue, oldValue) {
                     $scope.pageTitle = newValue;
@@ -27,6 +33,9 @@ var INGAApp;
                 $scope.$watch(function () { return mainService.inAssessmentAssignment; }, function (newValue, oldValue) {
                     $scope.inAssessmentAssignment = newValue;
                 });
+                $scope.$watch(function () { return notificationService.currentNotification; }, function (newValue, oldValue) {
+                    $scope.currentNotification = newValue;
+                });
             };
             $scope.openNewAssessmentModal = function (size) {
                 var modalInstance = $uibModal.open({
@@ -42,14 +51,18 @@ var INGAApp;
                 });
                 modalInstance.result.then(function (assessmentPackage) {
                     console.log(assessmentPackage.Assessment);
-                    assessmentService.saveAssessment(assessmentPackage).then(function (d) {
-                        if (d) {
+                    assessmentService.saveAssessment(assessmentPackage).then(function (res) {
+                        if (res.Success) {
+                            assessmentPackage.Assessment.DistrictAssessmentKey = res.Key;
+                            assessmentService.currentDistrictAssessments.push(assessmentPackage.Assessment);
+                            notificationService.showNotification("Success saving assessment", "success");
                             //show success!
                             if (assessmentPackage.ShouldPublish) {
                                 console.log("Going to assessment view");
                             }
                         }
                         else {
+                            notificationService.showNotification("Error saving assessment", "error");
                         }
                     });
                 });
@@ -66,15 +79,34 @@ var INGAApp;
                         }
                     }
                 });
-                modalInstance.result.then(function (selectedItem) {
-                    console.log(selectedItem);
+                modalInstance.result.then(function (assessmentTemplatePackage) {
+                    if (assessmentTemplatePackage.ShouldMakeAvailableToUsers) {
+                        assessmentTemplatePackage.AssessmentTemplate.AvailableToUsers = true;
+                    }
+                    else {
+                        assessmentTemplatePackage.AssessmentTemplate.AvailableToUsers = false;
+                    }
+                    assessmentService.saveAssessmentTemplate(assessmentTemplatePackage).then(function (res) {
+                        if (res.Success) {
+                            assessmentTemplatePackage.AssessmentTemplate.AssessmentTemplateKey = res.Key;
+                            assessmentService.currentAssessmentTemplates.push(assessmentTemplatePackage.AssessmentTemplate);
+                            notificationService.showNotification("Success saving assessment template", "success");
+                            //show success!
+                            if (assessmentTemplatePackage.ShouldMakeAvailableToUsers) {
+                                console.log("Going to assessment template view");
+                            }
+                        }
+                        else {
+                            notificationService.showNotification("Error saving assessment template", "error");
+                        }
+                    });
                 });
             };
             $scope.goToDataEntry = function () {
                 $location.path("/dataEntry");
             };
         }
-        MainController.$inject = ['$scope', '$location', '$log', '$uibModal', 'mainService', 'assessmentService'];
+        MainController.$inject = ['$scope', '$location', '$log', '$uibModal', 'mainService', 'assessmentService', 'notificationService'];
         return MainController;
     }(BaseController.Controller));
     INGAApp.MainController = MainController;

@@ -5,6 +5,7 @@ module INGAApp
   {
     init: Function,
     newAssessment: DistrictAssessment,
+    originalAssessment: DistrictAssessment,
     items: Array<string>,
     selected: SelectedItem,
     publish: Function,
@@ -27,15 +28,13 @@ module INGAApp
     getGradeOptions: Function,
     getSchoolYearOptions: Function,
     getSubjectOptions: Function,
-    getStandardTypeOptions: Function
+    getStandardTypeOptions: Function,
+    getAssessmentTemplateOptions: Function,
+    updateItemRanking: Function
   }
 
   interface SelectedItem{
     item: string
-  }
-
-  interface SortableOptions{
-    disabled: boolean
   }
 
   export class EditAssessmentModalController extends BaseController.Controller
@@ -51,6 +50,7 @@ module INGAApp
       $scope.init = function(){
         $scope.pageTitle = "Edit Assessment";
         if(assessment.Title != undefined){
+          $scope.originalAssessment = angular.copy(assessment);
           $scope.newAssessment = assessment;
           $scope.pageTitle += " " + assessment.Title;
           if(assessment.Template != undefined && assessment.Template.Title != undefined && assessment.Template.Title != "None"){
@@ -62,14 +62,15 @@ module INGAApp
         }
 
         $scope.sortableOptions = {
-          disabled: false
+          disabled: false,
+          stop: function(){$scope.updateItemRanking()}
         };
 
         // $scope.gradeOptions = mainService.getGradeOptions();
         // $scope.subjectOptions = mainService.getSubjectOptions();
         //$scope.schoolYearOptions = mainService.getSchoolYearOptions();
         //$scope.standardTypeOptions = mainService.getStandardTypeOptions();
-        $scope.templateOptions = mainService.getTemplateOptions();
+        // $scope.templateOptions = mainService.getTemplateOptions();
         // $scope.calendarOptions = mainService.getCalendarOptions();
         if($scope.newAssessment.Title == "New Assessment"){
           $timeout(function(){
@@ -82,6 +83,7 @@ module INGAApp
         $scope.getSubjectOptions();
         $scope.getStandardTypeOptions();
         $scope.getCalendarOptions();
+        $scope.getAssessmentTemplateOptions();
       }
 
       $scope.getCalendarOptions = function(){
@@ -92,6 +94,17 @@ module INGAApp
         }
         else{
           $scope.calendarOptions = mainService.calendarOptions;
+        }
+      }
+
+      $scope.getAssessmentTemplateOptions = function(){
+        if(mainService.assessmentTemplateOptions == undefined){
+          mainService.getAssessmentTemplateOptions().then(function(d: Array<AssessmentTemplate>){
+            $scope.templateOptions = d;
+          });
+        }
+        else{
+          $scope.gradeOptions = mainService.gradeOptions;
         }
       }
 
@@ -111,7 +124,7 @@ module INGAApp
         if(mainService.schoolYearOptions == undefined){
           mainService.getSchoolYearOptions().then(function(d: Array<SchoolYear>){
             $scope.schoolYearOptions = d;
-          });;
+          });
         }
         else{
           $scope.schoolYearOptions = mainService.schoolYearOptions;
@@ -122,7 +135,7 @@ module INGAApp
         if(mainService.subjectOptions == undefined){
           mainService.getSubjectOptions().then(function(d: Array<Subject>){
             $scope.subjectOptions = d;
-          });;
+          });
         }
         else{
           $scope.subjectOptions = mainService.subjectOptions;
@@ -142,9 +155,7 @@ module INGAApp
 
       $scope.selectTemplate = function(){
         if($scope.newAssessment.AssessmentTemplate.Title == "None"){
-          $scope.sortableOptions = {
-            disabled: false
-          };
+          $scope.sortableOptions.disabled = false;
           $scope.templateSelected = false;
           $scope.newAssessment.Subject = {};
           $scope.newAssessment.Calendar = {};
@@ -153,9 +164,7 @@ module INGAApp
         }
         else{
           $scope.templateSelected = true;
-          $scope.sortableOptions = {
-            disabled: true
-          };
+          $scope.sortableOptions.disabled = true;
           $scope.newAssessment.Subject = $scope.newAssessment.AssessmentTemplate.Subject;
           $scope.newAssessment.Calendar = {CalendarKey: $scope.newAssessment.AssessmentTemplate.CalendarKey};
           $scope.newAssessment.StandardType = {StandardTypeKey: $scope.newAssessment.AssessmentTemplate.StandardTypeKey};
@@ -167,7 +176,12 @@ module INGAApp
         $("#assessmentTitle").select();
       }
 
-
+      $scope.updateItemRanking = function(){
+        angular.forEach($scope.newAssessment.DistrictAssessmentItems, function(value: DistrictAssessmentItem, key) {
+          value.Item.ItemOrder = key+1;
+        });
+        console.log($scope.newAssessment.DistrictAssessmentItems);
+      }
 
 
 
@@ -183,6 +197,9 @@ module INGAApp
       };
 
       $scope.cancel = function () {
+        // $scope.newAssessment = $scope.originalAssessment;
+        angular.copy($scope.originalAssessment, $scope.newAssessment);
+        // $scope.newAssessment.Title = $scope.originalAssessment.Title;
         $uibModalInstance.dismiss('cancel');
       };
 

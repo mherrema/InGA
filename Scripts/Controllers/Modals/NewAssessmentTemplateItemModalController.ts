@@ -1,9 +1,9 @@
 module INGAApp
 {
 
-  interface INewAssessmentItemScope extends BaseController.IScope
+  interface INewAssessmentTemplateItemScope extends BaseController.IScope
   {
-    assessment: DistrictAssessment,
+    assessment: AssessmentTemplate,
     ok: Function,
     cancel: Function,
     openNewAssessmentModal: Function,
@@ -19,12 +19,12 @@ module INGAApp
   }
 
 
-  export class NewAssessmentItemModalController extends BaseController.Controller
+  export class NewAssessmentTemplateItemModalController extends BaseController.Controller
   {
-    scope: INewAssessmentItemScope;
+    scope: INewAssessmentTemplateItemScope;
     static $inject = ['$scope', '$uibModalInstance', '$uibModal', 'mainService', 'assessment'];
 
-    constructor( $scope: INewAssessmentItemScope, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $uibModal: ng.ui.bootstrap.IModalService, mainService:MainService, assessment:DistrictAssessment)
+    constructor( $scope: INewAssessmentTemplateItemScope, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $uibModal: ng.ui.bootstrap.IModalService, mainService:MainService, assessment:DistrictAssessment)
     {
       super( $scope );
       var controller = this;
@@ -48,12 +48,12 @@ module INGAApp
 
       $scope.ok = function () {
 
-        if($scope.assessment.DistrictAssessmentItems == undefined || $scope.assessment.DistrictAssessmentItems.length == 0){
-          $scope.assessment.DistrictAssessmentItems = [];
+        if($scope.assessment.AssessmentTemplateItems == undefined || $scope.assessment.AssessmentTemplateItems.length == 0){
+          $scope.assessment.AssessmentTemplateItems = [];
         }
 
-        $scope.newAssessmentItem.Item.ItemOrder = $scope.assessment.DistrictAssessmentItems.length + 1;
-        $scope.assessment.DistrictAssessmentItems.push($scope.newAssessmentItem);
+        $scope.newAssessmentItem.Item.ItemOrder = $scope.assessment.AssessmentTemplateItems.length + 1;
+        $scope.assessment.AssessmentTemplateItems.push($scope.newAssessmentItem);
 
 
         $uibModalInstance.close($scope.assessment);

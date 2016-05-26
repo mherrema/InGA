@@ -11,7 +11,7 @@ var INGAApp;
             _super.call(this);
             this.$http = $http;
             // this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
-            this.apiRoot = "http://172.21.255.55:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+            this.apiRoot = "http://172.21.255.57:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
         }
         MainService.prototype.setPageTitles = function (pageTitle, pageTypeTitle) {
             this.pageTitle = pageTitle;
@@ -40,6 +40,15 @@ var INGAApp;
             var promise = this.$http.get(this.apiRoot + 'Options/Calendar/')
                 .then(function (response) {
                 self.calendarOptions = response.data;
+                return response.data;
+            });
+            return promise;
+        };
+        MainService.prototype.getDistrictOptions = function () {
+            var self = this;
+            var promise = this.$http.get(this.apiRoot + 'Options/District/')
+                .then(function (response) {
+                self.districtOptions = response.data;
                 return response.data;
             });
             return promise;
@@ -80,10 +89,14 @@ var INGAApp;
             });
             return promise;
         };
-        MainService.prototype.getTemplateOptions = function () {
-            return [{ Title: "None", AssessmentTemplateKey: 0, CalendarKey: 0, SubjectKey: 0, StandardTypeKey: 0 },
-                { Title: "Template 1", AssessmentTemplateKey: 1, Calendar: { CalendarKey: 1, CalendarName: "Calendar 1" }, Subject: { SubjectKey: 1, SubjectName: "Test Subject" }, StandardTypeKey: 1, GradeLevelKey: 1 },
-                { Title: "Template 2", AssessmentTemplateKey: 2, CalendarKey: 2, SubjectKey: 2, StandardTypeKey: 2, GradeLevelKey: 2 }];
+        MainService.prototype.getAssessmentTemplateOptions = function () {
+            var self = this;
+            var promise = this.$http.get(this.apiRoot + 'Options/AssessmentTemplate/')
+                .then(function (response) {
+                self.assessmentTemplateOptions = response.data;
+                return response.data;
+            });
+            return promise;
         };
         MainService.prototype.getItemTypeOptions = function () {
             return [{ ItemTypeKey: 1, TypeName: "Multiple Choice" }, { ItemTypeKey: 2, TypeName: "Constructed Response" }];

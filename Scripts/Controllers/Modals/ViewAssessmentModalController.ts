@@ -11,7 +11,7 @@ module INGAApp
     goToAssign: Function
   }
 
-  export class AssessmentViewModalController extends BaseController.Controller
+  export class ViewAssessmentModalController extends BaseController.Controller
   {
     scope: IAssessmentViewScope;
     static $inject = ['$scope', '$location', '$uibModalInstance', '$uibModal', 'mainService', 'assessment', 'assessmentService'];
@@ -53,14 +53,21 @@ module INGAApp
           }
         });
 
-        modalInstance.result.then(function (assessmentPackage:AssessmentPackage) {
-          if(assessmentService.saveAssessment(assessmentPackage)){
-            if(assessmentPackage.ShouldPublish){
-              //change view to assign
+        modalInstance.result.then(function (assessmentPackage: AssessmentPackage) {
+          assessmentService.updateAssessment(assessmentPackage).then(function(d: boolean){
+            if(d){
+              //show success!
+              if(assessmentPackage.ShouldPublish){
+                console.log("Going to assessment view");
+                //go to assessment view
+              }
             }
-          }
+            else{
+              //show error!
+            }
+          });
         });
       }
-    }
   }
+}
 }

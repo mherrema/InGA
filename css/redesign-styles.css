@@ -151,6 +151,7 @@ a:visited.inga-btn-negative:hover {
 }
 .above-table-actions-row .above-table-actions .above-table-action-right.toggle-button {
   padding: 5px 10px;
+  margin-right: 18px;
   margin-top: 10px;
 }
 .above-table-actions-row .above-table-actions .above-table-action-right.toggle-button.active {
@@ -924,4 +925,11 @@ a:visited {
 }
 * {
   outline: none !important;
+}
+.notification {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.notification.active {
+  opacity: 1;
 }

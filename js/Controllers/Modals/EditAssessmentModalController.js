@@ -13,6 +13,7 @@ var INGAApp;
             $scope.init = function () {
                 $scope.pageTitle = "Edit Assessment";
                 if (assessment.Title != undefined) {
+                    $scope.originalAssessment = angular.copy(assessment);
                     $scope.newAssessment = assessment;
                     $scope.pageTitle += " " + assessment.Title;
                     if (assessment.Template != undefined && assessment.Template.Title != undefined && assessment.Template.Title != "None") {
@@ -23,13 +24,14 @@ var INGAApp;
                     $scope.newAssessment = { Title: "New Assessment" };
                 }
                 $scope.sortableOptions = {
-                    disabled: false
+                    disabled: false,
+                    stop: function () { $scope.updateItemRanking(); }
                 };
                 // $scope.gradeOptions = mainService.getGradeOptions();
                 // $scope.subjectOptions = mainService.getSubjectOptions();
                 //$scope.schoolYearOptions = mainService.getSchoolYearOptions();
                 //$scope.standardTypeOptions = mainService.getStandardTypeOptions();
-                $scope.templateOptions = mainService.getTemplateOptions();
+                // $scope.templateOptions = mainService.getTemplateOptions();
                 // $scope.calendarOptions = mainService.getCalendarOptions();
                 if ($scope.newAssessment.Title == "New Assessment") {
                     $timeout(function () {
@@ -41,6 +43,7 @@ var INGAApp;
                 $scope.getSubjectOptions();
                 $scope.getStandardTypeOptions();
                 $scope.getCalendarOptions();
+                $scope.getAssessmentTemplateOptions();
             };
             $scope.getCalendarOptions = function () {
                 if (mainService.calendarOptions == undefined) {
@@ -51,6 +54,16 @@ var INGAApp;
                 }
                 else {
                     $scope.calendarOptions = mainService.calendarOptions;
+                }
+            };
+            $scope.getAssessmentTemplateOptions = function () {
+                if (mainService.assessmentTemplateOptions == undefined) {
+                    mainService.getAssessmentTemplateOptions().then(function (d) {
+                        $scope.templateOptions = d;
+                    });
+                }
+                else {
+                    $scope.gradeOptions = mainService.gradeOptions;
                 }
             };
             $scope.getGradeOptions = function () {
@@ -69,7 +82,6 @@ var INGAApp;
                     mainService.getSchoolYearOptions().then(function (d) {
                         $scope.schoolYearOptions = d;
                     });
-                    ;
                 }
                 else {
                     $scope.schoolYearOptions = mainService.schoolYearOptions;
@@ -80,7 +92,6 @@ var INGAApp;
                     mainService.getSubjectOptions().then(function (d) {
                         $scope.subjectOptions = d;
                     });
-                    ;
                 }
                 else {
                     $scope.subjectOptions = mainService.subjectOptions;
@@ -98,9 +109,7 @@ var INGAApp;
             };
             $scope.selectTemplate = function () {
                 if ($scope.newAssessment.AssessmentTemplate.Title == "None") {
-                    $scope.sortableOptions = {
-                        disabled: false
-                    };
+                    $scope.sortableOptions.disabled = false;
                     $scope.templateSelected = false;
                     $scope.newAssessment.Subject = {};
                     $scope.newAssessment.Calendar = {};
@@ -109,9 +118,7 @@ var INGAApp;
                 }
                 else {
                     $scope.templateSelected = true;
-                    $scope.sortableOptions = {
-                        disabled: true
-                    };
+                    $scope.sortableOptions.disabled = true;
                     $scope.newAssessment.Subject = $scope.newAssessment.AssessmentTemplate.Subject;
                     $scope.newAssessment.Calendar = { CalendarKey: $scope.newAssessment.AssessmentTemplate.CalendarKey };
                     $scope.newAssessment.StandardType = { StandardTypeKey: $scope.newAssessment.AssessmentTemplate.StandardTypeKey };
@@ -120,6 +127,12 @@ var INGAApp;
             };
             $scope.highlightTitle = function () {
                 $("#assessmentTitle").select();
+            };
+            $scope.updateItemRanking = function () {
+                angular.forEach($scope.newAssessment.DistrictAssessmentItems, function (value, key) {
+                    value.Item.ItemOrder = key + 1;
+                });
+                console.log($scope.newAssessment.DistrictAssessmentItems);
             };
             $scope.publish = function () {
                 console.log("Publish Assessment");
@@ -131,6 +144,9 @@ var INGAApp;
                 $uibModalInstance.close({ Assessment: $scope.newAssessment, ShouldRefresh: true });
             };
             $scope.cancel = function () {
+                // $scope.newAssessment = $scope.originalAssessment;
+                angular.copy($scope.originalAssessment, $scope.newAssessment);
+                // $scope.newAssessment.Title = $scope.originalAssessment.Title;
                 $uibModalInstance.dismiss('cancel');
             };
             $scope.openNewAssessmentItemModal = function (size) {

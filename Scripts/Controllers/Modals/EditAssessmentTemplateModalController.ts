@@ -1,7 +1,7 @@
 module INGAApp
 {
 
-  interface INewAssessmentTemplateScope extends BaseController.IScope
+  interface IEditAssessmentTemplateScope extends BaseController.IScope
   {
     init: Function,
     newAssessmentTemplate: AssessmentTemplate,
@@ -24,47 +24,37 @@ module INGAApp
     calendarOptions: Array<Calendar>,
     districtOptions: Array<District>,
     getCalendarOptions: Function,
-    pageTitle: string,
-    highlightTitle: Function
+    pageTitle: string
   }
 
   interface SelectedItem{
     item: string
   }
 
-  export class NewAssessmentTemplateModalController extends BaseController.Controller
+  export class EditAssessmentTemplateModalController extends BaseController.Controller
   {
-    scope: INewAssessmentTemplateScope;
-    static $inject = ['$scope', '$timeout', '$uibModalInstance', '$uibModal', 'mainService', 'assessment'];
+    scope: IEditAssessmentTemplateScope;
+    static $inject = ['$scope', '$timeout', '$uibModalInstance', '$uibModal', 'mainService', 'assessmentService', 'template'];
 
-    constructor( $scope: INewAssessmentTemplateScope, $timeout:ng.ITimeoutService, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $uibModal: ng.ui.bootstrap.IModalService, mainService:MainService)
+    constructor( $scope: IEditAssessmentTemplateScope, $timeout: ng.ITimeoutService, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $uibModal: ng.ui.bootstrap.IModalService, mainService:MainService, assessmentService: AssessmentService, template)
     {
       super( $scope );
       var controller = this;
 
       $scope.init = function(){
-        $scope.pageTitle = "Create New Assessment Template";
+        $scope.pageTitle = "Edit Assessment Template";
+        $scope.newAssessmentTemplate = template;
+
         $scope.sortableOptions = {
           disabled: false,
           stop: function(){$scope.updateItemRanking()}
         };
-
-
-          $scope.newAssessmentTemplate = {Title: "New Assessment Template"};
-            $timeout(function(){
-              $scope.highlightTitle();
-            },0);
-
 
         $scope.getGradeOptions();
         $scope.getSubjectOptions();
         $scope.getStandardTypeOptions();
         $scope.getCalendarOptions();
         $scope.getDistrictOptions();
-      }
-
-      $scope.highlightTitle = function(){
-        $("#assessmentTemplateTitle").select();
       }
 
       $scope.getCalendarOptions = function(){

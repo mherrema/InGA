@@ -14,21 +14,28 @@
                     <input type="text" class="form-control" id="assessmentTitle" placeholder="Assessment title" ng-model="newAssessment.Title" >
                 </div>
             </div>
-            <div class="col-sm-4">
+            <div ng-class="{'col-sm-6': multipleDistrictOptions, 'col-sm-4': !multipleDistrictOptions}">
                 <div class="form-group">
                     <label for="inputEmail">Template</label>
                     <select class="form-control ng-animate-disabled" ng-options="template as template.Title for template in templateOptions track by template.AssessmentTemplateKey"
                     ng-model="newAssessment.AssessmentTemplate" ng-change="selectTemplate()"></select>
                 </div>
             </div>
-            <div class="col-sm-4">
+            <div ng-class="{'col-sm-6': multipleDistrictOptions}" ng-if="multipleDistrictOptions">
+                <div class="form-group">
+                    <label for="inputEmail">District</label>
+                    <select class="form-control ng-animate-disabled" ng-options="district as district.DistrictName for district in districtOptions track by district.DistrictKey"
+                    ng-model="newAssessment.District" ng-disabled="templateSelected"></select>
+                </div>
+            </div>
+            <div ng-class="{'col-sm-6': multipleDistrictOptions, 'col-sm-4': !multipleDistrictOptions}">
                 <div class="form-group">
                     <label for="inputEmail">Calendar</label>
                     <select class="form-control ng-animate-disabled" ng-options="calendar as calendar.CalendarName for calendar in calendarOptions track by calendar.CalendarKey"
                     ng-model="newAssessment.Calendar" ng-disabled="templateSelected"></select>
                 </div>
             </div>
-            <div class="col-sm-4">
+            <div ng-class="{'col-sm-6': multipleDistrictOptions, 'col-sm-4': !multipleDistrictOptions}">
                 <div class="form-group">
                     <label for="inputEmail">Grade Level</label>
                     <select class="form-control ng-animate-disabled" ng-options="grade as grade.GradeLevelName for grade in gradeOptions track by grade.GradeLevelKey"
@@ -68,7 +75,8 @@
                 <div class="form-group">
                     <label for="inputEmail">Scoring</label>
                     <br>
-                    <input type="checkbox" name="vehicle" value="Bike"><span class="checkbox-span">Scantron</span>
+                    <input type="checkbox" ng-model="newAssessment.IsScantron" ng-checked="newAssessment.IsScantron" ng-disabled="templateSelected">
+                    <span class="checkbox-span">Scantron</span>
                     <br>
                 </div>
             </div>
@@ -100,17 +108,17 @@
             <th>Points</th>
         </thead>
 
-        <tbody ui-sortable="sortableOptions" ng-model="newAssessment.Items">
-          <tr class="empty-table-row" ng-if="!newAssessment.Items">
-              <td colspan="5">No records to display</td>
+        <tbody ui-sortable="sortableOptions" ng-model="newAssessment.DistrictAssessmentItems">
+          <tr class="empty-table-row" ng-if="!newAssessment.DistrictAssessmentItems || newAssessment.DistrictAssessmentItems.length == 0">
+              <td colspan="5">No items to display</td>
           </tr>
-        <tr ng-repeat="item in newAssessment.Items">
-            <td>{{item.ItemOrder}}</td>
-            <td>{{item.Rank}}</td>
-            <td>{{item.ItemType.TypeName}}</td>
-            <td>{{item.CorrectScore}}</td>
-            <td>{{item.PointsMax}}</td>
-        </tr>
+          <tr ng-repeat="item in newAssessment.DistrictAssessmentItems">
+              <td>{{item.Item.ItemOrder}}</td>
+              <td>{{item.Item.StandardTypeDescription}}</td>
+              <td>{{item.Item.ItemType.TypeName}}</td>
+              <td>{{item.Item.CorrectScore}}</td>
+              <td>{{item.Item.PointsMax}}</td>
+          </tr>
       </tbody>
     </table>
     <!-- <div class="row">

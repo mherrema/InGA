@@ -34,6 +34,7 @@
     <script src="js/Services/AssessmentService.js"></script>
     <script src="js/Services/DataEntryService.js"></script>
     <script src="js/Services/FilterService.js"></script>
+    <script src="js/Services/NotificationService.js"></script>
     <script src="js/Controllers/BaseController.js"></script>
     <script src="js/Controllers/MainController.js"></script>
     <script src="js/Controllers/AssessmentsController.js"></script>
@@ -44,8 +45,12 @@
     <script src="js/Controllers/AssessmentAssignmentController.js"></script>
     <script src="js/Controllers/Modals/NewAssessmentItemModalController.js"></script>
     <script src="js/Controllers/Modals/NewAssessmentTemplateModalController.js"></script>
+    <script src="js/Controllers/Modals/ViewAssessmentTemplateModalController.js"></script>
+    <script src="js/Controllers/Modals/EditAssessmentTemplateModalController.js"></script>
+    <script src="js/Controllers/Modals/NewAssessmentTemplateItemModalController.js"></script>
     <script src="js/Controllers/DataEntryAssessmentListController.js"></script>
     <script src="js/Controllers/DataEntryScoreViewController.js"></script>
+    <script src="js/Controllers/Modals/Dialog/ConfirmationModalController.js"></script>
     <script src="js/app.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -56,7 +61,9 @@
 </head>
 
 <body ng-app="IngaApp" ng-controller="MainINGAController" ng-init="init()">
-
+  <div class="notification" style="position: absolute; right: 0; top: 0; margin: 1em; padding: 1em; background-color: #fff; box-shadow: 0px 0px 8px #bbb;" ng-class="{'active': currentNotification.Active}">
+      <h4 style="color: #81d235; margin: 0;"><i class="fa fa-check"></i> {{currentNotification.NotificationText}}</h4>
+    </div>
   <div class="container-fluid" style="background-color:#ffffff;">
 
     <div class="row">
@@ -69,7 +76,7 @@
             </div>
             <div class="col-sm-7">
                 <button class="btn  top-button inga-btn inga-btn-positive" ng-if="inAssessmentManagement" ng-click="openNewAssessmentModal()">CREATE NEW ASSESSMENT</button>
-                <button class="btn  top-button inga-btn inga-btn-negative" ng-if="inAssessmentManagement" ng-click="openNewMasterTemplateModal()">CREATE NEW MASTER TEMPLATE</button>
+                <button class="btn  top-button inga-btn inga-btn-negative" ng-if="inAssessmentManagement" ng-click="openNewMasterTemplateModal()">CREATE NEW Assessment TEMPLATE</button>
                 <button class="btn  top-button inga-btn inga-btn-positive" ng-if="inScoreEntry" ng-click="">Save &amp; Exit</button>
                 <button class="btn  top-button inga-btn inga-btn-negative" ng-if="inScoreEntry" ng-click="">Submit</button>
                 <button class="btn  top-button inga-btn inga-btn-negative" ng-if="inScoreEntry" ng-click="goToDataEntry()">Cancel</button>
@@ -77,6 +84,7 @@
             </div>
         </div>
     </div>
+
     <div ng-view></div>
   </div>
 

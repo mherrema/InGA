@@ -17,9 +17,33 @@ export interface AssessmentPackage{
   ShouldPublish?: boolean
 }
 
+export interface AssessmentTemplatePackage{
+  AssessmentTemplate: AssessmentTemplate,
+  ShouldRefresh: boolean,
+  ShouldMakeAvailableToUsers?: boolean
+}
+
+export interface Notification{
+  NotificationText?: string,
+  Success?: boolean,
+  Error?: boolean,
+  Active?: boolean
+}
+
 export interface SortableOptions{
   disabled: boolean,
   stop: Function
+}
+
+export interface ReturnPackage{
+  Success: boolean,
+  Key: number,
+  ErrorText: string
+}
+
+export interface ConfirmationPackage{
+  Action: string;
+  Objects: string;
 }
 
 
@@ -36,7 +60,19 @@ export interface AssessmentTemplate{
   GradeLevelKey?: number,
   GradeLevel?: GradeLevel,
   AvailableToUsers?: boolean,
-  Items?: Array<Item>
+  Items?: Array<Item>,
+  AssessmentTemplateItems?: Array<AssessmentTemplateItem>,
+  District?: District,
+  DistrictKey?: number,
+  IsScantron?: boolean,
+  checked?: boolean
+}
+
+export interface AssessmentTemplateItem{
+  AssessmentTemplateItemKey?: number,
+  ItemKey?: number,
+  AssessmentTemplateKey?: number,
+  Item?: Item
 }
 
 export interface Calendar{
@@ -70,7 +106,7 @@ export interface ClassroomAssessment{
   ClassroomKey?: number,
   Classroom?: Classroom,
   Finalized?: boolean,
-  DateFinalized?: Date
+  DateFinalized?: string
 }
 
 interface Course{
@@ -79,6 +115,12 @@ interface Course{
   School?: School,
   CourseCode?: string,
   CourseName?: string
+}
+
+export interface District{
+  DistrictKey?: number,
+  DistrictName?: string,
+  DistrictCode?: string
 }
 
 export interface DistrictAssessment{
@@ -95,14 +137,24 @@ export interface DistrictAssessment{
   SchoolYear?: SchoolYear,
   TargetClass?: string,
   IsPublished?: boolean,
-  DateFinalized?: Date,
+  DateFinalized?: string,
   Term?: string,
   CalendarKey?: number,
   Calendar?: Calendar,
   AssessmentTemplate?: AssessmentTemplate,
   AssessmentTemplateKey?: number,
   Items?: Array<Item>,
+  DistrictAssessmentItems?: Array<DistrictAssessmentItem>,
+  DateCreated?: string,
+  IsScantron?: boolean,
   checked?: boolean
+}
+
+export interface DistrictAssessmentItem{
+  DistrictAssessmentItemKey?: number,
+  ItemKey?: number,
+  DistrictAssessmentKey?: number,
+  Item?: Item
 }
 
 interface DistrictStudent{
@@ -142,8 +194,8 @@ export interface ItemType{
 interface MarkingPeriod{
   MarkingPeriodKey?: number,
   Name?: string,
-  Start?: Date,
-  End?: Date,
+  Start?: string,
+  End?: string
   ParentKey?: number,
   Parent?: MarkingPeriod,
   SchoolYearKey?: number,

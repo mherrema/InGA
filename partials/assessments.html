@@ -2,7 +2,7 @@
   <ul class="above-table-actions">
     <li class="above-table-action-left above-table-action">archive
     </li>
-    <li class="above-table-action-left">delete
+    <li class="above-table-action-left" ng-click="deleteChecked()">delete
     </li>
     <li class="above-table-action-left" ng-if="areOptionsSelected" ng-click="clearFilters()">Clear Filters
     </li>
@@ -20,6 +20,7 @@
       </div>
     </li>
     <li class="above-table-action-right action-with-icon toggle-button" ng-class="{'active': publishedActive}" ng-click="publishedActive = !publishedActive">Only Published</li>
+    <li class="above-table-action-right action-with-icon toggle-button" ng-class="{'active': templatesActive}" ng-click="toggleTemplates()">Show Templates</li>
     <!--                <li style="float:right;"><button class="btn  inga-btn inga-btn-positive">Add Student</button></li>-->
   </ul>
 </div>
@@ -55,13 +56,25 @@
       </th>
       <th></th>
     </tr>
-    <tr ng-repeat="assessment in currentAssessments track by assessment.DistrictAssessmentKey" ng-class="{'selected': assessment.checked}" ng-click="openAssessmentViewModal(assessment)">
+    <tr ng-repeat="assessment in currentAssessments track by assessment.DistrictAssessmentKey"
+    ng-class="{'selected': assessment.checked}" ng-click="openAssessmentViewModal(assessment)" ng-if="!templatesActive">
       <td>
         <input type="checkbox" ng-model="assessment.checked" ng-checked="assessment.checked" noclick />{{assessment.Title}}</td>
         <td>{{assessment.GradeLevel.GradeLevelName}}</td>
+        <td>{{assessment.StandardType.StandardTypeName}}</td>
         <td>{{assessment.Subject.SubjectName}}</td>
         <td>{{assessment.SchoolYear.SchoolYearName}}</td>
         <td></td>
       </tr>
+      <tr ng-repeat="template in currentAssessmentTemplates track by template.AssessmentTemplateKey"
+      ng-class="{'selected': template.checked}" ng-click="openAssessmentTemplateViewModal(template)" ng-if="templatesActive">
+        <td>
+          <input type="checkbox" ng-model="template.checked" ng-checked="template.checked" noclick />{{template.Title}}</td>
+          <td>{{template.GradeLevel.GradeLevelName}}</td>
+          <td>{{template.StandardType.StandardTypeName}}</td>
+          <td>{{template.Subject.SubjectName}}</td>
+          <td>{{template.SchoolYear.SchoolYearName}}</td>
+          <td></td>
+        </tr>
         </table>
       </div>

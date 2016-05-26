@@ -15,20 +15,27 @@ module INGAApp
     inScoreEntry: boolean,
     goToDataEntry: Function,
     subjectOptions: Array<Subject>,
-    assessmentOptions: Array<DistrictAssessment>
+    assessmentOptions: Array<DistrictAssessment>,
+    currentNotification: Notification
   }
 
   export class MainController extends BaseController.Controller
   {
     scope: IMainScope;
-    static $inject = ['$scope', '$location', '$log', '$uibModal', 'mainService', 'assessmentService'];
+    static $inject = ['$scope', '$location', '$log', '$uibModal', 'mainService', 'assessmentService', 'notificationService'];
 
-    constructor( $scope: IMainScope, $location: ng.ILocationService, $log: ng.ILogService, $uibModal: ng.ui.bootstrap.IModalService, mainService: MainService, assessmentService: AssessmentService)
+    constructor( $scope: IMainScope, $location: ng.ILocationService, $log: ng.ILogService, $uibModal: ng.ui.bootstrap.IModalService, mainService: MainService, assessmentService: AssessmentService, notificationService: NotificationService)
     {
       super( $scope );
       var controller = this;
 
       $scope.init = function(){
+        $scope.currentNotification = {
+              NotificationText: "",
+              Success: false,
+              Error: false,
+              Active: false
+          }
 
         $scope.assessmentOptions = [{Title: "Assessment 1"}];
 
@@ -56,6 +63,11 @@ module INGAApp
         (newValue: boolean, oldValue: boolean) => {
           $scope.inAssessmentAssignment = newValue;
         });
+
+        $scope.$watch(() => notificationService.currentNotification,
+          (newValue: Notification, oldValue: Notification) => {
+              $scope.currentNotification = newValue;
+          });
       }
 
       $scope.openNewAssessmentModal = function (size) {
@@ -74,9 +86,11 @@ module INGAApp
 
         modalInstance.result.then(function (assessmentPackage: AssessmentPackage) {
           console.log(assessmentPackage.Assessment);
-
-          assessmentService.saveAssessment(assessmentPackage).then(function(d: boolean){
-            if(d){
+          assessmentService.saveAssessment(assessmentPackage).then(function(res: ReturnPackage){
+            if(res.Success){
+              assessmentPackage.Assessment.DistrictAssessmentKey = res.Key;
+              assessmentService.currentDistrictAssessments.push(assessmentPackage.Assessment);
+              notificationService.showNotification("Success saving assessment", "success");
               //show success!
               if(assessmentPackage.ShouldPublish){
                 console.log("Going to assessment view");
@@ -84,6 +98,7 @@ module INGAApp
               }
             }
             else{
+              notificationService.showNotification("Error saving assessment", "error");
               //show error!
             }
           });
@@ -105,8 +120,30 @@ module INGAApp
           }
         });
 
-        modalInstance.result.then(function (selectedItem) {
-          console.log(selectedItem);
+        modalInstance.result.then(function (assessmentTemplatePackage: AssessmentTemplatePackage) {
+          if(assessmentTemplatePackage.ShouldMakeAvailableToUsers){
+            assessmentTemplatePackage.AssessmentTemplate.AvailableToUsers = true;
+          }
+          else{
+            assessmentTemplatePackage.AssessmentTemplate.AvailableToUsers = false;
+          }
+          assessmentService.saveAssessmentTemplate(assessmentTemplatePackage).then(function(res: ReturnPackage){
+            if(res.Success){
+              assessmentTemplatePackage.AssessmentTemplate.AssessmentTemplateKey = res.Key;
+              assessmentService.currentAssessmentTemplates.push(assessmentTemplatePackage.AssessmentTemplate);
+              notificationService.showNotification("Success saving assessment template", "success");
+              //show success!
+              if(assessmentTemplatePackage.ShouldMakeAvailableToUsers){
+                console.log("Going to assessment template view");
+                //go to assessment view
+              }
+            }
+            else{
+              notificationService.showNotification("Error saving assessment template", "error");
+              //show error!
+            }
+          });
+
         });
       };
 

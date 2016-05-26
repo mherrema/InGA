@@ -42,18 +42,23 @@ module INGAApp {
   myApp.addController('AssessmentsController', AssessmentsController);
   myApp.addController('NewAssessmentModalController', NewAssessmentModalController);
   myApp.addController('EditAssessmentModalController', EditAssessmentModalController);
-  myApp.addController('AssessmentViewModalController', AssessmentViewModalController);
+  myApp.addController('ViewAssessmentModalController', ViewAssessmentModalController);
   myApp.addController('AssessmentAssignmentController', AssessmentAssignmentController);
   myApp.addController('NewAssessmentItemModalController', NewAssessmentItemModalController);
+  myApp.addController('ViewAssessmentTemplateModalController', ViewAssessmentTemplateModalController);
+  myApp.addController('EditAssessmentTemplateModalController', EditAssessmentTemplateModalController);
   myApp.addController('NewAssessmentTemplateModalController', NewAssessmentTemplateModalController);
+  myApp.addController('NewAssessmentTemplateItemModalController', NewAssessmentTemplateItemModalController);
   myApp.addController('DataEntryAssessmentListController', DataEntryAssessmentListController);
   myApp.addController('DataEntryScoreViewController', DataEntryScoreViewController);
   myApp.addController('AddStudentModalController', AddStudentModalController);
+  myApp.addController('ConfirmationModalController', ConfirmationModalController);
 
   myApp.addService('mainService', MainService);
   myApp.addService('assessmentService', AssessmentService);
   myApp.addService('dataEntryService', DataEntryService);
   myApp.addService('filterService', FilterService);
+  myApp.addService('notificationService', NotificationService);
   myApp.addRoute("/assessments/assign", "partials/assessmentAssignment.html", "AssessmentAssignmentController");
   myApp.addRoute("/assessments", "partials/assessments.html", "AssessmentsController");
   myApp.addRoute("/dataEntry/score", "partials/score_view.html", "DataEntryScoreViewController");

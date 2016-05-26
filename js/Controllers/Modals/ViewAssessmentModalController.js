@@ -5,9 +5,9 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var INGAApp;
 (function (INGAApp) {
-    var AssessmentViewModalController = (function (_super) {
-        __extends(AssessmentViewModalController, _super);
-        function AssessmentViewModalController($scope, $location, $uibModalInstance, $uibModal, mainService, assessment, assessmentService) {
+    var ViewAssessmentModalController = (function (_super) {
+        __extends(ViewAssessmentModalController, _super);
+        function ViewAssessmentModalController($scope, $location, $uibModalInstance, $uibModal, mainService, assessment, assessmentService) {
             _super.call(this, $scope);
             var controller = this;
             $scope.assessment = assessment;
@@ -38,16 +38,22 @@ var INGAApp;
                     }
                 });
                 modalInstance.result.then(function (assessmentPackage) {
-                    if (assessmentService.saveAssessment(assessmentPackage)) {
-                        if (assessmentPackage.ShouldPublish) {
+                    assessmentService.updateAssessment(assessmentPackage).then(function (d) {
+                        if (d) {
+                            //show success!
+                            if (assessmentPackage.ShouldPublish) {
+                                console.log("Going to assessment view");
+                            }
                         }
-                    }
+                        else {
+                        }
+                    });
                 });
             };
         }
-        AssessmentViewModalController.$inject = ['$scope', '$location', '$uibModalInstance', '$uibModal', 'mainService', 'assessment', 'assessmentService'];
-        return AssessmentViewModalController;
+        ViewAssessmentModalController.$inject = ['$scope', '$location', '$uibModalInstance', '$uibModal', 'mainService', 'assessment', 'assessmentService'];
+        return ViewAssessmentModalController;
     }(BaseController.Controller));
-    INGAApp.AssessmentViewModalController = AssessmentViewModalController;
+    INGAApp.ViewAssessmentModalController = ViewAssessmentModalController;
 })(INGAApp || (INGAApp = {}));
 //# sourceMappingURL=ViewAssessmentModalController.js.map

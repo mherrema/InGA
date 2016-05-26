@@ -1,46 +1,50 @@
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel()" aria-label="Close"><span aria-hidden="true">&times;</span>
     </button>
-    <h4 class="modal-title" id="myModalLabel">Create New Master Template</h4>
+    <h4 class="modal-title" id="myModalLabel" >{{pageTitle}}</h4>
 </div>
 <div class="modal-body" ng-init="init()">
-  <div class="row">
-    {{newAssessmentTemplate}}
-  </div>
     <div class="row">
         <!-- <form> -->
             <div class="col-sm-12">
                 <div class="form-group">
                     <label for="inputEmail">Title</label>
-                    <input type="text" class="form-control" id="inputTitle" placeholder="Template title" ng-model="newAssessmentTemplate.Title">
+                    <input type="text" class="form-control" id="assessmentTemplateTitle" placeholder="Template title" ng-model="newAssessmentTemplate.Title">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="inputEmail">District</label>
+                    <select class="form-control ng-animate-disabled" ng-options="district as district.DistrictName for district in districtOptions track by district.DistrictKey"
+                    ng-model="newAssessmentTemplate.District"></select>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="inputEmail">Calendar</label>
-                    <select class="form-control" ng-options="calendar as calendar.CalendarName for calendar in calendarOptions track by calendar.CalendarKey"
-                    ng-model="newAssessmentTemplate.Calendar" ng-disabled="templateSelected"></select>
+                    <select class="form-control ng-animate-disabled" ng-options="calendar as calendar.CalendarName for calendar in calendarOptions track by calendar.CalendarKey"
+                    ng-model="newAssessmentTemplate.Calendar"></select>
                 </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="form-group">
                     <label for="inputEmail">Grade Level</label>
-                    <select class="form-control" ng-options="grade as grade.GradeLevelName for grade in gradeOptions track by grade.GradeLevelKey"
-                    ng-model="newAssessmentTemplate.GradeLevel" ng-disabled="templateSelected"></select>
+                    <select class="form-control ng-animate-disabled" ng-options="grade as grade.GradeLevelName for grade in gradeOptions track by grade.GradeLevelKey"
+                    ng-model="newAssessmentTemplate.GradeLevel"></select>
                 </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="form-group">
                     <label for="inputEmail">Subject</label>
-                    <select class="form-control" ng-options="subject as subject.SubjectName for subject in subjectOptions track by subject.SubjectKey"
-                    ng-model="newAssessmentTemplate.Subject" ng-disabled="templateSelected"></select>
+                    <select class="form-control ng-animate-disabled" ng-options="subject as subject.SubjectName for subject in subjectOptions track by subject.SubjectKey"
+                    ng-model="newAssessmentTemplate.Subject"></select>
                 </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="form-group">
                     <label for="inputEmail">Standard Type</label>
-                    <select class="form-control" ng-options="standardType as standardType.StandardTypeName for standardType in standardTypeOptions track by standardType.StandardTypeKey"
-                    ng-model="newAssessmentTemplate.StandardType" ng-disabled="templateSelected"></select>
+                    <select class="form-control ng-animate-disabled" ng-options="standardType as standardType.StandardTypeName for standardType in standardTypeOptions track by standardType.StandardTypeKey"
+                    ng-model="newAssessmentTemplate.StandardType" ></select>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -48,7 +52,7 @@
     </div>
     <div class="row table-title-row">
         <div class="col-sm-5">
-            <h5 class="modal-table-title">Assessment Items</h5>
+            <h5 class="modal-table-title">Assessment Template Items</h5>
         </div>
         <div class="col-sm-7">
             <button class="btn  inga-btn inga-btn-positive right-btn" ng-click="openNewAssessmentItemModal()">New Item</button>
@@ -63,21 +67,21 @@
             <th>Points</th>
         </thead>
 
-        <tbody ui-sortable="sortableOptions" ng-model="newAssessmentTemplate.Items">
-          <tr class="empty-table-row" ng-if="!newAssessmentTemplate.Items">
+        <tbody ui-sortable="sortableOptions" ng-model="newAssessmentTemplate.AssessmentTemplateItems">
+          <tr class="empty-table-row" ng-if="!newAssessmentTemplate.AssessmentTemplateItems.length > 0">
               <td colspan="5">No records to display</td>
           </tr>
-        <tr ng-repeat="item in newAssessmentTemplate.Items">
-            <td>{{item.ItemOrder}}</td>
-            <td>{{item.Rank}}</td>
-            <td>{{item.ItemType.TypeName}}</td>
-            <td>{{item.CorrectScore}}</td>
-            <td>{{item.PointsMax}}</td>
+        <tr ng-repeat="item in newAssessmentTemplate.AssessmentTemplateItems">
+            <td>{{item.Item.ItemOrder}}</td>
+            <td>{{item.Item.Rank}}</td>
+            <td>{{item.Item.ItemType.TypeName}}</td>
+            <td>{{item.Item.CorrectScore}}</td>
+            <td>{{item.Item.PointsMax}}</td>
         </tr>
       </tbody>
     </table>
     <div class="row below-table-btn-row">
-        <button class="btn  inga-btn inga-btn-positive right-btn" ng-click="publish()">Publish</button>
+        <button class="btn  inga-btn inga-btn-positive right-btn" ng-click="makeAvailableToUsers()" ng-if="!newAssessmentTemplate.AvailableToUsers">Make Available To Users</button>
         <button class="btn  inga-btn inga-btn-negative right-btn" ng-click="ok()">Save &amp; Exit</button>
         <button class="btn  inga-btn inga-btn-negative right-btn" ng-click="cancel()">Cancel</button>
     </div>
