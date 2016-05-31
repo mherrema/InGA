@@ -12,6 +12,7 @@ var INGAApp;
             var controller = this;
             $scope.init = function () {
                 mainService.setPageTitles("Assessment Management", "INGA");
+                $scope.currentFilters = "";
                 $scope.getAssessments();
                 $scope.getFilterOptions();
                 $scope.setHeadingDropdownWidth();
@@ -39,13 +40,17 @@ var INGAApp;
                 $scope.templatesActive = !$scope.templatesActive;
                 $scope.clearFilters();
                 if ($scope.templatesActive) {
-                    if (assessmentService.currentAssessmentTemplates.length == 0) {
-                        assessmentService.getAssessmentTemplates();
+                    if (assessmentService.currentAssessmentTemplates.length == 0 || assessmentService.needToReloadTemplates) {
+                        assessmentService.getAssessmentTemplates($scope.currentFilters);
                     }
                 }
             };
+            $scope.togglePublished = function () {
+                $scope.publishedActive = !$scope.publishedActive;
+                $scope.checkFilters();
+            };
             $scope.getAssessments = function () {
-                assessmentService.getDistrictAssessments().then(function (d) {
+                assessmentService.getDistrictAssessments($scope.currentFilters).then(function (d) {
                     // $scope.currentAssessments = d;
                 });
             };
@@ -122,7 +127,7 @@ var INGAApp;
                 angular.forEach($scope.currentAssessments, function (assessment) {
                     if (assessment.checked) {
                         assessmentService.deleteAssessment(assessment.DistrictAssessmentKey).then(function (res) {
-                            if (res) {
+                            if (res.Success) {
                                 //success
                                 for (var i = assessmentService.currentDistrictAssessments.length - 1; i >= 0; i--) {
                                     if (assessmentService.currentDistrictAssessments[i].DistrictAssessmentKey == assessment.DistrictAssessmentKey) {
@@ -208,15 +213,37 @@ var INGAApp;
                 $scope.closeHeadings();
             };
             $scope.checkFilters = function () {
+                $scope.currentFilters = "";
                 $scope.areOptionsSelected = false;
                 angular.forEach($scope.headingOptions, function (value, key) {
                     if (value.selected != undefined) {
                         if (value.selected.Value != "") {
+                            if ($scope.currentFilters == "") {
+                                $scope.currentFilters += "?";
+                            }
+                            else {
+                                $scope.currentFilters += "&";
+                            }
+                            $scope.currentFilters += value.heading + "=" + value.selected.Value;
                             $scope.areOptionsSelected = true;
-                            return;
                         }
                     }
                 });
+                if ($scope.publishedActive) {
+                    if ($scope.currentFilters == "") {
+                        $scope.currentFilters += "?Published=true";
+                    }
+                    else {
+                        $scope.currentFilters += "&Published=true";
+                    }
+                }
+                if ($scope.templatesActive) {
+                    assessmentService.getAssessmentTemplates($scope.currentFilters);
+                }
+                else {
+                    assessmentService.getDistrictAssessments($scope.currentFilters);
+                }
+                console.log($scope.areOptionsSelected);
             };
             $scope.clearFilters = function (input) {
                 angular.forEach($scope.currentAssessments, function (assessment) {
@@ -230,6 +257,7 @@ var INGAApp;
                 });
                 $scope.areOptionsSelected = false;
                 $scope.closeHeadings();
+                $scope.checkFilters();
             };
             $scope.openAssessmentViewModal = function (assessment) {
                 // var tmpAssessment = assessment;

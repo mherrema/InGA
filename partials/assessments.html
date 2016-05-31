@@ -19,12 +19,12 @@
         </div>
       </div>
     </li>
-    <li class="above-table-action-right action-with-icon toggle-button" ng-class="{'active': publishedActive}" ng-click="publishedActive = !publishedActive">Only Published</li>
+    <li class="above-table-action-right action-with-icon toggle-button" ng-class="{'active': publishedActive}" ng-click="togglePublished()">Only Published</li>
     <li class="above-table-action-right action-with-icon toggle-button" ng-class="{'active': templatesActive}" ng-click="toggleTemplates()">Show Templates</li>
     <!--                <li style="float:right;"><button class="btn  inga-btn inga-btn-positive">Add Student</button></li>-->
   </ul>
 </div>
-<div class="row">
+<div class="row" style="padding-bottom:3em;">
   <table class="inga-table clickable-rows" style="position:relative;">
     <tr>
       <!--                    <th><span style="float:left;"><input type="checkbox" /></span><span style="float:left;">Title</span><span class="glyphicon glyphicon-search search-icon"></span></th>-->
@@ -40,7 +40,7 @@
         <div class="heading-title" ng-click="openHeading(heading)">
           {{heading.heading}}
           <span class="caret"></span>
-          <p class="heading-title-selected" ng-if="heading.selected.key">{{heading.selected.key}}</p>
+          <p class="heading-title-selected" ng-if="heading.selected.Key">{{heading.selected.Key}}</p>
         </div>
         <div class="table-heading-dropdown" ng-class="{'open' : heading.open, 'other-option-selected' : areOptionsSelected, 'option-selected' : heading.selected.Key}">
           <div class="table-heading-dropdown-content">

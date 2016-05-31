@@ -89,6 +89,9 @@ var INGAApp;
                     assessmentService.saveAssessmentTemplate(assessmentTemplatePackage).then(function (res) {
                         if (res.Success) {
                             assessmentTemplatePackage.AssessmentTemplate.AssessmentTemplateKey = res.Key;
+                            if (assessmentService.currentAssessmentTemplates.length == 0) {
+                                assessmentService.needToReloadTemplates = true;
+                            }
                             assessmentService.currentAssessmentTemplates.push(assessmentTemplatePackage.AssessmentTemplate);
                             notificationService.showNotification("Success saving assessment template", "success");
                             //show success!

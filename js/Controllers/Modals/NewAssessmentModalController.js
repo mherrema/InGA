@@ -141,14 +141,15 @@ var INGAApp;
                     $scope.newAssessment.Calendar = {};
                     $scope.newAssessment.StandardType = {};
                     $scope.newAssessment.GradeLevel = {};
+                    $scope.newAssessment.DistrictAssessmentItems = [];
                 }
                 else {
                     $scope.templateSelected = true;
                     $scope.sortableOptions.disabled = false;
-                    $scope.newAssessment.Subject = { SubjectKey: $scope.newAssessment.AssessmentTemplate.SubjectKey };
-                    $scope.newAssessment.Calendar = { CalendarKey: $scope.newAssessment.AssessmentTemplate.CalendarKey };
-                    $scope.newAssessment.StandardType = { StandardTypeKey: $scope.newAssessment.AssessmentTemplate.StandardTypeKey };
-                    $scope.newAssessment.GradeLevel = { GradeLevelKey: $scope.newAssessment.AssessmentTemplate.GradeLevelKey };
+                    $scope.newAssessment.Subject = $scope.newAssessment.AssessmentTemplate.Subject;
+                    $scope.newAssessment.Calendar = $scope.newAssessment.AssessmentTemplate.Calendar;
+                    $scope.newAssessment.StandardType = $scope.newAssessment.AssessmentTemplate.StandardType;
+                    $scope.newAssessment.GradeLevel = $scope.newAssessment.AssessmentTemplate.GradeLevel;
                     $scope.newAssessment.IsScantron = $scope.newAssessment.AssessmentTemplate.IsScantron;
                     $scope.newAssessment.DistrictAssessmentItems = [];
                     angular.forEach($scope.newAssessment.AssessmentTemplate.AssessmentTemplateItems, function (item) {

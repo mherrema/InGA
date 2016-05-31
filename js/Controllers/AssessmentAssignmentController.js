@@ -31,7 +31,7 @@ var INGAApp;
                 };
             };
             $scope.getAssessments = function () {
-                assessmentService.getDistrictAssessments().then(function (d) {
+                assessmentService.getDistrictAssessments($scope.currentFilters).then(function (d) {
                     $scope.currentAssessments = d;
                 });
             };

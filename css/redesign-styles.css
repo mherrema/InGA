@@ -929,7 +929,31 @@ a:visited {
 .notification {
   opacity: 0;
   transition: opacity 0.3s ease;
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  top: 1rem;
+  padding: 1em;
+  background-color: #fff;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.4);
+  z-index: 1500;
 }
 .notification.active {
   opacity: 1;
+}
+.notification h4 {
+  color: #fff;
+  margin: 0;
+}
+.notification.success {
+  background-color: #81d235;
+}
+.notification.success .fa-times {
+  display: none;
+}
+.notification.error {
+  background-color: #ff6a6a;
+}
+.notification.error .fa-check {
+  display: none;
 }

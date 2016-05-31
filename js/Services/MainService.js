@@ -10,8 +10,8 @@ var INGAApp;
         function MainService($http) {
             _super.call(this);
             this.$http = $http;
-            // this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
-            this.apiRoot = "http://172.21.255.57:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+            this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+            // this.apiRoot = "http://172.21.255.57:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
         }
         MainService.prototype.setPageTitles = function (pageTitle, pageTypeTitle) {
             this.pageTitle = pageTitle;

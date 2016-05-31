@@ -7,7 +7,7 @@ var INGAApp;
 (function (INGAApp) {
     var ViewAssessmentTemplateModalController = (function (_super) {
         __extends(ViewAssessmentTemplateModalController, _super);
-        function ViewAssessmentTemplateModalController($scope, $location, $uibModalInstance, $uibModal, mainService, template, assessmentService) {
+        function ViewAssessmentTemplateModalController($scope, $location, $uibModalInstance, $uibModal, mainService, template, assessmentService, notificationService) {
             _super.call(this, $scope);
             var controller = this;
             $scope.template = template;
@@ -16,7 +16,16 @@ var INGAApp;
             };
             $scope.makeAvailableToUsers = function () {
                 console.log("Publish button clicked");
-                assessmentService.makeAssessmentTemplateAvailable(template.AssessmentTemplateKey);
+                assessmentService.makeAssessmentTemplateAvailable(template.AssessmentTemplateKey).then(function (res) {
+                    if (res.Success) {
+                        //show success!
+                        $scope.template.AvailableToUsers = true;
+                        notificationService.showNotification("Success making assessment template available", "success");
+                    }
+                    else {
+                        notificationService.showNotification("Failed to make assessment template available", "success");
+                    }
+                });
             };
             // $scope.goToAssign = function(){
             //   console.log(assessmentService);
@@ -57,7 +66,7 @@ var INGAApp;
                 });
             };
         }
-        ViewAssessmentTemplateModalController.$inject = ['$scope', '$location', '$uibModalInstance', '$uibModal', 'mainService', 'template', 'assessmentService'];
+        ViewAssessmentTemplateModalController.$inject = ['$scope', '$location', '$uibModalInstance', '$uibModal', 'mainService', 'template', 'assessmentService', 'notificationService'];
         return ViewAssessmentTemplateModalController;
     }(BaseController.Controller));
     INGAApp.ViewAssessmentTemplateModalController = ViewAssessmentTemplateModalController;

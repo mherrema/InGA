@@ -19,7 +19,7 @@ module INGAApp
       this.currentNotification.NotificationText = text;
       if(type == "success"){
         this.currentNotification.Success = true;
-        this.currentNotification.Error = true;
+        this.currentNotification.Error = false;
       }
       else if(type == "error"){
         this.currentNotification.Success = false;

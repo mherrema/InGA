@@ -14,9 +14,11 @@ module INGAApp
   export class ViewAssessmentModalController extends BaseController.Controller
   {
     scope: IAssessmentViewScope;
-    static $inject = ['$scope', '$location', '$uibModalInstance', '$uibModal', 'mainService', 'assessment', 'assessmentService'];
+    static $inject = ['$scope', '$location', '$uibModalInstance', '$uibModal', 'mainService', 'assessment', 'assessmentService', 'notificationService'];
 
-    constructor( $scope: IAssessmentViewScope, $location: ng.ILocationService, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $uibModal: ng.ui.bootstrap.IModalService, mainService:MainService, assessment:DistrictAssessment, assessmentService: AssessmentService)
+    constructor( $scope: IAssessmentViewScope, $location: ng.ILocationService, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
+      $uibModal: ng.ui.bootstrap.IModalService, mainService:MainService, assessment:DistrictAssessment,
+      assessmentService: AssessmentService, notificationService: NotificationService)
     {
       super( $scope );
       var controller = this;
@@ -29,7 +31,14 @@ module INGAApp
 
       $scope.publish = function(){
         console.log("Publish button clicked");
-        assessmentService.saveAssessment({Assessment: $scope.assessment, ShouldRefresh: true, ShouldPublish: true});
+        assessmentService.updateAssessment({Assessment: $scope.assessment, ShouldRefresh: true, ShouldPublish: true}).then(function(res: ReturnPackage){
+          if(res.Success){
+            notificationService.showNotification("Success publishing assessment", "success");
+          }
+          else{
+            notificationService.showNotification("Error publishing assessment", "error");
+          }
+        });
       }
 
       $scope.goToAssign = function(){

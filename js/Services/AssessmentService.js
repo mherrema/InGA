@@ -12,15 +12,15 @@ var INGAApp;
             this.$http = $http;
             this.$q = $q;
             this.mainService = mainService;
-            // this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
-            this.apiRoot = "http://172.21.255.57:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+            this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+            // this.apiRoot = "http://172.21.255.57:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
             this.assessmentSearchCanceler = $q.defer();
             this.currentDistrictAssessments = [];
             this.currentAssessmentTemplates = [];
+            this.needToReloadTemplates = true;
         }
-        AssessmentService.prototype.getDistrictAssessments = function () {
+        AssessmentService.prototype.getDistrictAssessments = function (filterString) {
             console.log("Getting Assessments From Service");
-            var filterString = "";
             var self = this;
             this.promise = this.$http.get(this.apiRoot + 'DistrictAssessment/' + filterString, { timeout: this.assessmentSearchCanceler.promise })
                 .then(function (response) {
@@ -34,6 +34,9 @@ var INGAApp;
         };
         AssessmentService.prototype.saveAssessment = function (assessmentPackage) {
             console.log("Saving Assessment In Service");
+            if (assessmentPackage.Assessment.AssessmentTemplate != null) {
+                assessmentPackage.Assessment.AssessmentTemplateKey = assessmentPackage.Assessment.AssessmentTemplate.AssessmentTemplateKey;
+            }
             assessmentPackage.Assessment.GradeLevelKey = assessmentPackage.Assessment.GradeLevel.GradeLevelKey;
             assessmentPackage.Assessment.StandardTypeKey = assessmentPackage.Assessment.StandardType.StandardTypeKey;
             assessmentPackage.Assessment.CalendarKey = assessmentPackage.Assessment.Calendar.CalendarKey;
@@ -66,10 +69,10 @@ var INGAApp;
             assessmentPackage.Assessment.DateCreated = null;
             this.promise = this.$http.put(this.apiRoot + 'DistrictAssessment/', assessmentPackage.Assessment)
                 .then(function (response) {
-                return true;
+                return response.data;
             })
-                .catch(function () {
-                return false;
+                .catch(function (response) {
+                return response.data;
             });
             return this.promise;
         };
@@ -96,9 +99,8 @@ var INGAApp;
             });
             return this.promise;
         };
-        AssessmentService.prototype.getAssessmentTemplates = function () {
+        AssessmentService.prototype.getAssessmentTemplates = function (filterString) {
             console.log("Getting Assessments From Service");
-            var filterString = "";
             var self = this;
             this.promise = this.$http.get(this.apiRoot + 'AssessmentTemplate/' + filterString, { timeout: this.assessmentSearchCanceler.promise })
                 .then(function (response) {
@@ -143,7 +145,7 @@ var INGAApp;
             this.promise = this.$http.put(this.apiRoot + 'AssessmentTemplate/', assessmentTemplatePackage.AssessmentTemplate)
                 .then(function (response) {
                 self.mainService.assessmentTemplateOptions = new Array();
-                return true;
+                return response.data;
             })
                 .catch(function () {
                 return false;
@@ -154,10 +156,10 @@ var INGAApp;
             console.log("Deleting assessment template");
             this.promise = this.$http.delete(this.apiRoot + 'AssessmentTemplate/' + assessmentTemplateKey + "/")
                 .then(function (response) {
-                return true;
+                return response.data;
             })
-                .catch(function () {
-                return false;
+                .catch(function (response) {
+                return response.data;
             });
             return this.promise;
         };
@@ -166,10 +168,10 @@ var INGAApp;
             this.promise = this.$http.put(this.apiRoot + 'AssessmentTemplate/MakeAvailable/' + key + '/', {})
                 .then(function (response) {
                 self.mainService.assessmentTemplateOptions = new Array();
-                return true;
+                return response.data;
             })
-                .catch(function () {
-                return false;
+                .catch(function (response) {
+                return response.data;
             });
             return this.promise;
         };

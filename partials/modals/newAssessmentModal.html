@@ -18,7 +18,7 @@
                 <div class="form-group">
                     <label for="inputEmail">Template</label>
                     <select class="form-control ng-animate-disabled" ng-options="template as template.Title for template in templateOptions track by template.AssessmentTemplateKey"
-                    ng-model="newAssessment.AssessmentTemplate" ng-change="selectTemplate()"></select>
+                    ng-model="newAssessment.AssessmentTemplate" ng-change="selectTemplate()" ng-disabled="templateLocked"></select>
                 </div>
             </div>
             <div ng-class="{'col-sm-6': multipleDistrictOptions}" ng-if="multipleDistrictOptions">

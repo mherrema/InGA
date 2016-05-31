@@ -31,8 +31,11 @@ module INGAApp
     deleteAssessments: Function,
     deleteAssessmentTemplates: Function,
     toggleTemplates: Function,
+    togglePublished: Function,
     templatesActive: boolean,
-    areRowsChecked: Function
+    publishedActive: boolean,
+    areRowsChecked: Function,
+    currentFilters: string
   }
 
   export class AssessmentsController extends BaseController.Controller
@@ -47,6 +50,7 @@ module INGAApp
 
       $scope.init = function(){
         mainService.setPageTitles("Assessment Management", "INGA");
+        $scope.currentFilters = "";
         $scope.getAssessments();
         $scope.getFilterOptions();
 
@@ -85,15 +89,20 @@ module INGAApp
         $scope.templatesActive = !$scope.templatesActive;
         $scope.clearFilters();
         if($scope.templatesActive){
-          if(assessmentService.currentAssessmentTemplates.length == 0){
-            assessmentService.getAssessmentTemplates();
+          if(assessmentService.currentAssessmentTemplates.length == 0 || assessmentService.needToReloadTemplates){
+            assessmentService.getAssessmentTemplates($scope.currentFilters);
           }
         }
       }
 
+      $scope.togglePublished = function(){
+        $scope.publishedActive = !$scope.publishedActive;
+        $scope.checkFilters();
+      }
+
 
       $scope.getAssessments = function(){
-        assessmentService.getDistrictAssessments().then(function(d: Array<DistrictAssessment>){
+        assessmentService.getDistrictAssessments($scope.currentFilters).then(function(d: Array<DistrictAssessment>){
           // $scope.currentAssessments = d;
         });
       }
@@ -177,18 +186,18 @@ module INGAApp
         angular.forEach($scope.currentAssessments, function (assessment) {
           if(assessment.checked){
 
-            assessmentService.deleteAssessment(assessment.DistrictAssessmentKey).then(function(res: boolean){
-              if(res){
-              //success
-              for(var i = assessmentService.currentDistrictAssessments.length - 1; i >= 0; i--){
-                if(assessmentService.currentDistrictAssessments[i].DistrictAssessmentKey == assessment.DistrictAssessmentKey){
-                  assessmentService.currentDistrictAssessments.splice(i, 1);
+            assessmentService.deleteAssessment(assessment.DistrictAssessmentKey).then(function(res: ReturnPackage){
+              if(res.Success){
+                //success
+                for(var i = assessmentService.currentDistrictAssessments.length - 1; i >= 0; i--){
+                  if(assessmentService.currentDistrictAssessments[i].DistrictAssessmentKey == assessment.DistrictAssessmentKey){
+                    assessmentService.currentDistrictAssessments.splice(i, 1);
+                  }
                 }
               }
-            }
-            else{
-              alert("Error while deleting assessment");
-            }
+              else{
+                alert("Error while deleting assessment");
+              }
             })
             .catch(function(res){
               alert("Error while deleting assessment");
@@ -276,15 +285,38 @@ module INGAApp
       }
 
       $scope.checkFilters = function () {
+        $scope.currentFilters = "";
         $scope.areOptionsSelected = false;
         angular.forEach($scope.headingOptions, function (value, key) {
           if(value.selected != undefined){
           if (value.selected.Value != "") {
+            if($scope.currentFilters == ""){
+              $scope.currentFilters += "?";
+            }
+            else{
+              $scope.currentFilters += "&";
+            }
+            $scope.currentFilters += value.heading + "=" + value.selected.Value;
             $scope.areOptionsSelected = true;
-            return;
           }
         }
         });
+        if($scope.publishedActive){
+          if($scope.currentFilters == ""){
+            $scope.currentFilters += "?Published=true";
+          }
+          else{
+            $scope.currentFilters += "&Published=true";
+          }
+        }
+
+        if($scope.templatesActive){
+          assessmentService.getAssessmentTemplates($scope.currentFilters);
+        }
+        else{
+          assessmentService.getDistrictAssessments($scope.currentFilters);
+        }
+        console.log($scope.areOptionsSelected);
       }
 
       $scope.clearFilters = function (input) {
@@ -300,7 +332,7 @@ module INGAApp
 
         $scope.areOptionsSelected = false;
         $scope.closeHeadings();
-
+        $scope.checkFilters();
       };
 
       $scope.openAssessmentViewModal = function (assessment) {

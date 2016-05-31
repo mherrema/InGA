@@ -7,7 +7,7 @@ var INGAApp;
 (function (INGAApp) {
     var ViewAssessmentModalController = (function (_super) {
         __extends(ViewAssessmentModalController, _super);
-        function ViewAssessmentModalController($scope, $location, $uibModalInstance, $uibModal, mainService, assessment, assessmentService) {
+        function ViewAssessmentModalController($scope, $location, $uibModalInstance, $uibModal, mainService, assessment, assessmentService, notificationService) {
             _super.call(this, $scope);
             var controller = this;
             $scope.assessment = assessment;
@@ -16,7 +16,14 @@ var INGAApp;
             };
             $scope.publish = function () {
                 console.log("Publish button clicked");
-                assessmentService.saveAssessment({ Assessment: $scope.assessment, ShouldRefresh: true, ShouldPublish: true });
+                assessmentService.updateAssessment({ Assessment: $scope.assessment, ShouldRefresh: true, ShouldPublish: true }).then(function (res) {
+                    if (res.Success) {
+                        notificationService.showNotification("Success publishing assessment", "success");
+                    }
+                    else {
+                        notificationService.showNotification("Error publishing assessment", "error");
+                    }
+                });
             };
             $scope.goToAssign = function () {
                 console.log(assessmentService);
@@ -51,7 +58,7 @@ var INGAApp;
                 });
             };
         }
-        ViewAssessmentModalController.$inject = ['$scope', '$location', '$uibModalInstance', '$uibModal', 'mainService', 'assessment', 'assessmentService'];
+        ViewAssessmentModalController.$inject = ['$scope', '$location', '$uibModalInstance', '$uibModal', 'mainService', 'assessment', 'assessmentService', 'notificationService'];
         return ViewAssessmentModalController;
     }(BaseController.Controller));
     INGAApp.ViewAssessmentModalController = ViewAssessmentModalController;

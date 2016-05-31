@@ -61,8 +61,8 @@
 </head>
 
 <body ng-app="IngaApp" ng-controller="MainINGAController" ng-init="init()">
-  <div class="notification" style="position: absolute; right: 0; top: 0; margin: 1em; padding: 1em; background-color: #fff; box-shadow: 0px 0px 8px #bbb;" ng-class="{'active': currentNotification.Active}">
-      <h4 style="color: #81d235; margin: 0;"><i class="fa fa-check"></i> {{currentNotification.NotificationText}}</h4>
+  <div class="notification" ng-class="{'active': currentNotification.Active, 'success': currentNotification.Success, 'error': currentNotification.Error}">
+      <h4 ><i class="fa fa-check"></i><i class="fa fa-times"></i> {{currentNotification.NotificationText}}</h4>
     </div>
   <div class="container-fluid" style="background-color:#ffffff;">
 

@@ -21,6 +21,7 @@ module INGAApp
     openNewAssessmentItemModal: Function,
     selectTemplate: Function,
     templateSelected: boolean,
+    templateLocked: boolean,
     highlightTitle: Function,
     sortableOptions: SortableOptions,
     pageTitle: string,
@@ -49,10 +50,19 @@ module INGAApp
 
       $scope.init = function(){
         $scope.pageTitle = "Edit Assessment";
+        $scope.sortableOptions = {
+          disabled: false,
+          stop: function(){$scope.updateItemRanking()}
+        };
         if(assessment.Title != undefined){
           $scope.originalAssessment = angular.copy(assessment);
           $scope.newAssessment = assessment;
           $scope.pageTitle += " " + assessment.Title;
+          if($scope.newAssessment.AssessmentTemplate || $scope.newAssessment.AssessmentTemplateKey){
+            $scope.templateSelected = true;
+            $scope.sortableOptions.disabled = true;
+            $scope.templateLocked = true;
+          }
           if(assessment.Template != undefined && assessment.Template.Title != undefined && assessment.Template.Title != "None"){
             $scope.templateSelected = true;
           }
@@ -61,10 +71,7 @@ module INGAApp
           $scope.newAssessment = {Title: "New Assessment"};
         }
 
-        $scope.sortableOptions = {
-          disabled: false,
-          stop: function(){$scope.updateItemRanking()}
-        };
+
 
         // $scope.gradeOptions = mainService.getGradeOptions();
         // $scope.subjectOptions = mainService.getSubjectOptions();
@@ -104,7 +111,7 @@ module INGAApp
           });
         }
         else{
-          $scope.gradeOptions = mainService.gradeOptions;
+          $scope.templateOptions = mainService.assessmentTemplateOptions;
         }
       }
 

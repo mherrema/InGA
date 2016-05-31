@@ -15,6 +15,7 @@ module INGAApp {
     assessmentSearchCanceler :ng.IDeferred<ng.IHttpPromiseCallbackArg<{}>>;
     currentSelectedDistrictAssessment: DistrictAssessment;
     currentSelectedAssessmentTemplate: AssessmentTemplate;
+    needToReloadTemplates: boolean;
 
     constructor($http: ng.IHttpService, $q: ng.IQService, mainService: MainService) {
       super();
@@ -22,16 +23,16 @@ module INGAApp {
       this.$http = $http;
       this.$q = $q;
       this.mainService = mainService;
-      // this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
-      this.apiRoot = "http://172.21.255.57:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+      this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+      // this.apiRoot = "http://172.21.255.57:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
       this.assessmentSearchCanceler = $q.defer();
       this.currentDistrictAssessments = [];
       this.currentAssessmentTemplates = [];
+      this.needToReloadTemplates = true;
     }
 
-    getDistrictAssessments(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
+    getDistrictAssessments(filterString): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
       console.log("Getting Assessments From Service");
-      var filterString = "";
 
       var self = this;
       this.promise = this.$http.get(this.apiRoot + 'DistrictAssessment/' + filterString,
@@ -49,6 +50,9 @@ module INGAApp {
 
     saveAssessment(assessmentPackage: AssessmentPackage): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
       console.log("Saving Assessment In Service");
+      if(assessmentPackage.Assessment.AssessmentTemplate != null){
+      assessmentPackage.Assessment.AssessmentTemplateKey = assessmentPackage.Assessment.AssessmentTemplate.AssessmentTemplateKey;
+    }
       assessmentPackage.Assessment.GradeLevelKey = assessmentPackage.Assessment.GradeLevel.GradeLevelKey;
       assessmentPackage.Assessment.StandardTypeKey = assessmentPackage.Assessment.StandardType.StandardTypeKey;
       assessmentPackage.Assessment.CalendarKey = assessmentPackage.Assessment.Calendar.CalendarKey;
@@ -85,10 +89,10 @@ module INGAApp {
       this.promise = this.$http.put(this.apiRoot + 'DistrictAssessment/',
       assessmentPackage.Assessment)
       .then(function(response){
-          return true;
+          return response.data;
       })
-      .catch(function(){
-        return false;
+      .catch(function(response){
+        return response.data;
       });
 
       return this.promise;
@@ -125,9 +129,8 @@ module INGAApp {
 
 
 
-    getAssessmentTemplates(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
+    getAssessmentTemplates(filterString): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
       console.log("Getting Assessments From Service");
-      var filterString = "";
 
       var self = this;
       this.promise = this.$http.get(this.apiRoot + 'AssessmentTemplate/' + filterString,
@@ -181,7 +184,7 @@ module INGAApp {
       assessmentTemplatePackage.AssessmentTemplate)
       .then(function(response){
         self.mainService.assessmentTemplateOptions = new Array<AssessmentTemplate>();
-          return true;
+          return response.data;
       })
       .catch(function(){
         return false;
@@ -194,10 +197,10 @@ module INGAApp {
       console.log("Deleting assessment template");
       this.promise = this.$http.delete(this.apiRoot + 'AssessmentTemplate/' + assessmentTemplateKey + "/")
       .then(function(response){
-          return true;
+          return response.data;
       })
-      .catch(function(){
-        return false;
+      .catch(function(response){
+        return response.data;
       });
 
       return this.promise;
@@ -208,10 +211,10 @@ module INGAApp {
       this.promise = this.$http.put(this.apiRoot + 'AssessmentTemplate/MakeAvailable/' + key + '/', {})
       .then(function(response){
           self.mainService.assessmentTemplateOptions = new Array<AssessmentTemplate>();
-          return true;
+          return response.data;
       })
-      .catch(function(){
-        return false;
+      .catch(function(response){
+        return response.data;
       });
 
       return this.promise;

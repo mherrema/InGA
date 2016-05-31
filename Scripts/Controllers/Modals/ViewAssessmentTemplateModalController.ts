@@ -14,9 +14,9 @@ module INGAApp
   export class ViewAssessmentTemplateModalController extends BaseController.Controller
   {
     scope: IAssessmentTemplateViewScope;
-    static $inject = ['$scope', '$location', '$uibModalInstance', '$uibModal', 'mainService', 'template', 'assessmentService'];
+    static $inject = ['$scope', '$location', '$uibModalInstance', '$uibModal', 'mainService', 'template', 'assessmentService', 'notificationService'];
 
-    constructor( $scope: IAssessmentTemplateViewScope, $location: ng.ILocationService, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $uibModal: ng.ui.bootstrap.IModalService, mainService:MainService, template:AssessmentTemplate, assessmentService: AssessmentService)
+    constructor( $scope: IAssessmentTemplateViewScope, $location: ng.ILocationService, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $uibModal: ng.ui.bootstrap.IModalService, mainService:MainService, template:AssessmentTemplate, assessmentService: AssessmentService, notificationService: NotificationService)
     {
       super( $scope );
       var controller = this;
@@ -29,7 +29,17 @@ module INGAApp
 
       $scope.makeAvailableToUsers = function(){
         console.log("Publish button clicked");
-        assessmentService.makeAssessmentTemplateAvailable(template.AssessmentTemplateKey);
+        assessmentService.makeAssessmentTemplateAvailable(template.AssessmentTemplateKey).then(function(res: ReturnPackage){
+          if(res.Success){
+            //show success!
+            $scope.template.AvailableToUsers = true;
+            notificationService.showNotification("Success making assessment template available", "success")
+          }
+          else{
+            notificationService.showNotification("Failed to make assessment template available", "success")
+            //show error!
+          }
+        });
       }
 
       // $scope.goToAssign = function(){

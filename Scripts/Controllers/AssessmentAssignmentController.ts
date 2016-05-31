@@ -23,7 +23,8 @@ module INGAApp
     toggleAllChecked : Function,
     allChecked : boolean,
     headingSortValue: Function,
-    getFilterOptions: Function
+    getFilterOptions: Function,
+    currentFilters: string
   }
 
   export class AssessmentAssignmentController extends BaseController.Controller
@@ -66,7 +67,7 @@ module INGAApp
 
 
       $scope.getAssessments = function(){
-        assessmentService.getDistrictAssessments().then(function(d: Array<DistrictAssessment>){
+        assessmentService.getDistrictAssessments($scope.currentFilters).then(function(d: Array<DistrictAssessment>){
           $scope.currentAssessments = d;
         });
       }

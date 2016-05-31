@@ -26,11 +26,11 @@ h5 {
 
 .title-row {
     padding: 40px 50px;
-    select{
+    select {
         margin-bottom: 20px;
         margin-top: 5px;
         color: #177a9b;
-    font-size: 24px;
+        font-size: 24px;
         font-weight: 600;
         height: 45px;
         border-radius: 3px;
@@ -157,22 +157,22 @@ a:visited.inga-btn-negative:hover {
                 color: #1fbdd5;
                 text-decoration: none;
             }
-            &:active{
+            &:active {
                 -webkit-transform: scale(0.95);
-    -moz-transform: scale(0.95);
-    -ms-transform: scale(0.95);
-    transform: scale(0.95);
+                -moz-transform: scale(0.95);
+                -ms-transform: scale(0.95);
+                transform: scale(0.95);
             }
             //            }
         }
         .above-table-action-right {
             padding-left: 28px;
             float: right;
-            &.toggle-button{
+            &.toggle-button {
                 padding: 5px 10px;
                 margin-right: 18px;
                 margin-top: 10px;
-                &.active{
+                &.active {
                     background: #1fbdd5;
                     color: #fff;
                 }
@@ -219,7 +219,6 @@ a:visited.inga-btn-negative:hover {
             }
         }
     }
-    
 }
 
 .dropdown-text {
@@ -1060,7 +1059,33 @@ a:visited {
 .notification {
     opacity: 0;
     transition: opacity 0.3s ease;
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, 0%);
+//    right: 0;
+    top: 1rem;
+//    margin: 1em;
+    padding: 1em;
+    background-color: #fff;
+    box-shadow: 0px 0px 15px rgba(0,0,0,.4);
+    z-index: 1500;
     &.active {
         opacity: 1;
+    }
+    h4{
+        color: #fff;
+        margin: 0;
+    }
+    &.success{
+        background-color: #81d235; 
+        .fa-times{
+            display: none;
+        }
+    }
+    &.error{
+        background-color: #ff6a6a; 
+        .fa-check{
+            display: none;
+        }
     }
 }
