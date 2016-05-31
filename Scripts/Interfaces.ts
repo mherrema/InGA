@@ -3,7 +3,8 @@ export interface HeadingOption{
   open: boolean,
   heading: string,
   options: Array<FilterOption>,
-  selected?: FilterOption
+  selected?: FilterOption,
+  assessmentsOnly?: boolean
 }
 
 export interface FilterOption{

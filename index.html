@@ -13,6 +13,7 @@
     <link href="css/redesign-styles.css" rel="stylesheet">
     <link href="css/fontawesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="css/ui-grid/ui-grid.min.css" rel="stylesheet">
+    <link href="css/loading-bar.css" rel="stylesheet">
     <style>
         @import url('fonts/fontie_14394397501733/AvenirNextLTPro-Regular.css');
         @import url('fonts/fontie_14394037598687/AvenirLTStd-Medium.css');
@@ -27,6 +28,7 @@
     <script src="js/ui-sortable/sortable.js"></script>
     <script src="js/ui-grid/ui-grid.min.js"></script>
     <script src="js/xeditable.min.js"></script>
+    <script src="js/loading-bar.js"></script>
 
     <script src="js/Interfaces.js"></script>
     <script src="js/Services/Service.js"></script>
@@ -64,7 +66,7 @@
   <div class="notification" ng-class="{'active': currentNotification.Active, 'success': currentNotification.Success, 'error': currentNotification.Error}">
       <h4 ><i class="fa fa-check"></i><i class="fa fa-times"></i> {{currentNotification.NotificationText}}</h4>
     </div>
-  <div class="container-fluid" style="background-color:#ffffff;">
+  <div id="inga" class="container-fluid" style="background-color:#ffffff;">
 
     <div class="row">
         <div class="title-row">

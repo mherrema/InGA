@@ -98,14 +98,27 @@ module INGAApp {
       return this.promise;
     }
 
+    archiveAssessment(assessmentKey: number): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
+      console.log("Archiving assessment");
+      this.promise = this.$http.post(this.apiRoot + 'DistrictAssessment/Archive/' + assessmentKey + "/", {})
+      .then(function(response){
+          return response.data;
+      })
+      .catch(function(response){
+        return response.data;
+      });
+
+      return this.promise;
+    }
+
     deleteAssessment(assessmentKey: number): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
       console.log("Deleting assessment");
       this.promise = this.$http.delete(this.apiRoot + 'DistrictAssessment/' + assessmentKey + "/")
       .then(function(response){
-          return true;
+          return response.data;
       })
-      .catch(function(){
-        return false;
+      .catch(function(response){
+        return response.data;
       });
 
       return this.promise;
@@ -188,6 +201,19 @@ module INGAApp {
       })
       .catch(function(){
         return false;
+      });
+
+      return this.promise;
+    }
+
+    archiveAssessmentTemplate(assessmentTemplateKey: number): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
+      console.log("Archiving assessment template");
+      this.promise = this.$http.post(this.apiRoot + 'AssessmentTemplate/Archive/' + assessmentTemplateKey + "/", {})
+      .then(function(response){
+          return response.data;
+      })
+      .catch(function(response){
+        return response.data;
       });
 
       return this.promise;

@@ -7,7 +7,7 @@ var INGAApp;
 (function (INGAApp) {
     var AssessmentsController = (function (_super) {
         __extends(AssessmentsController, _super);
-        function AssessmentsController($scope, $timeout, $uibModal, mainService, assessmentService, filterService) {
+        function AssessmentsController($scope, $timeout, $uibModal, mainService, assessmentService, filterService, notificationService) {
             _super.call(this, $scope);
             var controller = this;
             $scope.init = function () {
@@ -18,6 +18,7 @@ var INGAApp;
                 $scope.setHeadingDropdownWidth();
                 $scope.allChecked = false;
                 $scope.templatesActive = false;
+                $scope.selectedExtraFilter = "All";
                 window.onclick = function () {
                     if ($scope.justOpenedHeading) {
                         $scope.headingOpen = true;
@@ -71,6 +72,12 @@ var INGAApp;
                     $scope.setHeadingDropdownWidth();
                 });
             };
+            $scope.assessmentSearch = function (input) {
+                if ($scope.assessmentSearchInput != input && input != undefined) {
+                    $scope.assessmentSearchInput = input;
+                    $scope.checkFilters();
+                }
+            };
             $scope.toggleAllChecked = function () {
                 if (!$scope.templatesActive) {
                     angular.forEach($scope.currentAssessments, function (assessment) {
@@ -92,6 +99,82 @@ var INGAApp;
                         }
                     });
                 }
+            };
+            $scope.archiveChecked = function () {
+                if ($scope.areRowsChecked()) {
+                    if (!$scope.templatesActive) {
+                        var confirmationPackage = { Action: "archive", Objects: "these assessments?" };
+                    }
+                    else {
+                        var confirmationPackage = { Action: "archive", Objects: "these assessment templates?" };
+                    }
+                    var modalInstance = $uibModal.open({
+                        animation: true,
+                        templateUrl: 'partials/modals/dialog/confirmationModal.html',
+                        controller: 'ConfirmationModalController',
+                        size: "lg",
+                        resolve: {
+                            confirmationPackage: function () {
+                                return confirmationPackage;
+                            }
+                        }
+                    });
+                    modalInstance.result.then(function () {
+                        if (!$scope.templatesActive) {
+                            $scope.archiveAssessments();
+                        }
+                        else {
+                            $scope.archiveAssessmentTemplates();
+                        }
+                    });
+                }
+            };
+            $scope.archiveAssessments = function () {
+                // var assessmentsDeleted : Array<number> = [];
+                angular.forEach($scope.currentAssessments, function (assessment) {
+                    if (assessment.checked) {
+                        assessmentService.archiveAssessment(assessment.DistrictAssessmentKey).then(function (res) {
+                            if (res.Success) {
+                                //success
+                                for (var i = assessmentService.currentDistrictAssessments.length - 1; i >= 0; i--) {
+                                    if (assessmentService.currentDistrictAssessments[i].DistrictAssessmentKey == assessment.DistrictAssessmentKey) {
+                                        assessmentService.currentDistrictAssessments.splice(i, 1);
+                                    }
+                                }
+                                notificationService.showNotification("Success making assessment template available", "success");
+                            }
+                            else {
+                                alert("Error while archiving assessment");
+                            }
+                        })
+                            .catch(function (res) {
+                            alert("Error while archiving assessment");
+                        });
+                    }
+                });
+            };
+            $scope.archiveAssessmentTemplates = function () {
+                // var assessmentsDeleted : Array<number> = [];
+                angular.forEach($scope.currentAssessmentTemplates, function (template) {
+                    if (template.checked) {
+                        assessmentService.archiveAssessmentTemplate(template.AssessmentTemplateKey).then(function (res) {
+                            if (res.Success) {
+                                //success
+                                for (var i = assessmentService.currentAssessmentTemplates.length - 1; i >= 0; i--) {
+                                    if (assessmentService.currentAssessmentTemplates[i].AssessmentTemplateKey == template.AssessmentTemplateKey) {
+                                        assessmentService.currentAssessmentTemplates.splice(i, 1);
+                                    }
+                                }
+                            }
+                            else {
+                                alert("Error while archiving assessment template");
+                            }
+                        })
+                            .catch(function (res) {
+                            alert("Error while archiving assessment template");
+                        });
+                    }
+                });
             };
             $scope.deleteChecked = function () {
                 if ($scope.areRowsChecked()) {
@@ -134,13 +217,14 @@ var INGAApp;
                                         assessmentService.currentDistrictAssessments.splice(i, 1);
                                     }
                                 }
+                                notificationService.showNotification("Success deleting assessment", "success");
                             }
                             else {
-                                alert("Error while deleting assessment");
+                                notificationService.showNotification("Error deleting assessment", "error");
                             }
                         })
                             .catch(function (res) {
-                            alert("Error while deleting assessment");
+                            notificationService.showNotification("Error deleting assessment", "error");
                         });
                     }
                 });
@@ -150,20 +234,21 @@ var INGAApp;
                 angular.forEach($scope.currentAssessmentTemplates, function (template) {
                     if (template.checked) {
                         assessmentService.deleteAssessmentTemplate(template.AssessmentTemplateKey).then(function (res) {
-                            if (res) {
+                            if (res.Success) {
                                 //success
                                 for (var i = assessmentService.currentAssessmentTemplates.length - 1; i >= 0; i--) {
                                     if (assessmentService.currentAssessmentTemplates[i].AssessmentTemplateKey == template.AssessmentTemplateKey) {
                                         assessmentService.currentAssessmentTemplates.splice(i, 1);
                                     }
                                 }
+                                notificationService.showNotification("Success deleting assessment template", "success");
                             }
                             else {
-                                alert("Error while deleting assessment template");
+                                notificationService.showNotification("Error deleting assessment template", "error");
                             }
                         })
                             .catch(function (res) {
-                            alert("Error while deleting assessment template");
+                            notificationService.showNotification("Error deleting assessment template", "error");
                         });
                     }
                 });
@@ -188,6 +273,30 @@ var INGAApp;
                 if ($scope.searchOpen) {
                 }
             };
+            $scope.toggleExtraFiltersOpen = function () {
+                $scope.extraFiltersOpen = !$scope.extraFiltersOpen;
+                if ($scope.extraFiltersOpen) {
+                    $scope.justOpenedHeading = true;
+                }
+                console.log($scope.extraFiltersOpen);
+            };
+            $scope.selectExtraFilterOption = function (selection) {
+                console.log(selection);
+                $scope.selectedExtraFilter = selection;
+                $scope.publishedActive = false;
+                $scope.archivedActive = false;
+                $scope.templatesActive = false;
+                if (selection == 'published') {
+                    $scope.publishedActive = true;
+                }
+                else if (selection == 'archived') {
+                    $scope.archivedActive = true;
+                }
+                else if (selection == 'templates') {
+                    $scope.templatesActive = true;
+                }
+                $scope.checkFilters();
+            };
             //open table heading filtration
             $scope.openHeading = function (heading) {
                 $scope.closeHeadings();
@@ -200,6 +309,7 @@ var INGAApp;
                 angular.forEach($scope.headingOptions, function (value, key) {
                     value.open = false;
                 });
+                $scope.extraFiltersOpen = false;
             };
             //select table heading filter option
             $scope.selectHeadingOption = function (heading, option) {
@@ -237,6 +347,22 @@ var INGAApp;
                         $scope.currentFilters += "&Published=true";
                     }
                 }
+                if ($scope.archivedActive) {
+                    if ($scope.currentFilters == "") {
+                        $scope.currentFilters += "?Archived=true";
+                    }
+                    else {
+                        $scope.currentFilters += "&Archived=true";
+                    }
+                }
+                if ($scope.assessmentSearchInput) {
+                    if ($scope.currentFilters == "") {
+                        $scope.currentFilters += "?Title=" + $scope.assessmentSearchInput;
+                    }
+                    else {
+                        $scope.currentFilters += "&Title=" + $scope.assessmentSearchInput;
+                    }
+                }
                 if ($scope.templatesActive) {
                     assessmentService.getAssessmentTemplates($scope.currentFilters);
                 }
@@ -255,6 +381,8 @@ var INGAApp;
                 angular.forEach($scope.headingOptions, function (value, key) {
                     value.selected = { Key: "", Value: "" };
                 });
+                $scope.searchOpen = false;
+                $scope.assessmentSearchInput = "";
                 $scope.areOptionsSelected = false;
                 $scope.closeHeadings();
                 $scope.checkFilters();
@@ -300,7 +428,7 @@ var INGAApp;
                 return item;
             };
         }
-        AssessmentsController.$inject = ['$scope', '$timeout', '$uibModal', 'mainService', 'assessmentService', 'filterService'];
+        AssessmentsController.$inject = ['$scope', '$timeout', '$uibModal', 'mainService', 'assessmentService', 'filterService', 'notificationService'];
         return AssessmentsController;
     }(BaseController.Controller));
     INGAApp.AssessmentsController = AssessmentsController;

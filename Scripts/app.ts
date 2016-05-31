@@ -37,7 +37,7 @@ module INGA {
 }
 
 module INGAApp {
-  var myApp = new INGA.Module('IngaApp', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'ui.sortable', 'ui.grid', 'ui.grid.edit', 'ui.grid.cellNav', 'ui.grid.pinning']);
+  var myApp = new INGA.Module('IngaApp', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'ui.sortable', 'ui.grid', 'ui.grid.edit', 'ui.grid.cellNav', 'ui.grid.pinning', 'angular-loading-bar']);
   myApp.addController('MainINGAController', MainController);
   myApp.addController('AssessmentsController', AssessmentsController);
   myApp.addController('NewAssessmentModalController', NewAssessmentModalController);
@@ -66,6 +66,10 @@ module INGAApp {
   myApp.app.config(function($animateProvider) {
     $animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
   });
+  myApp.app.config(['cfpLoadingBarProvider', function (cfpLoadingBarProvider) {
+                cfpLoadingBarProvider.includeSpinner = false;
+                cfpLoadingBarProvider.parentSelector = '#inga';
+            }]);
   myApp.app.directive('noclick', [function() {
     return {
       restrict: 'A',

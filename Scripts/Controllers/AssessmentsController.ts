@@ -4,7 +4,7 @@ module INGAApp
   interface IAssessmentsScope extends BaseController.IScope
   {
     init: Function,
-    test: string,
+    test: Function,
     toggleSearchOpen: Function,
     searchOpen: boolean,
     openHeading: Function,
@@ -28,6 +28,9 @@ module INGAApp
     headingSortValue: Function,
     getFilterOptions: Function,
     deleteChecked: Function,
+    archiveChecked: Function,
+    archiveAssessments: Function,
+    archiveAssessmentTemplates: Function,
     deleteAssessments: Function,
     deleteAssessmentTemplates: Function,
     toggleTemplates: Function,
@@ -35,15 +38,23 @@ module INGAApp
     templatesActive: boolean,
     publishedActive: boolean,
     areRowsChecked: Function,
-    currentFilters: string
+    currentFilters: string,
+    assessmentSearch: Function,
+    assessmentSearchInput: string,
+    toggleExtraFiltersOpen: Function,
+    extraFiltersOpen: boolean,
+    selectExtraFilterOption: Function,
+    selectedExtraFilter: string,
+    archivedActive: boolean
   }
 
   export class AssessmentsController extends BaseController.Controller
   {
     scope: IAssessmentsScope;
-    static $inject = ['$scope', '$timeout', '$uibModal', 'mainService', 'assessmentService', 'filterService'];
+    static $inject = ['$scope', '$timeout', '$uibModal', 'mainService', 'assessmentService', 'filterService', 'notificationService'];
 
-    constructor( $scope: IAssessmentsScope, $timeout: ng.ITimeoutService, $uibModal: ng.ui.bootstrap.IModalService, mainService: MainService, assessmentService: AssessmentService, filterService: FilterService)
+    constructor( $scope: IAssessmentsScope, $timeout: ng.ITimeoutService, $uibModal: ng.ui.bootstrap.IModalService,
+      mainService: MainService, assessmentService: AssessmentService, filterService: FilterService, notificationService: NotificationService)
     {
       super( $scope );
       var controller = this;
@@ -58,6 +69,8 @@ module INGAApp
 
         $scope.allChecked = false;
         $scope.templatesActive = false;
+
+        $scope.selectedExtraFilter = "All";
 
         window.onclick = function () {
           if ($scope.justOpenedHeading) {
@@ -126,6 +139,13 @@ module INGAApp
         });
       }
 
+      $scope.assessmentSearch = function(input){
+        if($scope.assessmentSearchInput != input && input != undefined){
+        $scope.assessmentSearchInput = input;
+        $scope.checkFilters();
+      }
+      }
+
       $scope.toggleAllChecked = function(){
         if(!$scope.templatesActive){
           angular.forEach($scope.currentAssessments, function (assessment) {
@@ -147,6 +167,89 @@ module INGAApp
             }
           });
         }
+      }
+
+      $scope.archiveChecked = function(){
+        if($scope.areRowsChecked()){
+          if(!$scope.templatesActive){
+            var confirmationPackage:ConfirmationPackage = {Action: "archive", Objects: "these assessments?"}
+          }
+          else{
+            var confirmationPackage:ConfirmationPackage = {Action: "archive", Objects: "these assessment templates?"}
+          }
+
+          var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'partials/modals/dialog/confirmationModal.html',
+            controller: 'ConfirmationModalController',
+            size: "lg",
+            resolve: {
+              confirmationPackage: function () {
+                return confirmationPackage
+              }
+            }
+          });
+
+          modalInstance.result.then(function () {
+            if(!$scope.templatesActive){
+              $scope.archiveAssessments();
+            }
+            else{
+              $scope.archiveAssessmentTemplates();
+            }
+          });
+        }
+      }
+
+      $scope.archiveAssessments = function(){
+        // var assessmentsDeleted : Array<number> = [];
+        angular.forEach($scope.currentAssessments, function (assessment) {
+          if(assessment.checked){
+
+            assessmentService.archiveAssessment(assessment.DistrictAssessmentKey).then(function(res: ReturnPackage){
+              if(res.Success){
+                //success
+                for(var i = assessmentService.currentDistrictAssessments.length - 1; i >= 0; i--){
+                  if(assessmentService.currentDistrictAssessments[i].DistrictAssessmentKey == assessment.DistrictAssessmentKey){
+                    assessmentService.currentDistrictAssessments.splice(i, 1);
+                  }
+                }
+                notificationService.showNotification("Success making assessment template available", "success")
+              }
+              else{
+                alert("Error while archiving assessment");
+              }
+            })
+            .catch(function(res){
+              alert("Error while archiving assessment");
+            });
+          }
+        });
+      }
+
+      $scope.archiveAssessmentTemplates = function(){
+        // var assessmentsDeleted : Array<number> = [];
+        angular.forEach($scope.currentAssessmentTemplates, function (template) {
+          if(template.checked){
+
+            assessmentService.archiveAssessmentTemplate(template.AssessmentTemplateKey).then(function(res: ReturnPackage){
+              if(res.Success){
+              //success
+              for(var i = assessmentService.currentAssessmentTemplates.length - 1; i >= 0; i--){
+                if(assessmentService.currentAssessmentTemplates[i].AssessmentTemplateKey == template.AssessmentTemplateKey){
+                  assessmentService.currentAssessmentTemplates.splice(i, 1);
+                }
+              }
+            }
+            else{
+              alert("Error while archiving assessment template");
+            }
+            })
+            .catch(function(res){
+              alert("Error while archiving assessment template");
+            });
+          }
+        });
       }
 
       $scope.deleteChecked = function(){
@@ -194,13 +297,16 @@ module INGAApp
                     assessmentService.currentDistrictAssessments.splice(i, 1);
                   }
                 }
+                notificationService.showNotification("Success deleting assessment", "success")
+
               }
               else{
-                alert("Error while deleting assessment");
+                notificationService.showNotification("Error deleting assessment", "error")
+
               }
             })
             .catch(function(res){
-              alert("Error while deleting assessment");
+              notificationService.showNotification("Error deleting assessment", "error")
             });
           }
         });
@@ -211,21 +317,23 @@ module INGAApp
         angular.forEach($scope.currentAssessmentTemplates, function (template) {
           if(template.checked){
 
-            assessmentService.deleteAssessmentTemplate(template.AssessmentTemplateKey).then(function(res: boolean){
-              if(res){
+            assessmentService.deleteAssessmentTemplate(template.AssessmentTemplateKey).then(function(res: ReturnPackage){
+              if(res.Success){
               //success
               for(var i = assessmentService.currentAssessmentTemplates.length - 1; i >= 0; i--){
                 if(assessmentService.currentAssessmentTemplates[i].AssessmentTemplateKey == template.AssessmentTemplateKey){
                   assessmentService.currentAssessmentTemplates.splice(i, 1);
                 }
               }
+              notificationService.showNotification("Success deleting assessment template", "success")
+
             }
             else{
-              alert("Error while deleting assessment template");
+              notificationService.showNotification("Error deleting assessment template", "error")
             }
             })
             .catch(function(res){
-              alert("Error while deleting assessment template");
+              notificationService.showNotification("Error deleting assessment template", "error")
             });
           }
         });
@@ -257,6 +365,35 @@ module INGAApp
         }
       }
 
+
+      $scope.toggleExtraFiltersOpen = function () {
+        $scope.extraFiltersOpen = !$scope.extraFiltersOpen;
+        if($scope.extraFiltersOpen){
+          $scope.justOpenedHeading = true;
+          // $scope.headingOpen = true;
+        }
+        console.log($scope.extraFiltersOpen);
+      }
+
+      $scope.selectExtraFilterOption = function(selection){
+        console.log(selection);
+        $scope.selectedExtraFilter = selection;
+        $scope.publishedActive = false;
+        $scope.archivedActive = false;
+        $scope.templatesActive = false;
+        if(selection == 'published'){
+          $scope.publishedActive = true;
+        }
+        else if(selection == 'archived'){
+          $scope.archivedActive = true;
+        }
+        else if(selection == 'templates'){
+          $scope.templatesActive = true;
+        }
+        $scope.checkFilters();
+      }
+
+
       //open table heading filtration
       $scope.openHeading = function (heading) {
         $scope.closeHeadings();
@@ -270,6 +407,7 @@ module INGAApp
         angular.forEach($scope.headingOptions, function (value, key) {
           value.open = false;
         });
+        $scope.extraFiltersOpen = false;
       }
 
       //select table heading filter option
@@ -309,6 +447,22 @@ module INGAApp
             $scope.currentFilters += "&Published=true";
           }
         }
+        if($scope.archivedActive){
+          if($scope.currentFilters == ""){
+            $scope.currentFilters += "?Archived=true";
+          }
+          else{
+            $scope.currentFilters += "&Archived=true";
+          }
+        }
+        if($scope.assessmentSearchInput){
+          if($scope.currentFilters == ""){
+            $scope.currentFilters += "?Title=" + $scope.assessmentSearchInput;
+          }
+          else{
+            $scope.currentFilters += "&Title=" + $scope.assessmentSearchInput;
+          }
+        }
 
         if($scope.templatesActive){
           assessmentService.getAssessmentTemplates($scope.currentFilters);
@@ -329,6 +483,8 @@ module INGAApp
         angular.forEach($scope.headingOptions, function (value, key) {
           value.selected = { Key: "", Value: "" };
         });
+        $scope.searchOpen = false;
+        $scope.assessmentSearchInput = "";
 
         $scope.areOptionsSelected = false;
         $scope.closeHeadings();

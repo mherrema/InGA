@@ -33,7 +33,7 @@ var INGA;
 })(INGA || (INGA = {}));
 var INGAApp;
 (function (INGAApp) {
-    var myApp = new INGA.Module('IngaApp', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'ui.sortable', 'ui.grid', 'ui.grid.edit', 'ui.grid.cellNav', 'ui.grid.pinning']);
+    var myApp = new INGA.Module('IngaApp', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'ui.sortable', 'ui.grid', 'ui.grid.edit', 'ui.grid.cellNav', 'ui.grid.pinning', 'angular-loading-bar']);
     myApp.addController('MainINGAController', INGAApp.MainController);
     myApp.addController('AssessmentsController', INGAApp.AssessmentsController);
     myApp.addController('NewAssessmentModalController', INGAApp.NewAssessmentModalController);
@@ -61,6 +61,10 @@ var INGAApp;
     myApp.app.config(function ($animateProvider) {
         $animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
     });
+    myApp.app.config(['cfpLoadingBarProvider', function (cfpLoadingBarProvider) {
+            cfpLoadingBarProvider.includeSpinner = false;
+            cfpLoadingBarProvider.parentSelector = '#inga';
+        }]);
     myApp.app.directive('noclick', [function () {
             return {
                 restrict: 'A',

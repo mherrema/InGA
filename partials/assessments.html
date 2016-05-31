@@ -1,26 +1,28 @@
 <div class="row above-table-actions-row" ng-init="init()">
   <ul class="above-table-actions">
-    <li class="above-table-action-left above-table-action">archive
+    <li class="above-table-action-left above-table-action" ng-click="archiveChecked()" ng-if="!templatesActive && !archivedActive">archive
     </li>
     <li class="above-table-action-left" ng-click="deleteChecked()">delete
     </li>
     <li class="above-table-action-left" ng-if="areOptionsSelected" ng-click="clearFilters()">Clear Filters
     </li>
-    <li class="above-table-action-right above-table-action">View: <span class="dropdown-text" ng-click="toggleViewDropdown()">active</span> <span class="caret"></span>
-      <div class="action-dropdown {{view}}">
+    <li class="above-table-action-right above-table-action above-table-dropdown-action" ng-click="toggleExtraFiltersOpen()">View: <span class="dropdown-text">{{selectedExtraFilter}}</span> <span class="caret"></span>
+      <div class="action-dropdown" ng-class="{'open': extraFiltersOpen}">
         <div class="dropdown-content">
           <div class="dropdown-title" ng-click="toggleViewDropdown()">
             View
           </div>
           <ul class="dropdown-list">
-            <li ng-click="closeDropdowns()">Active</li>
-            <li>Inactive</li>
+            <li ng-click="selectExtraFilterOption('all')">All</li>
+            <li ng-click="selectExtraFilterOption('published')">Published</li>
+            <li ng-click="selectExtraFilterOption('archived')">Archived</li>
+            <li ng-click="selectExtraFilterOption('templates')">Templates</li>
           </ul>
         </div>
       </div>
     </li>
-    <li class="above-table-action-right action-with-icon toggle-button" ng-class="{'active': publishedActive}" ng-click="togglePublished()">Only Published</li>
-    <li class="above-table-action-right action-with-icon toggle-button" ng-class="{'active': templatesActive}" ng-click="toggleTemplates()">Show Templates</li>
+    <!-- <li class="above-table-action-right action-with-icon toggle-button" ng-class="{'active': publishedActive}" ng-click="togglePublished()">Only Published</li>
+    <li class="above-table-action-right action-with-icon toggle-button" ng-class="{'active': templatesActive}" ng-click="toggleTemplates()">Show Templates</li> -->
     <!--                <li style="float:right;"><button class="btn  inga-btn inga-btn-positive">Add Student</button></li>-->
   </ul>
 </div>
@@ -32,11 +34,11 @@
         <div class="search-box no-highlight" ng-class="{'open' : searchOpen}">
           <input type="checkbox" ng-model="allChecked" ng-change="toggleAllChecked()"/>
           <span class="search-box-title">Title</span><span class="glyphicon glyphicon-search search-icon" ng-click="toggleSearchOpen()"></span><span class="search-box-textbox-span">
-            <input id="studentSearchInput" ng-model="studentSearchInput" type="text" class="search-input-textbox" placeholder="Search Students" uib-typeahead="address for address in studentSearch($viewValue)" typeahead-min-length="0" my-focus>
+            <input id="assessmentSearchInput" ng-model="assessmentSearchInput" type="text" class="search-input-textbox" placeholder="Search Assessments" uib-typeahead="title for title in assessmentSearch($viewValue)" typeahead-min-length="0" my-focus>
           </span>
         </div>
       </th>
-      <th ng-repeat="heading in headingOptions">
+      <th ng-repeat="heading in headingOptions" ng-if="(heading.assessmentsOnly && !templatesActive) || !heading.assessmentsOnly">
         <div class="heading-title" ng-click="openHeading(heading)">
           {{heading.heading}}
           <span class="caret"></span>
@@ -74,7 +76,7 @@
           <td>{{template.StandardType.StandardTypeName}}</td>
           <td>{{template.Subject.SubjectName}}</td>
           <td>{{template.SchoolYear.SchoolYearName}}</td>
-          <td></td>
+          <!-- <td></td> -->
         </tr>
         </table>
       </div>
