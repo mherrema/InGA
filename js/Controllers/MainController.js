@@ -17,7 +17,6 @@ var INGAApp;
                     Error: false,
                     Active: false
                 };
-                $scope.assessmentOptions = [{ Title: "Assessment 1" }];
                 $scope.$watch(function () { return mainService.pageTitle; }, function (newValue, oldValue) {
                     $scope.pageTitle = newValue;
                 });
@@ -32,10 +31,19 @@ var INGAApp;
                 });
                 $scope.$watch(function () { return mainService.inAssessmentAssignment; }, function (newValue, oldValue) {
                     $scope.inAssessmentAssignment = newValue;
+                    if (newValue) {
+                        assessmentService.getPublishedDistrictAssessments().then(function (d) {
+                            $scope.assessmentOptions = d;
+                        });
+                        $scope.assessmentToAssign = assessmentService.currentSelectedDistrictAssessment;
+                    }
                 });
                 $scope.$watch(function () { return notificationService.currentNotification; }, function (newValue, oldValue) {
                     $scope.currentNotification = newValue;
                 });
+            };
+            $scope.selectAssessment = function () {
+                assessmentService.currentSelectedDistrictAssessment = $scope.assessmentToAssign;
             };
             $scope.openNewAssessmentModal = function (size) {
                 var modalInstance = $uibModal.open({

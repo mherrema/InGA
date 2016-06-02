@@ -12,8 +12,8 @@ var INGAApp;
             this.$http = $http;
             this.$q = $q;
             this.mainService = mainService;
-            this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
-            // this.apiRoot = "http://172.21.255.57:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+            // this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+            this.apiRoot = "http://172.21.255.58:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
             this.assessmentSearchCanceler = $q.defer();
             this.currentDistrictAssessments = [];
             this.currentAssessmentTemplates = [];
@@ -98,9 +98,29 @@ var INGAApp;
             });
             return this.promise;
         };
-        AssessmentService.prototype.getClassroomAssessments = function () {
+        AssessmentService.prototype.getPublishedDistrictAssessments = function () {
+            console.log("Getting Assessments From Service");
+            var self = this;
+            this.promise = this.$http.get(this.apiRoot + 'DistrictAssessment/?Published=true', { timeout: this.assessmentSearchCanceler.promise })
+                .then(function (response) {
+                self.currentPublishedDistrictAssessments = response.data;
+                return response.data;
+            });
+            return this.promise;
+        };
+        AssessmentService.prototype.getClassrooms = function (filterString) {
             console.log("Getting Classroom Assessments From Service");
-            var filterString = "";
+            this.promise = this.$http.get(this.apiRoot + 'Classroom/' + filterString, { timeout: this.assessmentSearchCanceler.promise })
+                .then(function (response) {
+                // if(filterString == ""){
+                //   this.nonFilteredDistrictAssessments = response.data;
+                // }
+                return response.data;
+            });
+            return this.promise;
+        };
+        AssessmentService.prototype.getClassroomAssessments = function (filterString) {
+            console.log("Getting Classroom Assessments From Service");
             this.promise = this.$http.get(this.apiRoot + 'ClassroomAssessment/' + filterString, { timeout: this.assessmentSearchCanceler.promise })
                 .then(function (response) {
                 if (filterString == "") {

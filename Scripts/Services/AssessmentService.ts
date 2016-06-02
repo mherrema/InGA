@@ -5,6 +5,7 @@ module INGAApp {
 
     currentDistrictAssessments: Array<DistrictAssessment>;
     currentAssessmentTemplates: Array<AssessmentTemplate>;
+    currentPublishedDistrictAssessments: Array<DistrictAssessment>;
     nonFilteredDistrictAssessments: Array<DistrictAssessment>;
     currentClassroomAssessments: Array<ClassroomAssessment>;
     promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>;
@@ -23,8 +24,8 @@ module INGAApp {
       this.$http = $http;
       this.$q = $q;
       this.mainService = mainService;
-      this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
-      // this.apiRoot = "http://172.21.255.57:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+      // this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+      this.apiRoot = "http://172.21.255.58:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
       this.assessmentSearchCanceler = $q.defer();
       this.currentDistrictAssessments = [];
       this.currentAssessmentTemplates = [];
@@ -124,10 +125,38 @@ module INGAApp {
       return this.promise;
     }
 
+    getPublishedDistrictAssessments(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
+      console.log("Getting Assessments From Service");
 
-    getClassroomAssessments(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
+      var self = this;
+      this.promise = this.$http.get(this.apiRoot + 'DistrictAssessment/?Published=true',
+      {timeout : this.assessmentSearchCanceler.promise})
+      .then(function(response){
+        self.currentPublishedDistrictAssessments = <Array<DistrictAssessment>>response.data;
+        return response.data;
+      });
+
+      return this.promise;
+    }
+
+    getClassrooms(filterString): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
       console.log("Getting Classroom Assessments From Service");
-      var filterString = "";
+
+      this.promise = this.$http.get(this.apiRoot + 'Classroom/' + filterString,
+      {timeout : this.assessmentSearchCanceler.promise})
+      .then(function(response){
+        // if(filterString == ""){
+        //   this.nonFilteredDistrictAssessments = response.data;
+        // }
+        return response.data;
+      });
+
+      return this.promise;
+    }
+
+    getClassroomAssessments(filterString): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
+      console.log("Getting Classroom Assessments From Service");
+
       this.promise = this.$http.get(this.apiRoot + 'ClassroomAssessment/' + filterString,
       {timeout : this.assessmentSearchCanceler.promise})
       .then(function(response){

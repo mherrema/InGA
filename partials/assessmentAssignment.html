@@ -1,22 +1,22 @@
 <div class="row" ng-init="init()">
     <div class="detail-row">
         <div class="col-sm-3">
-            <span class="inline-detail"><h6><span class="detail-title"><strong>School:</strong></span> {{currentAssessment.School.SchoolName}}</h6>
+            <span class="inline-detail"><h6><span class="detail-title"><strong>Subject Area:</strong></span> {{currentAssessment.Subject.SubjectName}}</h6>
             </span>
-            <span class="inline-detail"><h6><span class="detail-title"><strong>Course:</strong></span> {{currentAssessment.Course.CourseName}}</h6>
+            <span class="inline-detail"><h6><span class="detail-title"><strong>Calendar:</strong></span> {{currentAssessment.Calendar.CalendarName}}</h6>
             </span>
-            <span class="inline-detail"><h6><span class="detail-title"><strong>Std Type:</strong></span> {{currentAssessment.Standard.StandardType}}</h6>
+            <span class="inline-detail"><h6><span class="detail-title"><strong>Std Type:</strong></span> {{currentAssessment.StandardType.StandardTypeName}}</h6>
             </span>
             <!-- <span class="inline-detail"><h6><span class="detail-title"><strong>Term:</strong></span> Winter</h6>
             </span> -->
         </div>
         <div class="col-sm-3">
-            <span class="inline-detail"><h6><span class="detail-title"><strong>Teacher:</strong></span> {{currentAssessment.SchoolTeacher.FirstName}} {{currentAssessment.SchoolTeacher.LastName}} ({{currentAssessment.SchoolTeacher.TeacherNumber}})</h6>
+            <span class="inline-detail"><h6><span class="detail-title"><strong>School Year:</strong></span> {{currentAssessment.SchoolYear.SchoolYearName}}</h6>
             </span>
-            <span class="inline-detail"><h6><span class="detail-title"><strong>Section:</strong></span> 1(A)</h6>
+            <!-- <span class="inline-detail"><h6><span class="detail-title"><strong>Section:</strong></span> 1(A)</h6>
             </span>
             <span class="inline-detail"><h6><span class="detail-title"><strong>Subject:</strong></span> Art</h6>
-            </span>
+            </span> -->
         </div>
 
         <div class="clearfix"></div>
@@ -24,13 +24,13 @@
     </div>
 </div>
 <div class="row">
-    <table class="inga-table clickable-rows" style="position:relative;">
+    <table class="inga-table" style="position:relative;">
           <tr>
             <!--                    <th><span style="float:left;"><input type="checkbox" /></span><span style="float:left;">Title</span><span class="glyphicon glyphicon-search search-icon"></span></th>-->
             <th>
               <div class="search-box no-highlight" ng-class="{'open' : searchOpen}">
                 <input type="checkbox" class="always-transparent"/>
-                <span class="search-box-title">Title</span><span class="glyphicon glyphicon-search search-icon" ng-click="toggleSearchOpen()"></span><span class="search-box-textbox-span">
+                <span class="search-box-title">School</span><span class="glyphicon glyphicon-search search-icon" ng-click="toggleSearchOpen()"></span><span class="search-box-textbox-span">
                   <input id="studentSearchInput" ng-model="studentSearchInput" type="text" class="search-input-textbox" placeholder="Search Students" uib-typeahead="address for address in studentSearch($viewValue)" typeahead-min-length="0" my-focus>
                 </span>
               </div>
@@ -55,13 +55,14 @@
             </th>
             <th></th>
           </tr>
-          <tr ng-repeat="assessment in currentClassroomAssessments" ng-class="{'selected': assessment.checked}" ng-click="goToDataEntry(assessment)">
+          <tr ng-repeat="classroom in currentClassrooms" ng-class="{'selected': classroom.checked}">
             <td>
-              <input type="checkbox" class="always-transparent" noclick />{{assessment.Title}}</td>
-              <td>{{assessment.GradeLevel.GradeLevelName}}</td>
-              <td>{{assessment.Subject.SubjectName}}</td>
-              <td>{{assessment.Term}}</td>
-              <td>{{assessment.SchoolYear.SchoolYearNameShort}}</td>
+              <input type="checkbox" ng-model="classroom.checked" ng-checked="classroom.checked"/>{{classroom.School.SchoolName}}</td>
+              <td>{{classroom.SchoolTeacher.LastName}}, {{classroom.SchoolTeacher.FirstName}} ({{classroom.SchoolTeacher.TeacherNumber}})</td>
+              <td>{{classroom.Course.CourseName}}</td>
+              <td>{{classroom.SectionNumber}}</td>
+              <td>{{classroom.ScheduleTerm.TermName}}</td>
+              <td>{{classroom.AssignedString}}</td>
               <td></td>
             </tr>
     </table>

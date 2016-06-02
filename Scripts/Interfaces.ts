@@ -82,7 +82,7 @@ export interface Calendar{
   DistrictKey?: number
 }
 
-interface Classroom{
+export interface Classroom{
   ClassroomKey?: number,
   SchoolKey?: number,
   School?: School,
@@ -92,7 +92,11 @@ interface Classroom{
   ScheduleTerm?: ScheduleTerm,
   CourseKey?: number,
   Course?: Course,
-  SectionNumber?: string
+  SectionNumber?: string,
+  checked?: boolean,
+  IsAssigned?: boolean,
+  ClassroomAssessments?: Array<ClassroomAssessment>,
+  AssignedString?: string
 }
 
 export interface ClassroomAssessment{

@@ -10,8 +10,8 @@ var INGAApp;
         function FilterService($http) {
             _super.call(this);
             this.$http = $http;
-            this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
-            // this.apiRoot = "http://172.21.255.57:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+            // this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+            this.apiRoot = "http://172.21.255.58:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
         }
         FilterService.prototype.getDistrictAssessmentFilterOptions = function () {
             console.log("Getting Assessments From Service");
@@ -25,6 +25,14 @@ var INGAApp;
         FilterService.prototype.getDataEntryFilterOptions = function () {
             var filterString = "";
             this.promise = this.$http.get(this.apiRoot + 'Filters/DataEntry/')
+                .then(function (response) {
+                return response.data;
+            });
+            return this.promise;
+        };
+        FilterService.prototype.getClassroomFilterOptions = function () {
+            var filterString = "";
+            this.promise = this.$http.get(this.apiRoot + 'Filters/Classroom/')
                 .then(function (response) {
                 return response.data;
             });

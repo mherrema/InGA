@@ -18,13 +18,14 @@ module INGAApp
     checkFilters: Function,
     areOptionsSelected: boolean,
     clearFilters: Function,
-    getAssessments: Function,
-    currentAssessments: Array<DistrictAssessment>,
+    getClassrooms: Function,
+    currentClassrooms: Array<Classroom>,
     toggleAllChecked : Function,
     allChecked : boolean,
     headingSortValue: Function,
     getFilterOptions: Function,
-    currentFilters: string
+    currentFilters: string,
+    updateClassroomAssignments: Function
   }
 
   export class AssessmentAssignmentController extends BaseController.Controller
@@ -44,7 +45,7 @@ module INGAApp
 
         $scope.currentAssessment = assessmentService.currentSelectedDistrictAssessment;
 
-        $scope.getAssessments();
+        $scope.getClassrooms();
         $scope.getFilterOptions();
 
         $scope.setHeadingDropdownWidth();
@@ -63,12 +64,33 @@ module INGAApp
           }
         }
 
+        $scope.$watch(() => assessmentService.currentSelectedDistrictAssessment,
+          (newValue: DistrictAssessment, oldValue: DistrictAssessment) => {
+              $scope.currentAssessment = newValue;
+              $scope.updateClassroomAssignments();
+          });
+
       }
 
 
-      $scope.getAssessments = function(){
-        assessmentService.getDistrictAssessments($scope.currentFilters).then(function(d: Array<DistrictAssessment>){
-          $scope.currentAssessments = d;
+      $scope.getClassrooms = function(){
+        assessmentService.getClassrooms("").then(function(d: Array<Classroom>){
+          $scope.currentClassrooms = d;
+          $scope.updateClassroomAssignments();
+          $scope.setHeadingDropdownWidth();
+        });
+      }
+
+      $scope.updateClassroomAssignments = function(){
+        angular.forEach($scope.currentClassrooms, function(classroom){
+          classroom.AssignedString = "Unassigned";
+          classroom.IsAssigned = false;
+          angular.forEach(classroom.ClassroomAssessments, function(assessment){
+            if(assessment.ClassroomKey == classroom.ClassroomKey){
+              classroom.AssignedString = "Assigned";
+              classroom.IsAssigned = true;
+            }
+          });
         });
       }
 
@@ -85,19 +107,19 @@ module INGAApp
       }
 
       $scope.getFilterOptions = function(){
-        filterService.getDistrictAssessmentFilterOptions().then(function(d: Array<HeadingOption>){
+        filterService.getClassroomFilterOptions().then(function(d: Array<HeadingOption>){
           $scope.headingOptions = d;
           $scope.setHeadingDropdownWidth();
         });
       }
 
       $scope.toggleAllChecked = function(){
-        angular.forEach($scope.currentAssessments, function (assessment) {
+        angular.forEach($scope.currentClassrooms, function (classroom) {
           if(!$scope.allChecked){
-            assessment.checked = false;
+            classroom.checked = false;
           }
           else{
-            assessment.checked = true;
+            classroom.checked = true;
           }
         });
       }

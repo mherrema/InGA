@@ -14,7 +14,7 @@ var INGAApp;
             $scope.init = function () {
                 mainService.setPageTitles("Assessment Assignment", "Assessment Assignment");
                 $scope.currentAssessment = assessmentService.currentSelectedDistrictAssessment;
-                $scope.getAssessments();
+                $scope.getClassrooms();
                 $scope.getFilterOptions();
                 $scope.setHeadingDropdownWidth();
                 $scope.allChecked = false;
@@ -29,10 +29,28 @@ var INGAApp;
                         $scope.$apply();
                     }
                 };
+                $scope.$watch(function () { return assessmentService.currentSelectedDistrictAssessment; }, function (newValue, oldValue) {
+                    $scope.currentAssessment = newValue;
+                    $scope.updateClassroomAssignments();
+                });
             };
-            $scope.getAssessments = function () {
-                assessmentService.getDistrictAssessments($scope.currentFilters).then(function (d) {
-                    $scope.currentAssessments = d;
+            $scope.getClassrooms = function () {
+                assessmentService.getClassrooms("").then(function (d) {
+                    $scope.currentClassrooms = d;
+                    $scope.updateClassroomAssignments();
+                    $scope.setHeadingDropdownWidth();
+                });
+            };
+            $scope.updateClassroomAssignments = function () {
+                angular.forEach($scope.currentClassrooms, function (classroom) {
+                    classroom.AssignedString = "Unassigned";
+                    classroom.IsAssigned = false;
+                    angular.forEach(classroom.ClassroomAssessments, function (assessment) {
+                        if (assessment.ClassroomKey == classroom.ClassroomKey) {
+                            classroom.AssignedString = "Assigned";
+                            classroom.IsAssigned = true;
+                        }
+                    });
                 });
             };
             $scope.setHeadingDropdownWidth = function () {
@@ -47,18 +65,18 @@ var INGAApp;
                 });
             };
             $scope.getFilterOptions = function () {
-                filterService.getDistrictAssessmentFilterOptions().then(function (d) {
+                filterService.getClassroomFilterOptions().then(function (d) {
                     $scope.headingOptions = d;
                     $scope.setHeadingDropdownWidth();
                 });
             };
             $scope.toggleAllChecked = function () {
-                angular.forEach($scope.currentAssessments, function (assessment) {
+                angular.forEach($scope.currentClassrooms, function (classroom) {
                     if (!$scope.allChecked) {
-                        assessment.checked = false;
+                        classroom.checked = false;
                     }
                     else {
-                        assessment.checked = true;
+                        classroom.checked = true;
                     }
                 });
             };

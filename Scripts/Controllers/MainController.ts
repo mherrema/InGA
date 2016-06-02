@@ -16,7 +16,9 @@ module INGAApp
     goToDataEntry: Function,
     subjectOptions: Array<Subject>,
     assessmentOptions: Array<DistrictAssessment>,
-    currentNotification: Notification
+    currentNotification: Notification,
+    assessmentToAssign: DistrictAssessment,
+    selectAssessment: Function
   }
 
   export class MainController extends BaseController.Controller
@@ -36,8 +38,6 @@ module INGAApp
               Error: false,
               Active: false
           }
-
-        $scope.assessmentOptions = [{Title: "Assessment 1"}];
 
         $scope.$watch(() => mainService.pageTitle,
         (newValue: string, oldValue: string) => {
@@ -62,12 +62,22 @@ module INGAApp
         $scope.$watch(() => mainService.inAssessmentAssignment,
         (newValue: boolean, oldValue: boolean) => {
           $scope.inAssessmentAssignment = newValue;
+          if(newValue){
+            assessmentService.getPublishedDistrictAssessments().then(function(d: Array<DistrictAssessment>){
+              $scope.assessmentOptions = d;
+            });
+            $scope.assessmentToAssign = assessmentService.currentSelectedDistrictAssessment;
+          }
         });
 
         $scope.$watch(() => notificationService.currentNotification,
           (newValue: Notification, oldValue: Notification) => {
               $scope.currentNotification = newValue;
           });
+      }
+
+      $scope.selectAssessment = function(){
+        assessmentService.currentSelectedDistrictAssessment = $scope.assessmentToAssign;
       }
 
       $scope.openNewAssessmentModal = function (size) {

@@ -62,7 +62,7 @@ module INGAApp
 
 
         $scope.getClassroomAssessments = function(){
-          assessmentService.getClassroomAssessments().then(function(d: Array<ClassroomAssessment>){
+          assessmentService.getClassroomAssessments("").then(function(d: Array<ClassroomAssessment>){
             $scope.currentClassroomAssessments = d;
           });
         }

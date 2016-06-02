@@ -28,7 +28,7 @@ var INGAApp;
                 };
             };
             $scope.getClassroomAssessments = function () {
-                assessmentService.getClassroomAssessments().then(function (d) {
+                assessmentService.getClassroomAssessments("").then(function (d) {
                     $scope.currentClassroomAssessments = d;
                 });
             };

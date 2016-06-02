@@ -74,7 +74,7 @@
                 <span class="page-type-title">{{pageTypeTitle}}</span>
                 <h2 class="title page-title" ng-if="!inAssessmentAssignment">{{pageTitle}}</h2>
                 <select class="form-control ng-animate-disabled" ng-options="assessment as assessment.Title for assessment in assessmentOptions track by assessment.DistrictAssessmentKey"
-                ng-model="assessmentToAssign" ng-change="selectAssessment()" ng-if="inAssessmentAssignment"></select>
+                ng-model="$parent.assessmentToAssign" ng-change="selectAssessment()" ng-if="inAssessmentAssignment"></select>
             </div>
             <div class="col-sm-7">
                 <button class="btn  top-button inga-btn inga-btn-positive" ng-if="inAssessmentManagement" ng-click="openNewAssessmentModal()">CREATE NEW ASSESSMENT</button>
