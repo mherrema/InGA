@@ -26,7 +26,7 @@ module INGAApp
     goToDataEntry: Function,
     headingSortValue: Function,
     myData: Array<Object>,
-    gridOptions: Object
+    gridOptions: GridOptions
   }
 
   export class DataEntryScoreViewController extends BaseController.Controller
@@ -40,135 +40,137 @@ module INGAApp
       var controller = this;
 
       $scope.init = function(){
-
+        $scope.gridOptions = {
+          enableSorting: false,
+          enableColumnMenus: false,
+          columnDefs: [{name: "Name", minWidth: 250, pinnedLeft:true, enableSorting: true, cellEditableCondition: false,
+          cellTemplate: '<div class="ui-grid-cell-contents"><input type="checkbox" ng-model="row.entity.checked" ng-checked="row.entity.checked" /> {{row.entity.DistrictStudent.LastName}}, {{row.entity.DistrictStudent.FirstName}} ({{row.entity.DistrictStudent.StudentNumber}})</div>'},
+          ],
+          enableCellEditOnFocus: true,
+          data: [],
+          rowHeight: 45
+        };
         if(dataEntryService.currentAssessment == undefined){
           $location.path("/dataEntry");
         }
         if(dataEntryService.currentAssessment != undefined){
           mainService.setPageTitles(dataEntryService.currentAssessment.Title, "Assessment Class Score View");
+          dataEntryService.getStudents(dataEntryService.currentAssessment.ClassroomKey)
+          .then(function(d: Array<StudentAssessment>){
+            $scope.gridOptions.data = d;
+
+            // $scope.$apply();
+          });
+
+          dataEntryService.getItems(dataEntryService.currentAssessment.DistrictAssessmentKey)
+          .then(function(d: Array<Item>){
+            angular.forEach(d, function(item){
+              $scope.gridOptions.columnDefs.push({name: item.Standard.StandardCode, minWidth: 150})
+            })
+          })
         }
         $scope.$watch(() => dataEntryService.currentAssessment,
         (newValue: ClassroomAssessment, oldValue: ClassroomAssessment) => {
           $scope.currentAssessment = newValue;
         });
+
+
       }
 
 
+      //
+      // $scope.myData = [
+      //   {
+      //     "firstName": "Cox",
+      //     "lastName": "Carney",
+      //     "company": "Enormo",
+      //     "employed": true,
+      //     "firstName2": "Cox really long first name",
+      //     "lastName2": "Carney",
+      //     "company2": "Enormo",
+      //     "employed2": true,
+      //     "firstName3": "Cox",
+      //     "lastName3": "Carney",
+      //     "company3": "Enormo",
+      //     "employed3": true,
+      //     "firstName4": "Cox",
+      //     "lastName4": "Carney",
+      //     "company4": "Enormo",
+      //     "employed4": true,
+      //     "firstName5": "Cox",
+      //     "lastName5": "Carney",
+      //     "company5": "Enormo",
+      //     "employed5": true
+      //   },
+      //   {
+      //     "firstName": "Lorraine asdfsdf",
+      //     "lastName": "Wise",
+      //     "company": "Comveyer",
+      //     "employed": false
+      //   },
+      //   {
+      //     "firstName": "Nancy",
+      //     "lastName": "Waters",
+      //     "company": "Fuelton",
+      //     "employed": false
+      //   },
+      //   {
+      //     "firstName": "Cox",
+      //     "lastName": "Carney",
+      //     "company": "Enormo",
+      //     "employed": true
+      //   },
+      //   {
+      //     "firstName": "Lorraine",
+      //     "lastName": "Wise",
+      //     "company": "Comveyer",
+      //     "employed": false
+      //   },
+      //   {
+      //     "firstName": "Nancy",
+      //     "lastName": "Waters",
+      //     "company": "Fuelton",
+      //     "employed": false
+      //   },
+      //   {
+      //     "firstName": "Cox",
+      //     "lastName": "Carney",
+      //     "company": "Enormo",
+      //     "employed": true
+      //   },
+      //   {
+      //     "firstName": "Lorraine",
+      //     "lastName": "Wise",
+      //     "company": "Comveyer",
+      //     "employed": false
+      //   },
+      //   {
+      //     "firstName": "Nancy",
+      //     "lastName": "Waters",
+      //     "company": "Fuelton",
+      //     "employed": false
+      //   },
+      //   {
+      //     "firstName": "Cox",
+      //     "lastName": "Carney",
+      //     "company": "Enormo",
+      //     "employed": true
+      //   },
+      //   {
+      //     "firstName": "Lorraine",
+      //     "lastName": "Wise",
+      //     "company": "Comveyer",
+      //     "employed": false
+      //   },
+      //   {
+      //     "firstName": "Nancy",
+      //     "lastName": "Waters",
+      //     "company": "Fuelton",
+      //     "employed": false
+      //   }
+      // ];
 
-      $scope.myData = [
-        {
-          "firstName": "Cox",
-          "lastName": "Carney",
-          "company": "Enormo",
-          "employed": true,
-          "firstName2": "Cox really long first name",
-          "lastName2": "Carney",
-          "company2": "Enormo",
-          "employed2": true,
-          "firstName3": "Cox",
-          "lastName3": "Carney",
-          "company3": "Enormo",
-          "employed3": true,
-          "firstName4": "Cox",
-          "lastName4": "Carney",
-          "company4": "Enormo",
-          "employed4": true,
-          "firstName5": "Cox",
-          "lastName5": "Carney",
-          "company5": "Enormo",
-          "employed5": true
-        },
-        {
-          "firstName": "Lorraine asdfsdf",
-          "lastName": "Wise",
-          "company": "Comveyer",
-          "employed": false
-        },
-        {
-          "firstName": "Nancy",
-          "lastName": "Waters",
-          "company": "Fuelton",
-          "employed": false
-        },
-        {
-          "firstName": "Cox",
-          "lastName": "Carney",
-          "company": "Enormo",
-          "employed": true
-        },
-        {
-          "firstName": "Lorraine",
-          "lastName": "Wise",
-          "company": "Comveyer",
-          "employed": false
-        },
-        {
-          "firstName": "Nancy",
-          "lastName": "Waters",
-          "company": "Fuelton",
-          "employed": false
-        },
-        {
-          "firstName": "Cox",
-          "lastName": "Carney",
-          "company": "Enormo",
-          "employed": true
-        },
-        {
-          "firstName": "Lorraine",
-          "lastName": "Wise",
-          "company": "Comveyer",
-          "employed": false
-        },
-        {
-          "firstName": "Nancy",
-          "lastName": "Waters",
-          "company": "Fuelton",
-          "employed": false
-        },
-        {
-          "firstName": "Cox",
-          "lastName": "Carney",
-          "company": "Enormo",
-          "employed": true
-        },
-        {
-          "firstName": "Lorraine",
-          "lastName": "Wise",
-          "company": "Comveyer",
-          "employed": false
-        },
-        {
-          "firstName": "Nancy",
-          "lastName": "Waters",
-          "company": "Fuelton",
-          "employed": false
-        }
-      ];
 
-      $scope.gridOptions = {
-        enableSorting: false,
-        enableColumnMenus: false,
-        columnDefs: [{name: "firstName", minWidth: 250, pinnedLeft:true, enableSorting: true, cellEditableCondition: false, cellTemplate: '<div class="ui-grid-cell-contents"><input type="checkbox" ng-model="row.entity.checked" ng-checked="row.entity.checked" /> {{row.entity.firstName}}</div>'},
-        {name: "lastName", minWidth: 150},
-        {name: "company", minWidth: 150},
-        {name: "employed", minWidth: 150},
-        {name: "firstName2", minWidth: 150},
-        {name: "lastName2", minWidth: 150},
-        {name: "company2", minWidth: 150},
-        {name: "employed2", minWidth: 150},
-        {name: "firstName3", minWidth: 150},
-        {name: "lastName3", minWidth: 150},
-        {name: "company3", minWidth: 150},
-        {name: "employed3", minWidth: 150},
-        {name: "firstName4", minWidth: 150},
-        {name: "lastName4", minWidth: 150},
-        {name: "company4", minWidth: 150},
-        {name: "employed4", minWidth: 150}],
-        enableCellEditOnFocus: true,
-        data: $scope.myData,
-        rowHeight: 45
-      };
 
       $scope.setHeadingDropdownWidth = function(){
         $timeout(function () {

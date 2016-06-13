@@ -8,12 +8,6 @@ module INGAApp
     cancel: Function
   }
 
-  interface PointsStepOption{
-    Title: string,
-    Step: number
-  }
-
-
   export class ConfirmationModalController extends BaseController.Controller
   {
     scope: IConfirmationModalScope;

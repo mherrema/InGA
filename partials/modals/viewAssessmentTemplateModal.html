@@ -60,6 +60,7 @@
             <h5 class="modal-table-title">Assessment Template Items</h5>
         </div>
     </div>
+    <button ng-click="editing = !editing">toggle</button>
     <table class="modal-table">
         <tr>
             <th>Order</th>
@@ -73,7 +74,7 @@
         </tr>
 <tr ng-repeat="item in template.AssessmentTemplateItems">
     <td>{{item.Item.ItemOrder}}</td>
-    <td>{{item.Item.StandardTypeDescription}}</td>
+    <td>{{item.Item.StandardCode}}</td>
     <td>{{item.Item.ItemType.TypeName}}</td>
     <td>{{item.Item.CorrectScore}}</td>
     <td>{{item.Item.PointsMax}}</td>

@@ -24,7 +24,7 @@ var INGAApp;
                 // console.log($scope.newAssessmentItemForm);
             };
             $scope.ok = function () {
-                if ($scope.assessment.Items == undefined || $scope.assessment.Items.length == 0) {
+                if ($scope.assessment.Items === undefined || $scope.assessment.Items.length === 0) {
                     $scope.assessment.Items = [];
                 }
                 $scope.newAssessmentItem.ItemOrder = $scope.assessment.Items.length + 1;
@@ -33,11 +33,11 @@ var INGAApp;
                 // $scope.openNewAssessmentModal();
             };
             $scope.cancel = function () {
-                $uibModalInstance.dismiss('cancel');
+                $uibModalInstance.dismiss("cancel");
                 // $scope.openNewAssessmentModal();
             };
         }
-        AddStudentModalController.$inject = ['$scope', '$uibModalInstance', '$uibModal', 'mainService', 'assessment'];
+        AddStudentModalController.$inject = ["$scope", "$uibModalInstance", "$uibModal", "mainService", "assessment"];
         return AddStudentModalController;
     }(BaseController.Controller));
     INGAApp.AddStudentModalController = AddStudentModalController;

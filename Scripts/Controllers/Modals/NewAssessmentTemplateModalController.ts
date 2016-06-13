@@ -25,7 +25,12 @@ module INGAApp
     districtOptions: Array<District>,
     getCalendarOptions: Function,
     pageTitle: string,
-    highlightTitle: Function
+    highlightTitle: Function,
+    removeItemAtIndex: Function,
+    validateForm: Function,
+    errorText: string,
+    errors: ErrorObject,
+    resetField: Function
   }
 
   interface SelectedItem{
@@ -55,12 +60,17 @@ module INGAApp
               $scope.highlightTitle();
             },0);
 
+            $scope.errors = {};
 
         $scope.getGradeOptions();
         $scope.getSubjectOptions();
         $scope.getStandardTypeOptions();
         $scope.getCalendarOptions();
         $scope.getDistrictOptions();
+      }
+
+      $scope.removeItemAtIndex = function(index){
+        $scope.newAssessmentTemplate.AssessmentTemplateItems.splice(index, 1);
       }
 
       $scope.highlightTitle = function(){
@@ -123,14 +133,74 @@ module INGAApp
         }
       }
 
+      $scope.validateForm = function(){
+        var errorFree = true;
+        if($scope.newAssessmentTemplate.Title == undefined || $scope.newAssessmentTemplate.Title == ""){
+          $scope.errorText = "The assessment template must have a title";
+          $scope.errors.title = true;
+          errorFree = false;
+        }
+        if($scope.newAssessmentTemplate.District == undefined){
+          $scope.errorText = "The assessment template must be associated with a district";
+          $scope.errors.district = true;
+          errorFree = false;
+        }
+        if($scope.newAssessmentTemplate.Calendar == undefined){
+          $scope.errorText = "The assessment template must be associated with a calendar";
+          $scope.errors.calendar = true;
+          errorFree = false;
+        }
+        if($scope.newAssessmentTemplate.GradeLevel == undefined){
+          $scope.errorText = "The assessment must be associated with a grade level";
+          $scope.errors.gradeLevel = true;
+          errorFree = false;
+        }
+        if($scope.newAssessmentTemplate.Subject == undefined){
+          $scope.errorText = "The assessment must be associated with a subject";
+          $scope.errors.subject = true;
+          errorFree = false;
+        }
+        if($scope.newAssessmentTemplate.StandardType == undefined){
+          $scope.errorText = "The assessment must be associated with a standard type";
+          $scope.errors.standardType = true;
+          errorFree = false;
+        }
+        return errorFree;
+      }
+
+      $scope.resetField = function(field){
+        if(field == "title"){
+          $scope.errors.title = false;
+        }
+        if(field == "district"){
+          $scope.errors.district = false;
+        }
+        if(field == "calendar"){
+          $scope.errors.calendar = false;
+        }
+        if(field == "gradeLevel"){
+          $scope.errors.gradeLevel = false;
+        }
+        if(field == "subject"){
+          $scope.errors.subject = false;
+        }
+        if(field == "standardType"){
+          $scope.errors.standardType = false;
+        }
+      }
+
       $scope.makeAvailableToUsers = function(){
         console.log("Publish button clicked");
         // assessmentService.updateAssessmentTemplate({AssessmentTemplate: $scope.newAssessmentTemplate, ShouldRefresh: true, ShouldMakeAvailableToUsers: true});
-        $uibModalInstance.close({AssessmentTemplate: $scope.newAssessmentTemplate, ShouldRefresh: false, ShouldMakeAvailableToUsers: true});
+        if($scope.validateForm()){
+          $uibModalInstance.close({AssessmentTemplate: $scope.newAssessmentTemplate, ShouldRefresh: false, ShouldMakeAvailableToUsers: true});
+        }
       }
 
       $scope.ok = function () {
-        $uibModalInstance.close({AssessmentTemplate: $scope.newAssessmentTemplate, ShouldRefresh: false});
+        if($scope.validateForm()){
+          $uibModalInstance.close({AssessmentTemplate: $scope.newAssessmentTemplate, ShouldRefresh: false});
+        }
       };
 
       $scope.cancel = function () {

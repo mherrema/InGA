@@ -25,15 +25,21 @@ module INGAApp
     headingSortValue: Function,
     getFilterOptions: Function,
     currentFilters: string,
-    updateClassroomAssignments: Function
+    updateClassroomAssignments: Function,
+    schoolSearch: Function,
+    schoolString: string,
+    schoolSearchInput: string,
+    areRowsChecked: Function,
+    assignChecked: Function,
+    assignClassrooms: Function
   }
 
   export class AssessmentAssignmentController extends BaseController.Controller
   {
     scope: IAssessmentAssignmentScope;
-    static $inject = ['$scope', '$timeout', '$uibModal', 'mainService', 'assessmentService', 'filterService'];
+    static $inject = ['$scope', '$timeout', '$uibModal', 'mainService', 'assessmentService', 'filterService', 'notificationService'];
 
-    constructor( $scope: IAssessmentAssignmentScope, $timeout: ng.ITimeoutService, $uibModal: ng.ui.bootstrap.IModalService, mainService: MainService, assessmentService: AssessmentService, filterService: FilterService)
+    constructor( $scope: IAssessmentAssignmentScope, $timeout: ng.ITimeoutService, $uibModal: ng.ui.bootstrap.IModalService, mainService: MainService, assessmentService: AssessmentService, filterService: FilterService, notificationService: NotificationService)
     {
       super( $scope );
       var controller = this;
@@ -42,7 +48,7 @@ module INGAApp
 
       $scope.init = function(){
         mainService.setPageTitles("Assessment Assignment", "Assessment Assignment");
-
+        $scope.currentFilters = "";
         $scope.currentAssessment = assessmentService.currentSelectedDistrictAssessment;
 
         $scope.getClassrooms();
@@ -52,15 +58,22 @@ module INGAApp
 
         $scope.allChecked = false;
 
-        window.onclick = function () {
+        window.onclick = function (e) {
+          var container = $(".dropdown-input");
+
           if ($scope.justOpenedHeading) {
             $scope.headingOpen = true;
             $scope.justOpenedHeading = false;
             $scope.$apply();
           }
           else if ($scope.headingOpen) {
-            $scope.closeHeadings();
-            $scope.$apply();
+            if (!container.is(e.target) // if the target of the click isn't the container...
+            && container.has(<Element>e.target).length === 0) // ... nor a descendant of the container
+            {
+              $scope.closeHeadings();
+              $scope.$apply();
+            }
+
           }
         }
 
@@ -74,7 +87,7 @@ module INGAApp
 
 
       $scope.getClassrooms = function(){
-        assessmentService.getClassrooms("").then(function(d: Array<Classroom>){
+        assessmentService.getClassrooms($scope.currentFilters).then(function(d: Array<Classroom>){
           $scope.currentClassrooms = d;
           $scope.updateClassroomAssignments();
           $scope.setHeadingDropdownWidth();
@@ -86,13 +99,88 @@ module INGAApp
           classroom.AssignedString = "Unassigned";
           classroom.IsAssigned = false;
           angular.forEach(classroom.ClassroomAssessments, function(assessment){
-            if(assessment.ClassroomKey == classroom.ClassroomKey){
+            if(assessment.DistrictAssessmentKey == $scope.currentAssessment.DistrictAssessmentKey){
               classroom.AssignedString = "Assigned";
               classroom.IsAssigned = true;
             }
           });
         });
       }
+
+
+      $scope.assignChecked = function(){
+        if($scope.areRowsChecked()){
+
+          var confirmationPackage:ConfirmationPackage = {Action: "assign", Objects: "these classrooms?"}
+
+          var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'partials/modals/dialog/confirmationModal.html',
+            controller: 'ConfirmationModalController',
+            size: "lg",
+            resolve: {
+              confirmationPackage: function () {
+                return confirmationPackage
+              }
+            }
+          });
+
+          modalInstance.result.then(function () {
+              $scope.assignClassrooms();
+          });
+        }
+      }
+
+      $scope.assignClassrooms = function(){
+        // var assessmentsDeleted : Array<number> = [];
+        angular.forEach($scope.currentClassrooms, function (classroom) {
+          if(classroom.checked && classroom.AssignedString != "Assigned"){
+
+            assessmentService.assignAssessment(classroom.ClassroomKey).then(function(res: ReturnPackage){
+              if(res.Success){
+                //success
+                for(var i = $scope.currentClassrooms.length - 1; i >= 0; i--){
+                  $scope.currentClassrooms[i].checked = false;
+                  if($scope.currentClassrooms[i].ClassroomKey == classroom.ClassroomKey){
+                    $scope.currentClassrooms[i].AssignedString = "Assigned";
+                  }
+                }
+                notificationService.showNotification("Success assigning assessment", "success");
+
+              }
+              else{
+                notificationService.showNotification("Error while assigning assessment", "error")
+              }
+            })
+            .catch(function(res){
+              notificationService.showNotification("Error while assigning assessment", "error")
+            });
+          }
+        });
+      }
+
+      $scope.areRowsChecked = function(){
+        var returnVal = false;
+        angular.forEach($scope.currentClassrooms, function (classroom) {
+          if(classroom.checked)
+          {
+            returnVal = true;
+          }
+        });
+        return returnVal;
+      }
+
+
+
+
+
+
+
+
+
+
+
+
 
       $scope.setHeadingDropdownWidth = function(){
         $timeout(function () {
@@ -132,11 +220,23 @@ module INGAApp
         }
       }
 
+      $scope.schoolSearch = function(searchInput){
+        $scope.schoolString = searchInput;
+        $scope.checkFilters();
+      }
+
       //open table heading filtration
-      $scope.openHeading = function (heading) {
+      $scope.openHeading = function (heading:HeadingOption, $event) {
         $scope.closeHeadings();
-        heading.open = true;
-        $scope.justOpenedHeading = true;
+        if(heading.filterable){
+          heading.open = true;
+          $scope.justOpenedHeading = true;
+          var headingObject = $($event.currentTarget).parent("th");
+          if(headingObject.find("input").length){
+            var inputObject = headingObject.find("input")[0];
+            $timeout(function(){$(inputObject).focus();},0);
+          }
+        }
       }
 
       //close all table heading filters
@@ -161,24 +261,55 @@ module INGAApp
       }
 
       $scope.checkFilters = function () {
+        $scope.currentFilters = "";
         $scope.areOptionsSelected = false;
         angular.forEach($scope.headingOptions, function (value, key) {
           if(value.selected != undefined){
           if (value.selected.Value != "") {
+            if($scope.currentFilters == ""){
+              $scope.currentFilters += "?";
+            }
+            else{
+              $scope.currentFilters += "&";
+            }
+            $scope.currentFilters += value.heading + "=" + value.selected.Value;
             $scope.areOptionsSelected = true;
-            return;
+          }
+          if(value.heading == "Status"){
+            if (value.selected.Value != "") {
+              $scope.currentFilters += "&DistrictAssessment=" + $scope.currentAssessment.DistrictAssessmentKey;
+            }
           }
         }
         });
+
+        if($scope.schoolString != undefined && $scope.schoolString.length){
+          if($scope.currentFilters == ""){
+            $scope.currentFilters += "?";
+          }
+          else{
+            $scope.currentFilters += "&";
+          }
+          $scope.areOptionsSelected = true;
+          $scope.currentFilters += "School=" + $scope.schoolString;
+        }
+
+        $scope.getClassrooms();
       }
 
       $scope.clearFilters = function (input) {
         angular.forEach($scope.headingOptions, function (value, key) {
           value.selected = { Key: "", Value: "" };
+          if(value.input){
+            //value.input = "";
+          }
         });
-
+        $scope.schoolSearchInput = "";
+        $scope.schoolString = "";
+        $scope.searchOpen = false;
         $scope.areOptionsSelected = false;
         $scope.closeHeadings();
+        $scope.checkFilters();
       };
 
 

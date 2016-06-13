@@ -10,8 +10,8 @@ var INGAApp;
         function MainService($http) {
             _super.call(this);
             this.$http = $http;
-            // this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
-            this.apiRoot = "http://172.21.255.58:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+            this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+            // this.apiRoot = "http://172.21.255.61:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
         }
         MainService.prototype.setPageTitles = function (pageTitle, pageTypeTitle) {
             this.pageTitle = pageTitle;
@@ -94,6 +94,15 @@ var INGAApp;
             var promise = this.$http.get(this.apiRoot + 'Options/AssessmentTemplate/')
                 .then(function (response) {
                 self.assessmentTemplateOptions = response.data;
+                return response.data;
+            });
+            return promise;
+        };
+        MainService.prototype.getStandardOptions = function (searchString) {
+            var self = this;
+            var promise = this.$http.get(this.apiRoot + 'Options/Standard/?SearchString=' + searchString)
+                .then(function (response) {
+                self.standardOptions = response.data;
                 return response.data;
             });
             return promise;

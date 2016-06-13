@@ -298,10 +298,17 @@ var INGAApp;
                 $scope.checkFilters();
             };
             //open table heading filtration
-            $scope.openHeading = function (heading) {
+            $scope.openHeading = function (heading, $event) {
                 $scope.closeHeadings();
-                heading.open = true;
-                $scope.justOpenedHeading = true;
+                if (heading.filterable) {
+                    heading.open = true;
+                    $scope.justOpenedHeading = true;
+                    var headingObject = $($event.currentTarget).parent("th");
+                    if (headingObject.find("input").length) {
+                        var inputObject = headingObject.find("input")[0];
+                        $timeout(function () { $(inputObject).focus(); }, 0);
+                    }
+                }
             };
             //close all table heading filters
             $scope.closeHeadings = function () {

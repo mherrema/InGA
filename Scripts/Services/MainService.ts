@@ -16,13 +16,14 @@ module INGAApp {
     standardTypeOptions: Array<StandardType>;
     assessmentTemplateOptions: Array<AssessmentTemplate>;
     districtOptions: Array<District>;
+    standardOptions: Array<Standard>;
     apiRoot: string;
 
     constructor($http: ng.IHttpService) {
       super();
       this.$http = $http;
-      // this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
-      this.apiRoot = "http://172.21.255.58:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+      this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+      // this.apiRoot = "http://172.21.255.61:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
     }
 
     setPageTitles(pageTitle: string, pageTypeTitle: string): void{
@@ -122,6 +123,17 @@ module INGAApp {
       var promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> = this.$http.get(this.apiRoot + 'Options/AssessmentTemplate/')
       .then(function(response){
         self.assessmentTemplateOptions = <Array<AssessmentTemplate>>response.data;
+        return response.data;
+      });
+
+      return promise;
+    }
+
+    getStandardOptions(searchString: string): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
+      var self:MainService = this;
+      var promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> = this.$http.get(this.apiRoot + 'Options/Standard/?SearchString=' + searchString)
+      .then(function(response){
+        self.standardOptions = <Array<Standard>>response.data;
         return response.data;
       });
 

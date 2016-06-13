@@ -14,6 +14,7 @@ module INGAApp {
     $q: ng.IQService;
     mainService: MainService;
     assessmentSearchCanceler :ng.IDeferred<ng.IHttpPromiseCallbackArg<{}>>;
+    classroomSearchCanceler :ng.IDeferred<ng.IHttpPromiseCallbackArg<{}>>;
     currentSelectedDistrictAssessment: DistrictAssessment;
     currentSelectedAssessmentTemplate: AssessmentTemplate;
     needToReloadTemplates: boolean;
@@ -24,9 +25,10 @@ module INGAApp {
       this.$http = $http;
       this.$q = $q;
       this.mainService = mainService;
-      // this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
-      this.apiRoot = "http://172.21.255.58:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+      this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+      // this.apiRoot = "http://172.21.255.61:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
       this.assessmentSearchCanceler = $q.defer();
+      this.classroomSearchCanceler = $q.defer();
       this.currentDistrictAssessments = [];
       this.currentAssessmentTemplates = [];
       this.needToReloadTemplates = true;
@@ -34,7 +36,8 @@ module INGAApp {
 
     getDistrictAssessments(filterString): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
       console.log("Getting Assessments From Service");
-
+      this.assessmentSearchCanceler.resolve();
+      this.assessmentSearchCanceler = this.$q.defer();
       var self = this;
       this.promise = this.$http.get(this.apiRoot + 'DistrictAssessment/' + filterString,
       {timeout : this.assessmentSearchCanceler.promise})
@@ -42,6 +45,14 @@ module INGAApp {
         if(filterString == ""){
           this.nonFilteredDistrictAssessments = response.data;
         }
+        angular.forEach(response.data, function(assessment){
+          if(assessment.IsArchived){
+            assessment.Status = "Archived";
+          }
+          else if(assessment.IsPublished){
+            assessment.Status = "Published";
+          }
+        });
         self.currentDistrictAssessments = <Array<DistrictAssessment>>response.data;
         return response.data;
       });
@@ -141,9 +152,10 @@ module INGAApp {
 
     getClassrooms(filterString): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
       console.log("Getting Classroom Assessments From Service");
-
+      this.classroomSearchCanceler.resolve();
+      this.classroomSearchCanceler = this.$q.defer();
       this.promise = this.$http.get(this.apiRoot + 'Classroom/' + filterString,
-      {timeout : this.assessmentSearchCanceler.promise})
+      {timeout : this.classroomSearchCanceler.promise})
       .then(function(response){
         // if(filterString == ""){
         //   this.nonFilteredDistrictAssessments = response.data;
@@ -163,6 +175,19 @@ module INGAApp {
         if(filterString == ""){
           this.nonFilteredDistrictAssessments = response.data;
         }
+        return response.data;
+      });
+
+      return this.promise;
+    }
+
+    assignAssessment(classroomKey: number): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
+      console.log("Assigning assessment");
+      this.promise = this.$http.post(this.apiRoot + 'ClassroomAssessment/Assign/', { DistrictAssessmentKey : this.currentSelectedDistrictAssessment.DistrictAssessmentKey, ClassroomKey: classroomKey})
+      .then(function(response){
+          return response.data;
+      })
+      .catch(function(response){
         return response.data;
       });
 

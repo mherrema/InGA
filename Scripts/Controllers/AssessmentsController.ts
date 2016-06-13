@@ -395,10 +395,17 @@ module INGAApp
 
 
       //open table heading filtration
-      $scope.openHeading = function (heading) {
+      $scope.openHeading = function (heading:HeadingOption, $event) {
         $scope.closeHeadings();
-        heading.open = true;
-        $scope.justOpenedHeading = true;
+        if(heading.filterable){
+          heading.open = true;
+          $scope.justOpenedHeading = true;
+          var headingObject = $($event.currentTarget).parent("th");
+          if(headingObject.find("input").length){
+            var inputObject = headingObject.find("input")[0];
+            $timeout(function(){$(inputObject).focus();},0);
+          }
+        }
       }
 
       //close all table heading filters

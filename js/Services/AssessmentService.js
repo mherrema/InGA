@@ -12,21 +12,32 @@ var INGAApp;
             this.$http = $http;
             this.$q = $q;
             this.mainService = mainService;
-            // this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
-            this.apiRoot = "http://172.21.255.58:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+            this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+            // this.apiRoot = "http://172.21.255.61:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
             this.assessmentSearchCanceler = $q.defer();
+            this.classroomSearchCanceler = $q.defer();
             this.currentDistrictAssessments = [];
             this.currentAssessmentTemplates = [];
             this.needToReloadTemplates = true;
         }
         AssessmentService.prototype.getDistrictAssessments = function (filterString) {
             console.log("Getting Assessments From Service");
+            this.assessmentSearchCanceler.resolve();
+            this.assessmentSearchCanceler = this.$q.defer();
             var self = this;
             this.promise = this.$http.get(this.apiRoot + 'DistrictAssessment/' + filterString, { timeout: this.assessmentSearchCanceler.promise })
                 .then(function (response) {
                 if (filterString == "") {
                     this.nonFilteredDistrictAssessments = response.data;
                 }
+                angular.forEach(response.data, function (assessment) {
+                    if (assessment.IsArchived) {
+                        assessment.Status = "Archived";
+                    }
+                    else if (assessment.IsPublished) {
+                        assessment.Status = "Published";
+                    }
+                });
                 self.currentDistrictAssessments = response.data;
                 return response.data;
             });
@@ -110,7 +121,9 @@ var INGAApp;
         };
         AssessmentService.prototype.getClassrooms = function (filterString) {
             console.log("Getting Classroom Assessments From Service");
-            this.promise = this.$http.get(this.apiRoot + 'Classroom/' + filterString, { timeout: this.assessmentSearchCanceler.promise })
+            this.classroomSearchCanceler.resolve();
+            this.classroomSearchCanceler = this.$q.defer();
+            this.promise = this.$http.get(this.apiRoot + 'Classroom/' + filterString, { timeout: this.classroomSearchCanceler.promise })
                 .then(function (response) {
                 // if(filterString == ""){
                 //   this.nonFilteredDistrictAssessments = response.data;
@@ -126,6 +139,17 @@ var INGAApp;
                 if (filterString == "") {
                     this.nonFilteredDistrictAssessments = response.data;
                 }
+                return response.data;
+            });
+            return this.promise;
+        };
+        AssessmentService.prototype.assignAssessment = function (classroomKey) {
+            console.log("Assigning assessment");
+            this.promise = this.$http.post(this.apiRoot + 'ClassroomAssessment/Assign/', { DistrictAssessmentKey: this.currentSelectedDistrictAssessment.DistrictAssessmentKey, ClassroomKey: classroomKey })
+                .then(function (response) {
+                return response.data;
+            })
+                .catch(function (response) {
                 return response.data;
             });
             return this.promise;

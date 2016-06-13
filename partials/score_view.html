@@ -1,11 +1,12 @@
 <div class="row" ng-init="init()">
+  <!-- <pre>{{currentAssessment | json}}</pre> -->
     <div class="detail-row">
         <div class="col-sm-3">
             <span class="inline-detail"><h6><span class="detail-title"><strong>School:</strong></span> {{currentAssessment.School.SchoolName}}</h6>
             </span>
-            <span class="inline-detail"><h6><span class="detail-title"><strong>Course:</strong></span> {{currentAssessment.Course.CourseName}}</h6>
+            <span class="inline-detail"><h6><span class="detail-title"><strong>Course:</strong></span> {{currentAssessment.Classroom.Course.CourseName}}</h6>
             </span>
-            <span class="inline-detail"><h6><span class="detail-title"><strong>Std Type:</strong></span> {{currentAssessment.Standard.StandardType}}</h6>
+            <span class="inline-detail"><h6><span class="detail-title"><strong>Std Type:</strong></span> {{currentAssessment.StandardType.StandardTypeName}}</h6>
             </span>
             <!-- <span class="inline-detail"><h6><span class="detail-title"><strong>Term:</strong></span> Winter</h6>
             </span> -->
@@ -13,17 +14,17 @@
         <div class="col-sm-3">
             <span class="inline-detail"><h6><span class="detail-title"><strong>Teacher:</strong></span> {{currentAssessment.SchoolTeacher.FirstName}} {{currentAssessment.SchoolTeacher.LastName}} ({{currentAssessment.SchoolTeacher.TeacherNumber}})</h6>
             </span>
-            <span class="inline-detail"><h6><span class="detail-title"><strong>Section:</strong></span> 1(A)</h6>
+            <span class="inline-detail"><h6><span class="detail-title"><strong>Section:</strong></span> {{currentAssessment.Classroom.SectionNumber}}</h6>
             </span>
-            <span class="inline-detail"><h6><span class="detail-title"><strong>Subject:</strong></span> Art</h6>
+            <span class="inline-detail"><h6><span class="detail-title"><strong>Subject:</strong></span> {{currentAssessment.Subject.SubjectName}}</h6>
             </span>
         </div>
-        <div class="col-sm-6">
+        <!-- <div class="col-sm-6">
             <a href="score_student_view.html" class="btn inga-btn inga-btn-negative inga-icon-btn inactive float-right"><i class="glyphicon glyphicon-user"></i>
             </a>
             <a class="btn inga-btn inga-btn-negative inga-icon-btn float-right"><i class="glyphicon glyphicon-align-justify"></i>
             </a>
-        </div>
+        </div> -->
         <div class="clearfix"></div>
 
     </div>

@@ -34,6 +34,10 @@ var INGAApp;
                     if (newValue) {
                         assessmentService.getPublishedDistrictAssessments().then(function (d) {
                             $scope.assessmentOptions = d;
+                            if (assessmentService.currentSelectedDistrictAssessment == undefined) {
+                                $scope.assessmentToAssign = $scope.assessmentOptions[0];
+                                $scope.selectAssessment();
+                            }
                         });
                         $scope.assessmentToAssign = assessmentService.currentSelectedDistrictAssessment;
                     }

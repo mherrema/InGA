@@ -7,44 +7,45 @@
     <div class="row">
         <!-- <form> -->
             <div class="col-sm-12">
-                <div class="form-group">
+                <div class="form-group" ng-class="{'error': errors.title}">
                     <label for="inputEmail">Title</label>
-                    <input type="text" class="form-control" id="assessmentTemplateTitle" placeholder="Template title" ng-model="newAssessmentTemplate.Title">
+                    <input type="text" class="form-control" id="assessmentTemplateTitle" placeholder="Template title"
+                    ng-model="newAssessmentTemplate.Title" ng-focus="resetField('title')">
                 </div>
             </div>
             <div class="col-sm-6">
-                <div class="form-group">
+                <div class="form-group" ng-class="{'error': errors.district}">
                     <label for="inputEmail">District</label>
                     <select class="form-control ng-animate-disabled" ng-options="district as district.DistrictName for district in districtOptions track by district.DistrictKey"
-                    ng-model="newAssessmentTemplate.District"></select>
+                    ng-model="newAssessmentTemplate.District" ng-focus="resetField('district')"></select>
                 </div>
             </div>
             <div class="col-sm-6">
-                <div class="form-group">
+                <div class="form-group" ng-class="{'error': errors.calendar}">
                     <label for="inputEmail">Calendar</label>
                     <select class="form-control ng-animate-disabled" ng-options="calendar as calendar.CalendarName for calendar in calendarOptions track by calendar.CalendarKey"
-                    ng-model="newAssessmentTemplate.Calendar"></select>
+                    ng-model="newAssessmentTemplate.Calendar" ng-focus="resetField('calendar')"></select>
                 </div>
             </div>
             <div class="col-sm-4">
-                <div class="form-group">
+                <div class="form-group" ng-class="{'error': errors.gradeLevel}">
                     <label for="inputEmail">Grade Level</label>
                     <select class="form-control ng-animate-disabled" ng-options="grade as grade.GradeLevelName for grade in gradeOptions track by grade.GradeLevelKey"
-                    ng-model="newAssessmentTemplate.GradeLevel"></select>
+                    ng-model="newAssessmentTemplate.GradeLevel" ng-focus="resetField('gradeLevel')"></select>
                 </div>
             </div>
             <div class="col-sm-4">
-                <div class="form-group">
+                <div class="form-group" ng-class="{'error': errors.subject}">
                     <label for="inputEmail">Subject</label>
                     <select class="form-control ng-animate-disabled" ng-options="subject as subject.SubjectName for subject in subjectOptions track by subject.SubjectKey"
-                    ng-model="newAssessmentTemplate.Subject"></select>
+                    ng-model="newAssessmentTemplate.Subject" ng-focus="resetField('subject')"></select>
                 </div>
             </div>
             <div class="col-sm-4">
-                <div class="form-group">
+                <div class="form-group" ng-class="{'error': errors.standardType}">
                     <label for="inputEmail">Standard Type</label>
                     <select class="form-control ng-animate-disabled" ng-options="standardType as standardType.StandardTypeName for standardType in standardTypeOptions track by standardType.StandardTypeKey"
-                    ng-model="newAssessmentTemplate.StandardType" ></select>
+                    ng-model="newAssessmentTemplate.StandardType" ng-focus="resetField('standardType')"></select>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -81,8 +82,8 @@
               <td colspan="5">No records to display</td>
           </tr>
         <tr ng-repeat="item in newAssessmentTemplate.AssessmentTemplateItems">
-            <td>{{item.Item.ItemOrder}}</td>
-            <td>{{item.Item.Rank}}</td>
+            <td class="editing"><i class="glyphicon glyphicon-remove"></i>{{item.Item.ItemOrder}}</td>
+            <td>{{item.Item.StandardCode}}</td>
             <td>{{item.Item.ItemType.TypeName}}</td>
             <td>{{item.Item.CorrectScore}}</td>
             <td>{{item.Item.PointsMax}}</td>

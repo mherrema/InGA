@@ -5,13 +5,14 @@
             </span>
             <span class="inline-detail"><h6><span class="detail-title"><strong>Calendar:</strong></span> {{currentAssessment.Calendar.CalendarName}}</h6>
             </span>
-            <span class="inline-detail"><h6><span class="detail-title"><strong>Std Type:</strong></span> {{currentAssessment.StandardType.StandardTypeName}}</h6>
-            </span>
+
             <!-- <span class="inline-detail"><h6><span class="detail-title"><strong>Term:</strong></span> Winter</h6>
             </span> -->
         </div>
         <div class="col-sm-3">
             <span class="inline-detail"><h6><span class="detail-title"><strong>School Year:</strong></span> {{currentAssessment.SchoolYear.SchoolYearName}}</h6>
+            </span>
+            <span class="inline-detail"><h6><span class="detail-title"><strong>Std Type:</strong></span> {{currentAssessment.StandardType.StandardTypeName}}</h6>
             </span>
             <!-- <span class="inline-detail"><h6><span class="detail-title"><strong>Section:</strong></span> 1(A)</h6>
             </span>
@@ -23,23 +24,51 @@
 
     </div>
 </div>
+<div class="row above-table-actions-row" ng-init="init()">
+  <ul class="above-table-actions">
+    <li class="above-table-action-left above-table-action" ng-click="assignChecked()" >Assign
+    </li>
+    <!-- <li class="above-table-action-left" ng-click="deleteChecked()">delete
+    </li> -->
+    <li class="above-table-action-left" ng-if="areOptionsSelected" ng-click="clearFilters()">Clear Filters
+    </li>
+    <!-- <li class="above-table-action-right above-table-action above-table-dropdown-action" ng-click="toggleExtraFiltersOpen()">View: <span class="dropdown-text">{{selectedExtraFilter}}</span> <span class="caret"></span>
+      <div class="action-dropdown" ng-class="{'open': extraFiltersOpen}">
+        <div class="dropdown-content">
+          <div class="dropdown-title" ng-click="toggleViewDropdown()">
+            View
+          </div>
+          <ul class="dropdown-list">
+            <li ng-click="selectExtraFilterOption('all')">All</li>
+            <li ng-click="selectExtraFilterOption('published')">Published</li>
+            <li ng-click="selectExtraFilterOption('archived')">Archived</li>
+            <li ng-click="selectExtraFilterOption('templates')">Templates</li>
+          </ul>
+        </div>
+      </div>
+    </li> -->
+    <!-- <li class="above-table-action-right action-with-icon toggle-button" ng-class="{'active': publishedActive}" ng-click="togglePublished()">Only Published</li>
+    <li class="above-table-action-right action-with-icon toggle-button" ng-class="{'active': templatesActive}" ng-click="toggleTemplates()">Show Templates</li> -->
+    <!--                <li style="float:right;"><button class="btn  inga-btn inga-btn-positive">Add Student</button></li>-->
+  </ul>
+</div>
 <div class="row">
     <table class="inga-table" style="position:relative;">
           <tr>
             <!--                    <th><span style="float:left;"><input type="checkbox" /></span><span style="float:left;">Title</span><span class="glyphicon glyphicon-search search-icon"></span></th>-->
             <th>
               <div class="search-box no-highlight" ng-class="{'open' : searchOpen}">
-                <input type="checkbox" class="always-transparent"/>
+                <input type="checkbox" ng-model="allChecked" ng-change="toggleAllChecked()"/>
                 <span class="search-box-title">School</span><span class="glyphicon glyphicon-search search-icon" ng-click="toggleSearchOpen()"></span><span class="search-box-textbox-span">
-                  <input id="studentSearchInput" ng-model="studentSearchInput" type="text" class="search-input-textbox" placeholder="Search Students" uib-typeahead="address for address in studentSearch($viewValue)" typeahead-min-length="0" my-focus>
+                  <input id="schoolSearchInput" ng-model="schoolSearchInput" type="text" class="search-input-textbox" placeholder="Search Schools" uib-typeahead="school for school in schoolSearch($viewValue)" typeahead-min-length="0" my-focus>
                 </span>
               </div>
             </th>
             <th ng-repeat="heading in headingOptions">
-              <div class="heading-title" ng-click="openHeading(heading)">
+              <div class="heading-title" ng-click="openHeading(heading, $event)" ng-class="{'no-click': !heading.filterable}">
                 {{heading.heading}}
-                <span class="caret"></span>
-                <p class="heading-title-selected" ng-if="heading.selected.key">{{heading.selected.key}}</p>
+                <span class="caret" ng-if="heading.filterable"></span>
+                <p class="heading-title-selected" ng-if="heading.selected.Key">{{heading.selected.Key}}</p>
               </div>
               <div class="table-heading-dropdown" ng-class="{'open' : heading.open, 'other-option-selected' : areOptionsSelected, 'option-selected' : heading.selected.Key}">
                 <div class="table-heading-dropdown-content">
@@ -47,7 +76,8 @@
                     {{heading.heading}}
                     <span class="caret"></span>
                   </div>
-                  <ul class="dropdown-list">
+                  <input ng-if="heading.input" typeahead-on-select="selectHeadingOption(heading, $item)" type="text" ng-model="heading.selected" uib-typeahead="state as state.Key for state in heading.options | orderBy: heading.Key | filter:$viewValue | limitTo:8" class="form-control dropdown-input">
+                  <ul ng-if="!heading.input" class="dropdown-list">
                     <li ng-click="selectHeadingOption(heading, option)" ng-class="{'selected' : option == heading.selected}" ng-repeat="option in heading.options | orderBy: itemSortValue">{{option.Key}}</li>
                   </ul>
                 </div>

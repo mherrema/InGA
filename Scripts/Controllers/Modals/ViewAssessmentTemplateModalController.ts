@@ -67,9 +67,9 @@ module INGAApp
           if(assessmentTemplatePackage.ShouldMakeAvailableToUsers){
             assessmentTemplatePackage.AssessmentTemplate.AvailableToUsers = true;
           }
-          else{
-            assessmentTemplatePackage.AssessmentTemplate.AvailableToUsers = false;
-          }
+          // else{
+          //   assessmentTemplatePackage.AssessmentTemplate.AvailableToUsers = false;
+          // }
           assessmentService.updateAssessmentTemplate(assessmentTemplatePackage).then(function(d: boolean){
             if(d){
               //show success!

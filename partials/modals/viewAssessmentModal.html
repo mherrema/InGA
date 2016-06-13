@@ -86,7 +86,7 @@
         </tr>
 <tr ng-repeat="item in assessment.DistrictAssessmentItems">
     <td>{{item.Item.ItemOrder}}</td>
-    <td>{{item.Item.StandardTypeDescription}}</td>
+    <td>{{item.Item.StandardCode}}</td>
     <td>{{item.Item.ItemType.TypeName}}</td>
     <td>{{item.Item.CorrectScore}}</td>
     <td>{{item.Item.PointsMax}}</td>
@@ -94,9 +94,9 @@
     </table>
 
     <div class="row below-table-btn-row">
-        <button class="btn inga-btn inga-btn-positive right-btn" ng-click="goToAssign()" ng-if="assessment.IsPublished">Assign</button>
+        <button class="btn inga-btn inga-btn-positive right-btn" ng-click="goToAssign()" ng-if="assessment.IsPublished && !assessment.IsArchived">Assign</button>
         <button class="btn inga-btn inga-btn-positive right-btn" ng-click="publish()" ng-if="!assessment.IsPublished">Publish</button>
-        <button class="btn inga-btn inga-btn-negative right-btn" ng-click="editAssessment()">Edit Assessment</button>
+        <button class="btn inga-btn inga-btn-negative right-btn" ng-click="editAssessment()" ng-if="!assessment.IsArchived">Edit Assessment</button>
         <button class="btn inga-btn inga-btn-negative right-btn" ng-click="ok()">OK</button>
     </div>
 </div>

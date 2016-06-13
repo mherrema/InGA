@@ -1,43 +1,39 @@
-module INGAApp
-{
+namespace INGAApp {
 
-  interface IAddStudentModalScope extends BaseController.IScope
-  {
-    assessment: DistrictAssessment,
-    ok: Function,
-    cancel: Function,
-    openNewAssessmentModal: Function,
-    newAssessmentItem: Item,
-    itemTypeOptions: Array<ItemType>,
-    pointsStepOptions: Array<PointsStepOption>,
-    newAssessmentItemForm: NewItemForm,
-    initFormValidation: Function
+  interface IAddStudentModalScope extends BaseController.IScope {
+    assessment: DistrictAssessment;
+    ok: Function;
+    cancel: Function;
+    openNewAssessmentModal: Function;
+    newAssessmentItem: Item;
+    itemTypeOptions: Array<ItemType>;
+    pointsStepOptions: Array<PointsStepOption>;
+    newAssessmentItemForm: NewItemForm;
+    initFormValidation: Function;
   }
 
-  interface SelectedItem{
-    item: string
+  interface SelectedItem {
+    item: string;
   }
 
   interface NewItemForm extends ng.IFormController {
-    ItemType?: ItemType,
-    PointsMin: ng.INgModelController
+    ItemType?: ItemType;
+    PointsMin: ng.INgModelController;
   }
 
-  interface PointsStepOption{
-    Title: string,
-    Step: number
+  interface PointsStepOption {
+    Title: string;
+    Step: number;
   }
 
 
-  export class AddStudentModalController extends BaseController.Controller
-  {
+  export class AddStudentModalController extends BaseController.Controller {
     scope: IAddStudentModalScope;
-    static $inject = ['$scope', '$uibModalInstance', '$uibModal', 'mainService', 'assessment'];
+    static $inject = ["$scope", "$uibModalInstance", "$uibModal", "mainService", "assessment"];
 
-    constructor( $scope: IAddStudentModalScope, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $uibModal: ng.ui.bootstrap.IModalService, mainService:MainService, assessment:DistrictAssessment)
-    {
+    constructor( $scope: IAddStudentModalScope, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, $uibModal: ng.ui.bootstrap.IModalService, mainService: MainService, assessment: DistrictAssessment) {
       super( $scope );
-      var controller = this;
+      let controller = this;
 
       $scope.assessment = assessment;
       $scope.newAssessmentItem = {};
@@ -47,17 +43,17 @@ module INGAApp
       $scope.newAssessmentItem.ItemType = {ItemTypeKey: 1, TypeName: "Multiple Choice"};
 
       $scope.itemTypeOptions = mainService.getItemTypeOptions();
-      $scope.pointsStepOptions = [{Step: 1.0, Title: "1.0"},{Step: 0.5, Title: "0.5"},{Step: 0.2, Title: "0.2"},{Step: 0.1, Title: "0.1"},{Step: 0, Title: "All Values In Range"}];
+      $scope.pointsStepOptions = [{Step: 1.0, Title: "1.0"}, {Step: 0.5, Title: "0.5"}, {Step: 0.2, Title: "0.2"}, {Step: 0.1, Title: "0.1"}, {Step: 0, Title: "All Values In Range"}];
 
       $scope.initFormValidation = function(){
         // $scope.newAssessmentItemForm.PointsMin = 0;
         $scope.newAssessmentItemForm.PointsMin.$setValidity("pointsmin", ($scope.newAssessmentItem.PointsMin < $scope.newAssessmentItem.PointsMax));
         // console.log($scope.newAssessmentItemForm);
-      }
+      };
 
       $scope.ok = function () {
 
-        if($scope.assessment.Items == undefined || $scope.assessment.Items.length == 0){
+        if ($scope.assessment.Items === undefined || $scope.assessment.Items.length === 0) {
           $scope.assessment.Items = [];
         }
 
@@ -70,7 +66,7 @@ module INGAApp
       };
 
       $scope.cancel = function () {
-        $uibModalInstance.dismiss('cancel');
+        $uibModalInstance.dismiss("cancel");
         // $scope.openNewAssessmentModal();
       };
 

@@ -50,9 +50,9 @@ var INGAApp;
                     if (assessmentTemplatePackage.ShouldMakeAvailableToUsers) {
                         assessmentTemplatePackage.AssessmentTemplate.AvailableToUsers = true;
                     }
-                    else {
-                        assessmentTemplatePackage.AssessmentTemplate.AvailableToUsers = false;
-                    }
+                    // else{
+                    //   assessmentTemplatePackage.AssessmentTemplate.AvailableToUsers = false;
+                    // }
                     assessmentService.updateAssessmentTemplate(assessmentTemplatePackage).then(function (d) {
                         if (d) {
                             //show success!

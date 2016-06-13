@@ -11,10 +11,10 @@
               </div>
             </th>
             <th ng-repeat="heading in headingOptions">
-              <div class="heading-title" ng-click="openHeading(heading)">
+              <div class="heading-title" ng-click="openHeading(heading, $event)" ng-class="{'no-click': !heading.filterable}">
                 {{heading.heading}}
-                <span class="caret"></span>
-                <p class="heading-title-selected" ng-if="heading.selected.key">{{heading.selected.key}}</p>
+                <span class="caret" ng-if="heading.filterable"></span>
+                <p class="heading-title-selected" ng-if="heading.selected.Key">{{heading.selected.Key}}</p>
               </div>
               <div class="table-heading-dropdown" ng-class="{'open' : heading.open, 'other-option-selected' : areOptionsSelected, 'option-selected' : heading.selected.Key}">
                 <div class="table-heading-dropdown-content">
@@ -22,7 +22,8 @@
                     {{heading.heading}}
                     <span class="caret"></span>
                   </div>
-                  <ul class="dropdown-list">
+                  <input ng-if="heading.input" typeahead-on-select="selectHeadingOption(heading, $item)" type="text" ng-model="heading.selected" uib-typeahead="state as state.Key for state in heading.options | orderBy: heading.Key | filter:$viewValue | limitTo:8" class="form-control dropdown-input">
+                  <ul ng-if="!heading.input" class="dropdown-list">
                     <li ng-click="selectHeadingOption(heading, option)" ng-class="{'selected' : option == heading.selected}" ng-repeat="option in heading.options | orderBy: itemSortValue">{{option.Key}}</li>
                   </ul>
                 </div>
@@ -33,10 +34,10 @@
           <tr ng-repeat="assessment in currentClassroomAssessments" ng-class="{'selected': assessment.checked}" ng-click="goToDataEntry(assessment)">
             <td>
               <input type="checkbox" class="always-transparent" noclick />{{assessment.Title}}</td>
-              <td>{{assessment.GradeLevel.GradeLevelName}}</td>
-              <td>{{assessment.Subject.SubjectName}}</td>
-              <td>{{assessment.Term}}</td>
-              <td>{{assessment.SchoolYear.SchoolYearNameShort}}</td>
+              <td>{{assessment.SchoolTeacher.LastName}}, {{assessment.SchoolTeacher.FirstName}} ({{assessment.SchoolTeacher.TeacherNumber}})</td>
+              <td>{{assessment.Classroom.Course.CourseName}}</td>
+              <td>{{assessment.Classroom.SectionNumber}}</td>
+              <td>{{assessment.Classroom.ScheduleTerm.TermName}}</td>
               <td></td>
             </tr>
     </table>
