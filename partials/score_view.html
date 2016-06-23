@@ -31,16 +31,28 @@
 </div>
 <div class="row above-table-actions-row">
     <ul class="above-table-actions">
-        <li class="above-table-action-left">Show All
+        <!-- <li class="above-table-action-left" ng-if="areStudentsHidden" ng-click="showAllStudents()">Show All
         </li>
-        <li class="above-table-action-left">Hide selected
+        <li class="above-table-action-left" ng-if="areRowsChecked()" ng-click="hideChecked()">Hide selected
+        </li> -->
+        <li class="above-table-action-left" ng-if="areRowsChecked()" ng-click="removeChecked()">Remove selected
         </li>
-        <li class="above-table-action-left">Remove selected
+        <li class="above-table-action-left" >
+          Marking Period
         </li>
-        <li class="above-table-action-left">Absent
+        <li class="above-table-action-left" ng-if="currentAssessment.Calendar.MarkingPeriods">
+          <select class="form-control" ng-options="markingPeriod as markingPeriod.Name for markingPeriod in currentAssessment.Calendar.MarkingPeriods"
+          ng-model="$parent.selectedMarkingPeriod" ng-change="selectMarkingPeriod($parent.selectedMarkingPeriod)"></select>
         </li>
-        <li class="above-table-action-left">Export to excel
+        <li class="above-table-action-left" ng-if="selectedMarkingPeriod.Children.length > 0">
+          <select class="form-control" ng-options="markingPeriod as markingPeriod.Name for markingPeriod in selectedMarkingPeriod.Children"
+          ng-model="$parent.selectedMarkingPeriodChild" ng-change="selectMarkingPeriod($parent.selectedMarkingPeriodChild)"></select>
         </li>
+        <!-- <li class="above-table-action-left" ng-if="areRowsChecked()">Absent
+        </li> -->
+        <!-- <li class="above-table-action-left">Export to excel
+        </li> -->
+        <button ng-click="saveAndExit()">asdf</button>
         <!--
         <li class="above-table-action-right above-table-action">View: <span class="dropdown-text" ng-click="toggleViewDropdown()">active</span> <span class="caret"></span>
             <div class="action-dropdown {{view}}">
@@ -63,7 +75,7 @@
     </ul>
 </div>
 <div class="row">
-    <div id="grid1" ui-grid="gridOptions" ui-grid-edit ui-grid-cellnav ui-grid-pinning class="grid"></div>
+    <div id="grid1" ui-grid="gridOptions" ui-grid-edit ui-grid-cellnav ui-grid-pinning ui-grid-validate class="grid"></div>
 
     <!-- <table class="inga-table score-entry-table" style="position:relative;">
         <thead>

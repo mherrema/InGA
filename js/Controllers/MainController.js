@@ -34,7 +34,7 @@ var INGAApp;
                     if (newValue) {
                         assessmentService.getPublishedDistrictAssessments().then(function (d) {
                             $scope.assessmentOptions = d;
-                            if (assessmentService.currentSelectedDistrictAssessment == undefined) {
+                            if (assessmentService.currentSelectedDistrictAssessment === undefined) {
                                 $scope.assessmentToAssign = $scope.assessmentOptions[0];
                                 $scope.selectAssessment();
                             }
@@ -52,8 +52,8 @@ var INGAApp;
             $scope.openNewAssessmentModal = function (size) {
                 var modalInstance = $uibModal.open({
                     animation: true,
-                    templateUrl: 'partials/modals/newAssessmentModal.html',
-                    controller: 'NewAssessmentModalController',
+                    templateUrl: "partials/modals/newAssessmentModal.html",
+                    controller: "NewAssessmentModalController",
                     size: "lg",
                     resolve: {
                         assessment: function () {
@@ -66,9 +66,15 @@ var INGAApp;
                     assessmentService.saveAssessment(assessmentPackage).then(function (res) {
                         if (res.Success) {
                             assessmentPackage.Assessment.DistrictAssessmentKey = res.Key;
+                            if (assessmentPackage.Assessment.SelectedCalendar.$selected.CalendarKey) {
+                                assessmentPackage.Assessment.Calendar = { CalendarName: assessmentPackage.Assessment.SelectedCalendar.$selected.Title };
+                            }
+                            else if (assessmentPackage.Assessment.SelectedCalendar.$selected.MarkingPeriodKey) {
+                                assessmentPackage.Assessment.MarkingPeriod = { Name: assessmentPackage.Assessment.SelectedCalendar.$selected.Title };
+                            }
                             assessmentService.currentDistrictAssessments.push(assessmentPackage.Assessment);
                             notificationService.showNotification("Success saving assessment", "success");
-                            //show success!
+                            // show success!
                             if (assessmentPackage.ShouldPublish) {
                                 console.log("Going to assessment view");
                             }
@@ -82,8 +88,8 @@ var INGAApp;
             $scope.openNewMasterTemplateModal = function () {
                 var modalInstance = $uibModal.open({
                     animation: true,
-                    templateUrl: 'partials/modals/newAssessmentTemplateModal.html',
-                    controller: 'NewAssessmentTemplateModalController',
+                    templateUrl: "partials/modals/newAssessmentTemplateModal.html",
+                    controller: "NewAssessmentTemplateModalController",
                     size: "lg",
                     resolve: {
                         assessment: function () {
@@ -101,12 +107,12 @@ var INGAApp;
                     assessmentService.saveAssessmentTemplate(assessmentTemplatePackage).then(function (res) {
                         if (res.Success) {
                             assessmentTemplatePackage.AssessmentTemplate.AssessmentTemplateKey = res.Key;
-                            if (assessmentService.currentAssessmentTemplates.length == 0) {
+                            if (assessmentService.currentAssessmentTemplates.length === 0) {
                                 assessmentService.needToReloadTemplates = true;
                             }
                             assessmentService.currentAssessmentTemplates.push(assessmentTemplatePackage.AssessmentTemplate);
                             notificationService.showNotification("Success saving assessment template", "success");
-                            //show success!
+                            // show success!
                             if (assessmentTemplatePackage.ShouldMakeAvailableToUsers) {
                                 console.log("Going to assessment template view");
                             }
@@ -121,7 +127,7 @@ var INGAApp;
                 $location.path("/dataEntry");
             };
         }
-        MainController.$inject = ['$scope', '$location', '$log', '$uibModal', 'mainService', 'assessmentService', 'notificationService'];
+        MainController.$inject = ["$scope", "$location", "$log", "$uibModal", "mainService", "assessmentService", "notificationService"];
         return MainController;
     }(BaseController.Controller));
     INGAApp.MainController = MainController;

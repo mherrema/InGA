@@ -1,16 +1,18 @@
 ///<reference path="../typings/angularjs/angular.d.ts"/>
 ///<reference path="../typings/angularjs/angular-route.d.ts"/>
 ///<reference path="../typings/angular-ui-bootstrap/angular-ui-bootstrap.d.ts"/>
+///<reference path="../typings/ui-grid/ui-grid.d.ts"/>
+///<reference path="../typings/lodash/lodash.d.ts"/>
 
-module INGA {
+namespace INGA {
   export class Module {
     app: ng.IModule;
 
     constructor(name: string, modules: Array<string>) {
       this.app = angular.module(name, modules);
       this.app.config(function ($routeProvider) {
-        $routeProvider.otherwise({ redirectTo: '/assessments' });
-      })
+        $routeProvider.otherwise({ redirectTo: "/assessments" });
+      });
     }
 
     addController(name: string, controller: Function) {
@@ -36,29 +38,29 @@ module INGA {
   }
 }
 
-module INGAApp {
-  var myApp = new INGA.Module('IngaApp', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'ui.sortable', 'ui.grid', 'ui.grid.edit', 'ui.grid.cellNav', 'ui.grid.pinning', 'angular-loading-bar']);
-  myApp.addController('MainINGAController', MainController);
-  myApp.addController('AssessmentsController', AssessmentsController);
-  myApp.addController('NewAssessmentModalController', NewAssessmentModalController);
-  myApp.addController('EditAssessmentModalController', EditAssessmentModalController);
-  myApp.addController('ViewAssessmentModalController', ViewAssessmentModalController);
-  myApp.addController('AssessmentAssignmentController', AssessmentAssignmentController);
-  myApp.addController('NewAssessmentItemModalController', NewAssessmentItemModalController);
-  myApp.addController('ViewAssessmentTemplateModalController', ViewAssessmentTemplateModalController);
-  myApp.addController('EditAssessmentTemplateModalController', EditAssessmentTemplateModalController);
-  myApp.addController('NewAssessmentTemplateModalController', NewAssessmentTemplateModalController);
-  myApp.addController('NewAssessmentTemplateItemModalController', NewAssessmentTemplateItemModalController);
-  myApp.addController('DataEntryAssessmentListController', DataEntryAssessmentListController);
-  myApp.addController('DataEntryScoreViewController', DataEntryScoreViewController);
-  myApp.addController('AddStudentModalController', AddStudentModalController);
-  myApp.addController('ConfirmationModalController', ConfirmationModalController);
+namespace INGAApp {
+  let myApp = new INGA.Module("IngaApp", ["ngRoute", "ngAnimate", "ngSanitize",  "ui.bootstrap", "ui.select", "ui.sortable", "ui.grid", "ui.grid.edit", "ui.grid.cellNav", "ui.grid.pinning", "ui.grid.validate", "angular-loading-bar"]);
+  myApp.addController("MainINGAController", MainController);
+  myApp.addController("AssessmentsController", AssessmentsController);
+  myApp.addController("NewAssessmentModalController", NewAssessmentModalController);
+  myApp.addController("EditAssessmentModalController", EditAssessmentModalController);
+  myApp.addController("ViewAssessmentModalController", ViewAssessmentModalController);
+  myApp.addController("AssessmentAssignmentController", AssessmentAssignmentController);
+  myApp.addController("NewAssessmentItemModalController", NewAssessmentItemModalController);
+  myApp.addController("ViewAssessmentTemplateModalController", ViewAssessmentTemplateModalController);
+  myApp.addController("EditAssessmentTemplateModalController", EditAssessmentTemplateModalController);
+  myApp.addController("NewAssessmentTemplateModalController", NewAssessmentTemplateModalController);
+  myApp.addController("NewAssessmentTemplateItemModalController", NewAssessmentTemplateItemModalController);
+  myApp.addController("DataEntryAssessmentListController", DataEntryAssessmentListController);
+  myApp.addController("DataEntryScoreViewController", DataEntryScoreViewController);
+  myApp.addController("AddStudentModalController", AddStudentModalController);
+  myApp.addController("ConfirmationModalController", ConfirmationModalController);
 
-  myApp.addService('mainService', MainService);
-  myApp.addService('assessmentService', AssessmentService);
-  myApp.addService('dataEntryService', DataEntryService);
-  myApp.addService('filterService', FilterService);
-  myApp.addService('notificationService', NotificationService);
+  myApp.addService("mainService", MainService);
+  myApp.addService("assessmentService", AssessmentService);
+  myApp.addService("dataEntryService", DataEntryService);
+  myApp.addService("filterService", FilterService);
+  myApp.addService("notificationService", NotificationService);
   myApp.addRoute("/assessments/assign", "partials/assessmentAssignment.html", "AssessmentAssignmentController");
   myApp.addRoute("/assessments", "partials/assessments.html", "AssessmentsController");
   myApp.addRoute("/dataEntry/score", "partials/score_view.html", "DataEntryScoreViewController");
@@ -66,19 +68,124 @@ module INGAApp {
   myApp.app.config(function($animateProvider) {
     $animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
   });
-  myApp.app.config(['cfpLoadingBarProvider', function (cfpLoadingBarProvider) {
+  myApp.app.config(["cfpLoadingBarProvider", function (cfpLoadingBarProvider) {
                 cfpLoadingBarProvider.includeSpinner = false;
-                cfpLoadingBarProvider.parentSelector = '#inga';
+                cfpLoadingBarProvider.parentSelector = "#inga";
             }]);
-  myApp.app.directive('noclick', [function() {
+  myApp.app.directive("noclick", [function() {
     return {
-      restrict: 'A',
+      restrict: "A",
       link: function link(scope, element, attrs) {
-        element.bind('click', function(e) {
+        element.bind("click", function(e) {
             e.stopPropagation();
         });
       }
+    };
+}])
+.directive("uiTreeSelect", [
+  "groupFactory", "mainService",
+  "$timeout",
+  function (groupFactory, mainService: MainService, $timeout) {
+    return {
+      restrict: "E",
+      scope: { model: "=" },
+      link: function (scope, el) {
+        scope.breadcrumbs  = [{Key: 0, Title: "All"}];
+        scope.groups = [];
+        // var test = myApp;
+        mainService.getCalendarOptions(0).then(function(res){
+          scope.groups = res;
+        });
+
+        scope.loadChildGroupsOf = function(group, $select) {
+          $select.search = "";
+
+          scope.breadcrumbs.push(group);
+          scope.groups = [];
+          // scope.groups = groupFactory.load(group.id);
+          mainService.getCalendarOptions(group.Key).then(function(res){
+            scope.groups = res;
+            scope.$broadcast("uiSelectFocus");
+          });
+        };
+
+        scope.navigateBackTo = function (crumb, $select) {
+          $select.search = "";
+          let index = _.findIndex(scope.breadcrumbs, {Key: crumb.Key});
+
+          scope.breadcrumbs.splice(index + 1, scope.breadcrumbs.length);
+          scope.groups = [];
+          mainService.getCalendarOptions(_.last(<Array<BreadCrumb>>scope.breadcrumbs).Key).then(function(res){
+            scope.groups = res;
+            $select.open = false;
+            $select.selected = {};
+            scope.$broadcast("uiSelectFocus");
+          });
+        };
+      },
+      templateUrl: "/ui-tree-select.html"
+    };
+  }
+])
+
+// Couldn"t get on-focus to work, so wrote my own
+.directive("uiSelectFocuser", function ($timeout) {
+  return {
+    restrict: "A",
+    require: "^uiSelect",
+    link: function (scope, elem, attrs, uiSelect: UISelect) {
+      scope.$on("uiSelectFocus", function () {
+        $timeout(uiSelect.activate);
+      });
     }
+  };
+})
+
+.factory("groupFactory", [
+  function () {
+    let data = {
+      0: [{"id": 1, "title":"Dibels","size":"3","parent":true},{"id": 5, "title":"Semesters","size":"2","parent":true}],
+      1: [{"id": 2, "title":"Beginning","size":"","parent":false},
+      {"id": 3, "title":"Middle","size":"","parent":false},
+      {"id": 4, "title":"End","size":"","parent":false}],
+     5: [{"id": 31,"title":"Semester 1","size":"","parent":false},
+          {"id": 32,"title":"Semester 2","size":"","parent":false}]
+    };
+
+    return {
+      load: function (id) {
+        return data[id];
+      }
+    };
+  }
+])
+
+.run(["$templateCache", function ($templateCache) {
+  // Overrides selectize template for group select tree.
+  $templateCache.put("selectize/choices.tpl.html", [
+    "<div ng-show='$select.open'",
+    "  class='ui-select-choices group-tree selectize-dropdown single'>",
+    "  <div ng-show='breadcrumbs.length > 1' class='ui-select-breadcrumbs'>",
+    "    <span class='ui-breadcrumb' ng-repeat='crumb in breadcrumbs'",
+    "       ng-click='navigateBackTo(crumb, $select)'>",
+    "       {{crumb.Title}}",
+    "    </span>",
+    "  </div>",
+    "  <div class='ui-select-choices-content selectize-dropdown-content'>",
+    "    <div class='ui-select-choices-group optgroup'>",
+    "      <div ng-show='$select.isGrouped'",
+    "        class='ui-select-choices-group-label optgroup-header'>",
+    "        {{$group}}",
+    "      </div>",
+    "      <div class='ui-select-choices-row'>",
+    "        <div class='option ui-select-choices-row-inner'",
+    "           data-selectable=''>",
+    "        </div>",
+    "      </div>",
+    "    </div>",
+    "  </div>",
+    "</div>"
+  ].join(""));
 }]);
   // declare var FastClick: CoalesceHelpers.FastClickStatic;
   // myApp.app.run(function () {
@@ -98,7 +205,7 @@ module INGAApp {
   //       // click event.
   //       //
   //       // NOTE: I ** think ** this is similar to
-  //       // JavaScript's apply() method, except using a
+  //       // JavaScript"s apply() method, except using a
   //       // set of named variables instead of an array.
   //       var invoker = $parse(scopeExpression);
   //       // Bind to the document click event.
@@ -107,7 +214,7 @@ module INGAApp {
   //         function (event) {
   //           // When the click event is fired, we need
   //           // to invoke the AngularJS context again.
-  //           // As such, let's use the $apply() to make
+  //           // As such, let"s use the $apply() to make
   //           // sure the $digest() method is called
   //           // behind the scenes.
   //           $scope.$apply(

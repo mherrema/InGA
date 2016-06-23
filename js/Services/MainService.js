@@ -7,41 +7,59 @@ var INGAApp;
 (function (INGAApp) {
     var MainService = (function (_super) {
         __extends(MainService, _super);
-        function MainService($http) {
+        function MainService($http, $q) {
             _super.call(this);
             this.$http = $http;
-            this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
-            // this.apiRoot = "http://172.21.255.61:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+            this.$q = $q;
+            // this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+            this.apiRoot = "http://172.21.255.63:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
         }
         MainService.prototype.setPageTitles = function (pageTitle, pageTypeTitle) {
             this.pageTitle = pageTitle;
             this.pageTypeTitle = pageTypeTitle;
-            if (pageTitle.toLowerCase() == "assessment management") {
+            if (pageTitle.toLowerCase() === "assessment management") {
                 this.inAssessmentManagement = true;
             }
             else {
                 this.inAssessmentManagement = false;
             }
-            if (pageTypeTitle.toLowerCase() == "assessment class score view") {
+            if (pageTypeTitle.toLowerCase() === "assessment class score view") {
                 this.inScoreEntry = true;
             }
             else {
                 this.inScoreEntry = false;
             }
-            if (pageTypeTitle.toLowerCase() == "assessment assignment") {
+            if (pageTypeTitle.toLowerCase() === "assessment assignment") {
                 this.inAssessmentAssignment = true;
             }
             else {
                 this.inAssessmentAssignment = false;
             }
         };
-        MainService.prototype.getCalendarOptions = function () {
+        // getCalendarOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
+        //   var self:MainService = this;
+        //   var promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> = this.$http.get(this.apiRoot + 'Options/Calendar/')
+        //   .then(function(response){
+        //     self.calendarOptions = <Array<Calendar>>response.data;
+        //     return response.data;
+        //   });
+        //
+        //   return promise;
+        // }
+        MainService.prototype.getCalendarOptions = function (id) {
             var self = this;
-            var promise = this.$http.get(this.apiRoot + 'Options/Calendar/')
-                .then(function (response) {
-                self.calendarOptions = response.data;
-                return response.data;
-            });
+            if (!this.calendarOptions) {
+                var promise = this.$http.get(this.apiRoot + "Options/Calendar/")
+                    .then(function (response) {
+                    self.calendarOptions = response.data;
+                    return response.data[id];
+                });
+            }
+            else {
+                var deferred = this.$q.defer();
+                deferred.resolve(self.calendarOptions[id]);
+                var promise = deferred.promise;
+            }
             return promise;
         };
         MainService.prototype.getDistrictOptions = function () {
@@ -110,7 +128,7 @@ var INGAApp;
         MainService.prototype.getItemTypeOptions = function () {
             return [{ ItemTypeKey: 1, TypeName: "Multiple Choice" }, { ItemTypeKey: 2, TypeName: "Constructed Response" }];
         };
-        MainService.$inject = ['$http'];
+        MainService.$inject = ['$http', '$q'];
         return MainService;
     }(INGA.Service));
     INGAApp.MainService = MainService;

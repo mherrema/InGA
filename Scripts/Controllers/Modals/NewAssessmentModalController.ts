@@ -55,6 +55,7 @@ namespace INGAApp {
         }
         else {
           $scope.newAssessment = {Title: "New Assessment"};
+          $scope.newAssessment.SelectedCalendar = {};
         }
 
         $scope.sortableOptions = {
@@ -121,14 +122,14 @@ namespace INGAApp {
       };
 
       $scope.getCalendarOptions = function(){
-        if (mainService.calendarOptions === undefined || mainService.calendarOptions.length < 1) {
-          mainService.getCalendarOptions().then(function(d: Array<Calendar>){
-            $scope.calendarOptions = d;
-          });
-        }
-        else {
-          $scope.calendarOptions = mainService.calendarOptions;
-        }
+        // if (mainService.calendarOptions === undefined || mainService.calendarOptions.length < 1) {
+        //   mainService.getCalendarOptions().then(function(d: Array<Calendar>){
+        //     $scope.calendarOptions = d;
+        //   });
+        // }
+        // else {
+        //   $scope.calendarOptions = mainService.calendarOptions;
+        // }
       };
 
       $scope.getGradeOptions = function(){
@@ -227,7 +228,7 @@ namespace INGAApp {
             $scope.errors.title = true;
             errorFree = false;
           }
-          if ($scope.newAssessment.Calendar === undefined) {
+          if ($scope.newAssessment.SelectedCalendar.$selected === undefined) {
             $scope.errorText = "The assessment must be associated with a calendar";
             $scope.errors.calendar = true;
             errorFree = false;
@@ -270,6 +271,9 @@ namespace INGAApp {
           }
           if (field === "standardType") {
             $scope.errors.standardType = false;
+          }
+          if (field === "schoolYear") {
+            $scope.errors.schoolYear = false;
           }
         };
 

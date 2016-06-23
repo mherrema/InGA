@@ -21,8 +21,12 @@ var INGAApp;
                         notificationService.showNotification("Success publishing assessment", "success");
                     }
                     else {
+                        $scope.assessment.IsPublished = false;
                         notificationService.showNotification("Error publishing assessment", "error");
                     }
+                })
+                    .catch(function (res) {
+                    $scope.assessment.IsPublished = false;
                 });
             };
             $scope.goToAssign = function () {
@@ -35,8 +39,8 @@ var INGAApp;
                 $uibModalInstance.close($scope.assessment);
                 var modalInstance = $uibModal.open({
                     animation: true,
-                    templateUrl: 'partials/modals/newAssessmentModal.html',
-                    controller: 'EditAssessmentModalController',
+                    templateUrl: "partials/modals/newAssessmentModal.html",
+                    controller: "EditAssessmentModalController",
                     size: "lg",
                     resolve: {
                         assessment: function () {
@@ -45,20 +49,20 @@ var INGAApp;
                     }
                 });
                 modalInstance.result.then(function (assessmentPackage) {
-                    assessmentService.updateAssessment(assessmentPackage).then(function (d) {
-                        if (d) {
-                            //show success!
-                            if (assessmentPackage.ShouldPublish) {
-                                console.log("Going to assessment view");
-                            }
+                    assessmentService.updateAssessment(assessmentPackage).then(function (res) {
+                        if (res.Success) {
+                            // show success!
+                            notificationService.showNotification("Success saving assessment template", "success");
                         }
                         else {
+                            // show error!
+                            notificationService.showNotification(res.ErrorText, "error");
                         }
                     });
                 });
             };
         }
-        ViewAssessmentModalController.$inject = ['$scope', '$location', '$uibModalInstance', '$uibModal', 'mainService', 'assessment', 'assessmentService', 'notificationService'];
+        ViewAssessmentModalController.$inject = ["$scope", "$location", "$uibModalInstance", "$uibModal", "mainService", "assessment", "assessmentService", "notificationService"];
         return ViewAssessmentModalController;
     }(BaseController.Controller));
     INGAApp.ViewAssessmentModalController = ViewAssessmentModalController;

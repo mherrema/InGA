@@ -1,7 +1,7 @@
-module INGAApp {
+namespace INGAApp {
   export class MainService extends INGA.Service
   {
-    static $inject = ['$http'];
+    static $inject = ['$http', '$q'];
 
     pageTitle: string;
     pageTypeTitle: string;
@@ -9,6 +9,7 @@ module INGAApp {
     inScoreEntry: boolean;
     inAssessmentAssignment: boolean;
     $http: ng.IHttpService;
+    $q: ng.IQService;
     calendarOptions: Array<Calendar>;
     gradeOptions: Array<GradeLevel>;
     schoolYearOptions: Array<SchoolYear>;
@@ -19,46 +20,66 @@ module INGAApp {
     standardOptions: Array<Standard>;
     apiRoot: string;
 
-    constructor($http: ng.IHttpService) {
+    constructor($http: ng.IHttpService, $q: ng.IQService) {
       super();
       this.$http = $http;
-      this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
-      // this.apiRoot = "http://172.21.255.61:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+      this.$q = $q;
+      // this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+      this.apiRoot = "http://172.21.255.63:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
     }
 
-    setPageTitles(pageTitle: string, pageTypeTitle: string): void{
+    setPageTitles(pageTitle: string, pageTypeTitle: string): void {
       this.pageTitle = pageTitle;
       this.pageTypeTitle = pageTypeTitle;
 
-      if(pageTitle.toLowerCase() == "assessment management"){
+      if (pageTitle.toLowerCase() === "assessment management") {
         this.inAssessmentManagement = true;
       }
-      else{
+      else {
         this.inAssessmentManagement = false;
       }
 
-      if(pageTypeTitle.toLowerCase() == "assessment class score view"){
+      if (pageTypeTitle.toLowerCase() === "assessment class score view") {
         this.inScoreEntry = true;
       }
-      else{
+      else {
         this.inScoreEntry = false;
       }
 
-      if(pageTypeTitle.toLowerCase() == "assessment assignment"){
+      if (pageTypeTitle.toLowerCase() === "assessment assignment") {
         this.inAssessmentAssignment = true;
       }
-      else{
+      else {
         this.inAssessmentAssignment = false;
       }
     }
 
-    getCalendarOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
-      var self:MainService = this;
-      var promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> = this.$http.get(this.apiRoot + 'Options/Calendar/')
-      .then(function(response){
-        self.calendarOptions = <Array<Calendar>>response.data;
-        return response.data;
-      });
+    // getCalendarOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
+    //   var self:MainService = this;
+    //   var promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> = this.$http.get(this.apiRoot + 'Options/Calendar/')
+    //   .then(function(response){
+    //     self.calendarOptions = <Array<Calendar>>response.data;
+    //     return response.data;
+    //   });
+    //
+    //   return promise;
+    // }
+
+    getCalendarOptions(id): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
+      let self: MainService = this;
+      if (!this.calendarOptions) {
+        var promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> = this.$http.get(this.apiRoot + "Options/Calendar/")
+        .then(function(response){
+          self.calendarOptions = <Array<Calendar>>response.data;
+          return response.data[id];
+        });
+      }
+      else {
+        var deferred = this.$q.defer();
+
+      deferred.resolve(self.calendarOptions[id]);
+      var promise = <ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>>deferred.promise;
+      }
 
       return promise;
     }

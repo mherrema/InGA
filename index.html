@@ -14,6 +14,8 @@
     <link href="css/redesign-styles.css" rel="stylesheet">
     <link href="css/fontawesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="css/ui-grid/ui-grid.min.css" rel="stylesheet">
+    <link href="css/ui-select/select.css" rel="stylesheet">
+    <link href="css/selectize/selectize.css" rel="stylesheet">
     <link href="css/loading-bar.css" rel="stylesheet">
     <style>
         @import url('fonts/fontie_14394397501733/AvenirNextLTPro-Regular.css');
@@ -25,11 +27,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-sanitize.js"></script>
     <script src="js/angular-ui-bootstrap/ui-bootstrap-tpls-1.3.2.min.js"></script>
     <script src="js/ui-sortable/sortable.js"></script>
     <script src="js/ui-grid/ui-grid.min.js"></script>
+    <script src="js/ui-select/select.js"></script>
     <script src="js/xeditable.min.js"></script>
     <script src="js/loading-bar.js"></script>
+    <script src="js/lodash/lodash.js"></script>
 
     <script src="js/Interfaces.js"></script>
     <script src="js/Services/Service.js"></script>
@@ -93,6 +98,24 @@
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+
+    <script type="text/ng-template" id="/ui-tree-select.html">
+    <ui-select ng-model="model.$selected" ui-select-focuser theme="selectize">
+      <ui-select-match placeholder="Select a calendar or marking period">
+        {{ $select.selected.Title }}
+      </ui-select-match>
+
+      <ui-select-choices repeat="group in groups | filter: $select.search" class="ng-animate-disabled">
+        <div>
+          <span ng-bind-html="group.Title | highlight: $select.search"></span>
+          <span ng-if="group.Size" ng-bind-html="'('+group.Size+')'"></span>
+          <a href ng-show="group.IsParent" class="goto-child-group" ng-click="loadChildGroupsOf(group, $select)">
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </div>
+      </ui-select-choices>
+    </ui-select>
+  </script>
 </body>
 
 </html>

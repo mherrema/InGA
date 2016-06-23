@@ -12,8 +12,8 @@ var INGAApp;
             this.$http = $http;
             this.$q = $q;
             this.mainService = mainService;
-            this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
-            // this.apiRoot = "http://172.21.255.61:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+            // this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+            this.apiRoot = "http://172.21.255.63:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
             this.assessmentSearchCanceler = $q.defer();
             this.classroomSearchCanceler = $q.defer();
             this.currentDistrictAssessments = [];
@@ -21,13 +21,12 @@ var INGAApp;
             this.needToReloadTemplates = true;
         }
         AssessmentService.prototype.getDistrictAssessments = function (filterString) {
-            console.log("Getting Assessments From Service");
             this.assessmentSearchCanceler.resolve();
             this.assessmentSearchCanceler = this.$q.defer();
             var self = this;
-            this.promise = this.$http.get(this.apiRoot + 'DistrictAssessment/' + filterString, { timeout: this.assessmentSearchCanceler.promise })
+            this.promise = this.$http.get(this.apiRoot + "DistrictAssessment/" + filterString, { timeout: this.assessmentSearchCanceler.promise })
                 .then(function (response) {
-                if (filterString == "") {
+                if (filterString === "") {
                     this.nonFilteredDistrictAssessments = response.data;
                 }
                 angular.forEach(response.data, function (assessment) {
@@ -50,14 +49,15 @@ var INGAApp;
             }
             assessmentPackage.Assessment.GradeLevelKey = assessmentPackage.Assessment.GradeLevel.GradeLevelKey;
             assessmentPackage.Assessment.StandardTypeKey = assessmentPackage.Assessment.StandardType.StandardTypeKey;
-            assessmentPackage.Assessment.CalendarKey = assessmentPackage.Assessment.Calendar.CalendarKey;
             assessmentPackage.Assessment.SubjectKey = assessmentPackage.Assessment.Subject.SubjectKey;
             assessmentPackage.Assessment.SchoolYearKey = assessmentPackage.Assessment.SchoolYear.SchoolYearKey;
+            assessmentPackage.Assessment.CalendarKey = assessmentPackage.Assessment.SelectedCalendar.$selected.CalendarKey;
+            assessmentPackage.Assessment.MarkingPeriodKey = assessmentPackage.Assessment.SelectedCalendar.$selected.MarkingPeriodKey;
             if (assessmentPackage.ShouldPublish) {
                 assessmentPackage.Assessment.IsPublished = true;
                 console.log("Published Assessment");
             }
-            this.promise = this.$http.post(this.apiRoot + 'DistrictAssessment/', assessmentPackage.Assessment)
+            this.promise = this.$http.post(this.apiRoot + "DistrictAssessment/", assessmentPackage.Assessment)
                 .then(function (response) {
                 return response.data;
             })
@@ -70,7 +70,12 @@ var INGAApp;
             console.log("Updating Assessment In Service");
             assessmentPackage.Assessment.GradeLevelKey = assessmentPackage.Assessment.GradeLevel.GradeLevelKey;
             assessmentPackage.Assessment.StandardTypeKey = assessmentPackage.Assessment.StandardType.StandardTypeKey;
-            assessmentPackage.Assessment.CalendarKey = assessmentPackage.Assessment.Calendar.CalendarKey;
+            if (assessmentPackage.Assessment.SelectedCalendar !== undefined) {
+                if (assessmentPackage.Assessment.SelectedCalendar.$selected !== undefined) {
+                    assessmentPackage.Assessment.CalendarKey = assessmentPackage.Assessment.SelectedCalendar.$selected.CalendarKey;
+                    assessmentPackage.Assessment.MarkingPeriodKey = assessmentPackage.Assessment.SelectedCalendar.$selected.MarkingPeriodKey;
+                }
+            }
             assessmentPackage.Assessment.SubjectKey = assessmentPackage.Assessment.Subject.SubjectKey;
             assessmentPackage.Assessment.SchoolYearKey = assessmentPackage.Assessment.SchoolYear.SchoolYearKey;
             if (assessmentPackage.ShouldPublish) {
@@ -78,7 +83,7 @@ var INGAApp;
                 console.log("Published Assessment");
             }
             assessmentPackage.Assessment.DateCreated = null;
-            this.promise = this.$http.put(this.apiRoot + 'DistrictAssessment/', assessmentPackage.Assessment)
+            this.promise = this.$http.put(this.apiRoot + "DistrictAssessment/", assessmentPackage.Assessment)
                 .then(function (response) {
                 return response.data;
             })
@@ -88,8 +93,17 @@ var INGAApp;
             return this.promise;
         };
         AssessmentService.prototype.archiveAssessment = function (assessmentKey) {
-            console.log("Archiving assessment");
-            this.promise = this.$http.post(this.apiRoot + 'DistrictAssessment/Archive/' + assessmentKey + "/", {})
+            this.promise = this.$http.post(this.apiRoot + "DistrictAssessment/Archive/" + assessmentKey + "/", {})
+                .then(function (response) {
+                return response.data;
+            })
+                .catch(function (response) {
+                return response.data;
+            });
+            return this.promise;
+        };
+        AssessmentService.prototype.unarchiveAssessment = function (assessmentKey) {
+            this.promise = this.$http.post(this.apiRoot + "DistrictAssessment/Unarchive/" + assessmentKey + "/", {})
                 .then(function (response) {
                 return response.data;
             })
@@ -100,7 +114,7 @@ var INGAApp;
         };
         AssessmentService.prototype.deleteAssessment = function (assessmentKey) {
             console.log("Deleting assessment");
-            this.promise = this.$http.delete(this.apiRoot + 'DistrictAssessment/' + assessmentKey + "/")
+            this.promise = this.$http.delete(this.apiRoot + "DistrictAssessment/" + assessmentKey + "/")
                 .then(function (response) {
                 return response.data;
             })
@@ -112,7 +126,7 @@ var INGAApp;
         AssessmentService.prototype.getPublishedDistrictAssessments = function () {
             console.log("Getting Assessments From Service");
             var self = this;
-            this.promise = this.$http.get(this.apiRoot + 'DistrictAssessment/?Published=true', { timeout: this.assessmentSearchCanceler.promise })
+            this.promise = this.$http.get(this.apiRoot + "DistrictAssessment/?Published=true", { timeout: this.assessmentSearchCanceler.promise })
                 .then(function (response) {
                 self.currentPublishedDistrictAssessments = response.data;
                 return response.data;
@@ -123,7 +137,7 @@ var INGAApp;
             console.log("Getting Classroom Assessments From Service");
             this.classroomSearchCanceler.resolve();
             this.classroomSearchCanceler = this.$q.defer();
-            this.promise = this.$http.get(this.apiRoot + 'Classroom/' + filterString, { timeout: this.classroomSearchCanceler.promise })
+            this.promise = this.$http.get(this.apiRoot + "Classroom/" + filterString, { timeout: this.classroomSearchCanceler.promise })
                 .then(function (response) {
                 // if(filterString == ""){
                 //   this.nonFilteredDistrictAssessments = response.data;
@@ -134,9 +148,9 @@ var INGAApp;
         };
         AssessmentService.prototype.getClassroomAssessments = function (filterString) {
             console.log("Getting Classroom Assessments From Service");
-            this.promise = this.$http.get(this.apiRoot + 'ClassroomAssessment/' + filterString, { timeout: this.assessmentSearchCanceler.promise })
+            this.promise = this.$http.get(this.apiRoot + "ClassroomAssessment/" + filterString, { timeout: this.assessmentSearchCanceler.promise })
                 .then(function (response) {
-                if (filterString == "") {
+                if (filterString === "") {
                     this.nonFilteredDistrictAssessments = response.data;
                 }
                 return response.data;
@@ -145,7 +159,7 @@ var INGAApp;
         };
         AssessmentService.prototype.assignAssessment = function (classroomKey) {
             console.log("Assigning assessment");
-            this.promise = this.$http.post(this.apiRoot + 'ClassroomAssessment/Assign/', { DistrictAssessmentKey: this.currentSelectedDistrictAssessment.DistrictAssessmentKey, ClassroomKey: classroomKey })
+            this.promise = this.$http.post(this.apiRoot + "ClassroomAssessment/Assign/", { DistrictAssessmentKey: this.currentSelectedDistrictAssessment.DistrictAssessmentKey, ClassroomKey: classroomKey })
                 .then(function (response) {
                 return response.data;
             })
@@ -157,7 +171,7 @@ var INGAApp;
         AssessmentService.prototype.getAssessmentTemplates = function (filterString) {
             console.log("Getting Assessments From Service");
             var self = this;
-            this.promise = this.$http.get(this.apiRoot + 'AssessmentTemplate/' + filterString, { timeout: this.assessmentSearchCanceler.promise })
+            this.promise = this.$http.get(this.apiRoot + "AssessmentTemplate/" + filterString, { timeout: this.assessmentSearchCanceler.promise })
                 .then(function (response) {
                 // if(filterString == ""){
                 //   this.nonFilteredDistrictAssessments = response.data;
@@ -175,7 +189,7 @@ var INGAApp;
             assessmentPackage.AssessmentTemplate.SubjectKey = assessmentPackage.AssessmentTemplate.Subject.SubjectKey;
             assessmentPackage.AssessmentTemplate.DistrictKey = assessmentPackage.AssessmentTemplate.District.DistrictKey;
             var self = this;
-            this.promise = this.$http.post(this.apiRoot + 'AssessmentTemplate/', assessmentPackage.AssessmentTemplate)
+            this.promise = this.$http.post(this.apiRoot + "AssessmentTemplate/", assessmentPackage.AssessmentTemplate)
                 .then(function (response) {
                 self.mainService.assessmentTemplateOptions = new Array();
                 return response.data;
@@ -197,7 +211,7 @@ var INGAApp;
             }
             // assessmentPackage.Assessment.DateCreated = null;
             var self = this;
-            this.promise = this.$http.put(this.apiRoot + 'AssessmentTemplate/', assessmentTemplatePackage.AssessmentTemplate)
+            this.promise = this.$http.put(this.apiRoot + "AssessmentTemplate/", assessmentTemplatePackage.AssessmentTemplate)
                 .then(function (response) {
                 self.mainService.assessmentTemplateOptions = new Array();
                 return response.data;
@@ -209,7 +223,7 @@ var INGAApp;
         };
         AssessmentService.prototype.archiveAssessmentTemplate = function (assessmentTemplateKey) {
             console.log("Archiving assessment template");
-            this.promise = this.$http.post(this.apiRoot + 'AssessmentTemplate/Archive/' + assessmentTemplateKey + "/", {})
+            this.promise = this.$http.post(this.apiRoot + "AssessmentTemplate/Archive/" + assessmentTemplateKey + "/", {})
                 .then(function (response) {
                 return response.data;
             })
@@ -220,7 +234,7 @@ var INGAApp;
         };
         AssessmentService.prototype.deleteAssessmentTemplate = function (assessmentTemplateKey) {
             console.log("Deleting assessment template");
-            this.promise = this.$http.delete(this.apiRoot + 'AssessmentTemplate/' + assessmentTemplateKey + "/")
+            this.promise = this.$http.delete(this.apiRoot + "AssessmentTemplate/" + assessmentTemplateKey + "/")
                 .then(function (response) {
                 return response.data;
             })
@@ -231,7 +245,7 @@ var INGAApp;
         };
         AssessmentService.prototype.makeAssessmentTemplateAvailable = function (key) {
             var self = this;
-            this.promise = this.$http.put(this.apiRoot + 'AssessmentTemplate/MakeAvailable/' + key + '/', {})
+            this.promise = this.$http.put(this.apiRoot + "AssessmentTemplate/MakeAvailable/" + key + "/", {})
                 .then(function (response) {
                 self.mainService.assessmentTemplateOptions = new Array();
                 return response.data;
@@ -241,7 +255,7 @@ var INGAApp;
             });
             return this.promise;
         };
-        AssessmentService.$inject = ['$http', '$q', 'mainService'];
+        AssessmentService.$inject = ["$http", "$q", "mainService"];
         return AssessmentService;
     }(INGA.Service));
     INGAApp.AssessmentService = AssessmentService;

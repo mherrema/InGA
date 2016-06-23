@@ -1,7 +1,6 @@
-module INGAApp {
-  export class AssessmentService extends INGA.Service
-  {
-    static $inject = ['$http', '$q', 'mainService'];
+namespace INGAApp {
+  export class AssessmentService extends INGA.Service {
+    static $inject = ["$http", "$q", "mainService"];
 
     currentDistrictAssessments: Array<DistrictAssessment>;
     currentAssessmentTemplates: Array<AssessmentTemplate>;
@@ -13,8 +12,8 @@ module INGAApp {
     apiRoot: string;
     $q: ng.IQService;
     mainService: MainService;
-    assessmentSearchCanceler :ng.IDeferred<ng.IHttpPromiseCallbackArg<{}>>;
-    classroomSearchCanceler :ng.IDeferred<ng.IHttpPromiseCallbackArg<{}>>;
+    assessmentSearchCanceler: ng.IDeferred<ng.IHttpPromiseCallbackArg<{}>>;
+    classroomSearchCanceler: ng.IDeferred<ng.IHttpPromiseCallbackArg<{}>>;
     currentSelectedDistrictAssessment: DistrictAssessment;
     currentSelectedAssessmentTemplate: AssessmentTemplate;
     needToReloadTemplates: boolean;
@@ -25,8 +24,8 @@ module INGAApp {
       this.$http = $http;
       this.$q = $q;
       this.mainService = mainService;
-      this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
-      // this.apiRoot = "http://172.21.255.61:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+      // this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+      this.apiRoot = "http://172.21.255.63:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
       this.assessmentSearchCanceler = $q.defer();
       this.classroomSearchCanceler = $q.defer();
       this.currentDistrictAssessments = [];
@@ -34,22 +33,21 @@ module INGAApp {
       this.needToReloadTemplates = true;
     }
 
-    getDistrictAssessments(filterString): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
-      console.log("Getting Assessments From Service");
+    getDistrictAssessments(filterString): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
       this.assessmentSearchCanceler.resolve();
       this.assessmentSearchCanceler = this.$q.defer();
-      var self = this;
-      this.promise = this.$http.get(this.apiRoot + 'DistrictAssessment/' + filterString,
+      let self = this;
+      this.promise = this.$http.get(this.apiRoot + "DistrictAssessment/" + filterString,
       {timeout : this.assessmentSearchCanceler.promise})
       .then(function(response){
-        if(filterString == ""){
+        if (filterString === "") {
           this.nonFilteredDistrictAssessments = response.data;
         }
         angular.forEach(response.data, function(assessment){
-          if(assessment.IsArchived){
+          if (assessment.IsArchived) {
             assessment.Status = "Archived";
           }
-          else if(assessment.IsPublished){
+          else if (assessment.IsPublished) {
             assessment.Status = "Published";
           }
         });
@@ -60,21 +58,22 @@ module INGAApp {
       return this.promise;
     }
 
-    saveAssessment(assessmentPackage: AssessmentPackage): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
+    saveAssessment(assessmentPackage: AssessmentPackage): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
       console.log("Saving Assessment In Service");
-      if(assessmentPackage.Assessment.AssessmentTemplate != null){
+      if (assessmentPackage.Assessment.AssessmentTemplate != null) {
       assessmentPackage.Assessment.AssessmentTemplateKey = assessmentPackage.Assessment.AssessmentTemplate.AssessmentTemplateKey;
     }
       assessmentPackage.Assessment.GradeLevelKey = assessmentPackage.Assessment.GradeLevel.GradeLevelKey;
       assessmentPackage.Assessment.StandardTypeKey = assessmentPackage.Assessment.StandardType.StandardTypeKey;
-      assessmentPackage.Assessment.CalendarKey = assessmentPackage.Assessment.Calendar.CalendarKey;
       assessmentPackage.Assessment.SubjectKey = assessmentPackage.Assessment.Subject.SubjectKey;
       assessmentPackage.Assessment.SchoolYearKey = assessmentPackage.Assessment.SchoolYear.SchoolYearKey;
-      if(assessmentPackage.ShouldPublish){
+      assessmentPackage.Assessment.CalendarKey = assessmentPackage.Assessment.SelectedCalendar.$selected.CalendarKey;
+      assessmentPackage.Assessment.MarkingPeriodKey = assessmentPackage.Assessment.SelectedCalendar.$selected.MarkingPeriodKey;
+      if (assessmentPackage.ShouldPublish) {
         assessmentPackage.Assessment.IsPublished = true;
         console.log("Published Assessment");
       }
-      this.promise = this.$http.post(this.apiRoot + 'DistrictAssessment/',
+      this.promise = this.$http.post(this.apiRoot + "DistrictAssessment/",
       assessmentPackage.Assessment)
       .then(function(response){
           return response.data;
@@ -86,19 +85,25 @@ module INGAApp {
       return this.promise;
     }
 
-    updateAssessment(assessmentPackage: AssessmentPackage): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
+    updateAssessment(assessmentPackage: AssessmentPackage): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
       console.log("Updating Assessment In Service");
       assessmentPackage.Assessment.GradeLevelKey = assessmentPackage.Assessment.GradeLevel.GradeLevelKey;
       assessmentPackage.Assessment.StandardTypeKey = assessmentPackage.Assessment.StandardType.StandardTypeKey;
-      assessmentPackage.Assessment.CalendarKey = assessmentPackage.Assessment.Calendar.CalendarKey;
+      if (assessmentPackage.Assessment.SelectedCalendar !== undefined) {
+        if (assessmentPackage.Assessment.SelectedCalendar.$selected !== undefined) {
+        assessmentPackage.Assessment.CalendarKey = assessmentPackage.Assessment.SelectedCalendar.$selected.CalendarKey;
+        assessmentPackage.Assessment.MarkingPeriodKey = assessmentPackage.Assessment.SelectedCalendar.$selected.MarkingPeriodKey;
+      }
+      }
       assessmentPackage.Assessment.SubjectKey = assessmentPackage.Assessment.Subject.SubjectKey;
       assessmentPackage.Assessment.SchoolYearKey = assessmentPackage.Assessment.SchoolYear.SchoolYearKey;
-      if(assessmentPackage.ShouldPublish){
+
+      if (assessmentPackage.ShouldPublish) {
         assessmentPackage.Assessment.IsPublished = true;
         console.log("Published Assessment");
       }
       assessmentPackage.Assessment.DateCreated = null;
-      this.promise = this.$http.put(this.apiRoot + 'DistrictAssessment/',
+      this.promise = this.$http.put(this.apiRoot + "DistrictAssessment/",
       assessmentPackage.Assessment)
       .then(function(response){
           return response.data;
@@ -110,9 +115,8 @@ module INGAApp {
       return this.promise;
     }
 
-    archiveAssessment(assessmentKey: number): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
-      console.log("Archiving assessment");
-      this.promise = this.$http.post(this.apiRoot + 'DistrictAssessment/Archive/' + assessmentKey + "/", {})
+    archiveAssessment(assessmentKey: number): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
+      this.promise = this.$http.post(this.apiRoot + "DistrictAssessment/Archive/" + assessmentKey + "/", {})
       .then(function(response){
           return response.data;
       })
@@ -123,9 +127,21 @@ module INGAApp {
       return this.promise;
     }
 
-    deleteAssessment(assessmentKey: number): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
+    unarchiveAssessment(assessmentKey: number): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
+      this.promise = this.$http.post(this.apiRoot + "DistrictAssessment/Unarchive/" + assessmentKey + "/", {})
+      .then(function(response){
+          return response.data;
+      })
+      .catch(function(response){
+        return response.data;
+      });
+
+      return this.promise;
+    }
+
+    deleteAssessment(assessmentKey: number): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
       console.log("Deleting assessment");
-      this.promise = this.$http.delete(this.apiRoot + 'DistrictAssessment/' + assessmentKey + "/")
+      this.promise = this.$http.delete(this.apiRoot + "DistrictAssessment/" + assessmentKey + "/")
       .then(function(response){
           return response.data;
       })
@@ -136,11 +152,11 @@ module INGAApp {
       return this.promise;
     }
 
-    getPublishedDistrictAssessments(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
+    getPublishedDistrictAssessments(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
       console.log("Getting Assessments From Service");
 
-      var self = this;
-      this.promise = this.$http.get(this.apiRoot + 'DistrictAssessment/?Published=true',
+      let self = this;
+      this.promise = this.$http.get(this.apiRoot + "DistrictAssessment/?Published=true",
       {timeout : this.assessmentSearchCanceler.promise})
       .then(function(response){
         self.currentPublishedDistrictAssessments = <Array<DistrictAssessment>>response.data;
@@ -150,11 +166,11 @@ module INGAApp {
       return this.promise;
     }
 
-    getClassrooms(filterString): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
+    getClassrooms(filterString): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
       console.log("Getting Classroom Assessments From Service");
       this.classroomSearchCanceler.resolve();
       this.classroomSearchCanceler = this.$q.defer();
-      this.promise = this.$http.get(this.apiRoot + 'Classroom/' + filterString,
+      this.promise = this.$http.get(this.apiRoot + "Classroom/" + filterString,
       {timeout : this.classroomSearchCanceler.promise})
       .then(function(response){
         // if(filterString == ""){
@@ -166,13 +182,13 @@ module INGAApp {
       return this.promise;
     }
 
-    getClassroomAssessments(filterString): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
+    getClassroomAssessments(filterString): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
       console.log("Getting Classroom Assessments From Service");
 
-      this.promise = this.$http.get(this.apiRoot + 'ClassroomAssessment/' + filterString,
+      this.promise = this.$http.get(this.apiRoot + "ClassroomAssessment/" + filterString,
       {timeout : this.assessmentSearchCanceler.promise})
       .then(function(response){
-        if(filterString == ""){
+        if (filterString === "") {
           this.nonFilteredDistrictAssessments = response.data;
         }
         return response.data;
@@ -181,9 +197,9 @@ module INGAApp {
       return this.promise;
     }
 
-    assignAssessment(classroomKey: number): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
+    assignAssessment(classroomKey: number): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
       console.log("Assigning assessment");
-      this.promise = this.$http.post(this.apiRoot + 'ClassroomAssessment/Assign/', { DistrictAssessmentKey : this.currentSelectedDistrictAssessment.DistrictAssessmentKey, ClassroomKey: classroomKey})
+      this.promise = this.$http.post(this.apiRoot + "ClassroomAssessment/Assign/", { DistrictAssessmentKey : this.currentSelectedDistrictAssessment.DistrictAssessmentKey, ClassroomKey: classroomKey})
       .then(function(response){
           return response.data;
       })
@@ -196,11 +212,11 @@ module INGAApp {
 
 
 
-    getAssessmentTemplates(filterString): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
+    getAssessmentTemplates(filterString): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
       console.log("Getting Assessments From Service");
 
-      var self = this;
-      this.promise = this.$http.get(this.apiRoot + 'AssessmentTemplate/' + filterString,
+      let self = this;
+      this.promise = this.$http.get(this.apiRoot + "AssessmentTemplate/" + filterString,
       {timeout : this.assessmentSearchCanceler.promise})
       .then(function(response){
         // if(filterString == ""){
@@ -214,15 +230,15 @@ module INGAApp {
       return this.promise;
     }
 
-    saveAssessmentTemplate(assessmentPackage: AssessmentTemplatePackage): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
+    saveAssessmentTemplate(assessmentPackage: AssessmentTemplatePackage): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
       console.log("Saving Assessment Template In Service");
       assessmentPackage.AssessmentTemplate.GradeLevelKey = assessmentPackage.AssessmentTemplate.GradeLevel.GradeLevelKey;
       assessmentPackage.AssessmentTemplate.StandardTypeKey = assessmentPackage.AssessmentTemplate.StandardType.StandardTypeKey;
       assessmentPackage.AssessmentTemplate.CalendarKey = assessmentPackage.AssessmentTemplate.Calendar.CalendarKey;
       assessmentPackage.AssessmentTemplate.SubjectKey = assessmentPackage.AssessmentTemplate.Subject.SubjectKey;
       assessmentPackage.AssessmentTemplate.DistrictKey = assessmentPackage.AssessmentTemplate.District.DistrictKey;
-      var self = this;
-      this.promise = this.$http.post(this.apiRoot + 'AssessmentTemplate/',
+      let self = this;
+      this.promise = this.$http.post(this.apiRoot + "AssessmentTemplate/",
       assessmentPackage.AssessmentTemplate)
       .then(function(response){
         self.mainService.assessmentTemplateOptions = new Array<AssessmentTemplate>();
@@ -235,19 +251,19 @@ module INGAApp {
       return this.promise;
     }
 
-    updateAssessmentTemplate(assessmentTemplatePackage: AssessmentTemplatePackage): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
+    updateAssessmentTemplate(assessmentTemplatePackage: AssessmentTemplatePackage): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
       console.log("Updating Assessment In Service");
       // assessmentPackage.Assessment.GradeLevelKey = assessmentPackage.Assessment.GradeLevel.GradeLevelKey;
       // assessmentPackage.Assessment.StandardTypeKey = assessmentPackage.Assessment.StandardType.StandardTypeKey;
       // assessmentPackage.Assessment.CalendarKey = assessmentPackage.Assessment.Calendar.CalendarKey;
       // assessmentPackage.Assessment.SubjectKey = assessmentPackage.Assessment.Subject.SubjectKey;
       // assessmentPackage.Assessment.SchoolYearKey = assessmentPackage.Assessment.SchoolYear.SchoolYearKey;
-      if(assessmentTemplatePackage.ShouldMakeAvailableToUsers){
+      if (assessmentTemplatePackage.ShouldMakeAvailableToUsers) {
         assessmentTemplatePackage.AssessmentTemplate.AvailableToUsers = true;
       }
       // assessmentPackage.Assessment.DateCreated = null;
-      var self = this;
-      this.promise = this.$http.put(this.apiRoot + 'AssessmentTemplate/',
+      let self = this;
+      this.promise = this.$http.put(this.apiRoot + "AssessmentTemplate/",
       assessmentTemplatePackage.AssessmentTemplate)
       .then(function(response){
         self.mainService.assessmentTemplateOptions = new Array<AssessmentTemplate>();
@@ -260,9 +276,9 @@ module INGAApp {
       return this.promise;
     }
 
-    archiveAssessmentTemplate(assessmentTemplateKey: number): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
+    archiveAssessmentTemplate(assessmentTemplateKey: number): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
       console.log("Archiving assessment template");
-      this.promise = this.$http.post(this.apiRoot + 'AssessmentTemplate/Archive/' + assessmentTemplateKey + "/", {})
+      this.promise = this.$http.post(this.apiRoot + "AssessmentTemplate/Archive/" + assessmentTemplateKey + "/", {})
       .then(function(response){
           return response.data;
       })
@@ -273,9 +289,9 @@ module INGAApp {
       return this.promise;
     }
 
-    deleteAssessmentTemplate(assessmentTemplateKey: number): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
+    deleteAssessmentTemplate(assessmentTemplateKey: number): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
       console.log("Deleting assessment template");
-      this.promise = this.$http.delete(this.apiRoot + 'AssessmentTemplate/' + assessmentTemplateKey + "/")
+      this.promise = this.$http.delete(this.apiRoot + "AssessmentTemplate/" + assessmentTemplateKey + "/")
       .then(function(response){
           return response.data;
       })
@@ -286,9 +302,9 @@ module INGAApp {
       return this.promise;
     }
 
-    makeAssessmentTemplateAvailable(key:number): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
-      var self = this;
-      this.promise = this.$http.put(this.apiRoot + 'AssessmentTemplate/MakeAvailable/' + key + '/', {})
+    makeAssessmentTemplateAvailable(key: number): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
+      let self = this;
+      this.promise = this.$http.put(this.apiRoot + "AssessmentTemplate/MakeAvailable/" + key + "/", {})
       .then(function(response){
           self.mainService.assessmentTemplateOptions = new Array<AssessmentTemplate>();
           return response.data;

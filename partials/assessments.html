@@ -1,6 +1,7 @@
 <div class="row above-table-actions-row" ng-init="init()">
   <ul class="above-table-actions">
-    <li class="above-table-action-left above-table-action" ng-click="archiveChecked()" ng-if="!templatesActive && !archivedActive">archive
+    <li class="above-table-action-left above-table-action" ng-click="archiveChecked()" ng-if="!templatesActive && !archivedActive">archive</li>
+    <li class="above-table-action-left above-table-action" ng-click="unarchiveChecked()" ng-if="archivedActive">Unarchive
     </li>
     <li class="above-table-action-left" ng-click="deleteChecked()">delete
     </li>
@@ -38,7 +39,7 @@
           </span>
         </div>
       </th>
-      <th ng-repeat="heading in headingOptions">
+      <th ng-repeat="heading in headingOptions" ng-if="(heading.assessmentsOnly && !templatesActive) || !heading.assessmentsOnly">
         <div class="heading-title" ng-click="openHeading(heading, $event)" ng-class="{'no-click': !heading.filterable}">
           {{heading.heading}}
           <span class="caret" ng-if="heading.filterable"></span>

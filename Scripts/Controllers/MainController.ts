@@ -1,35 +1,31 @@
-module INGAApp
-{
+namespace INGAApp {
 
-  export interface IMainScope extends BaseController.IScope
-  {
-    init: Function,
-    test: string,
-    pageTypeTitle: string,
-    pageTitle: string,
-    openNewAssessmentModal: Function,
-    items: Array<string>,
-    openNewMasterTemplateModal: Function,
-    inAssessmentManagement: boolean,
-    inAssessmentAssignment: boolean,
-    inScoreEntry: boolean,
-    goToDataEntry: Function,
-    subjectOptions: Array<Subject>,
-    assessmentOptions: Array<DistrictAssessment>,
-    currentNotification: Notification,
-    assessmentToAssign: DistrictAssessment,
-    selectAssessment: Function
+  export interface IMainScope extends BaseController.IScope {
+    init: Function;
+    test: string;
+    pageTypeTitle: string;
+    pageTitle: string;
+    openNewAssessmentModal: Function;
+    items: Array<string>;
+    openNewMasterTemplateModal: Function;
+    inAssessmentManagement: boolean;
+    inAssessmentAssignment: boolean;
+    inScoreEntry: boolean;
+    goToDataEntry: Function;
+    subjectOptions: Array<Subject>;
+    assessmentOptions: Array<DistrictAssessment>;
+    currentNotification: Notification;
+    assessmentToAssign: DistrictAssessment;
+    selectAssessment: Function;
   }
 
-  export class MainController extends BaseController.Controller
-  {
+  export class MainController extends BaseController.Controller {
     scope: IMainScope;
-    static $inject = ['$scope', '$location', '$log', '$uibModal', 'mainService', 'assessmentService', 'notificationService'];
+    static $inject = ["$scope", "$location", "$log", "$uibModal", "mainService", "assessmentService", "notificationService"];
 
-    constructor( $scope: IMainScope, $location: ng.ILocationService, $log: ng.ILogService, $uibModal: ng.ui.bootstrap.IModalService, mainService: MainService, assessmentService: AssessmentService, notificationService: NotificationService)
-    {
+    constructor( $scope: IMainScope, $location: ng.ILocationService, $log: ng.ILogService, $uibModal: ng.ui.bootstrap.IModalService, mainService: MainService, assessmentService: AssessmentService, notificationService: NotificationService) {
       super( $scope );
-      var controller = this;
+      let controller = this;
 
       $scope.init = function(){
         $scope.currentNotification = {
@@ -37,7 +33,7 @@ module INGAApp
               Success: false,
               Error: false,
               Active: false
-          }
+          };
 
         $scope.$watch(() => mainService.pageTitle,
         (newValue: string, oldValue: string) => {
@@ -62,10 +58,10 @@ module INGAApp
         $scope.$watch(() => mainService.inAssessmentAssignment,
         (newValue: boolean, oldValue: boolean) => {
           $scope.inAssessmentAssignment = newValue;
-          if(newValue){
+          if (newValue) {
             assessmentService.getPublishedDistrictAssessments().then(function(d: Array<DistrictAssessment>){
               $scope.assessmentOptions = d;
-              if(assessmentService.currentSelectedDistrictAssessment == undefined){
+              if (assessmentService.currentSelectedDistrictAssessment === undefined) {
               $scope.assessmentToAssign = $scope.assessmentOptions[0];
               $scope.selectAssessment();
             }
@@ -78,18 +74,18 @@ module INGAApp
           (newValue: Notification, oldValue: Notification) => {
               $scope.currentNotification = newValue;
           });
-      }
+      };
 
       $scope.selectAssessment = function(){
         assessmentService.currentSelectedDistrictAssessment = $scope.assessmentToAssign;
-      }
+      };
 
       $scope.openNewAssessmentModal = function (size) {
 
-        var modalInstance = $uibModal.open({
+        let modalInstance = $uibModal.open({
           animation: true,
-          templateUrl: 'partials/modals/newAssessmentModal.html',
-          controller: 'NewAssessmentModalController',
+          templateUrl: "partials/modals/newAssessmentModal.html",
+          controller: "NewAssessmentModalController",
           size: "lg",
           resolve: {
             assessment: function () {
@@ -101,19 +97,25 @@ module INGAApp
         modalInstance.result.then(function (assessmentPackage: AssessmentPackage) {
           console.log(assessmentPackage.Assessment);
           assessmentService.saveAssessment(assessmentPackage).then(function(res: ReturnPackage){
-            if(res.Success){
+            if (res.Success) {
               assessmentPackage.Assessment.DistrictAssessmentKey = res.Key;
+              if (assessmentPackage.Assessment.SelectedCalendar.$selected.CalendarKey) {
+                assessmentPackage.Assessment.Calendar = {CalendarName: assessmentPackage.Assessment.SelectedCalendar.$selected.Title};
+              }
+              else if (assessmentPackage.Assessment.SelectedCalendar.$selected.MarkingPeriodKey) {
+                assessmentPackage.Assessment.MarkingPeriod = {Name: assessmentPackage.Assessment.SelectedCalendar.$selected.Title};
+              }
               assessmentService.currentDistrictAssessments.push(assessmentPackage.Assessment);
               notificationService.showNotification("Success saving assessment", "success");
-              //show success!
-              if(assessmentPackage.ShouldPublish){
+              // show success!
+              if (assessmentPackage.ShouldPublish) {
                 console.log("Going to assessment view");
-                //go to assessment view
+                // go to assessment view
               }
             }
-            else{
+            else {
               notificationService.showNotification("Error saving assessment", "error");
-              //show error!
+              // show error!
             }
           });
 
@@ -122,10 +124,10 @@ module INGAApp
 
       $scope.openNewMasterTemplateModal = function () {
 
-        var modalInstance = $uibModal.open({
+        let modalInstance = $uibModal.open({
           animation: true,
-          templateUrl: 'partials/modals/newAssessmentTemplateModal.html',
-          controller: 'NewAssessmentTemplateModalController',
+          templateUrl: "partials/modals/newAssessmentTemplateModal.html",
+          controller: "NewAssessmentTemplateModalController",
           size: "lg",
           resolve: {
             assessment: function () {
@@ -135,31 +137,31 @@ module INGAApp
         });
 
         modalInstance.result.then(function (assessmentTemplatePackage: AssessmentTemplatePackage) {
-          if(assessmentTemplatePackage.ShouldMakeAvailableToUsers){
+          if (assessmentTemplatePackage.ShouldMakeAvailableToUsers) {
             assessmentTemplatePackage.AssessmentTemplate.AvailableToUsers = true;
           }
-          else{
+          else {
             assessmentTemplatePackage.AssessmentTemplate.AvailableToUsers = false;
           }
           assessmentService.saveAssessmentTemplate(assessmentTemplatePackage).then(function(res: ReturnPackage){
-            if(res.Success){
+            if (res.Success) {
               assessmentTemplatePackage.AssessmentTemplate.AssessmentTemplateKey = res.Key;
 
-              if(assessmentService.currentAssessmentTemplates.length == 0){
+              if (assessmentService.currentAssessmentTemplates.length === 0) {
                 assessmentService.needToReloadTemplates = true;
               }
               assessmentService.currentAssessmentTemplates.push(assessmentTemplatePackage.AssessmentTemplate);
 
               notificationService.showNotification("Success saving assessment template", "success");
-              //show success!
-              if(assessmentTemplatePackage.ShouldMakeAvailableToUsers){
+              // show success!
+              if (assessmentTemplatePackage.ShouldMakeAvailableToUsers) {
                 console.log("Going to assessment template view");
-                //go to assessment view
+                // go to assessment view
               }
             }
-            else{
+            else {
               notificationService.showNotification("Error saving assessment template", "error");
-              //show error!
+              // show error!
             }
           });
 
@@ -168,7 +170,7 @@ module INGAApp
 
       $scope.goToDataEntry = function(){
         $location.path("/dataEntry");
-      }
+      };
     }
   }
 }

@@ -1,8 +1,6 @@
-module INGAApp
-{
+module INGAApp {
 
-  interface IAssessmentsScope extends BaseController.IScope
-  {
+  interface IAssessmentsScope extends BaseController.IScope {
     init: Function,
     test: Function,
     toggleSearchOpen: Function,
@@ -20,8 +18,8 @@ module INGAApp
     getAssessments: Function,
     currentAssessments: Array<DistrictAssessment>,
     currentAssessmentTemplates: Array<AssessmentTemplate>,
-    toggleAllChecked : Function,
-    allChecked : boolean,
+    toggleAllChecked: Function,
+    allChecked: boolean,
     newAssessment: DistrictAssessment,
     openAssessmentViewModal: Function,
     openAssessmentTemplateViewModal: Function,
@@ -30,6 +28,8 @@ module INGAApp
     deleteChecked: Function,
     archiveChecked: Function,
     archiveAssessments: Function,
+    unarchiveChecked: Function,
+    unarchiveAssessments: Function,
     archiveAssessmentTemplates: Function,
     deleteAssessments: Function,
     deleteAssessmentTemplates: Function,
@@ -214,7 +214,55 @@ module INGAApp
                     assessmentService.currentDistrictAssessments.splice(i, 1);
                   }
                 }
-                notificationService.showNotification("Success making assessment template available", "success")
+                notificationService.showNotification("Success archiving assessments", "success")
+              }
+              else{
+                alert("Error while archiving assessment");
+              }
+            })
+            .catch(function(res){
+              alert("Error while archiving assessment");
+            });
+          }
+        });
+      }
+
+      $scope.unarchiveChecked = function(){
+        if($scope.areRowsChecked()){
+            var confirmationPackage:ConfirmationPackage = {Action: "unarchive", Objects: "these assessments?"}
+
+          var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'partials/modals/dialog/confirmationModal.html',
+            controller: 'ConfirmationModalController',
+            size: "lg",
+            resolve: {
+              confirmationPackage: function () {
+                return confirmationPackage
+              }
+            }
+          });
+
+          modalInstance.result.then(function () {
+              $scope.unarchiveAssessments();
+          });
+        }
+      }
+
+      $scope.unarchiveAssessments = function(){
+        // var assessmentsDeleted : Array<number> = [];
+        angular.forEach($scope.currentAssessments, function (assessment) {
+          if(assessment.checked){
+
+            assessmentService.unarchiveAssessment(assessment.DistrictAssessmentKey).then(function(res: ReturnPackage){
+              if(res.Success){
+                //success
+                for(var i = assessmentService.currentDistrictAssessments.length - 1; i >= 0; i--){
+                  if(assessmentService.currentDistrictAssessments[i].DistrictAssessmentKey === assessment.DistrictAssessmentKey){
+                    assessmentService.currentDistrictAssessments.splice(i, 1);
+                  }
+                }
+                notificationService.showNotification("Success unarchiving assessments", "success")
               }
               else{
                 alert("Error while archiving assessment");

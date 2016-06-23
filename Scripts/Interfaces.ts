@@ -14,6 +14,15 @@ export interface FilterOption {
   Value?: string;
 }
 
+export interface BreadCrumb {
+  Key: number;
+  Title: string;
+}
+
+export interface UISelect {
+  activate: Function;
+}
+
 export interface AssessmentPackage {
   Assessment: DistrictAssessment;
   ShouldRefresh: boolean;
@@ -39,10 +48,38 @@ export interface ErrorObject {
 export interface GridOptions {
   data: Object;
   enableSorting: boolean;
+  enableFiltering?: boolean;
   enableColumnMenus: boolean;
-  columnDefs: Array<Object>;
+  columnDefs: Array<ColumnDef>;
   enableCellEditOnFocus: boolean;
   rowHeight: number;
+  filterOptions: Object;
+  onRegisterApi: Function;
+}
+
+export interface ColumnDef extends Object {
+  visible?: boolean;
+  name?: string;
+  minWidth?: number;
+  pinnedLeft?: boolean;
+  enableSorting?: boolean;
+  cellEditableCondition?: boolean;
+  cellTemplate?: string;
+  headerCellTemplate?: string;
+  enableFiltering?: boolean;
+  filter?: Object;
+  itemKey?: Object;
+  field?: string;
+  type?: string;
+  pointsMax?: number;
+  pointsMin?: number;
+  validators?: Object;
+  displayName?: string;
+}
+
+export interface GridApi {
+  core: {notifyDataChange: Function; refresh: Function; getQualifiedColField: Function};
+  grid?: {rows: Object};
 }
 
 export interface Notification {
@@ -106,6 +143,7 @@ export interface Calendar {
   CalendarKey?: number;
   CalendarName?: string;
   DistrictKey?: number;
+  MarkingPeriodKey?: number;
 }
 
 export interface Classroom {
@@ -139,6 +177,8 @@ export interface ClassroomAssessment {
   Finalized?: boolean;
   DateFinalized?: string;
   AssignedString?: string;
+  MarkingPeriodKey?: number;
+  CalendarKey?: number;
 }
 
 interface Course {
@@ -172,6 +212,7 @@ export interface DistrictAssessment {
   DateFinalized?: string;
   Term?: string;
   CalendarKey?: number;
+  MarkingPeriodKey?: number;
   Calendar?: Calendar;
   AssessmentTemplate?: AssessmentTemplate;
   AssessmentTemplateKey?: number;
@@ -181,6 +222,9 @@ export interface DistrictAssessment {
   IsScantron?: boolean;
   checked?: boolean;
   Status?: string;
+  ReportGroup?: string;
+  SelectedCalendar?: {$selected?: {CalendarKey?: number; MarkingPeriodKey?: number; Title: string; }; };
+  MarkingPeriod?: MarkingPeriod;
 }
 
 export interface DistrictAssessmentItem {
@@ -218,6 +262,7 @@ export interface Item {
   PointsMin?: number;
   PointsMax?: number;
   PointsStep?: number;
+  Label?: string;
 }
 
 export interface ItemType {
@@ -225,7 +270,7 @@ export interface ItemType {
   TypeName?: string;
 }
 
-interface MarkingPeriod {
+export interface MarkingPeriod {
   MarkingPeriodKey?: number;
   Name?: string;
   Start?: string;
@@ -240,6 +285,7 @@ interface MarkingPeriod {
   IsBenchmark?: boolean;
   CalendarKey?: number;
   Calendar?: Calendar;
+  Children?: Array<MarkingPeriod>;
 }
 
 interface ScheduleTerm {
@@ -252,6 +298,7 @@ interface School {
   SchoolKey?: number;
   SchoolName?: string;
   SchoolCode?: string;
+  DistrictKey?: number;
 }
 
 interface SchoolTeacher {
@@ -273,6 +320,11 @@ export interface SchoolYear {
   StartCalendarYear?: number;
   EndCalendarYear?: number;
   SchoolYearRank?: number;
+}
+
+export interface Score {
+  Item?: Item;
+  Score1?: string;
 }
 
 export interface Standard {
@@ -298,6 +350,9 @@ export interface StudentAssessment {
   IsAbsent?: boolean;
   ClassroomKey?: number;
   DistrictStudent?: DistrictStudent;
+  Scores?: Array<Score>;
+  hidden: boolean;
+  checked: boolean;
 }
 
 export interface Subject {
@@ -306,4 +361,11 @@ export interface Subject {
 }
 
 
+}
+
+namespace uiGrid {
+  export interface GridValidateService {
+    setValidator: Function;
+    isInvalid: Function;
+  }
 }

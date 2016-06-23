@@ -15,15 +15,25 @@
               </div>
           </div>
           <div class="col-sm-3">
-              <div class="form-group">
-                  <label class="no-left-pad" for="inputEmail">Calendar</label>
+              <div class="form-group" ng-if="assessment.Calendar.CalendarName">
+                  <label class="no-left-pad" for="inputEmail" >Calendar</label>
                   <h5 class="detail-text">{{assessment.Calendar.CalendarName}}</h5>
+              </div>
+              <div class="form-group" ng-if="assessment.MarkingPeriod">
+                  <label class="no-left-pad" for="inputEmail" >Marking Period</label>
+                  <h5 class="detail-text">{{assessment.MarkingPeriod.Calendar.CalendarName}}: {{assessment.MarkingPeriod.Name}}</h5>
               </div>
           </div>
             <div class="col-sm-3">
                 <div class="form-group">
                     <label class="no-left-pad" for="inputEmail">Grade Level</label>
                     <h5 class="detail-text">{{assessment.GradeLevel.GradeLevelName}}</h5>
+                </div>
+            </div>
+            <div class="col-sm-3" ng-if="assessment.ReportGroup">
+                <div class="form-group">
+                    <label class="no-left-pad" for="inputEmail">Report Group</label>
+                    <h5 class="detail-text">{{assessment.ReportGroup}}</h5>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -86,7 +96,8 @@
         </tr>
 <tr ng-repeat="item in assessment.DistrictAssessmentItems">
     <td>{{item.Item.ItemOrder}}</td>
-    <td>{{item.Item.StandardCode}}</td>
+    <td ng-if="!item.Item.Label">{{item.Item.StandardCode}}</td>
+    <td ng-if="item.Item.Label">{{item.Item.Label}}</td>
     <td>{{item.Item.ItemType.TypeName}}</td>
     <td>{{item.Item.CorrectScore}}</td>
     <td>{{item.Item.PointsMax}}</td>
