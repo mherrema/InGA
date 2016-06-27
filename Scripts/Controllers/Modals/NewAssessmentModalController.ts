@@ -228,11 +228,11 @@ namespace INGAApp {
             $scope.errors.title = true;
             errorFree = false;
           }
-          if ($scope.newAssessment.SelectedCalendar.$selected === undefined) {
-            $scope.errorText = "The assessment must be associated with a calendar";
-            $scope.errors.calendar = true;
-            errorFree = false;
-          }
+          // if ($scope.newAssessment.SelectedCalendar.$selected === undefined) {
+          //   $scope.errorText = "The assessment must be associated with a calendar";
+          //   $scope.errors.calendar = true;
+          //   errorFree = false;
+          // }
           if ($scope.newAssessment.GradeLevel === undefined) {
             $scope.errorText = "The assessment must be associated with a grade level";
             $scope.errors.gradeLevel = true;

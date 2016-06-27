@@ -49,7 +49,7 @@ var INGAApp;
     myApp.addController("NewAssessmentTemplateItemModalController", INGAApp.NewAssessmentTemplateItemModalController);
     myApp.addController("DataEntryAssessmentListController", INGAApp.DataEntryAssessmentListController);
     myApp.addController("DataEntryScoreViewController", INGAApp.DataEntryScoreViewController);
-    myApp.addController("AddStudentModalController", INGAApp.AddStudentModalController);
+    myApp.addController("ValidateStudentsModalController", INGAApp.ValidateStudentsModalController);
     myApp.addController("ConfirmationModalController", INGAApp.ConfirmationModalController);
     myApp.addService("mainService", INGAApp.MainService);
     myApp.addService("assessmentService", INGAApp.AssessmentService);
@@ -78,9 +78,9 @@ var INGAApp;
             };
         }])
         .directive("uiTreeSelect", [
-        "groupFactory", "mainService",
+        "mainService",
         "$timeout",
-        function (groupFactory, mainService, $timeout) {
+        function (mainService, $timeout) {
             return {
                 restrict: "E",
                 scope: { model: "=" },
@@ -129,23 +129,6 @@ var INGAApp;
             }
         };
     })
-        .factory("groupFactory", [
-        function () {
-            var data = {
-                0: [{ "id": 1, "title": "Dibels", "size": "3", "parent": true }, { "id": 5, "title": "Semesters", "size": "2", "parent": true }],
-                1: [{ "id": 2, "title": "Beginning", "size": "", "parent": false },
-                    { "id": 3, "title": "Middle", "size": "", "parent": false },
-                    { "id": 4, "title": "End", "size": "", "parent": false }],
-                5: [{ "id": 31, "title": "Semester 1", "size": "", "parent": false },
-                    { "id": 32, "title": "Semester 2", "size": "", "parent": false }]
-            };
-            return {
-                load: function (id) {
-                    return data[id];
-                }
-            };
-        }
-    ])
         .run(["$templateCache", function ($templateCache) {
             // Overrides selectize template for group select tree.
             $templateCache.put("selectize/choices.tpl.html", [

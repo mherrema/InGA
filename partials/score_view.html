@@ -42,17 +42,17 @@
         </li>
         <li class="above-table-action-left" ng-if="currentAssessment.Calendar.MarkingPeriods">
           <select class="form-control" ng-options="markingPeriod as markingPeriod.Name for markingPeriod in currentAssessment.Calendar.MarkingPeriods"
-          ng-model="$parent.selectedMarkingPeriod" ng-change="selectMarkingPeriod($parent.selectedMarkingPeriod)"></select>
+          ng-model="$parent.selectedMarkingPeriod" ng-change="selectMarkingPeriod($parent.selectedMarkingPeriod)">Select Marking Period</select>
         </li>
         <li class="above-table-action-left" ng-if="selectedMarkingPeriod.Children.length > 0">
           <select class="form-control" ng-options="markingPeriod as markingPeriod.Name for markingPeriod in selectedMarkingPeriod.Children"
-          ng-model="$parent.selectedMarkingPeriodChild" ng-change="selectMarkingPeriod($parent.selectedMarkingPeriodChild)"></select>
+          ng-model="$parent.selectedMarkingPeriodChild" ng-change="selectMarkingPeriod($parent.selectedMarkingPeriodChild)">Select Marking Period</select>
         </li>
         <!-- <li class="above-table-action-left" ng-if="areRowsChecked()">Absent
         </li> -->
         <!-- <li class="above-table-action-left">Export to excel
         </li> -->
-        <button ng-click="saveAndExit()">asdf</button>
+        <!-- <button ng-click="saveAndExit()">asdf</button> -->
         <!--
         <li class="above-table-action-right above-table-action">View: <span class="dropdown-text" ng-click="toggleViewDropdown()">active</span> <span class="caret"></span>
             <div class="action-dropdown {{view}}">
@@ -69,8 +69,12 @@
         </li>
         <li class="above-table-action-right action-with-icon"><i class="glyphicon glyphicon-ok success-icon"></i> published</li>
 -->
-        <li style="float:right;">
+
+        <!-- <li class="above-table-action-right">
             <button class="btn inga-btn inga-btn-positive" onclick="showAddStudentModal();">Add Student</button>
+        </li> -->
+        <li class="above-table-action-right">
+            <button class="btn inga-btn inga-btn-negative" ng-click="validateStudents()">Validate Students</button>
         </li>
     </ul>
 </div>

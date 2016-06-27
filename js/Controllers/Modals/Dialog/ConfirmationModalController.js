@@ -11,14 +11,11 @@ var INGAApp;
             _super.call(this, $scope);
             var controller = this;
             $scope.confirmationPackage = confirmationPackage;
-            $scope.ok = function () {
-                $uibModalInstance.close(true);
-            };
-            $scope.cancel = function () {
-                $uibModalInstance.dismiss('cancel');
-            };
+            $scope.ok = function () { $uibModalInstance.close(true); };
+            $scope.cancel = function () { $uibModalInstance.dismiss("cancel"); };
         }
-        ConfirmationModalController.$inject = ['$scope', '$uibModalInstance', 'confirmationPackage'];
+        ConfirmationModalController.$inject = ["$scope", "$uibModalInstance",
+            "confirmationPackage"];
         return ConfirmationModalController;
     }(BaseController.Controller));
     INGAApp.ConfirmationModalController = ConfirmationModalController;

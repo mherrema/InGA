@@ -7,7 +7,7 @@ var INGAApp;
 (function (INGAApp) {
     var MainController = (function (_super) {
         __extends(MainController, _super);
-        function MainController($scope, $location, $log, $uibModal, mainService, assessmentService, notificationService) {
+        function MainController($scope, $location, $log, $uibModal, mainService, assessmentService, notificationService, dataEntryService) {
             _super.call(this, $scope);
             var controller = this;
             $scope.init = function () {
@@ -126,8 +126,11 @@ var INGAApp;
             $scope.goToDataEntry = function () {
                 $location.path("/dataEntry");
             };
+            $scope.saveAndExitScores = function () {
+                dataEntryService.shouldSaveAndExit = true;
+            };
         }
-        MainController.$inject = ["$scope", "$location", "$log", "$uibModal", "mainService", "assessmentService", "notificationService"];
+        MainController.$inject = ["$scope", "$location", "$log", "$uibModal", "mainService", "assessmentService", "notificationService", "dataEntryService"];
         return MainController;
     }(BaseController.Controller));
     INGAApp.MainController = MainController;

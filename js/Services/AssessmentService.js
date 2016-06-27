@@ -13,7 +13,7 @@ var INGAApp;
             this.$q = $q;
             this.mainService = mainService;
             // this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
-            this.apiRoot = "http://172.21.255.63:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+            this.apiRoot = "http://172.21.255.64:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
             this.assessmentSearchCanceler = $q.defer();
             this.classroomSearchCanceler = $q.defer();
             this.currentDistrictAssessments = [];

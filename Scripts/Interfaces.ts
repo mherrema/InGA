@@ -223,7 +223,7 @@ export interface DistrictAssessment {
   checked?: boolean;
   Status?: string;
   ReportGroup?: string;
-  SelectedCalendar?: {$selected?: {CalendarKey?: number; MarkingPeriodKey?: number; Title: string; }; };
+  SelectedCalendar?: {$selected?: {CalendarKey?: number; MarkingPeriodKey?: number; Title?: string; }; };
   MarkingPeriod?: MarkingPeriod;
 }
 

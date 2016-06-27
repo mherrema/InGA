@@ -49,7 +49,7 @@
     <script src="js/Controllers/Modals/NewAssessmentModalController.js"></script>
     <script src="js/Controllers/Modals/EditAssessmentModalController.js"></script>
     <script src="js/Controllers/Modals/ViewAssessmentModalController.js"></script>
-    <script src="js/Controllers/Modals/AddStudentModalController.js"></script>
+    <script src="js/Controllers/Modals/ValidateStudentsModalController.js"></script>
     <script src="js/Controllers/AssessmentAssignmentController.js"></script>
     <script src="js/Controllers/Modals/NewAssessmentItemModalController.js"></script>
     <script src="js/Controllers/Modals/NewAssessmentTemplateModalController.js"></script>
@@ -85,7 +85,7 @@
             <div class="col-sm-7">
                 <button class="btn  top-button inga-btn inga-btn-positive" ng-if="inAssessmentManagement" ng-click="openNewAssessmentModal()">CREATE NEW ASSESSMENT</button>
                 <button class="btn  top-button inga-btn inga-btn-negative" ng-if="inAssessmentManagement" ng-click="openNewMasterTemplateModal()">CREATE NEW Assessment TEMPLATE</button>
-                <button class="btn  top-button inga-btn inga-btn-positive" ng-if="inScoreEntry" ng-click="">Save &amp; Exit</button>
+                <button class="btn  top-button inga-btn inga-btn-positive" ng-if="inScoreEntry" ng-click="saveAndExitScores()">Save &amp; Exit</button>
                 <button class="btn  top-button inga-btn inga-btn-negative" ng-if="inScoreEntry" ng-click="">Submit</button>
                 <button class="btn  top-button inga-btn inga-btn-negative" ng-if="inScoreEntry" ng-click="goToDataEntry()">Cancel</button>
                 <!-- <button class="btn  top-button inga-btn inga-btn-positive" ng-if="inAssessmentAssignment" ng-click="assignSelected()">Assign Selected</button> -->

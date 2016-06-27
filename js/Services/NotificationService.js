@@ -7,11 +7,11 @@ var INGAApp;
         }
         NotificationService.prototype.showNotification = function (text, type) {
             this.currentNotification.NotificationText = text;
-            if (type == "success") {
+            if (type === "success") {
                 this.currentNotification.Success = true;
                 this.currentNotification.Error = false;
             }
-            else if (type == "error") {
+            else if (type === "error") {
                 this.currentNotification.Success = false;
                 this.currentNotification.Error = true;
             }

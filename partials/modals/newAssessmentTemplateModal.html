@@ -20,11 +20,11 @@
                     ng-model="newAssessmentTemplate.District" ng-focus="resetField('district')"></select>
                 </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-6" ng-init="newAssessmentTemplate.Calendar = {}">
                 <div class="form-group" ng-class="{'error': errors.calendar}">
-                    <label for="inputEmail">Calendar</label>
-                    <select class="form-control ng-animate-disabled" ng-options="calendar as calendar.CalendarName for calendar in calendarOptions track by calendar.CalendarKey"
-                    ng-model="newAssessmentTemplate.Calendar" ng-focus="resetField('calendar')"></select>
+                    <label for="inputEmail">Calendar / Marking Period</label>
+                    <ui-tree-select model="newAssessmentTemplate.SelectedCalendar" class="ng-animate-disabled" ng-disabled="templateSelected" ng-focus="resetField('calendar')">
+  </ui-tree-select>
                 </div>
             </div>
             <div class="col-sm-4">

@@ -1,7 +1,6 @@
 namespace INGAApp {
-  export class MainService extends INGA.Service
-  {
-    static $inject = ['$http', '$q'];
+  export class MainService extends INGA.Service {
+    static $inject = ["$http", "$q"];
 
     pageTitle: string;
     pageTypeTitle: string;
@@ -25,7 +24,7 @@ namespace INGAApp {
       this.$http = $http;
       this.$q = $q;
       // this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
-      this.apiRoot = "http://172.21.255.63:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+      this.apiRoot = "http://172.21.255.64:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
     }
 
     setPageTitles(pageTitle: string, pageTypeTitle: string): void {
@@ -56,7 +55,7 @@ namespace INGAApp {
 
     // getCalendarOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
     //   var self:MainService = this;
-    //   var promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> = this.$http.get(this.apiRoot + 'Options/Calendar/')
+    //   var promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> = this.$http.get(this.apiRoot + "Options/Calendar/")
     //   .then(function(response){
     //     self.calendarOptions = <Array<Calendar>>response.data;
     //     return response.data;
@@ -75,7 +74,7 @@ namespace INGAApp {
         });
       }
       else {
-        var deferred = this.$q.defer();
+        let deferred = this.$q.defer();
 
       deferred.resolve(self.calendarOptions[id]);
       var promise = <ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>>deferred.promise;
@@ -84,9 +83,9 @@ namespace INGAApp {
       return promise;
     }
 
-    getDistrictOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
-      var self:MainService = this;
-      var promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> = this.$http.get(this.apiRoot + 'Options/District/')
+    getDistrictOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
+      let self: MainService = this;
+      let promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> = this.$http.get(this.apiRoot + "Options/District/")
       .then(function(response){
         self.districtOptions = <Array<District>>response.data;
         return response.data;
@@ -95,9 +94,9 @@ namespace INGAApp {
       return promise;
     }
 
-    getGradeOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
-      var self:MainService = this;
-      var promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> = this.$http.get(this.apiRoot + 'Options/GradeLevel/')
+    getGradeOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
+      let self: MainService = this;
+      let promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> = this.$http.get(this.apiRoot + "Options/GradeLevel/")
       .then(function(response){
         self.gradeOptions = <Array<GradeLevel>>response.data;
         return response.data;
@@ -106,9 +105,9 @@ namespace INGAApp {
       return promise;
     }
 
-    getSubjectOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
-      var self:MainService = this;
-      var promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> = this.$http.get(this.apiRoot + 'Options/Subject/')
+    getSubjectOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
+      let self: MainService = this;
+      let promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> = this.$http.get(this.apiRoot + "Options/Subject/")
       .then(function(response){
         self.subjectOptions = <Array<Subject>>response.data;
         return response.data;
@@ -117,9 +116,9 @@ namespace INGAApp {
       return promise;
     }
 
-    getSchoolYearOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
-      var self:MainService = this;
-      var promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> = this.$http.get(this.apiRoot + 'Options/SchoolYear/')
+    getSchoolYearOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
+      let self: MainService = this;
+      let promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> = this.$http.get(this.apiRoot + "Options/SchoolYear/")
       .then(function(response){
         self.schoolYearOptions = <Array<SchoolYear>>response.data;
         return response.data;
@@ -128,9 +127,9 @@ namespace INGAApp {
       return promise;
     }
 
-    getStandardTypeOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
-      var self:MainService = this;
-      var promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> = this.$http.get(this.apiRoot + 'Options/StandardType/')
+    getStandardTypeOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
+      let self: MainService = this;
+      let promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> = this.$http.get(this.apiRoot + "Options/StandardType/")
       .then(function(response){
         self.standardTypeOptions = <Array<StandardType>>response.data;
         return response.data;
@@ -139,9 +138,9 @@ namespace INGAApp {
       return promise;
     }
 
-    getAssessmentTemplateOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
-      var self:MainService = this;
-      var promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> = this.$http.get(this.apiRoot + 'Options/AssessmentTemplate/')
+    getAssessmentTemplateOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
+      let self: MainService = this;
+      let promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> = this.$http.get(this.apiRoot + "Options/AssessmentTemplate/")
       .then(function(response){
         self.assessmentTemplateOptions = <Array<AssessmentTemplate>>response.data;
         return response.data;
@@ -150,9 +149,9 @@ namespace INGAApp {
       return promise;
     }
 
-    getStandardOptions(searchString: string): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
-      var self:MainService = this;
-      var promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> = this.$http.get(this.apiRoot + 'Options/Standard/?SearchString=' + searchString)
+    getStandardOptions(searchString: string): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
+      let self: MainService = this;
+      let promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> = this.$http.get(this.apiRoot + "Options/Standard/?SearchString=" + searchString)
       .then(function(response){
         self.standardOptions = <Array<Standard>>response.data;
         return response.data;
@@ -161,8 +160,8 @@ namespace INGAApp {
       return promise;
     }
 
-    getItemTypeOptions(): Array<ItemType>{
-      return [{ItemTypeKey: 1, TypeName: "Multiple Choice"},{ItemTypeKey: 2, TypeName: "Constructed Response"}];
+    getItemTypeOptions(): Array<ItemType> {
+      return [{ItemTypeKey: 1, TypeName: "Multiple Choice"}, {ItemTypeKey: 2, TypeName: "Constructed Response"}];
     }
   }
 }

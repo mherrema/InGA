@@ -12,7 +12,7 @@ var INGAApp;
             this.$http = $http;
             this.$q = $q;
             // this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
-            this.apiRoot = "http://172.21.255.63:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+            this.apiRoot = "http://172.21.255.64:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
         }
         MainService.prototype.setPageTitles = function (pageTitle, pageTypeTitle) {
             this.pageTitle = pageTitle;
@@ -38,7 +38,7 @@ var INGAApp;
         };
         // getCalendarOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
         //   var self:MainService = this;
-        //   var promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> = this.$http.get(this.apiRoot + 'Options/Calendar/')
+        //   var promise: ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> = this.$http.get(this.apiRoot + "Options/Calendar/")
         //   .then(function(response){
         //     self.calendarOptions = <Array<Calendar>>response.data;
         //     return response.data;
@@ -64,7 +64,7 @@ var INGAApp;
         };
         MainService.prototype.getDistrictOptions = function () {
             var self = this;
-            var promise = this.$http.get(this.apiRoot + 'Options/District/')
+            var promise = this.$http.get(this.apiRoot + "Options/District/")
                 .then(function (response) {
                 self.districtOptions = response.data;
                 return response.data;
@@ -73,7 +73,7 @@ var INGAApp;
         };
         MainService.prototype.getGradeOptions = function () {
             var self = this;
-            var promise = this.$http.get(this.apiRoot + 'Options/GradeLevel/')
+            var promise = this.$http.get(this.apiRoot + "Options/GradeLevel/")
                 .then(function (response) {
                 self.gradeOptions = response.data;
                 return response.data;
@@ -82,7 +82,7 @@ var INGAApp;
         };
         MainService.prototype.getSubjectOptions = function () {
             var self = this;
-            var promise = this.$http.get(this.apiRoot + 'Options/Subject/')
+            var promise = this.$http.get(this.apiRoot + "Options/Subject/")
                 .then(function (response) {
                 self.subjectOptions = response.data;
                 return response.data;
@@ -91,7 +91,7 @@ var INGAApp;
         };
         MainService.prototype.getSchoolYearOptions = function () {
             var self = this;
-            var promise = this.$http.get(this.apiRoot + 'Options/SchoolYear/')
+            var promise = this.$http.get(this.apiRoot + "Options/SchoolYear/")
                 .then(function (response) {
                 self.schoolYearOptions = response.data;
                 return response.data;
@@ -100,7 +100,7 @@ var INGAApp;
         };
         MainService.prototype.getStandardTypeOptions = function () {
             var self = this;
-            var promise = this.$http.get(this.apiRoot + 'Options/StandardType/')
+            var promise = this.$http.get(this.apiRoot + "Options/StandardType/")
                 .then(function (response) {
                 self.standardTypeOptions = response.data;
                 return response.data;
@@ -109,7 +109,7 @@ var INGAApp;
         };
         MainService.prototype.getAssessmentTemplateOptions = function () {
             var self = this;
-            var promise = this.$http.get(this.apiRoot + 'Options/AssessmentTemplate/')
+            var promise = this.$http.get(this.apiRoot + "Options/AssessmentTemplate/")
                 .then(function (response) {
                 self.assessmentTemplateOptions = response.data;
                 return response.data;
@@ -118,7 +118,7 @@ var INGAApp;
         };
         MainService.prototype.getStandardOptions = function (searchString) {
             var self = this;
-            var promise = this.$http.get(this.apiRoot + 'Options/Standard/?SearchString=' + searchString)
+            var promise = this.$http.get(this.apiRoot + "Options/Standard/?SearchString=" + searchString)
                 .then(function (response) {
                 self.standardOptions = response.data;
                 return response.data;
@@ -128,7 +128,7 @@ var INGAApp;
         MainService.prototype.getItemTypeOptions = function () {
             return [{ ItemTypeKey: 1, TypeName: "Multiple Choice" }, { ItemTypeKey: 2, TypeName: "Constructed Response" }];
         };
-        MainService.$inject = ['$http', '$q'];
+        MainService.$inject = ["$http", "$q"];
         return MainService;
     }(INGA.Service));
     INGAApp.MainService = MainService;

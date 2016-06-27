@@ -1,32 +1,22 @@
-module INGAApp
-{
+namespace INGAApp {
 
-  interface IConfirmationModalScope extends BaseController.IScope
-  {
-    confirmationPackage: ConfirmationPackage,
-    ok: Function,
-    cancel: Function
+  interface IConfirmationModalScope extends BaseController.IScope {
+    confirmationPackage: ConfirmationPackage;
+    ok: Function;
+    cancel: Function;
   }
 
-  export class ConfirmationModalController extends BaseController.Controller
-  {
-    scope: IConfirmationModalScope;
-    static $inject = ['$scope', '$uibModalInstance', 'confirmationPackage'];
+  export class ConfirmationModalController extends BaseController.Controller {
+scope: IConfirmationModalScope; static $inject = ["$scope", "$uibModalInstance",
+"confirmationPackage"];
 
-    constructor( $scope: IConfirmationModalScope, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance, confirmationPackage: ConfirmationPackage)
-    {
-      super( $scope );
-      var controller = this;
+    constructor( $scope: IConfirmationModalScope, $uibModalInstance:
+    ng.ui.bootstrap.IModalServiceInstance, confirmationPackage:
+    ConfirmationPackage) { super( $scope ); let controller = this;
 
       $scope.confirmationPackage = confirmationPackage;
 
-      $scope.ok = function () {
-        $uibModalInstance.close(true);
-      };
+      $scope.ok = function () { $uibModalInstance.close(true); };
 
-      $scope.cancel = function () {
-        $uibModalInstance.dismiss('cancel');
-      };
-    }
-  }
+      $scope.cancel = function () { $uibModalInstance.dismiss("cancel"); }; } }
 }

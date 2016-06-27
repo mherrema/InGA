@@ -107,7 +107,7 @@
     <div class="row below-table-btn-row">
         <button class="btn inga-btn inga-btn-positive right-btn" ng-click="goToAssign()" ng-if="assessment.IsPublished && !assessment.IsArchived">Assign</button>
         <button class="btn inga-btn inga-btn-positive right-btn" ng-click="publish()" ng-if="!assessment.IsPublished">Publish</button>
-        <button class="btn inga-btn inga-btn-negative right-btn" ng-click="editAssessment()" ng-if="!assessment.IsArchived">Edit Assessment</button>
+        <button class="btn inga-btn inga-btn-negative right-btn" ng-click="editAssessment()" ng-if="!assessment.IsArchived && !assessment.IsPublished">Edit Assessment</button>
         <button class="btn inga-btn inga-btn-negative right-btn" ng-click="ok()">OK</button>
     </div>
 </div>

@@ -11,7 +11,8 @@ var INGAApp;
             _super.call(this);
             this.$http = $http;
             // this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
-            this.apiRoot = "http://172.21.255.63:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+            this.apiRoot = "http://172.21.255.64:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+            this.shouldSaveAndExit = false;
         }
         DataEntryService.prototype.getStudents = function (classroomKey, markingPeriodKey) {
             // console.log("Getting Classroom Assessments From Service");
@@ -45,6 +46,13 @@ var INGAApp;
         DataEntryService.prototype.saveScore = function (itemKey, score, studentAssessmentKey) {
             console.log({ ItemKey: itemKey, Score: score, StudentAssessmentKey: studentAssessmentKey });
             this.promise = this.$http.post(this.apiRoot + "StudentAssessment/Score/", { ItemKey: itemKey, Score: score, StudentAssessmentKey: studentAssessmentKey })
+                .then(function (response) {
+                return response.data;
+            });
+            return this.promise;
+        };
+        DataEntryService.prototype.validateStudents = function (assessmentKey) {
+            this.promise = this.$http.get(this.apiRoot + "ClassroomAssessment/Validate/" + assessmentKey)
                 .then(function (response) {
                 return response.data;
             });

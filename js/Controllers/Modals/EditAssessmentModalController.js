@@ -32,6 +32,12 @@ var INGAApp;
                 else {
                     $scope.newAssessment = { Title: "New Assessment" };
                 }
+                if ($scope.newAssessment.CalendarKey !== null) {
+                    $scope.newAssessment.SelectedCalendar = { $selected: { CalendarKey: $scope.newAssessment.CalendarKey, Title: $scope.newAssessment.Calendar.CalendarName } };
+                }
+                else if ($scope.newAssessment.MarkingPeriodKey !== null) {
+                    $scope.newAssessment.SelectedCalendar = { $selected: { MarkingPeriodKey: $scope.newAssessment.MarkingPeriodKey, Title: $scope.newAssessment.MarkingPeriod.Name } };
+                }
                 if ($scope.newAssessment.Title === "New Assessment") {
                     $timeout(function () {
                         $scope.highlightTitle();
@@ -137,14 +143,14 @@ var INGAApp;
                 }
             };
             $scope.getCalendarOptions = function () {
-                if (mainService.calendarOptions === undefined) {
-                    mainService.getCalendarOptions().then(function (d) {
-                        $scope.calendarOptions = d;
-                    });
-                }
-                else {
-                    $scope.calendarOptions = mainService.calendarOptions;
-                }
+                // if (mainService.calendarOptions === undefined) {
+                //   mainService.getCalendarOptions().then(function(d: Array<Calendar>){
+                //     $scope.calendarOptions = d;
+                //   });
+                // }
+                // else {
+                //   $scope.calendarOptions = mainService.calendarOptions;
+                // }
             };
             $scope.getAssessmentTemplateOptions = function () {
                 if (mainService.assessmentTemplateOptions === undefined) {

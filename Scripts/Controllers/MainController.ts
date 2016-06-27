@@ -17,13 +17,16 @@ namespace INGAApp {
     currentNotification: Notification;
     assessmentToAssign: DistrictAssessment;
     selectAssessment: Function;
+    saveAndExitScores: Function;
   }
 
   export class MainController extends BaseController.Controller {
     scope: IMainScope;
-    static $inject = ["$scope", "$location", "$log", "$uibModal", "mainService", "assessmentService", "notificationService"];
+    static $inject = ["$scope", "$location", "$log", "$uibModal", "mainService", "assessmentService", "notificationService", "dataEntryService"];
 
-    constructor( $scope: IMainScope, $location: ng.ILocationService, $log: ng.ILogService, $uibModal: ng.ui.bootstrap.IModalService, mainService: MainService, assessmentService: AssessmentService, notificationService: NotificationService) {
+    constructor( $scope: IMainScope, $location: ng.ILocationService, $log: ng.ILogService, $uibModal: ng.ui.bootstrap.IModalService,
+      mainService: MainService, assessmentService: AssessmentService, notificationService: NotificationService,
+    dataEntryService: DataEntryService) {
       super( $scope );
       let controller = this;
 
@@ -170,6 +173,10 @@ namespace INGAApp {
 
       $scope.goToDataEntry = function(){
         $location.path("/dataEntry");
+      };
+
+      $scope.saveAndExitScores = function(){
+        dataEntryService.shouldSaveAndExit = true;
       };
     }
   }

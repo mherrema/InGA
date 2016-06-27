@@ -5,21 +5,20 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var INGAApp;
 (function (INGAApp) {
-    var AddStudentModalController = (function (_super) {
-        __extends(AddStudentModalController, _super);
-        function AddStudentModalController($scope, $uibModalInstance, $uibModal, mainService, assessment) {
+    var ValidateStudentsModalController = (function (_super) {
+        __extends(ValidateStudentsModalController, _super);
+        function ValidateStudentsModalController($scope, $uibModalInstance, $uibModal, mainService, classroomAssessmentKey, dataEntryService) {
             _super.call(this, $scope);
             var controller = this;
-            $scope.assessment = assessment;
+            // $scope.assessment = assessment;
             $scope.newAssessmentItem = {};
             $scope.newAssessmentItem.PointsMin = 0;
             $scope.newAssessmentItem.PointsMax = 10;
             $scope.newAssessmentItem.PointsStep = 1.0;
             $scope.newAssessmentItem.ItemType = { ItemTypeKey: 1, TypeName: "Multiple Choice" };
             $scope.itemTypeOptions = mainService.getItemTypeOptions();
-            $scope.pointsStepOptions = [{ Step: 1.0, Title: "1.0" }, { Step: 0.5, Title: "0.5" }, { Step: 0.2, Title: "0.2" }, { Step: 0.1, Title: "0.1" }, { Step: 0, Title: "All Values In Range" }];
-            $scope.initFormValidation = function () {
-                $scope.newAssessmentItemForm.PointsMin.$setValidity("pointsmin", ($scope.newAssessmentItem.PointsMin < $scope.newAssessmentItem.PointsMax));
+            $scope.init = function () {
+                dataEntryService.validateStudents(classroomAssessmentKey);
             };
             $scope.ok = function () {
                 if ($scope.assessment.Items === undefined || $scope.assessment.Items.length === 0) {
@@ -33,9 +32,9 @@ var INGAApp;
                 $uibModalInstance.dismiss("cancel");
             };
         }
-        AddStudentModalController.$inject = ["$scope", "$uibModalInstance", "$uibModal", "mainService", "assessment"];
-        return AddStudentModalController;
+        ValidateStudentsModalController.$inject = ["$scope", "$uibModalInstance", "$uibModal", "mainService", "classroomAssessmentKey", "dataEntryService"];
+        return ValidateStudentsModalController;
     }(BaseController.Controller));
-    INGAApp.AddStudentModalController = AddStudentModalController;
+    INGAApp.ValidateStudentsModalController = ValidateStudentsModalController;
 })(INGAApp || (INGAApp = {}));
-//# sourceMappingURL=AddStudentModalController.js.map
+//# sourceMappingURL=ValidateStudentsModalController.js.map

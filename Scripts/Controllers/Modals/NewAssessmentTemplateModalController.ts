@@ -78,14 +78,14 @@ module INGAApp
       }
 
       $scope.getCalendarOptions = function(){
-        if(mainService.calendarOptions == undefined){
-          mainService.getCalendarOptions().then(function(d: Array<Calendar>){
-            $scope.calendarOptions = d;
-          });
-        }
-        else{
-          $scope.calendarOptions = mainService.calendarOptions;
-        }
+        // if(mainService.calendarOptions == undefined){
+        //   mainService.getCalendarOptions().then(function(d: Array<Calendar>){
+        //     $scope.calendarOptions = d;
+        //   });
+        // }
+        // else{
+        //   $scope.calendarOptions = mainService.calendarOptions;
+        // }
       }
 
       $scope.getDistrictOptions = function(){

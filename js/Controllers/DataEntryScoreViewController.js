@@ -22,10 +22,6 @@ var INGAApp;
             }, function (argument) {
                 return "You can only insert names starting with:" + argument;
             });
-            $scope.filterOptions = {
-                filterText: "hidden:false",
-                useExternalFilter: true
-            };
             $scope.init = function () {
                 $scope.gridOptions = {
                     onRegisterApi: function (gridApi) {
@@ -35,13 +31,7 @@ var INGAApp;
                     enableFiltering: true,
                     enableColumnMenus: false,
                     columnDefs: [{ name: "Name", minWidth: 250, pinnedLeft: true, enableSorting: true, cellEditableCondition: false,
-                            cellTemplate: "<div class='ui-grid-cell-contents'><input type='checkbox' ng-model='row.entity.checked' ng-checked='row.entity.checked' /> {{row.entity.DistrictStudent.LastName}}, {{row.entity.DistrictStudent.FirstName}} ({{row.entity.DistrictStudent.StudentNumber}})</div>" },
-                        { name: "hidden", enableFiltering: true, filter: {
-                                noTerm: true,
-                                condition: function (searchTerm, cellValue) {
-                                    return cellValue === false;
-                                }
-                            } }],
+                            cellTemplate: "<div class='ui-grid-cell-contents'><input type='checkbox' ng-model='row.entity.checked' ng-checked='row.entity.checked' /> {{row.entity.DistrictStudent.LastName}}, {{row.entity.DistrictStudent.FirstName}} ({{row.entity.DistrictStudent.StudentNumber}})</div>" }],
                     enableCellEditOnFocus: true,
                     data: [],
                     rowHeight: 45,
@@ -80,12 +70,18 @@ var INGAApp;
                 $scope.$watch(function () { return dataEntryService.currentAssessment; }, function (newValue, oldValue) {
                     $scope.currentAssessment = newValue;
                 });
+                $scope.$watch(function () { return dataEntryService.shouldSaveAndExit; }, function (newValue, oldValue) {
+                    if (newValue) {
+                        $scope.saveAndExit();
+                        dataEntryService.shouldSaveAndExit = false;
+                    }
+                });
                 $scope.studentsToRemove = [];
             };
             $scope.saveAndExit = function () {
                 angular.forEach($scope.gridOptions.data, function (student) {
                     angular.forEach($scope.gridOptions.columnDefs, function (column, index) {
-                        if (index !== 0 && index !== 1 && student[index - 1] !== undefined) {
+                        if (index !== 0 && student[index - 1] !== undefined) {
                             // console.log({itemKey: column.itemKey, score: student[index-1], studentKey: student.DistrictStudentKey, classroomKey: $scope.currentAssessment.Classroom.ClassroomKey});
                             if (!uiGridValidateService.isInvalid(student, column)) {
                                 dataEntryService.saveScore(column.itemKey, student[index - 1], student.StudentAssessmentKey);
@@ -96,6 +92,7 @@ var INGAApp;
                     // console.log($scope.gridApi.grid.rows);
                     // console.log(student);
                 });
+                $location.path("/dataEntry");
             };
             $scope.areRowsChecked = function () {
                 var returnVal = false;
@@ -108,11 +105,11 @@ var INGAApp;
             };
             $scope.hideChecked = function () {
                 angular.forEach($scope.gridOptions.data, function (student) {
-                    if (student.checked) {
-                        student.hidden = true;
-                        student.checked = false;
-                        $scope.areStudentsHidden = true;
-                    }
+                    // if (student.checked) {
+                    //   student.hidden = true;
+                    //   student.checked = false;
+                    //   $scope.areStudentsHidden = true;
+                    // }
                 });
                 $scope.gridApi.core.refresh();
             };
@@ -128,14 +125,14 @@ var INGAApp;
                 $scope.gridApi.core.refresh();
             };
             $scope.showAllStudents = function () {
-                angular.forEach($scope.gridOptions.data, function (student) {
-                    if (!student.removed) {
-                        student.hidden = false;
-                        student.checked = false;
-                    }
-                });
-                $scope.areStudentsHidden = false;
-                $scope.gridApi.core.refresh();
+                // angular.forEach($scope.gridOptions.data, function (student) {
+                //   if (!student.removed) {
+                //     student.hidden = false;
+                //     student.checked = false;
+                //   }
+                // });
+                // $scope.areStudentsHidden = false;
+                // $scope.gridApi.core.refresh();
             };
             $scope.selectMarkingPeriod = function (markingPeriod) {
                 if (markingPeriod.Children.length === 0) {
@@ -143,87 +140,136 @@ var INGAApp;
                 }
                 else {
                     $scope.gridOptions.data = [];
+                    $scope.currentStudentAssessments = [];
                 }
             };
             $scope.getStudents = function (markingPeriodKey) {
                 dataEntryService.getStudents(dataEntryService.currentAssessment.ClassroomKey, markingPeriodKey)
                     .then(function (d) {
+                    $scope.currentStudentAssessments = d;
                     angular.forEach(d, function (assessment) {
-                        assessment.hidden = false;
+                        // assessment.hidden = false;
                         angular.forEach(assessment.Scores, function (score) {
-                            assessment[score.Item.ItemOrder] = score.Score1;
+                            assessment[score.Item.ItemOrder - 1] = score.Score1;
                         });
                     });
                     $scope.gridOptions.data = d;
-                    $scope.gridOptions.columnDefs[1].visible = false;
+                    // $scope.gridOptions.columnDefs[1].visible = false;
                     $scope.gridApi.core.refresh();
                 });
             };
-            $scope.setHeadingDropdownWidth = function () {
-                $timeout(function () {
-                    var dropdowns = $(".table-heading-dropdown");
-                    for (var i = 0; i < dropdowns.length; i++) {
-                        $($(dropdowns[i])).css({ "width": "" });
-                        if ($(dropdowns[i]).width() < $(dropdowns[i]).parent("th").outerWidth()) {
-                            $(dropdowns[i]).width($(dropdowns[i]).parent("th").outerWidth());
+            $scope.validateStudents = function () {
+                if ($scope.currentStudentAssessments && $scope.currentStudentAssessments.length > 0) {
+                    var modalInstance = $uibModal.open({
+                        animation: true,
+                        templateUrl: "partials/modals/validateStudentsModal.html",
+                        controller: "ValidateStudentsModalController",
+                        size: "lg",
+                        resolve: {
+                            classroomAssessmentKey: function () {
+                                return dataEntryService.currentAssessment.ClassroomAssessmentKey;
+                            }
                         }
-                    }
-                });
-            };
-            // toggle if search input is open
-            $scope.toggleSearchOpen = function () {
-                $scope.searchOpen = !$scope.searchOpen;
-                if ($scope.searchOpen) {
+                    });
+                    modalInstance.result.then(function (assessmentPackage) {
+                        // assessmentService.saveAssessment(assessmentPackage).then(function(res: ReturnPackage){
+                        //   if (res.Success) {
+                        //     assessmentPackage.Assessment.DistrictAssessmentKey = res.Key;
+                        //     if (assessmentPackage.Assessment.SelectedCalendar.$selected.CalendarKey) {
+                        //       assessmentPackage.Assessment.Calendar = {CalendarName: assessmentPackage.Assessment.SelectedCalendar.$selected.Title};
+                        //     }
+                        //     else if (assessmentPackage.Assessment.SelectedCalendar.$selected.MarkingPeriodKey) {
+                        //       assessmentPackage.Assessment.MarkingPeriod = {Name: assessmentPackage.Assessment.SelectedCalendar.$selected.Title};
+                        //     }
+                        //     assessmentService.currentDistrictAssessments.push(assessmentPackage.Assessment);
+                        //     notificationService.showNotification("Success saving assessment", "success");
+                        //     // show success!
+                        //     if (assessmentPackage.ShouldPublish) {
+                        //       console.log("Going to assessment view");
+                        //       // go to assessment view
+                        //     }
+                        //   }
+                        //   else {
+                        //     notificationService.showNotification("Error saving assessment", "error");
+                        //     // show error!
+                        //   }
+                        // });
+                    });
                 }
             };
-            // open table heading filtration
-            $scope.openHeading = function (heading) {
-                $scope.closeHeadings();
-                heading.open = true;
-                $scope.justOpenedHeading = true;
-            };
-            // close all table heading filters
-            $scope.closeHeadings = function () {
-                $scope.headingOpen = false;
-                angular.forEach($scope.headingOptions, function (value, key) {
-                    value.open = false;
-                });
-            };
-            // select table heading filter option
-            $scope.selectHeadingOption = function (heading, option) {
-                if (option.Key !== "All") {
-                    heading.selected = option;
-                }
-                else {
-                    heading.selected = { Key: "", Value: "" };
-                }
-                $scope.checkFilters();
-                $scope.closeHeadings();
-            };
-            $scope.checkFilters = function () {
-                $scope.areOptionsSelected = false;
-                angular.forEach($scope.headingOptions, function (value, key) {
-                    if (value.selected !== undefined) {
-                        if (value.selected.Value !== "") {
-                            $scope.areOptionsSelected = true;
-                            return;
-                        }
-                    }
-                });
-            };
-            $scope.clearFilters = function (input) {
-                angular.forEach($scope.headingOptions, function (value, key) {
-                    value.selected = { Key: "", Value: "" };
-                });
-                $scope.areOptionsSelected = false;
-                $scope.closeHeadings();
-            };
-            $scope.headingSortValue = function (item) {
-                if (item.Key === "All") {
-                    return -1;
-                }
-                return item;
-            };
+            // $scope.setHeadingDropdownWidth = function(){
+            //   $timeout(function () {
+            //     let dropdowns = $(".table-heading-dropdown");
+            //     for ( let i = 0; i < dropdowns.length; i++) {
+            //       $($(dropdowns[i])).css({ "width": "" });
+            //       if ($(dropdowns[i]).width() < $(dropdowns[i]).parent("th").outerWidth()) {
+            //         $(dropdowns[i]).width($(dropdowns[i]).parent("th").outerWidth());
+            //       }
+            //     }
+            //   });
+            // };
+            //
+            // // toggle if search input is open
+            // $scope.toggleSearchOpen = function () {
+            //   $scope.searchOpen = !$scope.searchOpen;
+            //   if ($scope.searchOpen) {
+            //     // focus("studentSearchInput");
+            //   }
+            // };
+            // // open table heading filtration
+            // $scope.openHeading = function (heading) {
+            //   $scope.closeHeadings();
+            //   heading.open = true;
+            //   $scope.justOpenedHeading = true;
+            // };
+            //
+            // // close all table heading filters
+            // $scope.closeHeadings = function () {
+            //   $scope.headingOpen = false;
+            //   angular.forEach($scope.headingOptions, function (value, key) {
+            //     value.open = false;
+            //   });
+            // };
+            //
+            // // select table heading filter option
+            // $scope.selectHeadingOption = function (heading: HeadingOption, option: FilterOption) {
+            //   if (option.Key !== "All") {
+            //     heading.selected = option;
+            //   } else {
+            //     heading.selected = { Key: "", Value: "" };
+            //   }
+            //
+            //   $scope.checkFilters();
+            //   $scope.closeHeadings();
+            // };
+            //
+            // $scope.checkFilters = function () {
+            //   $scope.areOptionsSelected = false;
+            //   angular.forEach($scope.headingOptions, function (value, key) {
+            //     if (value.selected !== undefined) {
+            //       if (value.selected.Value !== "") {
+            //         $scope.areOptionsSelected = true;
+            //         return;
+            //       }
+            //     }
+            //   });
+            // };
+            //
+            // $scope.clearFilters = function (input) {
+            //   angular.forEach($scope.headingOptions, function (value, key) {
+            //     value.selected = { Key: "", Value: "" };
+            //   });
+            //
+            //   $scope.areOptionsSelected = false;
+            //   $scope.closeHeadings();
+            // };
+            //
+            // $scope.headingSortValue = function (item) {
+            //   if (item.Key === "All") {
+            //     return -1;
+            //   }
+            //   return item;
+            // };
         }
         DataEntryScoreViewController.$inject = ["$scope", "$timeout", "$location", "$uibModal", "mainService", "dataEntryService", "uiGridValidateService", "$window"];
         return DataEntryScoreViewController;

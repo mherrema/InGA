@@ -1,7 +1,6 @@
-module INGAApp {
-  export class FilterService extends INGA.Service
-  {
-    static $inject = ['$http'];
+namespace INGAApp {
+  export class FilterService extends INGA.Service {
+    static $inject = ["$http"];
 
     currentDistrictAssessmentFilterOptions: Array<HeadingOption>;
     currentClassroomAssessments: Array<ClassroomAssessment>;
@@ -14,13 +13,13 @@ module INGAApp {
 
       this.$http = $http;
       // this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
-      this.apiRoot = "http://172.21.255.63:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+      this.apiRoot = "http://172.21.255.64:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
     }
 
-    getDistrictAssessmentFilterOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
-      var filterString = "";
+    getDistrictAssessmentFilterOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
+      let filterString = "";
 
-        this.promise = this.$http.get(this.apiRoot + 'Filters/DistrictAssessment/')
+        this.promise = this.$http.get(this.apiRoot + "Filters/DistrictAssessment/")
         .then(function(response){
           return response.data;
         });
@@ -28,10 +27,10 @@ module INGAApp {
         return this.promise;
     }
 
-    getDataEntryFilterOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
-      var filterString = "";
+    getDataEntryFilterOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
+      let filterString = "";
 
-        this.promise = this.$http.get(this.apiRoot + 'Filters/DataEntry/')
+        this.promise = this.$http.get(this.apiRoot + "Filters/DataEntry/")
         .then(function(response){
           return response.data;
         });
@@ -39,10 +38,10 @@ module INGAApp {
         return this.promise;
     }
 
-    getClassroomFilterOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>>{
-      var filterString = "";
+    getClassroomFilterOptions(): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
+      let filterString = "";
 
-        this.promise = this.$http.get(this.apiRoot + 'Filters/Classroom/')
+        this.promise = this.$http.get(this.apiRoot + "Filters/Classroom/")
         .then(function(response){
           return response.data;
         });
