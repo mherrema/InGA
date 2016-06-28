@@ -20,17 +20,25 @@ var INGAApp;
                 $scope.newAssessmentItem.Item.ItemType = { ItemTypeKey: 1, TypeName: "Multiple Choice" };
                 $scope.itemTypeOptions = mainService.getItemTypeOptions();
                 $scope.pointsStepOptions = [{ Step: 1.0, Title: "1.0" }, { Step: 0.5, Title: "0.5" }, { Step: 0.2, Title: "0.2" }, { Step: 0.1, Title: "0.1" }, { Step: 0, Title: "All Values In Range" }];
+                if ($scope.assessment.itemIndexToEdit !== undefined && $scope.assessment.itemIndexToEdit !== null) {
+                    $scope.newAssessmentItem = $scope.assessment.DistrictAssessmentItems[$scope.assessment.itemIndexToEdit];
+                }
             };
             $scope.ok = function () {
                 if ($scope.assessment.DistrictAssessmentItems === undefined || $scope.assessment.DistrictAssessmentItems.length === 0) {
                     $scope.assessment.DistrictAssessmentItems = [];
                 }
-                if ($scope.newAssessmentItem.Item.Standard != null) {
-                    $scope.newAssessmentItem.Item.StandardKey = $scope.newAssessmentItem.Item.Standard.StandardKey;
-                    $scope.newAssessmentItem.Item.StandardCode = $scope.newAssessmentItem.Item.Standard.StandardCode;
+                if ($scope.assessment.itemIndexToEdit === undefined || $scope.assessment.itemIndexToEdit === null) {
+                    if ($scope.newAssessmentItem.Item.Standard != null) {
+                        $scope.newAssessmentItem.Item.StandardKey = $scope.newAssessmentItem.Item.Standard.StandardKey;
+                        $scope.newAssessmentItem.Item.StandardCode = $scope.newAssessmentItem.Item.Standard.StandardCode;
+                    }
+                    $scope.newAssessmentItem.Item.ItemOrder = $scope.assessment.DistrictAssessmentItems.length + 1;
+                    $scope.assessment.DistrictAssessmentItems.push($scope.newAssessmentItem);
                 }
-                $scope.newAssessmentItem.Item.ItemOrder = $scope.assessment.DistrictAssessmentItems.length + 1;
-                $scope.assessment.DistrictAssessmentItems.push($scope.newAssessmentItem);
+                else {
+                    $scope.assessment.itemIndexToEdit = null;
+                }
                 $uibModalInstance.close($scope.assessment);
             };
             $scope.cancel = function () {

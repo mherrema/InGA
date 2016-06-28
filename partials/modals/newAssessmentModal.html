@@ -31,8 +31,7 @@
             <div class="col-sm-6" ng-init="newAssessment.Calendar = {}">
                 <div class="form-group" ng-class="{'error': errors.calendar}">
                     <label for="inputEmail">Calendar / Marking Period</label>
-                    <ui-tree-select model="newAssessment.SelectedCalendar" class="ng-animate-disabled" ng-disabled="templateSelected" ng-focus="resetField('calendar')">
-  </ui-tree-select>
+                    <ui-tree-select model="newAssessment.SelectedCalendar" class="ng-animate-disabled" disabled="templateSelected"></ui-tree-select>
                     <!-- <select class="form-control ng-animate-disabled" ng-options="calendar as calendar.CalendarName for calendar in calendarOptions track by calendar.CalendarKey"
                     ng-model="newAssessment.Calendar" ng-disabled="templateSelected" ng-focus="resetField('calendar')"></select> -->
                 </div>
@@ -122,7 +121,7 @@
               <td colspan="5">No items to display</td>
           </tr>
           <tr ng-repeat="item in newAssessment.DistrictAssessmentItems">
-              <td ng-class="{'editing': !templateSelected}"><i class="glyphicon glyphicon-remove" ng-if="!templateSelected" ng-click="removeItemAtIndex($index)"></i>{{item.Item.ItemOrder}}</td>
+              <td ng-class="{'editing': !templateSelected}"><i class="glyphicon glyphicon-remove" ng-if="!templateSelected" ng-click="removeItemAtIndex($index)"></i> <i class="glyphicon glyphicon-pencil" ng-if="!templateSelected" ng-click="editItemAtIndex($index)"></i>{{item.Item.ItemOrder}}</td>
               <td ng-if="!item.Item.Label">{{item.Item.StandardCode}}</td>
               <td ng-if="item.Item.Label">{{item.Item.Label}}</td>
               <td>{{item.Item.ItemType.TypeName}}</td>

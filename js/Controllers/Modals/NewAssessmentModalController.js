@@ -144,7 +144,14 @@ var INGAApp;
                     $scope.templateSelected = true;
                     $scope.sortableOptions.disabled = false;
                     $scope.newAssessment.Subject = $scope.newAssessment.AssessmentTemplate.Subject;
-                    $scope.newAssessment.Calendar = $scope.newAssessment.AssessmentTemplate.Calendar;
+                    if ($scope.newAssessment.AssessmentTemplate.Calendar) {
+                        $scope.newAssessment.SelectedCalendar.$selected = { CalendarKey: $scope.newAssessment.AssessmentTemplate.Calendar.CalendarKey,
+                            Title: $scope.newAssessment.AssessmentTemplate.Calendar.CalendarName };
+                    }
+                    else if ($scope.newAssessment.AssessmentTemplate.MarkingPeriod) {
+                        $scope.newAssessment.SelectedCalendar.$selected = { MarkingPeriodKey: $scope.newAssessment.AssessmentTemplate.MarkingPeriod.MarkingPeriodKey,
+                            Title: $scope.newAssessment.AssessmentTemplate.MarkingPeriod.Name };
+                    }
                     $scope.newAssessment.StandardType = $scope.newAssessment.AssessmentTemplate.StandardType;
                     $scope.newAssessment.GradeLevel = $scope.newAssessment.AssessmentTemplate.GradeLevel;
                     $scope.newAssessment.IsScantron = $scope.newAssessment.AssessmentTemplate.IsScantron;
@@ -155,9 +162,13 @@ var INGAApp;
                             ItemKey: item.ItemKey });
                     });
                 }
+                ;
             };
             $scope.removeItemAtIndex = function (index) {
                 $scope.newAssessment.DistrictAssessmentItems.splice(index, 1);
+            };
+            $scope.editItemAtIndex = function (index) {
+                $scope.openNewAssessmentItemModal("lg", index);
             };
             $scope.highlightTitle = function () {
                 $("#assessmentTitle").select();
@@ -237,7 +248,10 @@ var INGAApp;
             $scope.cancel = function () {
                 $uibModalInstance.dismiss("cancel");
             };
-            $scope.openNewAssessmentItemModal = function (size) {
+            $scope.openNewAssessmentItemModal = function (size, index) {
+                if (index) {
+                    $scope.newAssessment.itemIndexToEdit = index;
+                }
                 var modalInstance = $uibModal.open({
                     animation: true,
                     backdrop: "static",

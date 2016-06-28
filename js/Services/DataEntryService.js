@@ -10,8 +10,8 @@ var INGAApp;
         function DataEntryService($http) {
             _super.call(this);
             this.$http = $http;
-            // this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
-            this.apiRoot = "http://172.21.255.64:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+            this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+            // this.apiRoot = "http://172.21.255.64:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
             this.shouldSaveAndExit = false;
         }
         DataEntryService.prototype.getStudents = function (classroomKey, markingPeriodKey) {
@@ -51,8 +51,15 @@ var INGAApp;
             });
             return this.promise;
         };
-        DataEntryService.prototype.validateStudents = function (assessmentKey) {
-            this.promise = this.$http.get(this.apiRoot + "ClassroomAssessment/Validate/" + assessmentKey)
+        DataEntryService.prototype.validateStudents = function (assessmentKey, markingPeriodKey) {
+            this.promise = this.$http.get(this.apiRoot + "ClassroomAssessment/Validate/" + assessmentKey + "/" + markingPeriodKey + "/")
+                .then(function (response) {
+                return response.data;
+            });
+            return this.promise;
+        };
+        DataEntryService.prototype.addStudent = function (districtStudentKey, classroomAssessmentKey) {
+            this.promise = this.$http.post(this.apiRoot + "ClassroomAssessment/Student/", { DistrictStudentKey: districtStudentKey, ClassroomAssessmentKey: classroomAssessmentKey })
                 .then(function (response) {
                 return response.data;
             });

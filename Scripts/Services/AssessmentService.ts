@@ -24,8 +24,8 @@ namespace INGAApp {
       this.$http = $http;
       this.$q = $q;
       this.mainService = mainService;
-      // this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
-      this.apiRoot = "http://172.21.255.64:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+      this.apiRoot = "http://win-iq115hn5k0f:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
+      // this.apiRoot = "http://172.21.255.64:37913/_vti_bin/INGAApplicationService/INGAApplicationService.svc/";
       this.assessmentSearchCanceler = $q.defer();
       this.classroomSearchCanceler = $q.defer();
       this.currentDistrictAssessments = [];
@@ -234,7 +234,8 @@ namespace INGAApp {
       console.log("Saving Assessment Template In Service");
       assessmentPackage.AssessmentTemplate.GradeLevelKey = assessmentPackage.AssessmentTemplate.GradeLevel.GradeLevelKey;
       assessmentPackage.AssessmentTemplate.StandardTypeKey = assessmentPackage.AssessmentTemplate.StandardType.StandardTypeKey;
-      assessmentPackage.AssessmentTemplate.CalendarKey = assessmentPackage.AssessmentTemplate.Calendar.CalendarKey;
+      assessmentPackage.AssessmentTemplate.CalendarKey = assessmentPackage.AssessmentTemplate.SelectedCalendar.$selected.CalendarKey;
+      assessmentPackage.AssessmentTemplate.MarkingPeriodKey = assessmentPackage.AssessmentTemplate.SelectedCalendar.$selected.MarkingPeriodKey;
       assessmentPackage.AssessmentTemplate.SubjectKey = assessmentPackage.AssessmentTemplate.Subject.SubjectKey;
       assessmentPackage.AssessmentTemplate.DistrictKey = assessmentPackage.AssessmentTemplate.District.DistrictKey;
       let self = this;

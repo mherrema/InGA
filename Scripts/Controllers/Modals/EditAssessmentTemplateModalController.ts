@@ -52,6 +52,15 @@ namespace INGAApp {
         $scope.getStandardTypeOptions();
         $scope.getCalendarOptions();
         $scope.getDistrictOptions();
+
+        if ($scope.newAssessmentTemplate.CalendarKey !== null) {
+          $scope.newAssessmentTemplate.SelectedCalendar = {$selected:
+            {CalendarKey: $scope.newAssessmentTemplate.CalendarKey, Title: $scope.newAssessmentTemplate.Calendar.CalendarName}};
+        }
+        else if ($scope.newAssessmentTemplate.MarkingPeriodKey !== null) {
+          $scope.newAssessmentTemplate.SelectedCalendar = {$selected:
+            {MarkingPeriodKey: $scope.newAssessmentTemplate.MarkingPeriodKey, Title: $scope.newAssessmentTemplate.MarkingPeriod.Name}};
+        }
       };
 
       $scope.makeAvailableToUsers = function(){

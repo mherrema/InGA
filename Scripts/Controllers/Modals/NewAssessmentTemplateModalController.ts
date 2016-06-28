@@ -54,10 +54,11 @@ namespace INGAApp {
 
             $scope.errors = {};
 
+            $scope.newAssessmentTemplate.SelectedCalendar = {};
+
         $scope.getGradeOptions();
         $scope.getSubjectOptions();
         $scope.getStandardTypeOptions();
-        $scope.getCalendarOptions();
         $scope.getDistrictOptions();
       };
 
@@ -67,17 +68,6 @@ namespace INGAApp {
 
       $scope.highlightTitle = function(){
         $("#assessmentTemplateTitle").select();
-      };
-
-      $scope.getCalendarOptions = function(){
-        // if(mainService.calendarOptions == undefined){
-        //   mainService.getCalendarOptions().then(function(d: Array<Calendar>){
-        //     $scope.calendarOptions = d;
-        //   });
-        // }
-        // else{
-        //   $scope.calendarOptions = mainService.calendarOptions;
-        // }
       };
 
       $scope.getDistrictOptions = function(){
@@ -137,11 +127,11 @@ namespace INGAApp {
           $scope.errors.district = true;
           errorFree = false;
         }
-        if ($scope.newAssessmentTemplate.Calendar === undefined) {
-          $scope.errorText = "The assessment template must be associated with a calendar";
-          $scope.errors.calendar = true;
-          errorFree = false;
-        }
+        // if ($scope.newAssessmentTemplate.Calendar === undefined) {
+        //   $scope.errorText = "The assessment template must be associated with a calendar";
+        //   $scope.errors.calendar = true;
+        //   errorFree = false;
+        // }
         if ($scope.newAssessmentTemplate.GradeLevel === undefined) {
           $scope.errorText = "The assessment must be associated with a grade level";
           $scope.errors.gradeLevel = true;

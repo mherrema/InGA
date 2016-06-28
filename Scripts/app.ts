@@ -87,8 +87,8 @@ namespace INGAApp {
   "$timeout",
   function (mainService: MainService, $timeout) {
     return {
-      restrict: "E",
-      scope: { model: "=" },
+      restrict: "EA",
+      scope: { model: "=", disabled: "="},
       link: function (scope, el) {
         scope.breadcrumbs  = [{Key: 0, Title: "All"}];
         scope.groups = [];

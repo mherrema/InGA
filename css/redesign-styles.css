@@ -133,6 +133,11 @@ a:visited.inga-btn-negative:hover {
   color: #1fbdd5;
   text-decoration: none;
 }
+.above-table-actions-row .above-table-actions > li:hover.no-click {
+  color: black;
+  text-decoration: none;
+  cursor: default;
+}
 .above-table-actions-row .above-table-actions .above-table-action-right {
   padding-left: 28px;
   float: right;
@@ -145,6 +150,9 @@ a:visited.inga-btn-negative:hover {
 .above-table-actions-row .above-table-actions .above-table-action-right.toggle-button.active {
   background: #1fbdd5;
   color: #fff;
+}
+.above-table-actions-row .above-table-actions .above-table-action-right .action-button-right {
+  margin-right: 65px;
 }
 .above-table-actions-row .above-table-actions .above-table-action-left {
   padding-right: 28px;
@@ -535,7 +543,7 @@ input[type="checkbox"]:checked:after {
   width: 100%;
   margin-bottom: 40px;
 }
-.modal .modal-dialog .modal-content .modal-body .modal-table tr:hover td.editing .glyphicon {
+.modal .modal-dialog .modal-content .modal-body .modal-table tr td.editing .glyphicon:hover {
   color: #333;
 }
 .modal .modal-dialog .modal-content .modal-body .modal-table .ui-sortable-helper {
@@ -1075,4 +1083,9 @@ div.ui-grid-cell-contents.invalid {
 }
 .selectize-dropdown.group-tree .ui-breadcrumb:last-child:after {
   content: ' ';
+}
+ui-tree-select .selectize-control .selectize-input.disabled {
+  opacity: 1;
+  background: #eee;
+  pointer: not-allowed;
 }

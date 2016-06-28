@@ -144,6 +144,7 @@ var INGAApp;
                 }
             };
             $scope.getStudents = function (markingPeriodKey) {
+                $scope.currentMarkingPeriodKey = markingPeriodKey;
                 dataEntryService.getStudents(dataEntryService.currentAssessment.ClassroomKey, markingPeriodKey)
                     .then(function (d) {
                     $scope.currentStudentAssessments = d;
@@ -168,6 +169,9 @@ var INGAApp;
                         resolve: {
                             classroomAssessmentKey: function () {
                                 return dataEntryService.currentAssessment.ClassroomAssessmentKey;
+                            },
+                            markingPeriodKey: function () {
+                                return $scope.currentMarkingPeriodKey;
                             }
                         }
                     });

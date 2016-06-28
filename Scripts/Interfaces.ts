@@ -110,6 +110,11 @@ export interface PointsStepOption {
   Step: number;
 }
 
+export interface StudentValidationPackage {
+  StudentsToAdd: Array<DistrictStudent>;
+  StudentsToRemove: Array<DistrictStudent>;
+}
+
 
 
 export interface AssessmentTemplate {
@@ -129,6 +134,9 @@ export interface AssessmentTemplate {
   District?: District;
   DistrictKey?: number;
   IsScantron?: boolean;
+  SelectedCalendar?: {$selected?: {CalendarKey?: number; MarkingPeriodKey?: number; Title?: string; }; };
+  MarkingPeriod?: MarkingPeriod;
+  MarkingPeriodKey?: number;
   checked?: boolean;
 }
 
@@ -225,6 +233,7 @@ export interface DistrictAssessment {
   ReportGroup?: string;
   SelectedCalendar?: {$selected?: {CalendarKey?: number; MarkingPeriodKey?: number; Title?: string; }; };
   MarkingPeriod?: MarkingPeriod;
+  itemIndexToEdit?: number;
 }
 
 export interface DistrictAssessmentItem {

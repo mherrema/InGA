@@ -7,17 +7,18 @@ namespace INGAApp {
     openNewAssessmentModal: Function;
     newAssessmentItem: Item;
     itemTypeOptions: Array<ItemType>;
+    validationPackage: StudentValidationPackage;
     init: Function;
   }
 
 
   export class ValidateStudentsModalController extends BaseController.Controller {
     scope: IValidateStudentsModalScope;
-    static $inject = ["$scope", "$uibModalInstance", "$uibModal", "mainService", "classroomAssessmentKey", "dataEntryService"];
+    static $inject = ["$scope", "$uibModalInstance", "$uibModal", "mainService", "classroomAssessmentKey", "dataEntryService", "markingPeriodKey"];
 
     constructor( $scope: IValidateStudentsModalScope, $uibModalInstance: ng.ui.bootstrap.IModalServiceInstance,
       $uibModal: ng.ui.bootstrap.IModalService, mainService: MainService, classroomAssessmentKey: number,
-    dataEntryService: DataEntryService) {
+    dataEntryService: DataEntryService, markingPeriodKey: number) {
       super( $scope );
       let controller = this;
 
@@ -31,18 +32,16 @@ namespace INGAApp {
       $scope.itemTypeOptions = mainService.getItemTypeOptions();
 
       $scope.init = function(){
-        dataEntryService.validateStudents(classroomAssessmentKey);
+        dataEntryService.validateStudents(classroomAssessmentKey, markingPeriodKey).then(function(res: StudentValidationPackage){
+          $scope.validationPackage = res;
+          console.log(res);
+        });
       };
 
       $scope.ok = function () {
-
-        if ($scope.assessment.Items === undefined || $scope.assessment.Items.length === 0) {
-          $scope.assessment.Items = [];
-        }
-
-        $scope.newAssessmentItem.ItemOrder = $scope.assessment.Items.length + 1;
-        $scope.assessment.Items.push($scope.newAssessmentItem);
-
+        angular.forEach($scope.validationPackage.StudentsToAdd, function(student){
+          dataEntryService.addStudent(student.DistrictStudentKey, classroomAssessmentKey);
+        });
 
         $uibModalInstance.close($scope.assessment);
       };

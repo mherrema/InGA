@@ -9,9 +9,13 @@
         <form>
 
           <div class="col-sm-3">
-              <div class="form-group">
-                  <label class="no-left-pad" for="inputEmail">Calendar</label>
+              <div class="form-group" ng-if="template.Calendar.CalendarName">
+                  <label class="no-left-pad" for="inputEmail" >Calendar</label>
                   <h5 class="detail-text">{{template.Calendar.CalendarName}}</h5>
+              </div>
+              <div class="form-group" ng-if="template.MarkingPeriod">
+                  <label class="no-left-pad" for="inputEmail" >Marking Period</label>
+                  <h5 class="detail-text">{{template.MarkingPeriod.Calendar.CalendarName}}: <span ng-if="template.MarkingPeriod.Parent">{{template.MarkingPeriod.Parent.Name}}: </span>{{template.MarkingPeriod.Name}}</h5>
               </div>
           </div>
             <div class="col-sm-3">

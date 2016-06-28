@@ -21,7 +21,10 @@
               </div>
               <div class="form-group" ng-if="assessment.MarkingPeriod">
                   <label class="no-left-pad" for="inputEmail" >Marking Period</label>
-                  <h5 class="detail-text">{{assessment.MarkingPeriod.Calendar.CalendarName}}: {{assessment.MarkingPeriod.Name}}</h5>
+                  <h5 class="detail-text"><span ng-if="assessment.MarkingPeriod.Calendar">{{assessment.MarkingPeriod.Calendar.CalendarName}}: </span>
+                    <span ng-if="assessment.MarkingPeriod.Parent.Calendar">{{assessment.MarkingPeriod.Parent.Calendar.CalendarName}}: </span>
+                    <span ng-if="assessment.MarkingPeriod.Parent">{{assessment.MarkingPeriod.Parent.Name}}: </span>
+                    {{assessment.MarkingPeriod.Name}}</h5>
               </div>
           </div>
             <div class="col-sm-3">

@@ -37,7 +37,7 @@
         </li> -->
         <li class="above-table-action-left" ng-if="areRowsChecked()" ng-click="removeChecked()">Remove selected
         </li>
-        <li class="above-table-action-left" >
+        <li class="above-table-action-left no-click" ng-if="currentAssessment.Calendar || currentAssessment.MarkingPeriod.Children.length > 0">
           Marking Period
         </li>
         <li class="above-table-action-left" ng-if="currentAssessment.Calendar.MarkingPeriods">
@@ -48,116 +48,11 @@
           <select class="form-control" ng-options="markingPeriod as markingPeriod.Name for markingPeriod in selectedMarkingPeriod.Children"
           ng-model="$parent.selectedMarkingPeriodChild" ng-change="selectMarkingPeriod($parent.selectedMarkingPeriodChild)">Select Marking Period</select>
         </li>
-        <!-- <li class="above-table-action-left" ng-if="areRowsChecked()">Absent
-        </li> -->
-        <!-- <li class="above-table-action-left">Export to excel
-        </li> -->
-        <!-- <button ng-click="saveAndExit()">asdf</button> -->
-        <!--
-        <li class="above-table-action-right above-table-action">View: <span class="dropdown-text" ng-click="toggleViewDropdown()">active</span> <span class="caret"></span>
-            <div class="action-dropdown {{view}}">
-                <div class="dropdown-content">
-                    <div class="dropdown-title" ng-click="toggleViewDropdown()">
-                        View
-                    </div>
-                    <ul class="dropdown-list">
-                        <li ng-click="closeDropdowns()">Active</li>
-                        <li>Inactive</li>
-                    </ul>
-                </div>
-            </div>
-        </li>
-        <li class="above-table-action-right action-with-icon"><i class="glyphicon glyphicon-ok success-icon"></i> published</li>
--->
-
-        <!-- <li class="above-table-action-right">
-            <button class="btn inga-btn inga-btn-positive" onclick="showAddStudentModal();">Add Student</button>
-        </li> -->
         <li class="above-table-action-right">
-            <button class="btn inga-btn inga-btn-negative" ng-click="validateStudents()">Validate Students</button>
+            <button class="btn inga-btn inga-btn-negative action-button-right" ng-click="validateStudents()">Sync Student List</button>
         </li>
     </ul>
 </div>
 <div class="row">
     <div id="grid1" ui-grid="gridOptions" ui-grid-edit ui-grid-cellnav ui-grid-pinning ui-grid-validate class="grid"></div>
-
-    <!-- <table class="inga-table score-entry-table" style="position:relative;">
-        <thead>
-            <tr>
-                <th>
-                  <div class="search-box no-highlight" ng-class="{'open' : searchOpen}">
-                    <input type="checkbox" ng-model="allChecked" ng-change="toggleAllChecked()"/>
-                    <span class="search-box-title">Student</span><span class="glyphicon glyphicon-search search-icon" ng-click="toggleSearchOpen()"></span><span class="search-box-textbox-span">
-                      <input id="studentSearchInput" ng-model="studentSearchInput" type="text" class="search-input-textbox" placeholder="Search Students" uib-typeahead="address for address in studentSearch($viewValue)" typeahead-min-length="0" my-focus>
-                    </span>
-                  </div>
-                </th>
-                <th>
-                    <div class="heading-title">1(10) FP</div>
-                </th>
-                <th>
-                    <div class="heading-title">2(25) Daze</div>
-                </th>
-                <th>
-                    <div class="heading-title">3(25) MBSP</div>
-                </th>
-                <th>
-                    <div class="heading-title">4(25) MBSP</div>
-                </th>
-                <th>
-                    <div class="heading-title">5(25) MBSP</div>
-                </th>
-                <th>
-                    <div class="heading-title">6(25) MBSP</div>
-                </th>
-
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <input type="checkbox" />Margaret Cruz
-                </td>
-                <td><a href="#" editable-text="user.name" buttons="no">{{ user.name || "empty" }}</a></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox" />Sean Reynolds
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox" />Margaret Cruz
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox" />Sean Reynolds
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </tbody>
-    </table> -->
 </div>

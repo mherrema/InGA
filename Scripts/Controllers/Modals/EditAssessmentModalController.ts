@@ -30,6 +30,7 @@ namespace INGAApp {
     highlightTitle: Function;
     updateItemRanking: Function;
     removeItemAtIndex: Function;
+    editItemAtIndex: Function;
     validateForm: Function;
     resetField: Function;
 
@@ -114,7 +115,10 @@ namespace INGAApp {
 
 
 
-      $scope.openNewAssessmentItemModal = function (size) {
+      $scope.openNewAssessmentItemModal = function (size, index) {
+        if (index !== undefined) {
+          $scope.newAssessment.itemIndexToEdit = index;
+        }
         let modalInstance = $uibModal.open({
           animation: true,
           backdrop: "static",
@@ -186,6 +190,10 @@ namespace INGAApp {
 
       $scope.removeItemAtIndex = function(index){
         $scope.newAssessment.DistrictAssessmentItems.splice(index, 1);
+      };
+
+      $scope.editItemAtIndex = function(index){
+        $scope.openNewAssessmentItemModal("lg", index);
       };
 
       $scope.validateForm = function(){

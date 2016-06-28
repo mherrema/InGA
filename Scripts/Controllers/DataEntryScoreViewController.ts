@@ -39,6 +39,7 @@ namespace INGAApp {
     getStudents: Function;
     validateStudents: Function;
     currentStudentAssessments: Array<StudentAssessment>;
+    currentMarkingPeriodKey: number;
   }
 
   export class DataEntryScoreViewController extends BaseController.Controller {
@@ -222,6 +223,7 @@ namespace INGAApp {
       };
 
       $scope.getStudents = function(markingPeriodKey){
+        $scope.currentMarkingPeriodKey = markingPeriodKey;
         dataEntryService.getStudents(dataEntryService.currentAssessment.ClassroomKey, markingPeriodKey)
         .then(function(d: Array<StudentAssessment>){
           $scope.currentStudentAssessments = d;
@@ -247,6 +249,9 @@ namespace INGAApp {
           resolve: {
             classroomAssessmentKey: function () {
               return dataEntryService.currentAssessment.ClassroomAssessmentKey;
+            },
+            markingPeriodKey: function(){
+              return $scope.currentMarkingPeriodKey;
             }
           }
         });

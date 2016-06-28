@@ -165,7 +165,15 @@ a:visited.inga-btn-negative:hover {
             &:hover {
                 color: @light-blue;
                 text-decoration: none;
+                &.no-click{
+                
+                color: black;
+                text-decoration: none;
+                    cursor: default;
+            
             }
+            }
+            
         }
         .above-table-action-right {
             padding-left: 28px;
@@ -178,6 +186,9 @@ a:visited.inga-btn-negative:hover {
                     background: @light-blue;
                     color: #fff;
                 }
+            }
+            .action-button-right{
+                margin-right: 65px;
             }
         }
         .above-table-action-left {
@@ -599,10 +610,11 @@ input[type="checkbox"] {
                     width: 100%;
                     margin-bottom: 40px;
                     tr {
-                        &:hover {
+                        
                             td {
                                 &.editing {
                                     .glyphicon {
+                                        &:hover {
                                         color: #333;
                                     }
                                 }
@@ -1245,4 +1257,16 @@ div.ui-grid-cell-contents.invalid{
       &:after { content: ' '; }
     }
   }
+}
+
+ui-tree-select{
+.selectize-control{
+    .selectize-input{
+        &.disabled{
+            opacity: 1;
+            background: #eee;
+            pointer: not-allowed;
+        }
+    }
+}
 }
