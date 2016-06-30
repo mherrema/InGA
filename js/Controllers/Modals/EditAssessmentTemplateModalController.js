@@ -82,6 +82,7 @@ var INGAApp;
             };
             $scope.removeItemAtIndex = function (index) {
                 $scope.newAssessmentTemplate.AssessmentTemplateItems.splice(index, 1);
+                $scope.updateItemRanking();
             };
             $scope.getStandardTypeOptions = function () {
                 if (mainService.standardTypeOptions === undefined) {

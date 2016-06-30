@@ -131,6 +131,7 @@ var INGAApp;
             };
             $scope.removeItemAtIndex = function (index) {
                 $scope.newAssessment.DistrictAssessmentItems.splice(index, 1);
+                $scope.updateItemRanking();
             };
             $scope.editItemAtIndex = function (index) {
                 $scope.openNewAssessmentItemModal("lg", index);

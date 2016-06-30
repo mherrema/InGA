@@ -133,10 +133,10 @@ namespace INGAApp {
       $scope.saveAndExit = function(){
         angular.forEach($scope.gridOptions.data, function(student){
           angular.forEach($scope.gridOptions.columnDefs, function(column, index){
-            if (index !== 0  && student[index - 1] !== undefined) {
+            if (index !== 0  && student[index] !== undefined) {
               // console.log({itemKey: column.itemKey, score: student[index-1], studentKey: student.DistrictStudentKey, classroomKey: $scope.currentAssessment.Classroom.ClassroomKey});
               if (!uiGridValidateService.isInvalid(student, column)) {
-              dataEntryService.saveScore(column.itemKey, student[index - 1], student.StudentAssessmentKey);
+              dataEntryService.saveScore(column.itemKey, student[index], student.StudentAssessmentKey);
             }
 
             // var j = column.name.split(".");
@@ -230,7 +230,7 @@ namespace INGAApp {
           angular.forEach(d, function(assessment){
             // assessment.hidden = false;
             angular.forEach(assessment.Scores, function(score){
-              assessment[score.Item.ItemOrder - 1] = score.Score1;
+              assessment[score.Item.ItemOrder] = score.Score1;
             });
           });
           $scope.gridOptions.data = d;
@@ -240,7 +240,7 @@ namespace INGAApp {
       };
 
       $scope.validateStudents = function(){
-        if ($scope.currentStudentAssessments && $scope.currentStudentAssessments.length > 0) {
+        // if ($scope.currentStudentAssessments && $scope.currentStudentAssessments.length > 0) {
         let modalInstance = $uibModal.open({
           animation: true,
           templateUrl: "partials/modals/validateStudentsModal.html",
@@ -256,108 +256,13 @@ namespace INGAApp {
           }
         });
 
-        modalInstance.result.then(function (assessmentPackage: AssessmentPackage) {
-          // assessmentService.saveAssessment(assessmentPackage).then(function(res: ReturnPackage){
-          //   if (res.Success) {
-          //     assessmentPackage.Assessment.DistrictAssessmentKey = res.Key;
-          //     if (assessmentPackage.Assessment.SelectedCalendar.$selected.CalendarKey) {
-          //       assessmentPackage.Assessment.Calendar = {CalendarName: assessmentPackage.Assessment.SelectedCalendar.$selected.Title};
-          //     }
-          //     else if (assessmentPackage.Assessment.SelectedCalendar.$selected.MarkingPeriodKey) {
-          //       assessmentPackage.Assessment.MarkingPeriod = {Name: assessmentPackage.Assessment.SelectedCalendar.$selected.Title};
-          //     }
-          //     assessmentService.currentDistrictAssessments.push(assessmentPackage.Assessment);
-          //     notificationService.showNotification("Success saving assessment", "success");
-          //     // show success!
-          //     if (assessmentPackage.ShouldPublish) {
-          //       console.log("Going to assessment view");
-          //       // go to assessment view
-          //     }
-          //   }
-          //   else {
-          //     notificationService.showNotification("Error saving assessment", "error");
-          //     // show error!
-          //   }
-          // });
-
+        modalInstance.result.then(function (success: boolean) {
+          if (success) {
+            $scope.getStudents($scope.currentMarkingPeriodKey);
+          }
         });
-      }
+      // }
       };
-
-      // $scope.setHeadingDropdownWidth = function(){
-      //   $timeout(function () {
-      //     let dropdowns = $(".table-heading-dropdown");
-      //     for ( let i = 0; i < dropdowns.length; i++) {
-      //       $($(dropdowns[i])).css({ "width": "" });
-      //       if ($(dropdowns[i]).width() < $(dropdowns[i]).parent("th").outerWidth()) {
-      //         $(dropdowns[i]).width($(dropdowns[i]).parent("th").outerWidth());
-      //       }
-      //     }
-      //   });
-      // };
-      //
-      // // toggle if search input is open
-      // $scope.toggleSearchOpen = function () {
-      //   $scope.searchOpen = !$scope.searchOpen;
-      //   if ($scope.searchOpen) {
-      //     // focus("studentSearchInput");
-      //   }
-      // };
-
-      // // open table heading filtration
-      // $scope.openHeading = function (heading) {
-      //   $scope.closeHeadings();
-      //   heading.open = true;
-      //   $scope.justOpenedHeading = true;
-      // };
-      //
-      // // close all table heading filters
-      // $scope.closeHeadings = function () {
-      //   $scope.headingOpen = false;
-      //   angular.forEach($scope.headingOptions, function (value, key) {
-      //     value.open = false;
-      //   });
-      // };
-      //
-      // // select table heading filter option
-      // $scope.selectHeadingOption = function (heading: HeadingOption, option: FilterOption) {
-      //   if (option.Key !== "All") {
-      //     heading.selected = option;
-      //   } else {
-      //     heading.selected = { Key: "", Value: "" };
-      //   }
-      //
-      //   $scope.checkFilters();
-      //   $scope.closeHeadings();
-      // };
-      //
-      // $scope.checkFilters = function () {
-      //   $scope.areOptionsSelected = false;
-      //   angular.forEach($scope.headingOptions, function (value, key) {
-      //     if (value.selected !== undefined) {
-      //       if (value.selected.Value !== "") {
-      //         $scope.areOptionsSelected = true;
-      //         return;
-      //       }
-      //     }
-      //   });
-      // };
-      //
-      // $scope.clearFilters = function (input) {
-      //   angular.forEach($scope.headingOptions, function (value, key) {
-      //     value.selected = { Key: "", Value: "" };
-      //   });
-      //
-      //   $scope.areOptionsSelected = false;
-      //   $scope.closeHeadings();
-      // };
-      //
-      // $scope.headingSortValue = function (item) {
-      //   if (item.Key === "All") {
-      //     return -1;
-      //   }
-      //   return item;
-      // };
     }
   }
 }

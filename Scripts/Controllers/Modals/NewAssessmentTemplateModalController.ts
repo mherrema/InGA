@@ -64,6 +64,7 @@ namespace INGAApp {
 
       $scope.removeItemAtIndex = function(index){
         $scope.newAssessmentTemplate.AssessmentTemplateItems.splice(index, 1);
+          $scope.updateItemRanking();
       };
 
       $scope.highlightTitle = function(){

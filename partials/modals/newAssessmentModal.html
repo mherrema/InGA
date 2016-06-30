@@ -28,7 +28,7 @@
                     ng-model="newAssessment.District" ng-disabled="templateSelected"></select>
                 </div>
             </div>
-            <div class="col-sm-6" ng-init="newAssessment.Calendar = {}">
+            <div class="col-sm-6">
                 <div class="form-group" ng-class="{'error': errors.calendar}">
                     <label for="inputEmail">Calendar / Marking Period</label>
                     <ui-tree-select model="newAssessment.SelectedCalendar" class="ng-animate-disabled" disabled="templateSelected"></ui-tree-select>

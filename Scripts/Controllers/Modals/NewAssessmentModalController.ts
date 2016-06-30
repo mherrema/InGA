@@ -215,6 +215,7 @@ namespace INGAApp {
 
         $scope.removeItemAtIndex = function(index){
           $scope.newAssessment.DistrictAssessmentItems.splice(index, 1);
+          $scope.updateItemRanking();
         };
 
         $scope.editItemAtIndex = function(index){
@@ -309,7 +310,7 @@ namespace INGAApp {
         };
 
         $scope.openNewAssessmentItemModal = function (size, index) {
-          if (index) {
+          if (index !== undefined) {
             $scope.newAssessment.itemIndexToEdit = index;
           }
 

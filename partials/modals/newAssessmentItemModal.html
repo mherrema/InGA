@@ -54,7 +54,7 @@
                 <div class="form-group">
                     <label for="inputEmail">Standard Code</label>
                     <input ng-model="newAssessmentItem.Item.Standard" type="text" class="form-control" placeholder="Search Standards"
-                    uib-typeahead="state as state.StandardCode for state in getStandardOptions($viewValue) | limitTo:8"
+                    uib-typeahead="standard as standard.StandardCode for standard in getStandardOptions($viewValue) | limitTo:8"
                     typeahead-min-length="1" typeahead-editable="false">
                 </div>
             </div>

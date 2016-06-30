@@ -7,7 +7,7 @@ var INGAApp;
 (function (INGAApp) {
     var ValidateStudentsModalController = (function (_super) {
         __extends(ValidateStudentsModalController, _super);
-        function ValidateStudentsModalController($scope, $uibModalInstance, $uibModal, mainService, classroomAssessmentKey, dataEntryService, markingPeriodKey) {
+        function ValidateStudentsModalController($scope, $uibModalInstance, $uibModal, mainService, notificationService, classroomAssessmentKey, dataEntryService, markingPeriodKey) {
             _super.call(this, $scope);
             var controller = this;
             // $scope.assessment = assessment;
@@ -24,18 +24,51 @@ var INGAApp;
                 });
             };
             $scope.ok = function () {
-                if ($scope.assessment.Items === undefined || $scope.assessment.Items.length === 0) {
-                    $scope.assessment.Items = [];
-                }
-                $scope.newAssessmentItem.ItemOrder = $scope.assessment.Items.length + 1;
-                $scope.assessment.Items.push($scope.newAssessmentItem);
-                $uibModalInstance.close($scope.assessment);
+                var totalCount = $scope.validationPackage.StudentsToAdd.length + $scope.validationPackage.StudentsToRemove.length;
+                var currentCount = 0;
+                var allSuccesses = true;
+                angular.forEach($scope.validationPackage.StudentsToAdd, function (student) {
+                    dataEntryService.addStudent(student.DistrictStudentKey, classroomAssessmentKey, markingPeriodKey).then(function (res) {
+                        if (!res.Success) {
+                            allSuccesses = false;
+                        }
+                        currentCount++;
+                        if (currentCount === totalCount) {
+                            if (allSuccesses) {
+                                notificationService.showNotification("Success syncing students", "success");
+                                $uibModalInstance.close(true);
+                            }
+                            else {
+                                notificationService.showNotification("Error syncing students", "error");
+                                $uibModalInstance.close(false);
+                            }
+                        }
+                    });
+                });
+                angular.forEach($scope.validationPackage.StudentsToRemove, function (student) {
+                    dataEntryService.removeStudent(student.DistrictStudentKey, classroomAssessmentKey, markingPeriodKey).then(function (res) {
+                        if (!res.Success) {
+                            allSuccesses = false;
+                        }
+                        currentCount++;
+                        if (currentCount === totalCount) {
+                            if (allSuccesses) {
+                                notificationService.showNotification("Success syncing students", "success");
+                                $uibModalInstance.close(true);
+                            }
+                            else {
+                                notificationService.showNotification("Error syncing students", "error");
+                                $uibModalInstance.close(false);
+                            }
+                        }
+                    });
+                });
             };
             $scope.cancel = function () {
                 $uibModalInstance.dismiss("cancel");
             };
         }
-        ValidateStudentsModalController.$inject = ["$scope", "$uibModalInstance", "$uibModal", "mainService", "classroomAssessmentKey", "dataEntryService", "markingPeriodKey"];
+        ValidateStudentsModalController.$inject = ["$scope", "$uibModalInstance", "$uibModal", "mainService", "notificationService", "classroomAssessmentKey", "dataEntryService", "markingPeriodKey"];
         return ValidateStudentsModalController;
     }(BaseController.Controller));
     INGAApp.ValidateStudentsModalController = ValidateStudentsModalController;

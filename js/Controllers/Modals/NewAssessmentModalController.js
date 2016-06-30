@@ -166,6 +166,7 @@ var INGAApp;
             };
             $scope.removeItemAtIndex = function (index) {
                 $scope.newAssessment.DistrictAssessmentItems.splice(index, 1);
+                $scope.updateItemRanking();
             };
             $scope.editItemAtIndex = function (index) {
                 $scope.openNewAssessmentItemModal("lg", index);
@@ -249,7 +250,7 @@ var INGAApp;
                 $uibModalInstance.dismiss("cancel");
             };
             $scope.openNewAssessmentItemModal = function (size, index) {
-                if (index) {
+                if (index !== undefined) {
                     $scope.newAssessment.itemIndexToEdit = index;
                 }
                 var modalInstance = $uibModal.open({

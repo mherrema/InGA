@@ -29,16 +29,17 @@ var INGAApp;
                     $scope.assessment.DistrictAssessmentItems = [];
                 }
                 if ($scope.assessment.itemIndexToEdit === undefined || $scope.assessment.itemIndexToEdit === null) {
-                    if ($scope.newAssessmentItem.Item.Standard != null) {
-                        $scope.newAssessmentItem.Item.StandardKey = $scope.newAssessmentItem.Item.Standard.StandardKey;
-                        $scope.newAssessmentItem.Item.StandardCode = $scope.newAssessmentItem.Item.Standard.StandardCode;
-                    }
                     $scope.newAssessmentItem.Item.ItemOrder = $scope.assessment.DistrictAssessmentItems.length + 1;
                     $scope.assessment.DistrictAssessmentItems.push($scope.newAssessmentItem);
                 }
                 else {
                     $scope.assessment.itemIndexToEdit = null;
                 }
+                if ($scope.newAssessmentItem.Item.Standard != null) {
+                    $scope.newAssessmentItem.Item.StandardKey = $scope.newAssessmentItem.Item.Standard.StandardKey;
+                    $scope.newAssessmentItem.Item.StandardCode = $scope.newAssessmentItem.Item.Standard.StandardCode;
+                }
+                $scope.newAssessmentItem.Item.ItemTypeKey = $scope.newAssessmentItem.Item.ItemType.ItemTypeKey;
                 $uibModalInstance.close($scope.assessment);
             };
             $scope.cancel = function () {

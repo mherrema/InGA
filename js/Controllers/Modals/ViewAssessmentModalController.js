@@ -51,8 +51,13 @@ var INGAApp;
                 modalInstance.result.then(function (assessmentPackage) {
                     assessmentService.updateAssessment(assessmentPackage).then(function (res) {
                         if (res.Success) {
-                            // show success!
-                            notificationService.showNotification("Success saving assessment template", "success");
+                            if (assessmentPackage.Assessment.SelectedCalendar.$selected.CalendarKey) {
+                                assessmentPackage.Assessment.Calendar = { CalendarName: assessmentPackage.Assessment.SelectedCalendar.$selected.Title };
+                            }
+                            else if (assessmentPackage.Assessment.SelectedCalendar.$selected.MarkingPeriodKey) {
+                                assessmentPackage.Assessment.MarkingPeriod = { Name: assessmentPackage.Assessment.SelectedCalendar.$selected.Title };
+                            }
+                            notificationService.showNotification("Success saving assessment", "success");
                         }
                         else {
                             // show error!

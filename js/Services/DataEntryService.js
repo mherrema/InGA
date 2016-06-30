@@ -52,17 +52,40 @@ var INGAApp;
             return this.promise;
         };
         DataEntryService.prototype.validateStudents = function (assessmentKey, markingPeriodKey) {
-            this.promise = this.$http.get(this.apiRoot + "ClassroomAssessment/Validate/" + assessmentKey + "/" + markingPeriodKey + "/")
+            if (markingPeriodKey !== -1) {
+                this.promise = this.$http.get(this.apiRoot + "ClassroomAssessment/Validate/" + assessmentKey + "/" + markingPeriodKey + "/")
+                    .then(function (response) {
+                    return response.data;
+                });
+            }
+            else {
+                this.promise = this.$http.get(this.apiRoot + "ClassroomAssessment/Validate/" + assessmentKey + "/")
+                    .then(function (response) {
+                    return response.data;
+                });
+            }
+            return this.promise;
+        };
+        DataEntryService.prototype.addStudent = function (districtStudentKey, classroomAssessmentKey, markingPeriodKey) {
+            this.promise = this.$http.post(this.apiRoot + "ClassroomAssessment/Student/", { DistrictStudentKey: districtStudentKey, ClassroomAssessmentKey: classroomAssessmentKey, MarkingPeriodKey: markingPeriodKey })
                 .then(function (response) {
                 return response.data;
             });
             return this.promise;
         };
-        DataEntryService.prototype.addStudent = function (districtStudentKey, classroomAssessmentKey) {
-            this.promise = this.$http.post(this.apiRoot + "ClassroomAssessment/Student/", { DistrictStudentKey: districtStudentKey, ClassroomAssessmentKey: classroomAssessmentKey })
-                .then(function (response) {
-                return response.data;
-            });
+        DataEntryService.prototype.removeStudent = function (districtStudentKey, classroomAssessmentKey, markingPeriodKey) {
+            if (markingPeriodKey !== -1) {
+                this.promise = this.$http.delete(this.apiRoot + "ClassroomAssessment/Student/" + districtStudentKey + "/" + classroomAssessmentKey + "/" + markingPeriodKey + "/")
+                    .then(function (response) {
+                    return response.data;
+                });
+            }
+            else {
+                this.promise = this.$http.delete(this.apiRoot + "ClassroomAssessment/Student/" + districtStudentKey + "/" + classroomAssessmentKey + "/" + markingPeriodKey + "/")
+                    .then(function (response) {
+                    return response.data;
+                });
+            }
             return this.promise;
         };
         DataEntryService.$inject = ["$http"];

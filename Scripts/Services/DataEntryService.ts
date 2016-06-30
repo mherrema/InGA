@@ -60,7 +60,24 @@ namespace INGAApp {
     }
 
     validateStudents(assessmentKey: number, markingPeriodKey: number): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
+      if (markingPeriodKey !== -1) {
       this.promise = this.$http.get(this.apiRoot + "ClassroomAssessment/Validate/" + assessmentKey + "/" + markingPeriodKey + "/")
+      .then(function(response){
+        return response.data;
+      });
+    }
+    else {
+      this.promise = this.$http.get(this.apiRoot + "ClassroomAssessment/Validate/" + assessmentKey + "/")
+      .then(function(response){
+        return response.data;
+      });
+    }
+
+      return this.promise;
+    }
+
+    addStudent(districtStudentKey: number, classroomAssessmentKey: number, markingPeriodKey: number): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
+      this.promise = this.$http.post(this.apiRoot + "ClassroomAssessment/Student/", {DistrictStudentKey: districtStudentKey, ClassroomAssessmentKey: classroomAssessmentKey, MarkingPeriodKey: markingPeriodKey})
       .then(function(response){
         return response.data;
       });
@@ -68,11 +85,19 @@ namespace INGAApp {
       return this.promise;
     }
 
-    addStudent(districtStudentKey: number, classroomAssessmentKey: number): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
-      this.promise = this.$http.post(this.apiRoot + "ClassroomAssessment/Student/", {DistrictStudentKey: districtStudentKey, ClassroomAssessmentKey: classroomAssessmentKey})
+    removeStudent(districtStudentKey: number, classroomAssessmentKey: number, markingPeriodKey: number): ng.IPromise<ng.IHttpPromiseCallbackArg<{}>> {
+      if (markingPeriodKey !== -1) {
+      this.promise = this.$http.delete(this.apiRoot + "ClassroomAssessment/Student/" + districtStudentKey + "/" + classroomAssessmentKey + "/" + markingPeriodKey + "/")
       .then(function(response){
         return response.data;
       });
+    }
+    else {
+      this.promise = this.$http.delete(this.apiRoot + "ClassroomAssessment/Student/" + districtStudentKey + "/" + classroomAssessmentKey + "/" + markingPeriodKey + "/")
+      .then(function(response){
+        return response.data;
+      });
+    }
 
       return this.promise;
     }

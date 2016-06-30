@@ -65,8 +65,13 @@ namespace INGAApp {
         modalInstance.result.then(function (assessmentPackage: AssessmentPackage) {
           assessmentService.updateAssessment(assessmentPackage).then(function(res: ReturnPackage){
             if (res.Success) {
-              // show success!
-              notificationService.showNotification("Success saving assessment template", "success");
+              if (assessmentPackage.Assessment.SelectedCalendar.$selected.CalendarKey) {
+                assessmentPackage.Assessment.Calendar = {CalendarName: assessmentPackage.Assessment.SelectedCalendar.$selected.Title};
+              }
+              else if (assessmentPackage.Assessment.SelectedCalendar.$selected.MarkingPeriodKey) {
+                assessmentPackage.Assessment.MarkingPeriod = {Name: assessmentPackage.Assessment.SelectedCalendar.$selected.Title};
+              }
+              notificationService.showNotification("Success saving assessment", "success");
               // if (assessmentPackage.ShouldPublish) {
               //   console.log("Going to assessment view");
               //   // go to assessment view
